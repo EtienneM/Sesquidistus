@@ -84,6 +84,7 @@
 				if($i==0) {echo "<li class=\"first\">";}
 				else if($i==6) {echo "<li class=\"last\">";}
 				else {echo "<li>";}
+
 				if($tabPageName[$i] == $_GET['categorie']){
 					echo "<span class=\"selected\"><a href=\"".$liensCat[$i]."\">".ucwords($tabPageName[$i])."</a></span>";
 				}
@@ -94,4 +95,4 @@
 			}
 			
 	 }
-?>
+
