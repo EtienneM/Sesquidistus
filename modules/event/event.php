@@ -57,7 +57,7 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1){
 				mysql_query("SET NAMES 'utf8'");	
 									
 				$reqSaison = "SELECT DISTINCT MONTH(date) as month, YEAR(date) AS dateSaison1, YEAR(ADDDATE(date, INTERVAL 1 YEAR)) AS dateSaison2  FROM evenement WHERE type = $type ORDER BY date DESC";
-				$resSaison = mysql_query($reqSaison)  or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+				$resSaison = mysql_query($reqSaison)  or die('Erreur SQL !<br />'.$reqSaison.'<br />'.mysql_error());
 				
 		
 
@@ -99,7 +99,7 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1){
 									DATE_FORMAT(date, '%d/%m/%Y') AS dateEvent FROM evenement 
 									WHERE date BETWEEN '$saison1' AND '$saison2' AND type = $type
 									ORDER BY date DESC";
-									$res = mysql_query($req)  or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+									$res = mysql_query($req)  or die('Erreur SQL !<br />'.$req.'<br />'.mysql_error());
 									
 					
 									while($data = mysql_fetch_array($res)){
@@ -123,10 +123,10 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1){
 										$idEvent = $data['id'];
 										$reqArt = "SELECT titre, id, contenu from article
 										WHERE id_event = $idEvent";
-										$resArt = mysql_query($reqArt)  or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+										$resArt = mysql_query($reqArt)  or die('Erreur SQL !<br />'.$reqArt.'<br />'.mysql_error());
 								
 										$reqQ = "SELECT questions FROM inscription_tournoi WHERE id_event = $idEvent LIMIT 1";
-										$resQ = mysql_query($reqQ)  or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+										$resQ = mysql_query($reqQ)  or die('Erreur SQL !<br />'.$reqQ.'<br />'.mysql_error());
 									while($dataQ = mysql_fetch_array($resQ)){
 										$hasQuestion = true;
 									}
@@ -366,7 +366,7 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1){
 												
 												
 												$reqImage = "SELECT questions FROM inscription_tournoi WHERE id_event = $idEvent LIMIT 1";
-												$resImage = mysql_query($reqImage)  or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+												$resImage = mysql_query($reqImage)  or die('Erreur SQL !<br />'.$reqImage.'<br />'.mysql_error());
 
 
 												$imageInter = "./images/inscription2.png";

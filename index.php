@@ -41,7 +41,7 @@
 	  <?php 
 	  		if (isset($_GET['categorie'])) { 
 				if ($_GET['categorie']=="calendrier") {
-					if($_GET['page']=="ajout") {
+					if (isset($_GET['page']) and $_GET['page']=="ajout") {
 						echo '<link href="./modules/calendrier/calendrier_ajout.css" rel="stylesheet" type="text/css" />';
 					}
 					else{

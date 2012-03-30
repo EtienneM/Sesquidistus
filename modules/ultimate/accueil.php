@@ -17,7 +17,7 @@
 				mysql_query("SET NAMES 'utf8'");
 				
 				$reqCat = "SELECT * FROM ultimate";
-				$resCat = mysql_query($reqCat)  or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+				$resCat = mysql_query($reqCat)  or die('Erreur SQL !<br />'.$reqCat.'<br />'.mysql_error());
 				
 				$idCat = array();
 				$titreCat = array();
@@ -44,7 +44,7 @@
 				if(count($idCat)>0){
 					$id = $_GET['id'];
 					$req = "SELECT * FROM ultimate WHERE id=$id";
-					$res = mysql_query($req)  or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+					$res = mysql_query($req)  or die('Erreur SQL !<br />'.$req.'<br />'.mysql_error());
 					$row = mysql_fetch_row($res);
 				}
 				

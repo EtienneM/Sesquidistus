@@ -58,7 +58,7 @@ echo '<script type="text/javascript">
 
 	
 		$req4 = "SELECT TC.numero, TC.nom, TC.color FROM type_event TC, evenement E WHERE TC.numero = E.type AND E.date BETWEEN '$date2' AND '$date1'";
-		$res4 = mysql_query($req4)  or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+		$res4 = mysql_query($req4)  or die('Erreur SQL !<br />'.$req4.'<br />'.mysql_error());
 					
 			$tabType_nomEvent = array();
 			$tabType_numero = array();
@@ -79,7 +79,7 @@ echo '<script type="text/javascript">
 			}
 	
 	$reqlieu = "SELECT lu.nom, lu.numero FROM lieu_ultimate lu, evenement E WHERE lu.numero = E.id_lieu AND E.date BETWEEN '$date2' AND '$date1' ORDER BY E.date";
-	$reslieu = mysql_query($reqlieu)  or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+	$reslieu = mysql_query($reqlieu)  or die('Erreur SQL !<br />'.$reqlieu.'<br />'.mysql_error());
 					
 			$tabLieu_nom = array();
 			$tabLieu_numero = array();
@@ -94,7 +94,7 @@ echo '<script type="text/javascript">
 	
 	//Requete de sélection des informations sur les évènements pour l'affichage de ceux-ci.
 	$req = "SELECT id, titre, duree, lieu, id_lieu, type, DATE_FORMAT(date, '%d/%m/%Y') AS dateEvent, duree, horaire_debut, horaire_fin, description FROM evenement WHERE date BETWEEN '$date2' AND '$date1' ORDER BY date";
-  	$res = mysql_query($req)  or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+  	$res = mysql_query($req)  or die('Erreur SQL !<br />'.$req.'<br />'.mysql_error());
 	
 	while($data = mysql_fetch_array($res)){
 	$data["description"] = str_replace("\r\n"," ",$data["description"]);
@@ -147,7 +147,7 @@ echo '<script type="text/javascript">
 			if($admin){ 
 					//Récupération des informations sur les types d'évènement
 					$req3 = "SELECT nom, numero FROM type_event ORDER BY numero";
-					$res3 = mysql_query($req3)  or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+					$res3 = mysql_query($req3)  or die('Erreur SQL !<br />'.$req3.'<br />'.mysql_error());
 					$disctinctType_numero = array();
 					$disctinctType_nom = array();
 					$i=0;
@@ -159,7 +159,7 @@ echo '<script type="text/javascript">
 					
 					//Récupération des lieux d'entrainement enregistrés dans la bdd
 					$reqLieu = "SELECT nom, numero FROM lieu_ultimate";
-					$resLieu = mysql_query($reqLieu)  or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+					$resLieu = mysql_query($reqLieu)  or die('Erreur SQL !<br />'.$reqLieu.'<br />'.mysql_error());
 					$disctinctLieu_numero = array();
 					$disctinctLieu_nom = array();
 					$i=0;
