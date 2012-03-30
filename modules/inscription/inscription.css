@@ -1,0 +1,43 @@
+/*
+ * Ce fichier regroupe les différentes instructions
+ * pour la mise en page du module.
+ *
+ * Auteur : Pierre LEROY <pleroy@etu.unistra.fr>
+ */
+ 
+th{
+ width:500px;
+ text-align:center;
+}
+td.checkbox{
+ text-align:center;
+}
+#inscription th{
+ width:100px;
+ text-align:right;
+}
+tr.style1{
+ background-color:#e6e6e6;
+}
+tr.style2{
+ background-color:#FFF;
+}
+p{
+ font-style:italic;
+ margin-bottom:0px;
+}
+
+/* Div */ 
+div.arbo{
+ margin-bottom:20px;
+ margin-left:5px;	
+}
+div.box p{
+ text-align:center;
+}
+p.succes{
+ color:green;
+}
+p.error{
+ color:red;
+}

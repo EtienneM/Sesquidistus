@@ -1,0 +1,30 @@
+#avatar
+{
+ text-align:center;
+}
+tr.style1
+{
+ background-color:#e6e6e6;
+}
+tr.style2
+{
+ background-color:#FFF;
+}
+textarea
+{
+ font-family:verdana;
+ font-size:10px;	
+}
+#pwd tr.style1, #pwd tr.style2
+{
+ text-align:right;
+}
+select
+{
+ width:100%;
+}	
+p.error
+{
+ text-align:center;
+ color:red;	
+}

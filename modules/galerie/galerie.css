@@ -1,0 +1,11 @@
+.albumBox {
+	height: 155px;
+	width : 155px;
+	text-align: center;
+	vertical-align:10%; 
+}
+
+div.imgGal a:hover{
+	font-weight:bold;
+	color:red;
+}

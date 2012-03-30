@@ -190,6 +190,6 @@
 	
 	</script>
 	
-	<script type="text/javascript" src="./jquery/hoverIE.js"></script>
+	<script type="text/javascript" src="./js/jquery/hoverIE.js"></script>
  
  </html>

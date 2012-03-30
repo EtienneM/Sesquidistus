@@ -1,0 +1,160 @@
+/* Fichier css  nécessaires au fonctionnement
+ * nomminal du forum
+ * (Utilisé dans tout le forum)
+ *
+ * Auteur : Pierre LEROY <pleroy@etu.unistra.fr>
+ */
+ 
+/*
+ *	Page forum.php
+ */
+ 
+/* Div */
+div.cat{
+ font-size:12px;
+ height:30px;
+ width:750px;
+ padding-top:5px;
+ padding-bottom:10px;
+ padding-left:10px;
+}
+div.souscat{
+ width:100%;
+ text-align:left;
+ padding-top:0px;
+}
+
+/* Span */
+span.titre{
+ width:300px; 
+ font-weight:bold;
+ text-align:left;
+ padding:0px;
+ margin:0px;
+}
+
+span.desc{
+ width:300px; 
+}
+
+span.stat{
+ position:absolute;
+ left:500px;
+ text-align:center;
+ width:100px;
+ margin-top:4px;
+}
+
+/*
+ *	Page topics.php
+ */
+
+/* Span */
+span.titretopic{
+ position:absolute;
+ width:350px; 
+ font-weight:bold;
+ text-align:left;
+ margin-top:10px;
+}
+
+span.stattopic{
+ position:absolute;
+ left:500px;
+ text-align:center;
+ width:100px;
+ margin-top:10px;
+}
+
+span.lstmsg{
+ position:absolute;
+ left:590px;
+ text-align:center;
+ width:200px; 
+ margin-top:2px;
+}
+
+
+/* 
+ * Commun 
+ */
+ 
+/* Div */ 
+div.arbo{
+ margin-bottom:20px;
+ margin-left:5px;	
+}
+
+div.cat:hover, div.cat > a:hover{
+ background-image:url(../../images/headerBlue.gif);
+ background-repeat:repeat-x;
+ background-color:#377ad0;
+ color:#FFF;
+ -moz-border-radius: 2px; /*coins arrondis*/
+ -webkit-border-radius: 2px; 
+ border-radius: 2px;
+ -moz-box-shadow: 1px 1px 4px #000;  /*ombrage*/
+ -webkit-box-shadow: 1px 1px 4px #000;
+ box-shadow: 1px 1px 4px #000;
+ cursor:pointer;
+ behavior: url(fix_ie/PIE.htc);
+}
+
+div.box_mce{
+ width:580px;	
+ margin-left:100px;
+}
+
+div.box_mce_topic{
+ width:583px;	
+ margin:auto;
+}
+
+div.boutons_mce{
+ text-align:center;
+ margin-top:10px;	
+}
+
+div.actions_forum{
+ text-align:right;
+ margin-right:10px;
+ margin-bottom:10px;
+}
+
+
+a:visited{
+ color:#000;
+}
+
+ /* Span */
+span.h_titre{
+ width:260px; 
+ font-weight:bold;
+ text-align:left;
+}
+
+span.h_stat{
+ position:absolute;
+ left:490px;
+ text-align:center;
+ width:100px; 
+}
+span.h_lstmsg{
+ position:absolute;
+ left:580px;
+ text-align:center;
+ width:200px; 
+}
+
+span.del{
+ position:absolute;
+ right:280px;
+}
+p.succes{
+ text-align:center;
+ color:green;
+}
+p.error{
+ text-align:center;
+ color:red;
+}
