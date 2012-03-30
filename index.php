@@ -22,12 +22,12 @@
 	  <link rel="SHORTCUT ICON" href="favicon.ico" />
 	  
 	  <!-- Déclaration des fichiers javascript -->
-	  <script type="text/javascript" src="./jquery/jquery-1.4.2.min.js"></script>
+	  <script type="text/javascript" src="./js/jquery/jquery-1.4.2.min.js"></script>
 	  <script type="text/javascript" src="./fix_ie/iepngfix_tilebg.js"></script>
-	  <script type="text/javascript" src="./jquery/jquery-ui.min.js"></script>
-	  <script type="text/javascript" src="./jquery/galerie.js"></script>
-	  <script type="text/javascript" src="./jquery/jquery.dropmenu.js"></script>
-	  <script type="text/javascript" src="./jquery/jquery.ba-resize.min.js"></script>
+	  <script type="text/javascript" src="./js/jquery/jquery-ui.min.js"></script>
+	  <script type="text/javascript" src="./js/galerie.js"></script>
+	  <script type="text/javascript" src="./js/jquery/jquery.dropmenu.js"></script>
+	  <script type="text/javascript" src="./js/jquery/jquery.ba-resize.min.js"></script>
 
 	 
 	 <!-- Déclaration des fichiers css -->	
