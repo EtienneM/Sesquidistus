@@ -4,7 +4,7 @@ $id_event = $_GET['id_event'];
 
 				include("./config/mysql.php");
 				mysql_connect($host, $user, $passwd); 
-				mysql_select_db($bdd);
+				mysql_select_db($db);
 				mysql_query("SET NAMES 'utf8'"); 
 
 $req2 = "SELECT e.id FROM evenement e, inscription_tournoi t WHERE e.type=5 AND e.id = t.id_event ";

@@ -4,7 +4,7 @@ if($_SESSION['lvl']==1){
 	 echo ' <span id="consultButton" class="bouton1 boutonPageCourante">Visualiser les inscriptions aux tournois</span>';
 				include("./config/mysql.php");
 				mysql_connect($host, $user, $passwd); 
-				mysql_select_db($bdd);
+				mysql_select_db($db);
 				mysql_query("SET NAMES 'utf8'"); 	
 									
 				$req = "SELECT * FROM reponse_inscription_tournoi ORDER BY date DESC LIMIT 5";

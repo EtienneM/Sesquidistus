@@ -10,7 +10,7 @@
 session_start(); 
 include("../../config/mysql.php");
 $con = mysql_connect($host, $user, $passwd); 
-mysql_select_db($bdd, $con);
+mysql_select_db($db, $con);
 mysql_query("SET NAMES 'utf8'"); 
 				
 $question = $_POST['nomQuestion'];

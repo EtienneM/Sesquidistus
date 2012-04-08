@@ -26,7 +26,7 @@
 		
 	   //On définit la priorité d'édition d'admin sur le profil.
 	   $id = !empty($_POST['user_id']) ? $_POST['user_id'] : $_SESSION['id'];
-	   if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+	   if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
 	   {
 	     $reqCat = "SELECT m.LOGIN, m.ADMIN, p.* FROM profil p, membre m WHERE m.ID = p.ID_MEMBRE AND m.ID=".mysql_real_escape_string($id);
 	     $queryCat = mysql_query($reqCat);

@@ -56,7 +56,7 @@ if($_POST['mode'] == "inscription"){//S'il c'est bien le formulaire qui à été
  }
  else{//Tous les tests sont bon, donc on procède à l'ajout de l'utilisateur dans la base.
  
-	if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+	if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
 	{//Si la connexion se passe bien 
 		$reqCat = "SELECT m.LOGIN, p.MAIL FROM membre m, profil p WHERE m.ID = p.ID_MEMBRE AND (m.LOGIN='".mysql_real_escape_string($login)."' OR p.MAIL='".mysql_real_escape_string($mail)."')";
 		$queryCat = mysql_query($reqCat);

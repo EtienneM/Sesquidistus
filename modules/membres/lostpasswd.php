@@ -54,7 +54,7 @@ else if($_POST['action'] == "recherche")
 	}
 	else
 	{
-		if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+		if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
 		{//Si la connexion se passe bien 
 			$reqCat = "SELECT m.ID, p.NOM, p.PRENOM, p.MAIL FROM membre m, profil p WHERE m.ID = p.ID_MEMBRE AND m.LOGIN='".mysql_real_escape_string($login)."' AND p.MAIL='".mysql_real_escape_string($mail)."'";
 			$queryCat = mysql_query($reqCat);
@@ -109,7 +109,7 @@ else if($_POST['action'] == "recherche")
 }
 else if($_GET['action'] == "repondre" && !empty($_GET['id']))
 {
-	if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+	if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
 	{//Si la connexion se passe bien 
 			$reqCat = "SELECT p.QUESTION FROM profil p WHERE p.ID_MEMBRE=".mysql_real_escape_string($_GET['id']);
 			$queryCat = mysql_query($reqCat);
@@ -163,7 +163,7 @@ else if($_POST['action'] == "modifier")
 	{
 		info("Veuillez répondre à la question!", 0);
 	}
-	else if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+	else if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
 	{//Si la connexion se passe bien 
 			echo "bien connecté";
 			$reqCat = "SELECT p.REPONSE, m.LOGIN, p.NOM, p.PRENOM, p.MAIL FROM membre m, profil p WHERE m.ID = p.ID_MEMBRE  AND m.ID=".mysql_real_escape_string($id);

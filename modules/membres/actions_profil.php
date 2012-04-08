@@ -8,7 +8,7 @@
  * Auteur : Pierre LEROY <pleroy@etu.unistra.fr>
  */
 
-  //On include les paramètres de la bdd.
+  //On include les paramètres de la db.
   include("./config/mysql.php");
   include("./modules/membres/fonctions.php");
   $id_membre = isset($_POST['id_mem']) ? $_POST['id_mem'] : $_SESSION['id'];
@@ -17,7 +17,7 @@
   if($_POST['mode'] == 'maj_profil')
   {
     extract($_POST);
-    if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd)){
+    if(mysql_connect($host, $user, $passwd) && mysql_select_db($db)){
       $query="UPDATE profil SET NOM='".mysql_real_escape_string(utf8_decode($nom))."',".
                                 "PRENOM='".mysql_real_escape_string(utf8_decode($prenom))."',".
                                 "MAIL='".mysql_real_escape_string(utf8_decode($mail))."',".
@@ -74,7 +74,7 @@
    if(makeHash($new_pwd, $psswdHash) == makeHash($new_pwd_confirm, $psswdHash))
    {
      //-On se connecte à la BDD---
-     if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+     if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
      {
        $query = "SELECT PASSWD FROM membre WHERE ID=".mysql_real_escape_string($id_membre);
        $queryCat = mysql_query($query);

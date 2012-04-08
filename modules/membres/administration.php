@@ -13,7 +13,7 @@
  	//-Dans le cas où l'utilisateur est administrateur---
  
 	 //RÃ©cupÃ©ration du nombre d'inscription Ã  valider.
-	 if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+	 if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
 	 {
 	   $reqCat = "SELECT count(ID) AS NB FROM membre WHERE ADMIN=-1";
 	   $queryCat = mysql_query($reqCat);
@@ -35,7 +35,7 @@
 	//---
 	
 	 //-RÃ©cupÃ©ration du nombre de fiches d'inscription à lire---
-	 if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+	 if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
 	 {
 	   $reqCat = "SELECT count(id_reponse) AS NB FROM reponse_inscription_tournoi WHERE lu=0";
 	   $queryCat = mysql_query($reqCat);
@@ -55,7 +55,7 @@
 	   mysql_close();
 	 }
  
-	 if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+	 if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
 	 {
 	   $reqCat = "SELECT count(id_image) AS NB FROM images WHERE id_album=1";
 	   $queryCat = mysql_query($reqCat);

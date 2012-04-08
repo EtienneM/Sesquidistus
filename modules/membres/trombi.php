@@ -15,7 +15,7 @@ echo '<div class="box" style="width:700px; margin:0 auto;">
      <div class="titreNews">Trombinoscope</div>';
 }
 	 
-if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
 {
 	$req = "SELECT * FROM membre m, profil p WHERE m.ID = p.ID_MEMBRE AND m.ADMIN >= 0 ORDER BY p.POSTE DESC";
 	$query = mysql_query($req);

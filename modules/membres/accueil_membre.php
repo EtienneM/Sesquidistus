@@ -18,7 +18,7 @@
 	 	//-----------------
 	 	include("./config/mysql.php");
 		mysql_connect($host, $user, $passwd); 
-		mysql_select_db($bdd); 
+		mysql_select_db($db); 
 		include("./modules/sondage/maj_sondage.php");
 		$classBulle = "bouton3";
 		if(count($tabSondage)==0){

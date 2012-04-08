@@ -33,7 +33,7 @@ if(isset($_SESSION['login']) && $_SESSION['lvl'] == 1)
 	     	     '<td><label for="mode">Membre:</label></td>'.
 	  	     '<td>'.
 	      	      '<select id="user_id" name="user_id"/>';
-	  if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+	  if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
 	  {
 	    $reqCat = "SELECT m.ID, m.LOGIN, p.NOM, p.PRENOM, p.MAIL FROM membre m, profil p WHERE m.ID = p.ID_MEMBRE AND m.ADMIN >= 0";
 	    $queryCat = mysql_query($reqCat);
@@ -75,7 +75,7 @@ if(isset($_SESSION['login']) && $_SESSION['lvl'] == 1)
 		       '<th>Prénom:</th>'.
 		       '<th>email:</th>'.
 		      '</tr>';
-	   if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+	   if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
 	   {
 	     $reqCat = "SELECT m.ID, m.LOGIN, p.NOM, p.PRENOM, p.MAIL FROM membre m, profil p WHERE m.ID = p.ID_MEMBRE AND m.ADMIN=-1";
 	     $queryCat = mysql_query($reqCat);
@@ -117,7 +117,7 @@ if(isset($_SESSION['login']) && $_SESSION['lvl'] == 1)
 	   }
 	
 	   //On se connecte à la base de donnée.
-	   if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+	   if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
 	   {
 	     //On vérifie que le membre à valider ne l'est pas encore et qu'il est bien valide.
 	     foreach($tmp_res as $val)
@@ -170,7 +170,7 @@ if(isset($_SESSION['login']) && $_SESSION['lvl'] == 1)
 	   }
 	   if(count($res) % 2 == 0) {$list_res = substr($res, 0, strlen($list_res)-2);} 
 	   //On se connecte à la base de donnée.
-	   if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+	   if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
 	   { 
 	       $req = "DELETE FROM membre WHERE ID in (".mysql_real_escape_string($list_res).")";
 	       $query = mysql_query($req);

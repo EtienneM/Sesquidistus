@@ -15,7 +15,7 @@ if(isset($_SESSION['id']) && ($_SESSION['lvl']==0 || $_SESSION['lvl']==1)) {
 	// Configuration des variables de liaison avec la DB
 	include("./config/mysql.php");
 
-	$sql = new MySQL($host, $user, $passwd, $bdd);
+	$sql = new MySQL($host, $user, $passwd, $db);
 ?>
 
 <?php

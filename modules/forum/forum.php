@@ -8,7 +8,7 @@
   //-Include concernant le SGBD---
   include("./config/mysql.php");
   
-  if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd) && isset($_SESSION['login']))
+  if(mysql_connect($host, $user, $passwd) && mysql_select_db($db) && isset($_SESSION['login']))
   {   
 	$arrayScat  = array(); 
 	$reqCat = " SELECT * FROM forum_cat ORDER BY RANG ASC";

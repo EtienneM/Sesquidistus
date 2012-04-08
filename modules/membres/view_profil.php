@@ -16,7 +16,7 @@ if(!empty($_POST['u_id']) || !empty($_GET['u_id']))
    
    $id = !empty($_POST['u_id']) ? $_POST['u_id'] : $_GET['u_id'];
    
-   if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+   if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
    {
      $req = "SELECT m.LOGIN, p.* FROM profil p, membre m WHERE m.ID = p.ID_MEMBRE AND m.ID=".mysql_real_escape_string($id);
      $query = mysql_query($req);

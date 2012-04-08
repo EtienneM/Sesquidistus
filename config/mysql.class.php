@@ -5,7 +5,7 @@ class MySQL
  private $login;
  private $host = "localhost";
  private $passwd;
- private $bdd;
+ private $db;
  private $query		= NULL;
  private $res		= NULL;
  private $error;
@@ -15,28 +15,20 @@ class MySQL
  // Déclaration du constructeur.
  // ----------------------------
   
- /* mysql(host, login, passwd, [bdd])
-  * @params : host, login, passwd, [bdd]
-  *	host -> nom du serveur hôte
-  *	login -> login de l'utilisateur.
-  *	passwd -> password de l'utilisateur.
-  *	bdd -> nom de la base de données. (Optionnel)
+ /** 
+  * @param host nom du serveur hôte
+  * @param login 
+  * @param passwd
+  * @param db nom de la base de données
   */
- function __construct(){
-  //On récupère les infos sur les params du constructeur.
-  $nbArgs = func_num_args();
-  $args = func_get_args();
-  //On test les arguments.
-  $err = false;
-  foreach ($args as $val){if(!isset($val) && !empty($val)) $err = true;}
-  //On construit l'objet.
-  if($nbArgs >= 3 && !$err){
-	$this->host   = $args[0];
-	$this->login  = $args[1];
-	$this->passwd = $args[2];
-	if($nbArgs == 4)
-		$this->bdd = $args[3];
-  }
+ function __construct($host=null, $login=null, $passwd=null, $db=null){
+ 	if (is_null($host)) {
+		require 'mysql.php';
+	}
+	$this->host   = $host;
+	$this->login  = $login;
+	$this->passwd = $passwd;
+	$this->db     = $db;
  }
  
  // --------------------------
@@ -46,20 +38,28 @@ class MySQL
  //Traitements.
  //Connecte à base de données, si erreur la fonction renvoie false, et on stock l'erreur.
  public function connection(){
-	$res = true;
 	$this->con = mysql_connect($this->host, $this->login, $this->passwd);
 	//On test si la connexion à réussie, sinon on stock l'erreur.
 	if(!$this->con){
 		$this->error = mysql_error();
-		$res = false;
 		$GLOBALS['sql'] = $this->con;
+		return false;
 	}
-	//On selectionne la bdd, si cela échoue, on sotck l'erreur.	
-	else if(isset($this->bdd)){
-		$test = mysql_select_db($this->bdd);
-		if(!$test) $this->error = mysql_error();	
+	//On selectionne la db, si cela échoue, on sotck l'erreur.	
+	if(isset($this->db)){
+		$test = mysql_select_db($this->db);
+		if(!$test) {
+			$this->error = mysql_error();
+			return false;
+		} 
 	}
-	return $res;
+	// On définit l'encodage des requêtes
+	$res = mysql_query("SET NAMES 'utf8'");
+	if (!$res) {
+		$this->error = mysql_error();
+		return false;
+	}
+	return true;
  }
  //Retourne vrai si la connection a bien été fermée.
  public function close(){
@@ -82,7 +82,7 @@ class MySQL
 		if(!$this->query)
 			$this->error = mysql_error();
 		else
-			$res = true;
+			$res = $this->query;
 	}
 	return $res;
  }
@@ -165,7 +165,7 @@ class MySQL
 	return $this->host;
  }
  public function getDb(){
-	return $this->bdd;
+	return $this->db;
  }
  public function getError(){
 	return $this->error;
@@ -176,9 +176,9 @@ class MySQL
  //Mutateurs.
  public function setDb($db){
 	if(isset($db) && is_string($db)){
-		$this->bdd = $db;
+		$this->db = $db;
 	}
-	$test = mysql_select_db($this->bdd, $this->con);
+	$test = mysql_select_db($this->db, $this->con);
 	if(!$test) $this->error = mysql_error();	
  }
  
@@ -196,4 +196,4 @@ public function getConvar(){
 	}
  }
 }
-?>
+

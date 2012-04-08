@@ -36,7 +36,7 @@ $id = $_GET['id'];
 	else{
 			include("./config/mysql.php");
 			mysql_connect($host, $user, $passwd); 
-			mysql_select_db($bdd);
+			mysql_select_db($db);
 			mysql_query("SET NAMES 'utf8'");
 		
 				$req = "SELECT titre, contenu, DATE_FORMAT(date_article, '%d/%m/%Y') AS dateArticle, id_member FROM article WHERE id=$id";
@@ -56,7 +56,7 @@ $id = $_GET['id'];
 				}
 				else{
 					mysql_connect($host, $user, $passwd); 
-					mysql_select_db($bdd);
+					mysql_select_db($db);
 
 						$reqMembre = "SELECT login FROM membre WHERE id = ".$row[3];
 						$resMembre = mysql_query($reqMembre)  or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());

@@ -109,7 +109,7 @@ function get_cats(){
    include("./config/mysql.php");
    $array_cat = array();
 
-   if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+   if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
    {
      $req_cat = "SELECT id, LIBELLE FROM forum_cat ORDER BY RANG ASC";
      $query_cat = mysql_query($req_cat);
@@ -140,7 +140,7 @@ function get_cats(){
    include("./config/mysql.php");
    $array_cat = array();
 
-   if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+   if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
    {
      $req_cat = "SELECT id, id_cat, rang, LIBELLE FROM forum_scat ORDER BY id_cat ASC, RANG ASC";
      $query_cat = mysql_query($req_cat);
@@ -168,7 +168,7 @@ function get_cats(){
    include("./config/mysql.php");
    $array_cat = array();
 
-   if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+   if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
    {
      $req_cat = "SELECT RANG FROM forum_cat ORDER BY RANG ASC";
      $query_cat = mysql_query($req_cat);
@@ -201,7 +201,7 @@ function get_cats(){
    $array_cat = array();
    include("./config/mysql.php");
 
-   if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+   if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
    {
      $req_cat = "SELECT RANG FROM forum_scat ORDER BY id ASC, RANG ASC WHERE id_cat=".mysql_real_escape_string($cat_id);
      $query_cat = mysql_query($req_cat);
@@ -236,7 +236,7 @@ function get_cats(){
    include("./config/mysql.php");
    
    
-   if(mysql_connect($host, $user, $passwd) && mysql_select_db($bdd))
+   if(mysql_connect($host, $user, $passwd) && mysql_select_db($db))
    {
      $req_cat = "SELECT ID, LIBELLE FROM  forum_scat WHERE ID=".$cat;
      $query_cat = mysql_query($req_cat);

@@ -2,3 +2,4 @@ config/mysql.php
 *.swp
 modules/galerie/mini/*
 modules/galerie/picture/*
+todo

@@ -1,98 +1,109 @@
 <?php
-
 	/*
 	 * Déclarion des variables.
 	 */
-	 
-	//------
-	$tabPages 	= array("./modules/accueil/accueil.php", "./modules/calendrier/calendrier.php", "./modules/club/accueil.php",
-	"./modules/ultimate/accueil.php", "./modules/galerie/galerie_accueil.html", "./modules/event/event.php",
-	"./modules/contact/accueil.php", "./modules/membres/login.php", "./modules/membres/deconnexion.php",
-	"./modules/membres/edit_profil.php", "./modules/event/article.php", "./modules/forum/forum.php",
-	"./modules/forum/topics.php", "./modules/sondage/formulaire.php", "./modules/forum/admin_forum.php",
-	"./modules/forum/traitements_forum.php", "./modules/forum/topic.php", "./modules/galerie/member_galerie.php",
-	"./modules/galerie/admin_galerie.php", "./modules/galerie/admin_galerie_album.php", "./modules/galerie/galerie.php",
-	"./modules/galerie/galerie_album.php", "./modules/inscription/inscription.php", "./modules/membres/admin_membres.php",
-	"./modules/membres/traitements_membres.php", "./modules/forum/actions_forum.php", "./modules/sondage/ajout_sondage.php",
-	"./modules/membres/actions_profil.php", "./modules/inscription/action_inscription.php", "./modules/galerie/galerie_accept.php",
-	"./modules/video/member_video.php", "./modules/video/galerie_video.php", "./modules/video/video.php",
-	"./modules/club/change_contenu.php", "./modules/ultimate/change_contenu.php", "./modules/membres/lostpasswd.php",
-	"./modules/video/galerie_video_dossier.php", "./modules/video/admin_galerie_video.php", "./modules/video/admin_galerie_video_dossier.php",
-	"./modules/video/galerie_accept_video.php", "./modules/inscription_tournoi/form.php","./modules/inscription_tournoi/ajout_form.php",
-	"./modules/inscription_tournoi/view_inscription.php", "./modules/forum/topic_update.php", "./modules/forum/topic_ajout.php",
-	"./modules/contact/admin_contact.php", "./modules/membres/view_profil.php", "./modules/membres/avatar.php",
-	"./modules/membres/trombi.php", "./modules/club/visiteur.php", "./modules/club/admin_visiteur.php");
+	$pages = array(
+		// Pages qui s'affichent dans le menu en haut sur toutes les pages
+		'accueil' => array('./modules/accueil/accueil.php', 'Accueil', './?categorie=accueil'),
+		'calendrier' => array('./modules/calendrier/calendrier.php', 'Calendrier', './?categorie=calendrier'),
+		'club' => array('./modules/club/accueil.php', 'Le club', './?categorie=club'),
+		'ultimate' => array('./modules/ultimate/accueil.php', 'Ultimate Frisbee', './?categorie=ultimate'),
+		'galerie_accueil' => array('./modules/galerie/galerie_accueil.html', 'Galeries', './?categorie=galerie_accueil'),
+		'event' => array('./modules/event/event.php', 'nos évènements', './?categorie=event'),
+		'kym12' => array('./?categorie=event&page=lecture&id=', 'KYM \'12', './?categorie=event&page=lecture&id='),
+		'contact' => array('./modules/contact/accueil.php', 'Contact', './?categorie=contact'),
+		// Association entre clé de la variable $_GET['categorie'] et l'url
+		'login' => './modules/membres/login.php',
+		'deconnexion' => './modules/membres/deconnexion.php',
+		'edit_profil' => './modules/membres/edit_profil.php',
+		'article' => './modules/event/article.php',
+		'forum' => './modules/forum/forum.php',
+		'topics' => './modules/forum/topics.php',
+		'sondage' => './modules/sondage/formulaire.php',
+		'admin_forum' => './modules/forum/admin_forum.php',
+		'traitements_forum' => './modules/forum/traitements_forum.php',
+		'topic' => './modules/forum/topic.php',
+		'member_galerie' => './modules/galerie/member_galerie.php',
+		'admin_galerie' => './modules/galerie/admin_galerie.php',
+		'admin_galerie_album' => './modules/galerie/admin_galerie_album.php',
+		'galerie' => './modules/galerie/galerie.php',
+		'galerie_album' => './modules/galerie/galerie_album.php',
+		'inscription' => './modules/inscription/inscription.php',
+		'admin_membres' => './modules/membres/admin_membres.php',
+		'traitements_membres' => './modules/membres/traitements_membres.php',
+		'actions_forum' => './modules/forum/actions_forum.php',
+		'ajout_sondage' => './modules/sondage/ajout_sondage.php',
+		'actions_profil' => './modules/membres/actions_profil.php',
+		'action_inscription' => './modules/inscription/action_inscription.php',
+		'galerie_accept' => './modules/galerie/galerie_accept.php',
+		'member_video' => './modules/video/member_video.php',
+		'galerie_video' => './modules/video/galerie_video.php',
+		'video' => './modules/video/video.php',
+		'admin_club' => './modules/club/change_contenu.php',
+		'admin_ultimate' => './modules/ultimate/change_contenu.php',
+		'mdp_oublie' => './modules/membres/lostpasswd.php',
+		'galerie_video_dossier' => './modules/video/galerie_video_dossier.php',
+		'admin_galerie_video' => './modules/video/admin_galerie_video.php',
+		'admin_galerie_video_dossier' => './modules/video/admin_galerie_video_dossier.php',
+		'galerie_accept_video' => './modules/video/galerie_accept_video.php',
+		'inscription_tournoi' => './modules/inscription_tournoi/form.php',
+		'ajout_form_inscription' => './modules/inscription_tournoi/ajout_form.php',
+		'visualisation_inscription' => './modules/inscription_tournoi/view_inscription.php',
+		'topic_update' => './modules/forum/topic_update.php',
+		'topic_ajout' => './modules/forum/topic_ajout.php',
+		'admin_contact' => './modules/contact/admin_contact.php',
+		'view_profil' => './modules/membres/view_profil.php',
+		'avatar' => './modules/membres/avatar.php',
+		'trombi' => './modules/membres/trombi.php',
+		'visiteur' => './modules/club/visiteur.php',
+		'admin_visiteur' => './modules/club/admin_visiteur.php',
+	);
+	
+	if(!isset($_GET['categorie']) or !isset($pages[$_GET['categorie']])){
+		$_GET['categorie'] = 'accueil';
+	}
+	if (is_array($pages[$_GET['categorie']])) {
+		$linkPage = $pages[$_GET['categorie']][0];
+	} else {
+		$linkPage = $pages[$_GET['categorie']];
+	}
 
-	$liensCat = array("./?categorie=accueil", "./?categorie=calendrier", "./?categorie=club", "./?categorie=ultimate", "./?categorie=galerie_accueil",
-	"./?categorie=event", "./?categorie=contact");
-
-	$tabPageName = array(		"accueil", "calendrier", "le club",
-						"ultimate Frisbee", "galeries", "nos evenements",
-						"contact", "login", "deconnexion",
-						"edit_profil", "article", "forum",
-						"topics","sondage", "admin_forum",
-						"traitements_forum", "topic", "member_galerie",
-						"admin_galerie", "admin_galerie_album", "galerie",
-						"galerie_album", "inscription", "admin_membres",
-						"traitements_membres", "actions_forum", "ajout_sondage",
-						"actions_profil", "action_inscription", "galerie_accept",
-						"member_video", "galerie_video", "video",
-						"admin_club", "admin_ultimate", "mdp_oublie",
-						"galerie_video_dossier", "admin_galerie_video", "admin_galerie_video_dossier",
-						"galerie_accept_video", "inscription_tournoi", "ajout_form_inscription",
-						"visualisation_inscription", "topic_update", "topic_ajout",
-						"admin_contact", "view_profil", "avatar", 
-						"trombi", "visiteur", "admin_visiteur");
-	$linkPage=$tabPages[0];
-	
-	$tpnMenu = 8;
-	$tpnNb = count($tabPageName); //Nombre d'éléments du tableau $tabPageName.
-	//------
-	
-	
-	//Si la variable GET catégorie est vide on charge la page d'accueil.
-	if(!isset($_GET['categorie'])){
-		$_GET['categorie']=$tabPageName[0];
-	}
-	else if($_GET['categorie']=="event"){
-		$_GET['categorie']= $tabPageName[5];
-	}
-	else if($_GET['categorie'] == "club"){
-		$_GET['categorie']= $tabPageName[2];
-	}
-	else if($_GET['categorie'] == "ultimate"){
-		$_GET['categorie']= $tabPageName[3];
-	}
-       else if($_GET['categorie'] == "galerie_accueil"){
-		$_GET['categorie']= $tabPageName[4];
-	}
-	//Détermination de la page à charger.
-	$res=false;	
-	
-	for($i=0; $i<$tpnNb && !$res; $i++){
-	  if($tabPageName[$i] == $_GET['categorie']){
-		$res = true;
-		$linkPage = $tabPages[$i];
-	  }
-	 }
-	 
-	 //Procédure de la génération du menu.
-	 function generationMenu($tpnNb, $tabPageName, $liensCat){
-	 		
-			for($i=0; $i<7; $i++){	
-	 			
-				if($i==0) {echo "<li class=\"first\">";}
-				else if($i==6) {echo "<li class=\"last\">";}
-				else {echo "<li>";}
-
-				if($tabPageName[$i] == $_GET['categorie']){
-					echo "<span class=\"selected\"><a href=\"".$liensCat[$i]."\">".ucwords($tabPageName[$i])."</a></span>";
-				}
-				else{
-					echo "<a href=\"".$liensCat[$i]."\">".ucwords($tabPageName[$i])."</a>";
-			    }
-				echo "</li>\n";
+/**
+ * Génère le menu en haut donnant accès aux différentes sections.
+ * 
+ * @param $pages tableau des pages existantes
+ */
+function generationMenu($pages) {
+	// Compte le nombre de pages à afficher dans le menu
+	$menu = array();
+	foreach ($pages as $data) {
+		if (is_array($data)) {
+			if (count($data) != 3) {
+				throw new InvalidArgumentException();
 			}
-			
-	 }
+			$menu[] = $data;
+		}
+	}
+	// Affiche les pages du menu
+	$i = 0;
+	$nbPagesMenu = count($menu);
+	foreach ($menu as $data) {
+		$class = '';
+		switch($i) {
+			case 0:
+				$class = 'first';
+				break;
+			case $nbPagesMenu - 1:
+				$class = 'last';
+				break;
+		}
+		echo "<li class=\"$class\">";
+		echo '<a href="'.$data[2].'">'.ucwords($data[1]).'</a>';
+		echo '</li>';
+		if ($i == $nbPagesMenu - 1) {
+			break;
+		}
+		$i++;
+	}
+}
 

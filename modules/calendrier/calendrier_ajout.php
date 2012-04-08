@@ -30,7 +30,7 @@
 									  <select id="listeEvent" style="font-size:12px" name="typeEvent">
 									 <?php
 											mysql_connect($host, $user, $passwd); 
-											mysql_select_db($bdd);
+											mysql_select_db($db);
 											mysql_query("SET NAMES 'utf8'");
 											
 											$req3 = "SELECT nom, numero, color FROM type_event ORDER BY numero";
@@ -71,7 +71,7 @@
 								 
 								 <?php //Récupération de la liste des lieux d'entrainement enregistrés dans la bdd.
 										mysql_connect($host, $user, $passwd); 
-										mysql_select_db($bdd);
+										mysql_select_db($db);
 										
 										$reqLieu = "SELECT nom, numero FROM lieu_ultimate ORDER BY numero";
 										$resLieu = mysql_query($reqLieu)  or die('Erreur SQL !<br />'.$reqLieu.'<br />'.mysql_error());

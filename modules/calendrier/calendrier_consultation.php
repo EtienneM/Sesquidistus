@@ -9,7 +9,7 @@
   */
 
 
-//Déclaration des tableaux en JS pour sauvegarde des données et passage vers calendrier_consultation.js
+//D�claration des tableaux en JS pour sauvegarde des données et passage vers calendrier_consultation.js
 echo '<script type="text/javascript">
 			var tabId = new Array();
 			var tabDate = new Array();
@@ -53,7 +53,7 @@ echo '<script type="text/javascript">
 	
 	
 	mysql_connect($host, $user, $passwd); 
-	mysql_select_db($bdd);
+	mysql_select_db($db);
 	mysql_query("SET NAMES 'utf8'");
 
 	

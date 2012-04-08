@@ -10,7 +10,7 @@
 
 	include("./config/mysql.php");
 	mysql_connect($host, $user, $passwd); 
-	mysql_select_db($bdd);
+	mysql_select_db($db);
 	mysql_query("SET NAMES 'utf8'");
 	
 	$tabMap_num = array();

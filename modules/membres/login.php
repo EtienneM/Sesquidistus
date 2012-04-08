@@ -25,7 +25,7 @@
    if(isset($_POST['m_login']) && !empty($_POST['m_login']) && isset($_POST['m_passwd']) && !empty($_POST['m_passwd']))
    {
     //On vérifie dans la BDD.
-    $sql = new MySQL($host, $user, $passwd, $bdd); 
+    $sql = new MySQL($host, $user, $passwd, $db); 
     if($sql->connection())
     {
      //Traitement si la connexion à réussie.

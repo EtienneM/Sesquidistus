@@ -53,7 +53,7 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1){
 				<?php 
 				include("./config/mysql.php");
 				mysql_connect($host, $user, $passwd); 
-				mysql_select_db($bdd); 
+				mysql_select_db($db); 
 				mysql_query("SET NAMES 'utf8'");	
 									
 				$reqSaison = "SELECT DISTINCT MONTH(date) as month, YEAR(date) AS dateSaison1, YEAR(ADDDATE(date, INTERVAL 1 YEAR)) AS dateSaison2  FROM evenement WHERE type = $type ORDER BY date DESC";
@@ -93,7 +93,7 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1){
 						//on ne fait rien
 					}
 					else{	
-						$titreSaison = "EvÃ¨nements de la saison " . $anSaison1 . "-" .$anSaison2;
+						$titreSaison = "&Eacute;v&egrave;nements de la saison " . $anSaison1 . "-" .$anSaison2;
 						
 									$req = "SELECT id, titre, lieu, id_lieu, contenu_video, contenu_photo, 
 									DATE_FORMAT(date, '%d/%m/%Y') AS dateEvent FROM evenement 
@@ -188,7 +188,7 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1){
 																		$(divChoixPage).append($("#select<?php echo $data['id']; ?>").css("display","block"));
 																		$(divChoixPage).dialog({
 																			width: 400,
-																			title: "SÃ©lection de l'article",
+																			title: "Sélection de l'article",
 																			modal: true,
 																			draggable: false,
 																			closeText: 'x'
@@ -200,7 +200,7 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1){
 																									window.location.href='./?categorie=article&page=lecture&id='+valeurId;
 																									$(this).dialog("close");
 																								},
-																								"CrÃ©er un nouvel article": function() { 
+																								"Créer un nouvel article": function() { 
 																									idForm.submit();
 																									$(this).dialog("close");
 																								}	 
