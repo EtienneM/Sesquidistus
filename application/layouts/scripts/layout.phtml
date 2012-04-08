@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Sesquidistus</title>
+    <?php echo $this->headTitle() ?>
 
     <meta property="og:title" content="Sesquidistus" />
     <meta property="og:type" content="sport" />
@@ -11,33 +11,47 @@
     <meta property="og:site_name" content="" />
     <meta property="fb:admins" content="1018024861" />
 
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 
-    <?php echo $this->headLink()->appendStylesheet('/css/style.css') ?>
+    <?php echo $this->headScript()."\n" ?>
+    <?php echo $this->headLink()."\n" ?>
 </head>
 <body>
 <!-- Header : Bandeau logo -->
 <div id="bandeau1" class="bandeau">
     <div style="position:relative; color:white; width:800px; margin:0 auto 0 auto;">
         <a href="http://www.sucstrasbourg.com/"><img style="position:absolute; left:0px; top:0px;" src="/images/suc_logo.png" title="SUC Strasbourg" alt="SUC Strasbourg"/></a>
-        <a href="./"><img style="position:absolute; left:78px; top:2px;" src="/images/minilogo.png" alt="Sesquidistus"/></a>
+        <a href="<?php echo $this->baseUrl(); ?>"><img style="position:absolute; left:78px; top:2px;" src="/images/minilogo.png" alt="Sesquidistus"/></a>
     </div>
 </div>
 <!-- Menu style apple -->
-<div id="barreMenu">
-    <ul id="menuDrop" class="apple" style="filter:alpha(opacity=0); opacity:0;">
-    </ul>
-</div>
+<?php 
+    $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+    $current = 0;
+    if (isset($this->menu[$controller])) {
+        $current = $this->menu[$controller];
+    }
+    echo $this->partial('_menu.phtml', array('current' => $current)) 
+?>
+
 <!-- Gallerie sous menu -->
 <div id="gallery">
 </div>
+
+
+<div id="globalBox">
 <?php echo $this->layout()->content."\n"; ?>
+</div>
+
+
 <!-- Footer -->
 <div id="footerPage">
     <img style="margin-left:100px" src="/images/silhouette.png" alt="Frisbee"/>
     <div id="bandeau2" class="bandeau">
         <img src="/images/minilogo2B.png" style="position:absolute; right:25px; top:-28px;" />
-        <span style="font-weight:bold; font-size:10px;">Copyright © Sesquidistus</span><br />
+        <span style="font-weight:bold; font-size:10px;">
+            Copyright ©<?php echo $this->fromYear.' - '.$this->nowYear ?> Sesquidistus
+        </span><br />
         <a class="white" href="?categorie=contact&page=apropos">A propos du site</a> | <a class="white" href="?categorie=contact&page=mentions">Mentions légales</a>
     </div>
 </div>

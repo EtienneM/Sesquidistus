@@ -25,16 +25,15 @@
 	height: 20px;
 	width:118px;
 }
-
-.apple .first > a, 
-.apple .first > span {
+.apple li:first-child > a,
+.apple li:first-child > span {
 	-moz-border-radius: 5px 0 0 5px;
 	-webkit-border-radius: 5px 0 0 5px;
 	border-radius: 5px 0 0 5px;
 }
 
-.apple .last > a, 
-.apple .last > span {
+.apple li:last-child > a,
+.apple li:last-child > span {
 	-moz-border-radius: 0 5px 5px 0;
 	-webkit-border-radius: 0 5px 5px 0;
 	border-radius: 0 5px 5px 0;
