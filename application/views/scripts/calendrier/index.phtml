@@ -1,0 +1,98 @@
+<?php //Si admin alors afficher des trucs ?>
+<!-- Sous-menu de la categorie Calendrier -->
+<div id="menuSelectionCat">
+</div>
+<?php // Fin de si admin ?>
+
+<div style="text-align:center; margin-top:15px;">
+    <?php //form a faire avec Zend ?>
+    <div class="bouton2" style="display:inline; position:relative; z-index:5; padding:5px">
+        <select name="inputMois">
+            <?php for($i = 1; $i <= 12; $i++): ?>
+            <option><?php echo $i; ?></option>
+            <?php endfor ?>
+        </select>
+        <select name="inputAnnee">
+            <?php for($i = 2008; $i < date('Y') + 2; $i++): ?>
+            <option><?php echo $i; ?></option>
+            <?php endfor ?>
+        </select>
+        <input style="padding:1px; margin-left:5px; font-size:10px" type="submit" value="Valider" />
+    </div>
+</div>
+
+
+<div id="globCalendar">
+    <!--Boutons pour le changement de mois -->
+    <form id="formMonth" style="display:inline" method="post" action="">
+        <span style="font-size:10px" id="prevDate" class="bouton1">
+            &lt;&lt; Mois précédent
+        </span>
+        <input id="inputAnnee" type="hidden" name="inputAnnee" value="<?php echo 'annee' ?>" />
+        <input id="inputMois" type="hidden" name="inputMois" value="<?php echo 'mois' ?>" />
+        <span style="font-size:14px; font-weight:bold; margin:0px 130px" id="textMoisCourant">
+            <?php // Rempli en JS ?>
+        </span>
+        <span style="font-size:10px" id="nextDate" class="bouton1">
+            
+            Mois suivant &gt;&gt;
+        </span>
+    </form>
+    <!-- Zone dans lequel se trouve le calendrier -->
+    <div id="datepicker"></div>
+</div>
+<?php /* $this->headScript()->appendScript('
+$(document).ready(function() {
+    MonCalendar($("#datepicker"), "10", "2012", [], [], false);
+});
+')*/ ?>
+
+<?php // Génération de la légende avec les types d'évènements donnés par la requête ?>
+<div class="totalBox" id="legende" style="height:70px">
+    <div class="box" style="float:right;">
+        <div class="titreNews">Légende :</div>
+        <div id="lgd<?php echo 'id' ?>" style="display:inline; margin-left:<?php echo '0' ?>">
+            <img src="/images/headerWTransparent.png" style="background-color:blue; width:15px; height:12px;" />
+            <span style="font-size:10px"><?php echo 'nom_evenement' ?></span>
+        </div>
+    </div>
+</div>
+<?php // Génération du récapitulatif ?>
+<div id="globalRecap" style="width:500px; margin:0 auto; margin-top:10px">
+    <div id="accordionCal">
+        <h4 class="header titreSaison">
+            Récapitulatif des évènements du mois de <?php echo 'mois' ?> <?php echo 'année' ?>
+        </h4>
+        <div id="boiteRecap" class="box2">
+            <?php foreach($this->evenements as $evenement): ?>
+            <div class="printInfo">
+                <span class="dateMiniTab">
+                    <?php echo $evenement['jour'] ?> <?php echo $evenement['date'] ?>
+                </span>
+                <?php $nePlusAfficher = array('jour', 'date') ?>
+                <table style="border-style:solid; border-width:2px; border-color:<?php echo 'blue' ?>">
+                    <?php foreach($evenement as $label => $contenu): ?>
+                    <?php if (in_array($label, $nePlusAfficher)) {continue;} ?>
+                    <tr>
+                        <td class="print"><?php echo $label ?></td>
+                        <td><?php echo $contenu ?></td>
+                    </tr>
+                    <?php endforeach ?>
+                </table>
+            </div>
+            <?php endforeach ?>
+        </div>
+    </div>
+    <span style="float:right">
+        <span id="pdfCalendar" class="bouton1">Version pdf</span>
+        <span id="printCalendar" class="bouton1">Version imprimable</span>
+    </span>
+    <form id="formPdfCalendar" method="post" action="">
+        <input type="hidden" name="mois_pdf" value="<?php echo 'mois' ?>"/>
+        <input type="hidden" name="annee_pdf" value="<?php echo 'année' ?>"/>
+        <input type="hidden" name="date1" value="<?php echo 'date1' ?>"/>
+        <input type="hidden" name="date2" value="<?php echo 'date2' ?>"/>
+    </form>
+</div>
+
+
