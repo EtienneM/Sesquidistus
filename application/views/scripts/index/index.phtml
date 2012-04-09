@@ -13,16 +13,16 @@
             <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette3_mini.gif" />
             <div class="titreNews">Prochain entraînement</div>
             <p style="text-align:left;"> 
-                <div style="color:#bc0101; margin-bottom:10px; font-size:11px"><?php echo $this->nextTraining['titre'] ?></div>
+                <div style="color:#bc0101; margin-bottom:10px; font-size:11px"><?php echo $this->escape($this->nextTraining['titre']) ?></div>
                 <table>
                     <tr>
                         <td style="color:#555">Date&nbsp;:</td>
-                        <td><?php echo $this->nextTraining['date']->get('dd/MM/YYYY') ?></td>
+                        <td><?php echo $this->escape($this->nextTraining['date']->get('dd/MM/YYYY')) ?></td>
                     </tr>
                     <tr>
                         <td style="color:#555">Lieu&nbsp;:</td>
                         <td>
-                            <?php echo $this->nextTraining['nom_lieu'] ?>
+                            <?php echo $this->escape($this->nextTraining['nom_lieu']) ?>
                             <a title="Google maps" href="<?php echo $this->url(array('controller'=>'index')) ?>">
                                 <img src="/images/loupe.png"/>
                             </a>
@@ -30,11 +30,11 @@
                     </tr>
                     <tr>
                         <td style="color:#555">Début&nbsp;:</td>
-                        <td><?php echo $this->nextTraining['horaire_debut'] ?></td>
+                        <td><?php echo $this->escape($this->nextTraining['horaire_debut']) ?></td>
                     </tr>
                     <tr>
                         <td style="color:#555">Fin&nbsp;:</td>
-                        <td><?php echo $this->nextTraining['horaire_fin'] ?></td>
+                        <td><?php echo $this->escape($this->nextTraining['horaire_fin']) ?></td>
                     </tr>
                 </table>
             </p>
@@ -47,26 +47,26 @@
             <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette4.gif" />
             <div class="titreNews">Prochain tournoi</div>
                 <p style="text-align:left;"> 
-                <div style="color:#bc0101; margin-bottom:10px; font-size:11px;"><?php echo $this->nextTournoi['titre'] ?> </div>
+                <div style="color:#bc0101; margin-bottom:10px; font-size:11px;"><?php echo $this->escape($this->nextTournoi['titre']) ?> </div>
                 <table style="font-size:11px">
                     <tr>
                         <td style="color:#555">Date&nbsp;:</td>
-                        <td><span id="dateNextTournoi"><?php echo $this->nextTournoi['dateEvent'] ?></span></td>
+                        <td><span id="dateNextTournoi"><?php echo $this->escape($this->nextTournoi['dateEvent']) ?></span></td>
                     </tr>
                     <tr>
                         <td style="color:#555">Lieu&nbsp;:</td>
-                        <td><?php echo $this->nextTournoi['nom_lieu'] ?></td>
+                        <td><?php echo $this->escape($this->nextTournoi['nom_lieu']) ?></td>
                     </tr>
                     <?php if(isset($this->nextTournoi['horaire_debut'])): ?>
                     <tr>
                         <td style="color:#555">Début&nbsp;:</td>
-                        <td><?php echo $this->nextTournoi['horaire_debut'] ?></td>
+                        <td><?php echo $this->escape($this->nextTournoi['horaire_debut']) ?></td>
                     </tr>
                     <?php endif ?>
                     <?php if(isset($this->nextTournoi['horaire_fin'])): ?>
                     <tr>
                         <td style="color:#555">Fin&nbsp;:</td>
-                        <td><?php echo 'horaire_fin' ?></td>
+                        <td><?php echo $this->escape($this->nextTournoi['horaire_fin']) ?></td>
                     </tr>
                     <?php endif ?>
                     <?php // Script chelou... ?>
@@ -97,10 +97,10 @@
     <?php foreach($this->articles as $article): ?>
     <div class="totalBox">
         <div class="box">
-            <div class="titreNews"><?php echo $article->titre ?></div>
+            <div class="titreNews"><?php echo $this->escape($article->titre) ?></div>
             <div><?php echo $article->contenu ?></div>
             <div style="margin-top:30px">
-                <span class="note">Article créé par <?php echo 'auteur' ?> le <?php echo $article->date_article->get('dd/MM/YYYY') ?></span>
+                <span class="note">Article créé par <?php echo 'auteur' ?> le <?php echo $this->escape($article->date_article->get('dd/MM/YYYY')) ?></span>
             </div>
         </div>
     </div>

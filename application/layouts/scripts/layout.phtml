@@ -45,9 +45,9 @@
     <div id="bandeau2" class="bandeau">
         <img src="/images/minilogo2B.png" style="position:absolute; right:25px; top:-28px;" />
         <span style="font-weight:bold; font-size:10px;">
-            Copyright ©<?php echo $this->fromYear.' - '.$this->nowYear ?> Sesquidistus
+            Copyright ©<?php echo $this->escape($this->fromYear.' - '.$this->nowYear) ?> Sesquidistus
         </span><br />
-        <a class="white" href="<?php echo $this->url(array('controller' => 'index', 'action' => 'apropos')) ?>">A propos du site</a> | 
+        <a class="white" href="<?php echo $this->url(array('controller' => 'index', 'action' => 'apropos')) ?>">&Agrave; propos du site</a> | 
         <a class="white" href="<?php echo $this->url(array('controller' => 'index', 'action' => 'mentions')) ?>">Mentions légales</a>
     </div>
 </div>
