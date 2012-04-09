@@ -1,19 +1,19 @@
 <?php
 
-class UltimateController extends My_Controller_Action_CustomContent {
+class ClubController extends My_Controller_Action_CustomContent {
 
     public function init() {
-        $this->_titre = 'L\'utlimate';
+        $this->_titre = 'Le club';
         $this->_styleSheets[] = '/css/club/club.css';
 
         $this->_sections = array(
             array(
                 'id' => 1,
-                'label' => 'Histoire de Frisbee',
+                'label' => 'Présentation',
             ),
             array(
                 'id' => 2,
-                'label' => 'Histoire d\'Ultimate',
+                'label' => 'Palmarès',
             ),
         );
         parent::init();
@@ -26,11 +26,13 @@ class UltimateController extends My_Controller_Action_CustomContent {
             $id = 1;
         }
         // Requête SQL pour trouver en fonction de l'id le contenu
-        $this->view->ultimate = array(
+        $this->view->club = array(
             'titre' => 'biniou',
             'contenu' => 'bliblablou'
         );
         $this->view->id = $id;
     }
+
+
 }
 
