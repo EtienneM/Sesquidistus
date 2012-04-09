@@ -3,3 +3,11 @@ config/mysql.php
 modules/galerie/mini/*
 modules/galerie/picture/*
 todo
+/nbproject/private/
+/fpdf/
+/tmp.php
+/phpinfo.php
+/nbr_ligne.php
+/backup_tables.php
+/docs/README.txt
+/nbproject

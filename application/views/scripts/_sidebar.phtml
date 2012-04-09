@@ -1,12 +1,12 @@
 <div id="Menu" class="box">
     <div class="titreNews">Sections</div>
-    <?php foreach($this->sections as $section): ?>
-    <a href="<?php echo $this->url(array('controller' => $this->controller, 'action' => 'index', 'id' => $section['id'])) ?>">
-        <?php $class = ($section['id'] == $this->id)?'bouton6':'bouton2' ?>
-        <div class="<?php echo $class ?> bouton">
-            <span><?php echo $this->escape($section['label']) ?></span>
-        </div>
-    </a>
+    <?php foreach ($this->sections as $section): ?>
+        <a href="<?php echo $this->url(array('controller' => $this->controller, 'action' => 'index', 'id' => $section['id'])) ?>">
+            <?php $class = ($section['id'] == $this->id) ? 'bouton6' : 'bouton2' ?>
+            <div class="<?php echo $class ?> bouton">
+                <span><?php echo $this->escape($section['label']) ?></span>
+            </div>
+        </a>
     <?php endforeach; ?>
 </div>
 
