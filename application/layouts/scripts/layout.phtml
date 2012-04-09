@@ -25,14 +25,9 @@
     </div>
 </div>
 <!-- Menu style apple -->
-<?php 
-    $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
-    $current = 0;
-    if (isset($this->menu[$controller])) {
-        $current = $this->menu[$controller];
-    }
-    echo $this->partial('_menu.phtml', array('current' => $current)) 
-?>
+<div id="barreMenu">
+    <?php echo $this->navigation()->menu()->setPartial('_nav.phtml'); ?>
+</div>
 
 <!-- Gallerie sous menu -->
 <div id="gallery">

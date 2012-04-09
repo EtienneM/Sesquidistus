@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+    <nav>
+        <home>
+            <label>Accueil</label>
+            <controller>index</controller>
+            <action>index</action>
+        </home>
+        <calendrier>
+            <label>Calendrier</label>
+            <controller>calendrier</controller>
+            <action>index</action>
+        </calendrier>
+        <club>
+            <label>Le club</label>
+            <controller>club</controller>
+            <action>index</action>
+        </club>
+        <ultimate>
+            <label>Ultimate Frisbee</label>
+            <controller>ultimate</controller>
+            <action>index</action>
+        </ultimate>
+        <galerie>
+            <label>Galeries</label>
+            <controller>galerie</controller>
+            <action>index</action>
+        </galerie>
+        <evenement>
+            <label>Nos évènements</label>
+            <controller>evenement</controller>
+            <action>index</action>
+        </evenement>
+        <kym>
+            <label>KYM '12</label>
+            <controller>evenement</controller>
+            <action>index</action>
+        </kym>
+        <contact>
+            <label>Contact</label>
+            <controller>index</controller>
+            <action>contact</action>
+        </contact>
+    </nav>
+</configdata>

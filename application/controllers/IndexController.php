@@ -3,10 +3,12 @@
 class IndexController extends Zend_Controller_Action
 {
 
-    public function init() {
+    public function init()
+    {
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
         $article = new Application_Model_ArticleMapper();
         $this->view->articles = $article->fetchAll();
         $this->view->nextTraining = array(
@@ -23,5 +25,14 @@ class IndexController extends Zend_Controller_Action
         );
         $this->view->video = array();
     }
+
+    public function contactAction()
+    {
+        // action body
+    }
+
+
 }
+
+
 

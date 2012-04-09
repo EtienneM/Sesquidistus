@@ -39,18 +39,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 ->appendStylesheet('/css/accordionIE.css', 'screen', 'IE 6');
     }
 
-    protected function _initMenu() {
-        $this->bootstrap('view');
-        $view = $this->getResource('view');
-        $view->menu = array(
-            'index' => 1,
-            'calendrier' => 2,
-            'club' => 3,
-            'ultimate' => 4,
-            'galerie' => 5,
-            'evenement' => 6,
-            'contact' => 8,
-        );
+    protected function _initNavigation() {
+        $this->bootstrap("layout");
+        $layout = $this->getResource('layout');
+        $view = $layout->getView();
+        $config = new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml','nav');
+        $navigation = new Zend_Navigation($config);
+        $view->navigation($navigation);
     }
 
     protected function _initFooter() {
