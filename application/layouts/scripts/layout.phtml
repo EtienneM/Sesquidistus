@@ -1,18 +1,13 @@
 <?php echo $this->doctype()."\n" ?>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    <?php if ($this->doctype()->isRdfa()): ?>
+    xmlns:og="http://opengraphprotocol.org/schema/"
+    xmlns:fb="http://www.facebook.com/2008/fbml"
+    <?php endif ?>
+>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <?php echo $this->headTitle() ?>
-
-    <meta property="og:title" content="Sesquidistus" />
-    <meta property="og:type" content="sport" />
-    <meta property="og:url" content="" />
-    <meta property="og:image" content="Sesquidistus" />
-    <meta property="og:site_name" content="" />
-    <meta property="fb:admins" content="1018024861" />
-
-    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
-
+    <?php echo $this->headMeta()."\n" ?>
+    <?php echo $this->headTitle()."\n" ?>
     <?php echo $this->headScript()."\n" ?>
     <?php echo $this->headLink()."\n" ?>
 </head>

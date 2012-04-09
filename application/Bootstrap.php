@@ -1,10 +1,21 @@
 <?php
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
-    protected function _initDoctype() {
+    protected function _initMeta() {
         $this->bootstrap('view');
         $view = $this->getResource('view');
-        $view->doctype('XHTML1_STRICT');
+        $view->doctype('XHTML1_RDFA');
+        $view->headMeta()
+                ->appendName('keywords', 'Ultimate, Frisbee, Strasbourg, SUC, Sesquidistus')
+                ->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
+                ->appendHttpEquiv('Content-Language', 'fr-FR')
+                ->appendProperty('og:title', 'Sesquidistus')
+                ->appendProperty('og:type', 'sport')
+                ->appendProperty('og:image', '/images/minilogo.png')
+                ->appendProperty('og:url', 'http://www.frisbee-strasbourg.net')
+                ->appendProperty('og:locale', 'fr_FR')
+                //->appendProperty('fb:admins', '1018024861')
+                ;
         $view->headTitle('Sesquidistus')->setSeparator(' - ');
     }
 
@@ -28,7 +39,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         $view->headLink()
                 ->headLink(array(
-                    'rel' => 'favicon',
+                    'rel' => 'shortcut icon',
                     'href' => '/images/favicon.ico',
                     'type' => 'image/x-icon',
                 ), 'PREPEND')
