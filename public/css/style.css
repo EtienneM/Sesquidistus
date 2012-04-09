@@ -9,16 +9,46 @@ margin:0;
 padding:0;
 }
 
-div#bandeau1{
-height:40px;
+div#bandeau1 {
+    height:40px;
+}
+div#bandeau1 > div {
+    position:relative; 
+    color:white; 
+    width:800px; 
+    margin:0 auto 0 auto;
+}
+div#bandeau1 img#sucLogo {
+    position:absolute; 
+    left:0px; 
+    top:0px;
+}
+div#bandeau1 img#sesquiLogo {
+    position:absolute; 
+    left:78px; 
+    top:2px;
 }
 
+
+img#footerDive {
+    margin-left:100px;
+}
 div#bandeau2{
-margin-top:0px;
-height:38px;
-padding-top:5px;
-text-align:center;
-color:white;
+    margin-top:0px;
+    height:38px;
+    padding-top:5px;
+    text-align:center;
+    color:white;
+}
+div#bandeau2 > img {
+    position:absolute; 
+    right:25px; 
+    top:-28px;
+}
+
+span#copyright {
+    font-weight:bold; 
+    font-size:10px;
 }
 
 div.bandeau{

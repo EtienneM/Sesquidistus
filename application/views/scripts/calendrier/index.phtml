@@ -4,7 +4,7 @@
 </div>
 <?php // Fin de si admin ?>
 
-<div style="text-align:center; margin-top:15px;">
+<div id="selectDate">
     <?php //form a faire avec Zend ?>
     <div class="bouton2" style="display:inline; position:relative; z-index:5; padding:5px">
         <select name="inputMois">
@@ -23,6 +23,7 @@
 
 
 <div id="globCalendar">
+    <div id="nextPrevMonth">
 <?php 
     $previousMonth = new Zend_Date($this->displayedMonth);
     $previousMonth->subMonth(1);
@@ -30,10 +31,10 @@
     <a href="<?php echo $this->url(array(
             'mois' => $previousMonth->get(Zend_Date::MONTH),
             'annee' => $previousMonth->get(Zend_Date::YEAR),
-        )) ?>" style="font-size:10px" id="prevDate" class="bouton1">
+        )) ?>"id="prevDate" class="bouton1">
         &lt;&lt; Mois précédent
     </a>
-    <span style="font-size:14px; font-weight:bold; margin:0px 130px" id="textMoisCourant">
+    <span id="texteMoisCourant">
             <?php echo ucwords($this->displayedMonth->get(Zend_Date::MONTH_NAME.' '.Zend_Date::YEAR)) ?>
     </span>
 <?php 
@@ -43,9 +44,10 @@
     <a href="<?php echo $this->url(array(
             'mois' => $nextMonth->get(Zend_Date::MONTH),
             'annee' => $nextMonth->get(Zend_Date::YEAR),
-        )); ?>" style="font-size:10px" id="nextDate" class="bouton1">
+        )); ?>" id="nextDate" class="bouton1">
         Mois suivant &gt;&gt;
     </a>
+    </div>
     <!-- Zone dans lequel se trouve le calendrier -->
     <div id="datepicker">
         <div class="calendar">
@@ -55,8 +57,8 @@
                     <tr class="calendar">
                         <?php $nbJours = count($jours) ?>
                         <?php for ($i = 0; $i < $nbJours; $i++): ?>
-                        <?php $style = ($i >= $nbJours - 2)?'color:#d72c2c;':'' ?>
-                        <td style="<?php echo $style ?>">
+                        <?php $class = ($i >= $nbJours - 2)?'weekendDay':'' ?>
+                        <td class="<?= $class ?>">
                             <?php echo $jours[$i] ?>
                         </td>
                         <?php endfor ?>
@@ -82,9 +84,8 @@
         endif ?>
                         <td 
                             title="<?php echo $this->displayedMonth->get(Zend_Date::DAY.'/'.Zend_Date::MONTH.'/'.Zend_Date::YEAR) ?>" 
-                            class="calendar defaultCalendar"
-                            style="width:96px; height:50px;">
-                            <div style="margin-top:2px; text-align: center; font-size:10px;">
+                            class="calendar defaultCalendar">
+                            <div class="day">
                                 <?php echo $this->displayedMonth->get(Zend_Date::DAY) ?>
                             </div>
                         </td>
@@ -114,19 +115,19 @@
 
 
 <?php // Génération de la légende avec les types d'évènements donnés par la requête ?>
-<div class="totalBox" id="legende" style="height:70px">
-    <div class="box" style="float:right;">
+<div class="totalBox" id="legende">
+    <div class="box">
         <div class="titreNews">Légende :</div>
-        <div id="lgd<?php echo 'id' ?>" style="display:inline; margin-left:<?php echo '0' ?>">
-            <img src="/images/headerWTransparent.png" style="background-color:blue; width:15px; height:12px;" />
-            <span style="font-size:10px"><?php echo 'nom_evenement' ?></span>
+        <div id="lgd<?php echo 'id' ?>" class="lgdElement" style="margin-left:<?php echo '0' ?>">
+            <img src="/images/headerWTransparent.png" style="background-color:<?= 'blue' ?>;"/>
+            <span><?php echo 'nom_evenement' ?></span>
         </div>
     </div>
 </div>
 
 
 <?php // Génération du récapitulatif ?>
-<div id="globalRecap" style="width:500px; margin:0 auto; margin-top:10px">
+<div id="globalRecap">
     <div id="accordionCal">
         <h4 class="header titreSaison">
             Récapitulatif des évènements du mois de <?php echo 'mois' ?> <?php echo 'année' ?>
@@ -138,7 +139,7 @@
                     <?php echo $evenement['jour'] ?> <?php echo $evenement['date'] ?>
                 </span>
                 <?php $nePlusAfficher = array('jour', 'date') ?>
-                <table style="border-style:solid; border-width:2px; border-color:<?php echo 'blue' ?>">
+                <table style="border-color:<?php echo 'blue' ?>">
                     <?php foreach($evenement as $label => $contenu): ?>
                     <?php if (in_array($label, $nePlusAfficher)) {continue;} ?>
                     <tr>
@@ -151,7 +152,7 @@
             <?php endforeach ?>
         </div>
     </div>
-    <span style="float:right">
+    <span>
         <span id="pdfCalendar" class="bouton1">Version pdf</span>
         <?php // Faire ce bouton via un appel à une action et pas tout faire en JS... ?>
         <span id="printCalendar" class="bouton1">Version imprimable</span>

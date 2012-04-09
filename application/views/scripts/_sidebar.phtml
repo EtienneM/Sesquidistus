@@ -1,10 +1,10 @@
-<div id="Menu" class="box" style="background-color:#dfdfdf;">
+<div id="Menu" class="box">
     <div class="titreNews">Sections</div>
     <?php foreach($this->sections as $section): ?>
     <a href="<?php echo $this->url(array('controller' => $this->controller, 'action' => 'index', 'id' => $section['id'])) ?>">
         <?php $class = ($section['id'] == $this->id)?'bouton6':'bouton2' ?>
-        <div class="<?php echo $class ?>" style="margin:10px 0; padding:5px;">
-            <span style="font-size:11px; font-weight:500;"><?php echo $this->escape($section['label']) ?></span>
+        <div class="<?php echo $class ?> bouton">
+            <span><?php echo $this->escape($section['label']) ?></span>
         </div>
     </a>
     <?php endforeach; ?>

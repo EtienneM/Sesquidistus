@@ -1,3 +1,8 @@
+div#selectDate {
+    text-align:center; 
+    margin-top:15px;
+}
+
 div#globCalendar{
 position:relative;
 background-repeat: no-repeat;
@@ -6,18 +11,34 @@ margin:20px auto 25px auto;
 text-align:center;
 }
 
+a#prevDate, a#nextDate {
+    font-size:10px;
+}
+div#nextPrevMonth {
+    display:block;
+    margin-bottom:20px;
+}
+
+div#nextPrevMonth span#texteMoisCourant {
+    font-size:14px; 
+    font-weight:bold; 
+    margin:0px 130px;
+}
+
+div#datepicker{
+    display:block
+    font-family: Arial,Helvetica,sans-serif;
+    position:relative;
+    margin:0px auto;
+    text-align:left;
+}
+
 div#menuSelectionCat{
 margin-top:10px;
 margin-left:50px;
 margin-bottom:20px;
 }
 
-div#datepicker{
-font-family: Arial,Helvetica,sans-serif;
-position:relative;
-margin:0px auto;
-text-align:left;
-}
 
 div.calendar{
 position:relative;
@@ -70,6 +91,10 @@ padding:0px;
 margin:0px;
 }
 
+div.calendar td.weekendDay {
+    color:#d72c2c;
+}
+
 td.calendar{
 line-height:13px; 
 border-style:solid;
@@ -80,11 +105,19 @@ font-weight:bold;
 }
 
 td.defaultCalendar{
-background-image:url(../../images/headerGreyTransparent.png);
-background-repeat:repeat-x;
-background-color:#EEE;
-color:black;
-border-color:#EEE;
+    background-image:url(../../images/headerGreyTransparent.png);
+    background-repeat:repeat-x;
+    background-color:#EEE;
+    color:black;
+    border-color:#EEE;
+    width:96px; 
+    height:50px;
+}
+
+td.calendar > div.day {
+    margin-top:2px; 
+    text-align: center; 
+    font-size:10px;
 }
 
 td.eventSelected{
@@ -142,11 +175,47 @@ font-size:12px;
 font-weight:bold;
 }
 
+div#legende {
+    height:70px;
+}
+div#legende > div.box {
+    float:right;
+}
+div.lgdElement {
+    display:inline;
+}
+div.lgdElement > img {
+    width:15px; 
+    height:12px;
+}
+div.lgdElement > span {
+    font-size:10px;
+}
+
+
+div#globalRecap {
+    width:500px; 
+    margin:0 auto; 
+    margin-top:10px;
+}
+
+div#accordionCal {
+    display:block;
+    margin-bottom: 10px;
+}
+div#globalRecap > span {
+    float:right;
+}
+
 div.printInfo{
 margin-bottom:10px;
 font-size:13px;
 }
 
+div.printInfo > table {
+    border-style:solid; 
+    border-width:2px;
+}
 div.printInfo span.dateMiniTab{
 color:#c20b0b;
 font-size:11px;
