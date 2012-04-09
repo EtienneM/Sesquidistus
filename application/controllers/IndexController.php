@@ -31,8 +31,22 @@ class IndexController extends Zend_Controller_Action
         // action body
     }
 
+    public function aproposAction()
+    {
+        // action body
+    }
+
+    public function mentionsAction()
+    {
+        // action body
+    }
+
 
 }
+
+
+
+
 
 
 
