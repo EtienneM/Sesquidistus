@@ -23,29 +23,95 @@
 
 
 <div id="globCalendar">
-    <!--Boutons pour le changement de mois -->
-    <form id="formMonth" style="display:inline" method="post" action="">
-        <span style="font-size:10px" id="prevDate" class="bouton1">
-            &lt;&lt; Mois précédent
-        </span>
-        <input id="inputAnnee" type="hidden" name="inputAnnee" value="<?php echo 'annee' ?>" />
-        <input id="inputMois" type="hidden" name="inputMois" value="<?php echo 'mois' ?>" />
-        <span style="font-size:14px; font-weight:bold; margin:0px 130px" id="textMoisCourant">
-            <?php // Rempli en JS ?>
-        </span>
-        <span style="font-size:10px" id="nextDate" class="bouton1">
-            
-            Mois suivant &gt;&gt;
-        </span>
-    </form>
+<?php 
+    $previousMonth = new Zend_Date($this->displayedMonth);
+    $previousMonth->subMonth(1);
+?>
+    <a href="<?php echo $this->url(array(
+            'mois' => $previousMonth->get(Zend_Date::MONTH),
+            'annee' => $previousMonth->get(Zend_Date::YEAR),
+        )) ?>" style="font-size:10px" id="prevDate" class="bouton1">
+        &lt;&lt; Mois précédent
+    </a>
+    <span style="font-size:14px; font-weight:bold; margin:0px 130px" id="textMoisCourant">
+            <?php echo ucwords($this->displayedMonth->get(Zend_Date::MONTH_NAME.' '.Zend_Date::YEAR)) ?>
+    </span>
+<?php 
+    $nextMonth = new Zend_Date($this->displayedMonth);
+    $nextMonth->addMonth(1);
+?>
+    <a href="<?php echo $this->url(array(
+            'mois' => $nextMonth->get(Zend_Date::MONTH),
+            'annee' => $nextMonth->get(Zend_Date::YEAR),
+        )); ?>" style="font-size:10px" id="nextDate" class="bouton1">
+        Mois suivant &gt;&gt;
+    </a>
     <!-- Zone dans lequel se trouve le calendrier -->
-    <div id="datepicker"></div>
+    <div id="datepicker">
+        <div class="calendar">
+            <table cellpadding="2">
+                <thead>
+                    <?php $jours = array('Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche') ?>
+                    <tr class="calendar">
+                        <?php $nbJours = count($jours) ?>
+                        <?php for ($i = 0; $i < $nbJours; $i++): ?>
+                        <?php $style = ($i >= $nbJours - 2)?'color:#d72c2c;':'' ?>
+                        <td style="<?php echo $style ?>">
+                            <?php echo $jours[$i] ?>
+                        </td>
+                        <?php endfor ?>
+                    </tr>
+                </thead>
+                <?php $nbJoursMois = $this->displayedMonth->get(Zend_Date::MONTH_DAYS); ?>
+                <tbody>
+<?php 
+    $jourCourant = $this->displayedMonth;
+    for ($i = 0; $i < $nbJoursMois; $i++): 
+        // Si jourCourant est lundi
+        if (ucwords($jourCourant->get(Zend_Date::WEEKDAY)) == $jours[0]): ?>
+                    <tr>
+<?php   endif;
+        // Création des cases vides de début de mois 
+        if ($i == 0): ?>
+                    <tr>
+<?php       $dayOfWeeks = ($jourCourant->get(Zend_Date::WEEKDAY_DIGIT) + $nbJours - 1) % $nbJours; 
+            for($j = 0; $j < $dayOfWeeks; $j++): ?>
+                        <td class="calendarVide">&nbsp;</td>
+<?php
+            endfor;
+        endif ?>
+                        <td 
+                            title="<?php echo $this->displayedMonth->get(Zend_Date::DAY.'/'.Zend_Date::MONTH.'/'.Zend_Date::YEAR) ?>" 
+                            class="calendar defaultCalendar"
+                            style="width:96px; height:50px;">
+                            <div style="margin-top:2px; text-align: center; font-size:10px;">
+                                <?php echo $this->displayedMonth->get(Zend_Date::DAY) ?>
+                            </div>
+                        </td>
+<?php
+        // Création des cases vides de fin de mois 
+        if ($i == $nbJoursMois - 1):
+            $dayOfWeeks = $jourCourant->get(Zend_Date::WEEKDAY_DIGIT);
+            for($j = 0; $j < $nbJours - $dayOfWeeks; $j++):?>
+                        <td class="calendarVide">&nbsp;</td>
+<?php       endfor;?>
+                    </tr>
+<?php   endif;
+        // Si jourCourant est dimanche
+        if (ucwords($jourCourant->get(Zend_Date::WEEKDAY)) == $jours[$nbJours - 1]): ?>
+                    </tr>
+<?php   endif; ?>
+                    
+<?php 
+        $jourCourant->addDay(1);
+    endfor; 
+?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<?php /* $this->headScript()->appendScript('
-$(document).ready(function() {
-    MonCalendar($("#datepicker"), "10", "2012", [], [], false);
-});
-')*/ ?>
+
 
 <?php // Génération de la légende avec les types d'évènements donnés par la requête ?>
 <div class="totalBox" id="legende" style="height:70px">
@@ -57,6 +123,8 @@ $(document).ready(function() {
         </div>
     </div>
 </div>
+
+
 <?php // Génération du récapitulatif ?>
 <div id="globalRecap" style="width:500px; margin:0 auto; margin-top:10px">
     <div id="accordionCal">
@@ -85,6 +153,7 @@ $(document).ready(function() {
     </div>
     <span style="float:right">
         <span id="pdfCalendar" class="bouton1">Version pdf</span>
+        <?php // Faire ce bouton via un appel à une action et pas tout faire en JS... ?>
         <span id="printCalendar" class="bouton1">Version imprimable</span>
     </span>
     <form id="formPdfCalendar" method="post" action="">

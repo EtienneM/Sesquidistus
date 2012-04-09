@@ -25,6 +25,13 @@ class CalendrierController extends Zend_Controller_Action
                 'Commentaire' => 'commentaire;..',
             ),
         );
+        $mois = $this->getRequest()->getParam('mois');
+        $annee = $this->getRequest()->getParam('annee');
+        if (!isset($mois) || !isset($annee)) {
+            $this->view->displayedMonth = new Zend_Date(null, Zend_Date::MONTH.'/'.Zend_Date::YEAR);
+        } else {
+            $this->view->displayedMonth = new Zend_Date($mois.'/'.$annee, Zend_Date::MONTH.'/'.Zend_Date::YEAR);
+        }
     }
 
     public function ajoutAction() {

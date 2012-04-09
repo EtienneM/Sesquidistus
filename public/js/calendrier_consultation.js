@@ -453,8 +453,21 @@ function MonCalendar(divSource, mois, an, tabResultatConfirmation, tabTypeEvents
 		$("#formMonth").submit();
 	};
 }
+/*
+function printPartOfPage(elementId) {
+    var printContent = $(elementId);
+    var windowUrl = './';
+
+}*/
 
 $(document).ready(function() {
+   /* $('#printCalendar').click(function() {
+        var divPrint = $('#accordionCal').clone();
+        $(divPrint).find('.printInfo').removeClass('printInfo').addClass('printInfo2');
+        $(divPrint2).find('div').css("display","block");
+        $(document).ready(function() {
+            printPartOfPage(divPrint);
+        });
+    });*/
     $("#accordionCal").accordion({ autoHeight: false, collapsible: true, active:false});
 });
-
