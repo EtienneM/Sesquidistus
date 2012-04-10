@@ -26,8 +26,8 @@ div#nextPrevMonth span#texteMoisCourant {
 }
 
 div#datepicker{
-    display:block
-    font-family: Arial,Helvetica,sans-serif;
+    display:block;
+    font-family: Arial, Helvetica, sans-serif;
     position:relative;
     margin:0px auto;
     text-align:left;
