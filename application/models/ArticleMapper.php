@@ -1,18 +1,6 @@
 <?php
 
-class Application_Model_ArticleMapper {
-    protected $_dbTable;
-
-    public function setDbTable($dbTable) {
-        if (is_string($dbTable)) {
-            $dbTable = new $dbTable();
-        }
-        if (!$dbTable instanceof Zend_Db_Table_Abstract) {
-            throw new Exception('Invalid table data gateway provided');
-        }
-        $this->_dbTable = $dbTable;
-        return $this;
-    }
+class Application_Model_ArticleMapper extends My_Model_Mapper {
 
     public function getDbTable() {
         if (null === $this->_dbTable) {
@@ -26,7 +14,7 @@ class Application_Model_ArticleMapper {
             'titre' => $article->getTitre(),
             'contenu' => $article->getContenu(),
             'date_article' => $article->getDate_article(),
-        ); 
+        );
         if (null === ($id = $article->getId())) {
             unset($data['id']);
             $this->getDbTable()->insert($data);
@@ -49,16 +37,17 @@ class Application_Model_ArticleMapper {
 
     public function fetchAll() {
         $resultSet = $this->getDbTable()->fetchAll(null, 'date_article DESC');
-        $entries   = array();
+        $entries = array();
         foreach ($resultSet as $row) {
             $entry = new Application_Model_Article();
             $entry->setId($row->id)
-                  ->setTitre($row->titre)
-                  ->setContenu($row->contenu)
-                  ->setDate_article($row->date_article);
+                    ->setTitre($row->titre)
+                    ->setContenu($row->contenu)
+                    ->setDate_article($row->date_article);
             $entries[] = $entry;
         }
         return $entries;
     }
+
 }
 

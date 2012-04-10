@@ -1,4 +1,4 @@
-<?php //Si admin alors afficher des trucs ?>
+<?php //Si admin alors afficher des trucs      ?>
 <!-- Sous-menu de la categorie Calendrier -->
 <div id="menuSelectionCat">
 </div>
@@ -8,13 +8,13 @@
     <?php //form a faire avec Zend ?>
     <div class="bouton2" style="display:inline; position:relative; z-index:5; padding:5px">
         <select name="inputMois">
-            <?php for($i = 1; $i <= 12; $i++): ?>
-            <option><?php echo $i; ?></option>
+            <?php for ($i = 1; $i <= 12; $i++): ?>
+                <option><?php echo $i; ?></option>
             <?php endfor ?>
         </select>
         <select name="inputAnnee">
-            <?php for($i = 2008; $i < date('Y') + 2; $i++): ?>
-            <option><?php echo $i; ?></option>
+            <?php for ($i = 2008; $i < date('Y') + 2; $i++): ?>
+                <option><?php echo $i; ?></option>
             <?php endfor ?>
         </select>
         <input style="padding:1px; margin-left:5px; font-size:10px" type="submit" value="Valider" />
@@ -24,29 +24,33 @@
 
 <div id="globCalendar">
     <div id="nextPrevMonth">
-<?php 
-    $previousMonth = new Zend_Date($this->displayedMonth);
-    $previousMonth->subMonth(1);
-?>
-    <a href="<?php echo $this->url(array(
+        <?php
+        $previousMonth = new Zend_Date($this->displayedMonth);
+        $previousMonth->subMonth(1);
+        ?>
+        <a href="<?php
+        echo $this->url(array(
             'mois' => $previousMonth->get(Zend_Date::MONTH),
             'annee' => $previousMonth->get(Zend_Date::YEAR),
-        )) ?>"id="prevDate" class="bouton1">
-        &lt;&lt; Mois précédent
-    </a>
-    <span id="texteMoisCourant">
+        ))
+        ?>"id="prevDate" class="bouton1">
+            &lt;&lt; Mois précédent
+        </a>
+        <span id="texteMoisCourant">
             <?php echo ucwords($this->displayedMonth->get(Zend_Date::MONTH_NAME.' '.Zend_Date::YEAR)) ?>
-    </span>
-<?php 
-    $nextMonth = new Zend_Date($this->displayedMonth);
-    $nextMonth->addMonth(1);
-?>
-    <a href="<?php echo $this->url(array(
+        </span>
+        <?php
+        $nextMonth = new Zend_Date($this->displayedMonth);
+        $nextMonth->addMonth(1);
+        ?>
+        <a href="<?php
+        echo $this->url(array(
             'mois' => $nextMonth->get(Zend_Date::MONTH),
             'annee' => $nextMonth->get(Zend_Date::YEAR),
-        )); ?>" id="nextDate" class="bouton1">
-        Mois suivant &gt;&gt;
-    </a>
+        ));
+        ?>" id="nextDate" class="bouton1">
+            Mois suivant &gt;&gt;
+        </a>
     </div>
     <!-- Zone dans lequel se trouve le calendrier -->
     <div id="datepicker">
@@ -57,56 +61,65 @@
                     <tr class="calendar">
                         <?php $nbJours = count($jours) ?>
                         <?php for ($i = 0; $i < $nbJours; $i++): ?>
-                        <?php $class = ($i >= $nbJours - 2)?'weekendDay':'' ?>
-                        <td class="<?= $class ?>">
-                            <?php echo $jours[$i] ?>
-                        </td>
+                            <?php $class = ($i >= $nbJours - 2) ? 'weekendDay' : '' ?>
+                            <td class="<?= $class ?>">
+                                <?php echo $jours[$i] ?>
+                            </td>
                         <?php endfor ?>
                     </tr>
                 </thead>
                 <?php $nbJoursMois = $this->displayedMonth->get(Zend_Date::MONTH_DAYS); ?>
                 <tbody>
-<?php 
-    $jourCourant = $this->displayedMonth;
-    for ($i = 0; $i < $nbJoursMois; $i++): 
-        // Si jourCourant est lundi
-        if (ucwords($jourCourant->get(Zend_Date::WEEKDAY)) == $jours[0]): ?>
-                    <tr>
-<?php   endif;
-        // Création des cases vides de début de mois 
-        if ($i == 0): ?>
-                    <tr>
-<?php       $dayOfWeeks = ($jourCourant->get(Zend_Date::WEEKDAY_DIGIT) + $nbJours - 1) % $nbJours; 
-            for($j = 0; $j < $dayOfWeeks; $j++): ?>
-                        <td class="calendarVide">&nbsp;</td>
-<?php
-            endfor;
-        endif ?>
-                        <td 
-                            title="<?php echo $this->displayedMonth->get(Zend_Date::DAY.'/'.Zend_Date::MONTH.'/'.Zend_Date::YEAR) ?>" 
-                            class="calendar defaultCalendar">
-                            <div class="day">
-                                <?php echo $this->displayedMonth->get(Zend_Date::DAY) ?>
-                            </div>
-                        </td>
-<?php
-        // Création des cases vides de fin de mois 
-        if ($i == $nbJoursMois - 1):
-            $dayOfWeeks = $jourCourant->get(Zend_Date::WEEKDAY_DIGIT);
-            for($j = 0; $j < $nbJours - $dayOfWeeks; $j++):?>
-                        <td class="calendarVide">&nbsp;</td>
-<?php       endfor;?>
-                    </tr>
-<?php   endif;
-        // Si jourCourant est dimanche
-        if (ucwords($jourCourant->get(Zend_Date::WEEKDAY)) == $jours[$nbJours - 1]): ?>
-                    </tr>
-<?php   endif; ?>
-                    
-<?php 
-        $jourCourant->addDay(1);
-    endfor; 
-?>
+                    <?php
+                    $jourCourant = $this->displayedMonth;
+                    for ($i = 0; $i < $nbJoursMois; $i++):
+                        // Si jourCourant est lundi
+                        if (ucwords($jourCourant->get(Zend_Date::WEEKDAY)) == $jours[0]):
+                            ?>
+                            <tr>
+                                <?php
+                            endif;
+                            // Création des cases vides de début de mois 
+                            if ($i == 0):
+                                ?>
+                            <tr>
+                                <?php
+                                $dayOfWeeks = ($jourCourant->get(Zend_Date::WEEKDAY_DIGIT) + $nbJours - 1) % $nbJours;
+                                for ($j = 0; $j < $dayOfWeeks; $j++):
+                                    ?>
+                                    <td class="calendarVide">&nbsp;</td>
+                                    <?php
+                                endfor;
+                            endif
+                            ?>
+                            <td 
+                                title="<?php echo $this->displayedMonth->get(Zend_Date::DAY.'/'.Zend_Date::MONTH.'/'.Zend_Date::YEAR) ?>" 
+                                class="calendar defaultCalendar">
+                                <div class="day">
+                                    <?php echo $this->displayedMonth->get(Zend_Date::DAY) ?>
+                                </div>
+                            </td>
+                            <?php
+                            // Création des cases vides de fin de mois 
+                            if ($i == $nbJoursMois - 1):
+                                $dayOfWeeks = $jourCourant->get(Zend_Date::WEEKDAY_DIGIT);
+                                for ($j = 0; $j < $nbJours - $dayOfWeeks; $j++):
+                                    ?>
+                                    <td class="calendarVide">&nbsp;</td>
+                                <?php endfor; ?>
+                            </tr>
+                            <?php
+                        endif;
+                        // Si jourCourant est dimanche
+                        if (ucwords($jourCourant->get(Zend_Date::WEEKDAY)) == $jours[$nbJours - 1]):
+                            ?>
+                            </tr>
+                        <?php endif; ?>
+
+                        <?php
+                        $jourCourant->addDay(1);
+                    endfor;
+                    ?>
                 </tbody>
             </table>
         </div>
@@ -114,47 +127,62 @@
 </div>
 
 
-<?php // Génération de la légende avec les types d'évènements donnés par la requête ?>
+<?php // Génération de la légende dont les types d'évènements existe le mois affiché. ?>
 <div class="totalBox" id="legende">
     <div class="box">
         <div class="titreNews">Légende :</div>
-        <div id="lgd<?php echo 'id' ?>" class="lgdElement" style="margin-left:<?php echo '0' ?>">
-            <img src="/images/headerWTransparent.png" style="background-color:<?= 'blue' ?>;"/>
-            <span><?php echo 'nom_evenement' ?></span>
-        </div>
+        <?php $margin = 0 ?>
+        <?php foreach ($this->legend as $l): ?>
+            <div id="lgd<?= $this->escape($l->numero) ?>" class="lgdElement" style="margin-left:<?= $margin ?>px;">
+                <img src="/images/headerWTransparent.png" style="background-color:<?= $this->escape($l->color) ?>;"/>
+                <span><?= $this->escape($l->nom) ?></span>
+            </div>
+            <?php $margin = 10; ?>
+        <?php endforeach; ?>
     </div>
 </div>
 
 
-<?php // Génération du récapitulatif ?>
+<?php // Génération du récapitulatif  ?>
 <div id="globalRecap">
     <div id="accordionCal">
         <h4 class="header titreSaison">
             Récapitulatif des évènements du mois de <?php echo 'mois' ?> <?php echo 'année' ?>
         </h4>
         <div id="boiteRecap" class="box2">
-            <?php foreach($this->evenements as $evenement): ?>
-            <div class="printInfo">
-                <span class="dateMiniTab">
-                    <?php echo $evenement['jour'] ?> <?php echo $evenement['date'] ?>
-                </span>
-                <?php $nePlusAfficher = array('jour', 'date') ?>
-                <table style="border-color:<?php echo 'blue' ?>">
-                    <?php foreach($evenement as $label => $contenu): ?>
-                    <?php if (in_array($label, $nePlusAfficher)) {continue;} ?>
-                    <tr>
-                        <td class="print"><?php echo $label ?></td>
-                        <td><?php echo $contenu ?></td>
-                    </tr>
-                    <?php endforeach ?>
-                </table>
-            </div>
+            <?php foreach ($this->evenements as $evenement): ?>
+                <div class="printInfo">
+                    <span class="dateMiniTab">
+                        <?php echo $this->escape(ucfirst($evenement->date->get(Zend_Date::WEEKDAY))) ?> 
+                        <?php echo $this->escape($evenement->date->get(Zend_Date::DATE_LONG)) ?>
+                    </span>
+                    <table style="border-color:<?php echo 'blue' ?>">
+                        <tr>
+                            <td class="print">Nom</td>
+                            <td><?= $this->escape($evenement->titre) ?></td>
+                        </tr>
+                        <tr>
+                            <td class="print">Type</td>
+                            <td><?php // $this->escape($evenement->type) ?></td>
+                        </tr>
+                        <tr>
+                            <td class="print">Lieu</td>
+                            <td><?php //$this->escape($evenement->lieu) ?></td>
+                        </tr>
+                        <?php // if (isset($evenement->horaireDebut)): ?>
+                        <tr>
+                            <td class="print">Début</td>
+                            <td><?php $this->escape($evenement->horaire_debut) ?></td>
+                        </tr>
+                        <?php // endif; ?>
+                    </table>
+                </div>
             <?php endforeach ?>
         </div>
     </div>
     <span>
         <span id="pdfCalendar" class="bouton1">Version pdf</span>
-        <?php // Faire ce bouton via un appel à une action et pas tout faire en JS... ?>
+        <?php // Faire ce bouton via un appel à une action et pas tout faire en JS...   ?>
         <span id="printCalendar" class="bouton1">Version imprimable</span>
     </span>
     <form id="formPdfCalendar" method="post" action="">

@@ -1,48 +1,16 @@
 <?php
 
-class Application_Model_Article {
+class Application_Model_Article extends My_Model {
     protected $_id;
     protected $_titre;
     protected $_contenu;
     protected $_date_article;
 
-    public function __construct(array $options = null) {
-        if (is_array($options)) {
-            $this->setOptions($options);
-        }
-    }
-
-    public function __set($name, $value) {
-        $method = 'set' . $name;
-        if (('mapper' == $name) || !method_exists($this, $method)) {
-            throw new Exception('Invalid article property');
-        }
-        $this->$method($value);
-    }
-
-    public function __get($name) {
-        $method = 'get' . $name;
-        if (('mapper' == $name) || !method_exists($this, $method)) {
-            throw new Exception('Invalid article property');
-        }
-        return $this->$method();
-    }
-
-    public function setOptions(array $options) {
-        $methods = get_class_methods($this);
-        foreach ($options as $key => $value) {
-            $method = 'set' . ucfirst($key);
-            if (in_array($method, $methods)) {
-                $this->$method($value);
-            }
-        }
-        return $this;
-    }
-
     public function setId($id) {
         $this->_id = (int) $id;
         return $this;
     }
+
     public function getId() {
         return $this->_id;
     }
@@ -51,6 +19,7 @@ class Application_Model_Article {
         $this->_titre = (string) $titre;
         return $this;
     }
+
     public function getTitre() {
         return $this->_titre;
     }
@@ -59,6 +28,7 @@ class Application_Model_Article {
         $this->_contenu = (string) $texte;
         return $this;
     }
+
     public function getContenu() {
         return $this->_contenu;
     }
@@ -67,8 +37,10 @@ class Application_Model_Article {
         $this->_date_article = new Zend_Date($dateArticle);
         return $this;
     }
+
     public function getDate_article() {
         return $this->_date_article;
     }
+
 }
 

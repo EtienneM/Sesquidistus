@@ -1,22 +1,22 @@
 .titreSaison{
-position:relative;
-z-index:3;
-background-image:url(../images/header3.gif);
-background-repeat:repeat-x;
-background-color:transparent;
-color:white;
-height:20px;
-margin:0px;
-vertical-align:middle;
--moz-border-radius: 5px; /*coins arrondis*/
--webkit-border-radius: 5px; 
-border-radius: 5px;
--moz-box-shadow: 1px 1px 4px #000;  /*ombrage*/
--webkit-box-shadow: 1px 1px 4px #000;
-box-shadow: 1px 1px 4px #000;
-padding:5px 0px 0px 10px;
-outline-style:none;
-/*behavior: url(fix_ie/PIE.htc);*/
+    position:relative;
+    z-index:3;
+    background-image:url(/images/header3.gif);
+    background-repeat:repeat-x;
+    background-color:transparent;
+    color:white;
+    height:20px;
+    margin:0px;
+    vertical-align:middle;
+    -moz-border-radius: 5px; /*coins arrondis*/
+    -webkit-border-radius: 5px; 
+    border-radius: 5px;
+    -moz-box-shadow: 1px 1px 4px #000;  /*ombrage*/
+    -webkit-box-shadow: 1px 1px 4px #000;
+    box-shadow: 1px 1px 4px #000;
+    padding:5px 0px 0px 10px;
+    outline-style:none;
+    /*behavior: url(fix_ie/PIE.htc);*/
 }
 
 /* Interaction Cues
@@ -24,32 +24,32 @@ outline-style:none;
 .ui-state-disabled { cursor: default !important; }
 
 
-.ui-icon-plus {width: 16px; height: 16px; background-image: url(../images/ui-icons_white_256x240.png); background-position: -16px -128px; }
-.ui-icon-minus {width: 16px; height: 16px; background-image: url(../images/ui-icons_white_256x240.png); background-position: -48px -128px; }
+.ui-icon-plus {width: 16px; height: 16px; background-image: url(/images/ui-icons_white_256x240.png); background-position: -16px -128px; }
+.ui-icon-minus {width: 16px; height: 16px; background-image: url(/images/ui-icons_white_256x240.png); background-position: -48px -128px; }
 
 
 /* Interaction states
 ----------------------------------*/
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-background-image:url(../images/headerGreyTransparent.png);
-background-repeat:repeat-x;
-background-color:#121212;
+    background-image:url(../images/headerGreyTransparent.png);
+    background-repeat:repeat-x;
+    background-color:#121212;
 }
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { 
-background-image:url(../images/headerGreyTransparent.png);
-background-repeat:repeat-x;
-background-color:#444;
+    background-image:url(../images/headerGreyTransparent.png);
+    background-repeat:repeat-x;
+    background-color:#444;
 }
 
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
-margin:0px; 
-background-image:url(../images/headerBlue.gif);
-background-repeat:repeat-x;
-background-color:#377ad0;
--moz-border-radius: 5px 5px 0px 0px; /*coins arrondis*/
--webkit-border-radius: 5px 5px 0px 0px; 
-border-radius: 5px 5px 0px 0px;
- }
+    margin:0px; 
+    background-image:url(../images/headerBlue.gif);
+    background-repeat:repeat-x;
+    background-color:#377ad0;
+    -moz-border-radius: 5px 5px 0px 0px; /*coins arrondis*/
+    -webkit-border-radius: 5px 5px 0px 0px; 
+    border-radius: 5px 5px 0px 0px;
+}
 
 
 /* IE/Win - Fix animation bug - #4615 */
@@ -64,19 +64,19 @@ border-radius: 5px 5px 0px 0px;
 .ui-accordion .ui-accordion-content-active { display: block; }
 
 div.box2{
-position:relative;
-z-index:5;
-background-color:white;
-padding:5px 10px 10px 10px;
-text-align:center;
--moz-border-radius: 0px 0px 5px 5px; /*coins arrondis*/
--webkit-border-radius: 0px 0px 5px 5px; 
-border-radius: 0px 0px 5px 5px;
--moz-box-shadow: 1px 1px 4px #000;  /*ombrage*/
--webkit-box-shadow: 1px 1px 4px #000;
-box-shadow: 1px 1px 4px #000;
+    position:relative;
+    z-index:5;
+    background-color:white;
+    padding:5px 10px 10px 10px;
+    text-align:center;
+    -moz-border-radius: 0px 0px 5px 5px; /*coins arrondis*/
+    -webkit-border-radius: 0px 0px 5px 5px; 
+    border-radius: 0px 0px 5px 5px;
+    -moz-box-shadow: 1px 1px 4px #000;  /*ombrage*/
+    -webkit-box-shadow: 1px 1px 4px #000;
+    box-shadow: 1px 1px 4px #000;
 }
 
 h4{
-font-size:12px;
+    font-size:12px;
 }

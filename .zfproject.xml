@@ -25,9 +25,15 @@
       <modelsDirectory>
         <dbTableDirectory>
           <dbTableFile dbTableName="Article"/>
+          <dbTableFile dbTableName="TypeEvent"/>
+          <dbTableFile dbTableName="Evenement"/>
         </dbTableDirectory>
         <modelFile modelName="ArticleMapper"/>
         <modelFile modelName="Article"/>
+        <modelFile modelName="TypeEventMapper"/>
+        <modelFile modelName="TypeEvent"/>
+        <modelFile modelName="EvenementMapper"/>
+        <modelFile modelName="Evenement"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>
