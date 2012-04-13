@@ -10,6 +10,11 @@ class Application_Model_DbTable_Evenement extends Zend_Db_Table_Abstract {
             'refTableClass' => 'Application_Model_DbTable_TypeEvent',
             'refColumns' => 'numero',
         ),
+        'LieuUltimate' => array(
+            'columns' => 'id_lieu',
+            'refTableClass' => 'Application_Model_DbTable_LieuUltimate',
+            'refColumns' => 'numero',
+        ),
     );
 
 }

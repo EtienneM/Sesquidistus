@@ -18,6 +18,8 @@ class Application_Model_EvenementMapper extends My_Model_Mapper {
             'duree' => $evenement->getDuree(),
             'horaire_debut' => $evenement->getHoraireDebut(),
             'horaire_fin' => $evenement->getHoraireFin(),
+            'type' => $evenement->getType(),
+            'lieu' => $evenement->getLieu(),
         );
 
         if (null === ($id = $evenement->getId())) {
@@ -55,12 +57,21 @@ class Application_Model_EvenementMapper extends My_Model_Mapper {
     public function getFromMonth(Zend_Date $date) {
         $table = $this->getDbTable();
         $select = $table->select()
-                ->where('date >= ?', $date->get(Zend_Date::ISO_8601))
-                ->where('date < ?', $date->addMonth(1)->get(Zend_Date::ISO_8601))
-                ->order('date ASC');
+                ->where('evenement.date >= ?', $date->get(Zend_Date::ISO_8601))
+                ->where('evenement.date < ?', $date->addMonth(1)->get(Zend_Date::ISO_8601))
+                ->order('evenement.date ASC');
         $entries = array();
         foreach ($table->fetchAll($select) as $row) {
-            $entries[] = new Application_Model_Evenement($row->toArray());
+            // TODO Modifier la requête pour faire une jointure ?
+            $type = new Application_Model_TypeEvent($row->findParentRow('Application_Model_DbTable_TypeEvent')->toArray());
+            $entry = new Application_Model_Evenement($row->toArray());
+            $entry->setType($type);
+            if ($row['id_lieu'] == 0) {
+                $entry->setLieu($row->lieu);
+            } else {
+                $entry->setLieu(new Application_Model_LieuUltimate($row->findParentRow('Application_Model_DbTable_LieuUltimate')->toArray()));
+            }
+            $entries[] = $entry;
         }
         return $entries;
     }

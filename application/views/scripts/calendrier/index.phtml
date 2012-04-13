@@ -1,4 +1,4 @@
-<?php //Si admin alors afficher des trucs      ?>
+<?php //Si admin alors afficher des trucs        ?>
 <!-- Sous-menu de la categorie Calendrier -->
 <div id="menuSelectionCat">
 </div>
@@ -156,25 +156,41 @@
                         <?php echo $this->escape(ucfirst($evenement->date->get(Zend_Date::WEEKDAY))) ?> 
                         <?php echo $this->escape($evenement->date->get(Zend_Date::DATE_LONG)) ?>
                     </span>
-                    <table style="border-color:<?php echo 'blue' ?>">
+                    <table style="border-color:<?= $this->escape($evenement->type->color) ?>">
                         <tr>
                             <td class="print">Nom</td>
                             <td><?= $this->escape($evenement->titre) ?></td>
                         </tr>
                         <tr>
                             <td class="print">Type</td>
-                            <td><?php // $this->escape($evenement->type) ?></td>
+                            <td><?= $this->escape($evenement->type->nom) ?></td>
                         </tr>
                         <tr>
                             <td class="print">Lieu</td>
-                            <td><?php //$this->escape($evenement->lieu) ?></td>
+                            <?php if (is_string($evenement->lieu)): ?>
+                                <td><?= $this->escape($evenement->lieu) ?></td>
+                            <?php else: ?>
+                                <td><?= $this->escape($evenement->lieu->nom) ?></td>
+                            <?php endif; ?>
                         </tr>
-                        <?php // if (isset($evenement->horaireDebut)): ?>
-                        <tr>
-                            <td class="print">Début</td>
-                            <td><?php $this->escape($evenement->horaire_debut) ?></td>
-                        </tr>
-                        <?php // endif; ?>
+                        <?php if ($evenement->horaire_debut != ''): ?>
+                            <tr>
+                                <td class="print">Début</td>
+                                <td><?= $this->escape($evenement->horaire_debut) ?></td>
+                            </tr>
+                        <?php endif; ?>
+                        <?php if ($evenement->horaire_fin != ''): ?>
+                            <tr>
+                                <td class="print">Fin</td>
+                                <td><?= $this->escape($evenement->horaire_fin) ?></td>
+                            </tr>
+                        <?php endif; ?>
+                        <?php if ($evenement->description != ''): ?>
+                            <tr>
+                                <td class="print">Commentaire</td>
+                                <td><?= $this->escape($evenement->description); ?></td>
+                            </tr>
+                        <?php endif; ?>
                     </table>
                 </div>
             <?php endforeach ?>

@@ -32,19 +32,7 @@ class CalendrierController extends Zend_Controller_Action {
         
         $this->view->displayedMonth = $displayedMonth;
         $this->view->legend = array(); // TODO
-        // TODO horaire début chie
-        $this->view->evenements = $events;/*array(
-            array(
-                'jour' => 'Dimanche',
-                'date' => '05/04/2012',
-                'Nom' => 'nom_event',
-                'Type' => 'type_event',
-                'Lieu' => 'lieu_event',
-                'Début' => '18h30',
-                'Fin' => '20h30',
-                'Commentaire' => 'commentaire;..',
-            ),
-        );*/
+        $this->view->evenements = $events;
     }
 
     public function ajoutAction() {

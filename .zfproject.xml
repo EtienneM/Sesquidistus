@@ -27,6 +27,7 @@
           <dbTableFile dbTableName="Article"/>
           <dbTableFile dbTableName="TypeEvent"/>
           <dbTableFile dbTableName="Evenement"/>
+          <dbTableFile dbTableName="LieuUltimate"/>
         </dbTableDirectory>
         <modelFile modelName="ArticleMapper"/>
         <modelFile modelName="Article"/>
@@ -34,6 +35,8 @@
         <modelFile modelName="TypeEvent"/>
         <modelFile modelName="EvenementMapper"/>
         <modelFile modelName="Evenement"/>
+        <modelFile modelName="LieuUltimate"/>
+        <modelFile modelName="LieuUltimateMapper"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>
