@@ -121,7 +121,8 @@
                                         <?php foreach ($events as $event): ?>
                                         <tr>
                                             <td class="calendar eventSelected selected outSelected"
-                                                style="background-color: <?= $this->escape($event->type->color); ?>; border-color: <?= $this->escape($event->type->color); ?>;">
+                                                style="background-color: <?= $this->escape($event->type->color); ?>; border-color: <?= $this->escape($event->type->color); ?>;"
+                                                id="Event<?= $this->escape($event->id); ?>">
                                                 <div class="divNomEvent"><?= $this->escape($event->titre); ?></div>
                                                 <div><?= $this->displayedMonth->get(Zend_Date::DAY); ?></div>
                                             </td>
@@ -183,7 +184,7 @@
         </h4>
         <div id="boiteRecap" class="box2">
             <?php foreach ($this->evenements as $evenement): ?>
-                <div class="printInfo">
+                <div class="printInfo" id="recapEvent<?= $this->escape($evenement->id) ?>">
                     <span class="dateMiniTab">
                         <?php echo $this->escape(ucfirst($evenement->date->get(Zend_Date::WEEKDAY))) ?> 
                         <?php echo $this->escape($evenement->date->get(Zend_Date::DATE_LONG)) ?>

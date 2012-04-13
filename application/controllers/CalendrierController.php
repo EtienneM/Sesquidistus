@@ -17,8 +17,7 @@ class CalendrierController extends Zend_Controller_Action {
           Zend_Debug::dump($e->findApplication_Model_DbTable_Evenement()); */
         $this->view->headLink()->appendStylesheet('/css/calendrier/calendrier_consultation.css');
         $this->view->headScript()
-                ->appendFile('/js/calendrier_global.js')
-                ->appendFile('/js/calendrier_consultation.js');
+                ->appendFile('/js/calendrier.js');
         
         $mois = $this->getRequest()->getParam('mois');
         $annee = $this->getRequest()->getParam('annee');
