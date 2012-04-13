@@ -1,4 +1,4 @@
-<?php //Si admin alors afficher des trucs        ?>
+<?php //Si admin alors afficher des trucs          ?>
 <!-- Sous-menu de la categorie Calendrier -->
 <div id="menuSelectionCat">
 </div>
@@ -28,23 +28,23 @@
         $previousMonth = new Zend_Date($this->displayedMonth);
         $previousMonth->subMonth(1);
         ?>
-        <a href="<?php
-        echo $this->url(array(
+        <a href="<?=
+        $this->url(array(
             'mois' => $previousMonth->get(Zend_Date::MONTH),
             'annee' => $previousMonth->get(Zend_Date::YEAR),
-        ))
+        ));
         ?>"id="prevDate" class="bouton1">
             &lt;&lt; Mois précédent
         </a>
         <span id="texteMoisCourant">
-            <?php echo ucwords($this->displayedMonth->get(Zend_Date::MONTH_NAME.' '.Zend_Date::YEAR)) ?>
+            <?= ucwords($this->escape($this->displayedMonth->get(Zend_Date::MONTH_NAME.' '.Zend_Date::YEAR))); ?>
         </span>
         <?php
         $nextMonth = new Zend_Date($this->displayedMonth);
         $nextMonth->addMonth(1);
         ?>
-        <a href="<?php
-        echo $this->url(array(
+        <a href="<?=
+        $this->url(array(
             'mois' => $nextMonth->get(Zend_Date::MONTH),
             'annee' => $nextMonth->get(Zend_Date::YEAR),
         ));
@@ -72,6 +72,7 @@
                 <tbody>
                     <?php
                     $jourCourant = $this->displayedMonth;
+                    $currentEvent = 0; // Current index in the $this->evenements array
                     for ($i = 0; $i < $nbJoursMois; $i++):
                         // Si jourCourant est lundi
                         if (ucwords($jourCourant->get(Zend_Date::WEEKDAY)) == $jours[0]):
@@ -92,12 +93,43 @@
                                 endfor;
                             endif
                             ?>
+                            <?php
+                            // TODO Utiliser un helper ici ?
+                            if ($currentEvent < count($this->evenements) && $jourCourant->equals($this->evenements[$currentEvent]->date)) {
+                                $events = array();
+                                $events[] = $this->evenements[$currentEvent];
+                                $currentEvent++;
+                                // Peut avoir plusieurs évènements en un jour
+                                while ($currentEvent < count($this->evenements) && $jourCourant->equals($this->evenements[$currentEvent]->date)) {
+                                    $events[] = $this->evenements[$currentEvent];
+                                    $currentEvent++;
+                                }
+                            } else {
+                                $events = null;
+                            }
+                            ?>
                             <td 
                                 title="<?php echo $this->displayedMonth->get(Zend_Date::DAY.'/'.Zend_Date::MONTH.'/'.Zend_Date::YEAR) ?>" 
-                                class="calendar defaultCalendar">
+                                class="calendar defaultCalendar <?= (is_null($events))?'':"selected" ?>">
+                                <?php if (is_null($events)): ?>
                                 <div class="day">
-                                    <?php echo $this->displayedMonth->get(Zend_Date::DAY) ?>
+                                    <?= $this->displayedMonth->get(Zend_Date::DAY) ?>
                                 </div>
+                                <?php else: ?>
+                                <table>
+                                    <tbody>
+                                        <?php foreach ($events as $event): ?>
+                                        <tr>
+                                            <td class="calendar eventSelected selected outSelected"
+                                                style="background-color: <?= $this->escape($event->type->color); ?>; border-color: <?= $this->escape($event->type->color); ?>;">
+                                                <div class="divNomEvent"><?= $this->escape($event->titre); ?></div>
+                                                <div><?= $this->displayedMonth->get(Zend_Date::DAY); ?></div>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                <?php endif; ?>
                             </td>
                             <?php
                             // Création des cases vides de fin de mois 
@@ -127,7 +159,7 @@
 </div>
 
 
-<?php // Génération de la légende dont les types d'évènements existe le mois affiché. ?>
+<?php // Génération de la légende dont les types d'évènements existe le mois affiché.  ?>
 <div class="totalBox" id="legende">
     <div class="box">
         <div class="titreNews">Légende :</div>
@@ -143,7 +175,7 @@
 </div>
 
 
-<?php // Génération du récapitulatif  ?>
+<?php // Génération du récapitulatif   ?>
 <div id="globalRecap">
     <div id="accordionCal">
         <h4 class="header titreSaison">
@@ -198,7 +230,7 @@
     </div>
     <span>
         <span id="pdfCalendar" class="bouton1">Version pdf</span>
-        <?php // Faire ce bouton via un appel à une action et pas tout faire en JS...   ?>
+        <?php // Faire ce bouton via un appel à une action et pas tout faire en JS...    ?>
         <span id="printCalendar" class="bouton1">Version imprimable</span>
     </span>
     <form id="formPdfCalendar" method="post" action="">

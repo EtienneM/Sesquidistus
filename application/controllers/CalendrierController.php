@@ -28,7 +28,7 @@ class CalendrierController extends Zend_Controller_Action {
             $displayedMonth = new Zend_Date($mois.'/'.$annee, Zend_Date::MONTH.'/'.Zend_Date::YEAR);
         }
         $eventMapper = new Application_Model_EvenementMapper();
-        $events = $eventMapper->getFromMonth($displayedMonth);
+        $events = $eventMapper->getFromMonth(new Zend_Date($displayedMonth));
         $legend = array();
         foreach ($events as $event) {
             if (!isset($legend[$event->type->numero])) {
