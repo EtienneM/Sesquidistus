@@ -5,7 +5,7 @@
  *
  * @author emichon
  */
-abstract class My_Model implements ArrayAccess {
+abstract class My_Model {
 
     public function __construct(array $options = null) {
         if (is_array($options)) {
@@ -38,22 +38,6 @@ abstract class My_Model implements ArrayAccess {
             }
         }
         return $this;
-    }
-    //TODO Faire une méthode toArray() cf Application_Model_EvenementMapper l. 14
-    
-    
-    public function offsetSet($offset, $value) {
-        throw new BadMethodCallException("Not supported yet.");
-    }
-    public function offsetExists($offset) {
-        
-        throw new BadMethodCallException("Not supported yet.");
-    }
-    public function offsetUnset($offset) {
-        throw new BadMethodCallException("Not supported yet.");
-    }
-    public function offsetGet($offset) {
-        throw new BadMethodCallException("Not supported yet.");
     }
 
 }

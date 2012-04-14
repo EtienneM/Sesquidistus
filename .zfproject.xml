@@ -33,6 +33,8 @@
           <dbTableFile dbTableName="Evenement"/>
           <dbTableFile dbTableName="LieuUltimate"/>
           <dbTableFile dbTableName="User"/>
+          <dbTableFile dbTableName="Membre"/>
+          <dbTableFile dbTableName="Profil"/>
         </dbTableDirectory>
         <modelFile modelName="ArticleMapper"/>
         <modelFile modelName="Article"/>
@@ -44,6 +46,9 @@
         <modelFile modelName="LieuUltimateMapper"/>
         <modelFile modelName="UserMapper"/>
         <modelFile modelName="User"/>
+        <modelFile modelName="Membre"/>
+        <modelFile modelName="ProfilMapper"/>
+        <modelFile modelName="Profil"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>

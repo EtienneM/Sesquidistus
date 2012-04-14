@@ -10,7 +10,6 @@ class Application_Model_EvenementMapper extends My_Model_Mapper {
     }
 
     public function save(Application_Model_Evenement $evenement) {
-        // TODO Faire une fonction My_Model->toArray pour éviter la ligne suivante...
         $data = array(
             'titre' => $evenement->getTitre(),
             'description' => $evenement->getDescription(),

@@ -8,6 +8,10 @@
 abstract class My_Model_Mapper {
     protected $_dbTable;
 
+    /**
+     *
+     * @return My_Model_Mapper
+     */
     public function setDbTable($dbTable) {
         if (is_string($dbTable)) {
             $dbTable = new $dbTable();
@@ -19,6 +23,10 @@ abstract class My_Model_Mapper {
         return $this;
     }
 
+    /**
+     *
+     * @return Zend_Db_Table_Abstract
+     */
     abstract public function getDbTable();
 }
 

@@ -73,6 +73,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($acl);
         Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole(self::getCurrentUser()->getRoleId());
         Zend_Registry::set('Zend_Acl', $acl);
+        $front = Zend_Controller_Front::getInstance();
+        $front->registerPlugin(new My_Auth());
         return $acl;
     }
 
@@ -83,10 +85,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
             $view->user = $auth->getIdentity();
-            $userMapper = new Application_Model_UserMapper();
-            //$user=$userMapper->findByLogin($auth->getIdentity());
-            $view->avatar = '';// $user->profil->avatar_min;
-            //self::setCurrentUser($user);
         }
         return self::getCurrentUser();
     }

@@ -11,6 +11,10 @@ class AuthController extends Zend_Controller_Action {
         return md5($saltArray[0].md5($password).$saltArray[1]);
     }
 
+    public function indexAction() {
+        return $this->_forward('login');
+    }
+
     public function loginAction() {
         $db = $this->_getParam('db');
         $loginForm = new Application_Form_Auth_Login($this->getRequest()->getPost());
@@ -28,6 +32,10 @@ class AuthController extends Zend_Controller_Action {
             $auth = Zend_Auth::getInstance();
             $result = $auth->authenticate($adapter);
             if ($result->isValid()) {
+                $userMapper = new Application_Model_UserMapper();
+                $user = new Application_Model_User();
+                $user = $userMapper->findByLogin($result->getIdentity());
+                $auth->getStorage()->write($user);
                 // TODO Comment on gère ça ?
                 $this->_helper->FlashMessenger('Connexion réussie');
                 $this->getResponse()->setRedirect('/');

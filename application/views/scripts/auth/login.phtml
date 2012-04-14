@@ -2,12 +2,24 @@
     <div class="box">
         <div class="titreNews">Connexion :</div>
         <p>Remplissez les champs ci-dessous afin de vous connecter&nbsp;:</p>
-        <?php
-        $this->loginForm->setAction($this->url());
-        echo $this->loginForm;
-        ?>
+        <?php $this->loginForm->setAction($this->url()); ?>
+        <form id="selection" action="<?= $this->loginForm->getAction(); ?>" method="<?= $this->loginForm->getMethod(); ?>">
+            <div class="log">
+                <span class="lbl_log"><?= $this->loginForm->login->renderLabel(); ?></span>
+                <span class="in_log"><?= $this->loginForm->login->renderViewHelper(); ?></span>
+            </div>
+            <div class="log">
+                <span class="lbl_log"><?= $this->loginForm->passwd->renderLabel(); ?></span>
+                <span class="in_log"><?= $this->loginForm->passwd->renderViewHelper(); ?></span>
+            </div>
+            <div class="sub_log">
+                <?= $this->loginForm->submit->renderViewHelper(); ?>
+                <?= $this->loginForm->reset->renderViewHelper(); ?>
+            </div>
+        </form>
         <div class="log">
-            <p>[ <a href="<?= $this->url(array('controller' => 'auth', 'action' => 'login')); ?>">Mot de passe oublié</a> ]</p>
+            <?php // TODO page forget password ?>
+            <p>[ <a href="<?= $this->url(array('controller' => 'auth', 'action' => 'forget')); ?>">Mot de passe oublié</a> ]</p>
         </div>
     </div>
 </div>
