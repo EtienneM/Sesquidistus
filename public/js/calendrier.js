@@ -19,7 +19,7 @@ printPartOfPage(divPrint);
         $('#recap'+$(this).attr('id')).clone().dialog({
             width: 380,
             modal: true,
-            title: $(this).attr("title"),
+            title: "",
             draggable: false,
             closeText: 'x',
             buttons:{

@@ -16,7 +16,10 @@
           <actionMethod actionName="index"/>
         </controllerFile>
       </controllersDirectory>
-      <formsDirectory enabled="false"/>
+      <formsDirectory>
+        <formFile formName="DatePicker"/>
+        <formFile formName="Test"/>
+      </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
           <layoutScriptFile layoutName="layout"/>

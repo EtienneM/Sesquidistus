@@ -260,6 +260,8 @@ table.info th{
 
 #boiteRecap{
     text-align:left;
+    display:block;
+    height:250px;
 }
 
 div.printInfo td{
@@ -322,4 +324,11 @@ div.dataForm2{
 input.inputStyle{
     font-size:12px;
     width:170px;
+}
+
+div.bouton2 {
+    display:inline; 
+    position:relative; 
+    z-index:5; 
+    padding:5px;
 }

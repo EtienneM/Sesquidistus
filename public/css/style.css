@@ -162,7 +162,7 @@ div.titreNews{
     font-size:11px;
     padding:3px 6px;
     margin-left:4px;
-    background-image:url(../images/headerW.gif);
+    background-image:url(/images/headerW.gif);
     background-repeat:repeat-x;
     background-color:#dfdfdf;
     -moz-border-radius: 5px; /*coins arrondis*/

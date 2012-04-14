@@ -1,24 +1,18 @@
-<?php //Si admin alors afficher des trucs          ?>
+<?php //Si admin alors afficher des trucs                ?>
 <!-- Sous-menu de la categorie Calendrier -->
 <div id="menuSelectionCat">
 </div>
 <?php // Fin de si admin ?>
 
 <div id="selectDate">
-    <?php //form a faire avec Zend ?>
-    <div class="bouton2" style="display:inline; position:relative; z-index:5; padding:5px">
-        <select name="inputMois">
-            <?php for ($i = 1; $i <= 12; $i++): ?>
-                <option><?php echo $i; ?></option>
-            <?php endfor ?>
-        </select>
-        <select name="inputAnnee">
-            <?php for ($i = 2008; $i < date('Y') + 2; $i++): ?>
-                <option><?php echo $i; ?></option>
-            <?php endfor ?>
-        </select>
-        <input style="padding:1px; margin-left:5px; font-size:10px" type="submit" value="Valider" />
-    </div>
+    <?php $this->datePicker->setAction($this->url()); ?>
+    <form id="selection" action="<?= $this->datePicker->getAction(); ?>" method="<?= $this->datePicker->getMethod(); ?>">
+        <div class="bouton2">
+            <?= $this->datePicker->mois->renderViewHelper(); ?>
+            <?= $this->datePicker->annee->renderViewHelper(); ?>
+        </div>
+        <?= $this->datePicker->submit->renderViewHelper(); ?>
+    </form>
 </div>
 
 
@@ -110,36 +104,39 @@
                             ?>
                             <td 
                                 title="<?php echo $this->displayedMonth->get(Zend_Date::DAY.'/'.Zend_Date::MONTH.'/'.Zend_Date::YEAR) ?>" 
-                                class="calendar defaultCalendar <?= (is_null($events))?'':"selected" ?>">
-                                <?php if (is_null($events)): ?>
-                                <div class="day">
-                                    <?= $this->displayedMonth->get(Zend_Date::DAY) ?>
-                                </div>
+                                class="calendar defaultCalendar <?= (is_null($events)) ? '' : "selected" ?>">
+                                    <?php if (is_null($events)): ?>
+                                    <div class="day">
+                                        <?= $this->displayedMonth->get(Zend_Date::DAY) ?>
+                                    </div>
                                 <?php else: ?>
-                                <table>
-                                    <tbody>
-                                        <?php foreach ($events as $event): ?>
-                                        <tr>
-                                            <td class="calendar eventSelected selected outSelected"
-                                                style="background-color: <?= $this->escape($event->type->color); ?>; border-color: <?= $this->escape($event->type->color); ?>;"
-                                                id="Event<?= $this->escape($event->id); ?>">
-                                                <div class="divNomEvent"><?= $this->escape($event->titre); ?></div>
-                                                <div><?= $this->displayedMonth->get(Zend_Date::DAY); ?></div>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+                                    <table>
+                                        <tbody>
+                                            <?php foreach ($events as $event): ?>
+                                                <tr>
+                                                    <td class="calendar eventSelected selected outSelected"
+                                                        style="background-color: <?= $this->escape($event->type->color); ?>; border-color: <?= $this->escape($event->type->color); ?>;"
+                                                        id="Event<?= $this->escape($event->id); ?>">
+                                                        <div class="divNomEvent"><?= $this->escape($event->titre); ?></div>
+                                                        <div><?= $this->displayedMonth->get(Zend_Date::DAY); ?></div>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
                                 <?php endif; ?>
                             </td>
                             <?php
                             // Création des cases vides de fin de mois 
                             if ($i == $nbJoursMois - 1):
                                 $dayOfWeeks = $jourCourant->get(Zend_Date::WEEKDAY_DIGIT);
-                                for ($j = 0; $j < $nbJours - $dayOfWeeks; $j++):
+                                if ($dayOfWeeks != 0):
+                                    for ($j = 0; $j < $nbJours - $dayOfWeeks; $j++):
                                     ?>
                                     <td class="calendarVide">&nbsp;</td>
-                                <?php endfor; ?>
+                                <?php endfor; 
+                                endif; ?>
+                                
                             </tr>
                             <?php
                         endif;
@@ -229,7 +226,11 @@
             <?php endforeach ?>
         </div>
     </div>
-    <span>
+    <?php 
+    /*
+     * TODO Support des deux boutons suivants
+     */
+    /*<span>
         <span id="pdfCalendar" class="bouton1">Version pdf</span>
         <?php // Faire ce bouton via un appel à une action et pas tout faire en JS...    ?>
         <span id="printCalendar" class="bouton1">Version imprimable</span>
@@ -239,7 +240,7 @@
         <input type="hidden" name="annee_pdf" value="<?php echo 'année' ?>"/>
         <input type="hidden" name="date1" value="<?php echo 'date1' ?>"/>
         <input type="hidden" name="date2" value="<?php echo 'date2' ?>"/>
-    </form>
+    </form>*/ ?>
 </div>
 
 
