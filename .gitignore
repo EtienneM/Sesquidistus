@@ -11,3 +11,4 @@ todo
 /backup_tables.php
 /docs/README.txt
 /nbproject
+/data/session/*

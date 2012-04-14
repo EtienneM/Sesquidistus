@@ -46,6 +46,24 @@ div#bandeau2 > img {
     top:-28px;
 }
 
+img.avatar {
+    position:absolute; 
+    left:480px; 
+    top:11px;
+}
+
+span.userLogin {
+    position:absolute; 
+    left:512px; 
+    top:10px;
+}
+
+span.userInfo {
+    position:absolute; 
+    left:512px; 
+    top:23px;
+}
+
 span#copyright {
     font-weight:bold; 
     font-size:10px;
@@ -54,7 +72,7 @@ span#copyright {
 div.bandeau{
     position:relative;
     width:100%;
-    background-image:url(../images/header.gif);
+    background-image:url(/images/header.gif);
     background-color:black;
     background-repeat: repeat-x;
 }

@@ -19,6 +19,7 @@
       <formsDirectory>
         <formFile formName="DatePicker"/>
         <formFile formName="Test"/>
+        <formFile formName="Login"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -31,6 +32,7 @@
           <dbTableFile dbTableName="TypeEvent"/>
           <dbTableFile dbTableName="Evenement"/>
           <dbTableFile dbTableName="LieuUltimate"/>
+          <dbTableFile dbTableName="User"/>
         </dbTableDirectory>
         <modelFile modelName="ArticleMapper"/>
         <modelFile modelName="Article"/>
@@ -40,6 +42,8 @@
         <modelFile modelName="Evenement"/>
         <modelFile modelName="LieuUltimate"/>
         <modelFile modelName="LieuUltimateMapper"/>
+        <modelFile modelName="UserMapper"/>
+        <modelFile modelName="User"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>

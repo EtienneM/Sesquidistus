@@ -1,0 +1,30 @@
+<div class="totalBox">
+    <div class="box">
+        <div class="titreNews">Connexion :</div>
+        <p>Remplissez les champs ci-dessous afin de vous connecter&nbsp;:</p>
+        <?php
+        $this->loginForm->setAction($this->url());
+        echo $this->loginForm;
+        ?>
+        <div class="log">
+            <p>[ <a href="<?= $this->url(array('controller' => 'auth', 'action' => 'login')); ?>">Mot de passe oublié</a> ]</p>
+        </div>
+    </div>
+</div>
+
+<form method="POST" action="./?categorie=login" style="display:none;">
+    <div class="log">
+        <span class="lbl_log"><label for="login">Identifiant :</label></span>
+        <span class="in_log"><input type="text" id="login" name="m_login" class="txtBox1"/></span>
+    </div>
+    <div class="log"> 
+        <span class="lbl_log"><label for="passwd">Mot de passe :</label></span>
+        <span class="in_log"><input type="password" id="passwd" name="m_passwd" class="txtBox1"/></span>
+    </div>
+    <div class="sub_log">
+        <input type="hidden" value="login" name="action"/>
+        <input type="submit" value="Se connecter" class="bouton1"/>
+        <input type="reset" value="Remettre à zéro" class="bouton1"/>
+    </div>
+</form> 
+
