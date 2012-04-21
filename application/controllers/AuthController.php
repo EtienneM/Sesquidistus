@@ -33,13 +33,12 @@ class AuthController extends Zend_Controller_Action {
             $result = $auth->authenticate($adapter);
             if ($result->isValid()) {
                 $userMapper = new Application_Model_UserMapper();
-                $user = new Application_Model_User();
                 $user = $userMapper->findByLogin($result->getIdentity());
                 $auth->getStorage()->write($user);
-                // TODO Comment on gère ça ?
-                $this->_helper->FlashMessenger('Connexion réussie');
                 $this->getResponse()->setRedirect('/');
                 return;
+            } else {
+                $loginForm->setErrorMessages(array('Identifiant/mot de passe non reconnu'));
             }
         }
         $this->view->loginForm = $loginForm;

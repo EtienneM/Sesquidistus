@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Description of Acl
+ * Défini les rôles et les droits de chacun de ces rôles.
+ * Par défaut, tout est interdit et nous autorisons explicitement.
  *
  * @author emichon
  */
@@ -28,7 +29,30 @@ class Application_Model_Acl extends Zend_Acl {
         $this->addRole(self::ROLE_VISITEUR);
         $this->addRole(self::ROLE_MEMBRE, self::ROLE_VISITEUR);
         $this->addRole(self::ROLE_ADMIN, self::ROLE_MEMBRE);
-        //$acl->addResource('');
+        
+        // Admin is God
+        $this->allow(self::ROLE_ADMIN);
+        
+        // Dans notre cas, les ressources sont les controleurs et les privilèges 
+        // sont les actions.
+        $this->addResource('index')
+                ->addResource('calendrier')
+                ->addResource('club')
+                ->addResource('ultimate')
+                ->addResource('galerie')
+                ->addResource('evenement')
+                ->addResource('auth')
+                ->addResource('user');
+        
+        $this->allow(self::ROLE_VISITEUR, array('index'), array('index', 'contact', 'apropos', 'mentions'))
+            ->allow(self::ROLE_VISITEUR, array('calendrier'), array('index'))
+            ->allow(self::ROLE_VISITEUR, array('club'), array('index'))
+            ->allow(self::ROLE_VISITEUR, array('ultimate'), array('index'))
+            ->allow(self::ROLE_VISITEUR, array('galerie'), array('index'))
+            ->allow(self::ROLE_VISITEUR, array('evenement'), array('index'))
+            ->allow(self::ROLE_VISITEUR, array('auth'), array('login', 'forget'))
+            ->allow(self::ROLE_MEMBRE, array('user'), array('index', 'editProfil'))
+            ->allow(self::ROLE_MEMBRE, array('auth'), array('logout'));
     }
 
     protected static $_user = null;

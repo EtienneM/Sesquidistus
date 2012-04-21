@@ -486,3 +486,11 @@ a.red:hover{
 }
 
 img, div, a, input { behavior: url(./fix_ie/iepngfix.htc) }
+
+input.error {
+    border-color:red;
+}
+
+.error {
+    color:red;
+}

@@ -77,8 +77,7 @@ class Application_Model_Profil extends My_Model {
     }
 
     public function setAdhesion($adhesion) {
-        // TODO Zend_Date
-        $this->_adhesion = $adhesion;
+        $this->_adhesion = new Zend_Date($adhesion);
         return $this;
     }
     

@@ -6,10 +6,19 @@
       <?php endif ?>
       >
     <head>
-        <?php echo $this->headMeta()."\n" ?>
-        <?php echo $this->headTitle()."\n" ?>
-        <?php echo $this->headScript()."\n" ?>
-        <?php echo $this->headLink()."\n" ?>
+        <?= $this->headMeta()."\n" ?>
+        <?= $this->headTitle()."\n" ?>
+        <?= $this->headScript()."\n" ?>
+        <?php if (Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->hasMessages()): ?>
+            <script type="text/javascript">
+                $(document).ready(function() {
+            <?php foreach (Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getCurrentMessages() as $message): ?>
+                    displayFlash("<?= $this->escape($message) ?>");
+            <?php endforeach; ?>
+            });
+            </script>
+        <?php endif; ?>
+        <?= $this->headLink()."\n" ?>
     </head>
     <body>
         <!-- Header : Bandeau logo -->
@@ -27,9 +36,9 @@
                         </a>
                     </span>
                     <span class="userInfo">
-                        <?php /*TODO 
-                        <a class="white" href="?categorie=forum">Forum</a>
-                        | */ ?>
+                        <?php /* TODO 
+                          <a class="white" href="?categorie=forum">Forum</a>
+                          | */ ?>
                         <a class="white" href="<?= $this->url(array('controller' => 'auth', 'action' => 'logout')) ?>">Déconnexion</a>
                     </span>
                 <?php else: ?>

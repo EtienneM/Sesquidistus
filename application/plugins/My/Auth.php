@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of Auth
+ * http://stackoverflow.com/a/2047320
  *
  * @author emichon
  */
@@ -20,16 +20,6 @@ class My_Auth extends Zend_Controller_Plugin_Abstract {
     private $_acl;
 
     /**
-     * The page to direct to if there is a current
-     * user but they do not have permission to access
-     * the resource.
-     *
-     * @var array
-     */
-    private $_noacl = array('controller' => 'error',
-        'action' => 'no-auth');
-
-    /**
      * the page to direct to if there is not current user
      *
      * @var array
@@ -43,7 +33,34 @@ class My_Auth extends Zend_Controller_Plugin_Abstract {
      * @param Zend_Controller_Request_Abstract $request 
      */
     public function preDispatch(Zend_Controller_Request_Abstract $request) {
-        $this->_identity = Bootstrap::getCurrentUser();
+        try {
+            $this->_preDispatch($request);
+        } catch(Exception $e) {
+            // Repoint the request to the default error handler
+            $request->setModuleName('default');
+            $request->setControllerName('error');
+            $request->setActionName('error');
+            $error = new ArrayObject(array(), ArrayObject::ARRAY_AS_PROPS);
+            switch(get_class($e)) {
+                case 'Exception_NoResource':
+                    $error->type = My_Exception::EXCEPTION_NO_RESOURCE;
+                    break;
+                case 'Exception_NoAcl':
+                    $error->type = My_Exception::EXCEPTION_NO_ACL;
+                    break;
+                default:
+                    $error->type = Zend_Controller_Plugin_ErrorHandler::EXCEPTION_OTHER;
+                    break;
+            }
+            // Set up the error handler
+            $error->request = clone($request);
+            $error->exception = $e;
+            $request->setParam('error_handler', $error);
+        }
+    }
+
+    private function _preDispatch(Zend_Controller_Request_Abstract $request) {
+        $this->_identity = $auth = Zend_Auth::getInstance()->getIdentity();
         $this->_acl = Application_Model_Acl::getInstance();
 
         if (!empty($this->_identity)) {
@@ -53,37 +70,42 @@ class My_Auth extends Zend_Controller_Plugin_Abstract {
         }
 
         $controller = $request->controller;
-        $module = $request->module;
+        //$module = $request->module;
         $action = $request->action;
-        // TODO vérifier ici les autorisations
         //go from more specific to less specific
-        /*$moduleLevel = 'mvc:'.$module;
-        $controllerLevel = $moduleLevel.'.'.$controller;
+        //$moduleLevel = 'mvc:'.$module;
+        $controllerLevel = $controller;
         $privelege = $action;
 
-
-        if ($this->_acl->has($controllerLevel)) {
-            $resource = $controllerLevel;
-        } else {
-            $resource = $moduleLevel;
+        $resource = $controllerLevel;
+        if (!$this->_acl->has($resource)) {
+            // TODO Comment géré ces exception avec le ErrorHandler ?CF. ErrorController.
+            //$request->setControllerName('error');
+            //throw new Exception('Aucun accès à cette ressource. '.$resource.'::'.$role);
+            throw new Exception_NoResource('Aucun accès à cette ressource.');
+            return;
         }
 
-        if ($module != 'default' && $controller != 'index') {
-            if ($this->_acl->has($resource) && !$this->_acl->isAllowed($role, $resource, $privelege)) {
-                if (!$this->_identity) {
-                    $request->setModuleName($this->_noauth['module']);
-                    $request->setControllerName($this->_noauth['controller']);
-                    $request->setActionName($this->_noauth['action']);
-                    //$request->setParam('authPage', 'login');
-                } else {
-                    $request->setModuleName($this->_noacl['module']);
-                    $request->setControllerName($this->_noacl['controller']);
-                    $request->setActionName($this->_noacl['action']);
-                    //$request->setParam('authPage', 'noauth');
-                }
-                throw new Exception('Access denied. '.$resource.'::'.$role);
+        if (!$this->_acl->isAllowed($role, $resource, $privelege)) {
+            // S'il s'agit d'un simple visiteur, on l'envoie sur la page de login
+            if (!$this->_identity
+                    || $role == Application_Model_Acl::ROLE_VISITEUR) {
+                //$request->setModuleName($this->_noauth['module']);
+                $request->setControllerName($this->_noauth['controller']);
+                $request->setActionName($this->_noauth['action']);
+                return;
             }
-        }*/
+            // Sinon, l'utilisateur loggé n'a pas les droits => erreur
+            throw new Exception_NoAcl("Votre niveau de droit : '$role'");
+        }
     }
 
+}
+
+class Exception_NoResource extends Exception {
+    
+}
+
+class Exception_NoAcl extends Exception {
+    
 }

@@ -20,6 +20,7 @@
         <formFile formName="DatePicker"/>
         <formFile formName="Test"/>
         <formFile formName="Login"/>
+        <formFile formName="Profil"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>

@@ -4,7 +4,7 @@ class Application_Model_ProfilMapper extends My_Model_Mapper {
 
     public function getDbTable() {
         if (null === $this->_dbTable) {
-            $this->setDbTable('Application_Model_DbTable_Evenement');
+            $this->setDbTable('Application_Model_DbTable_Profil');
         }
         return $this->_dbTable;
     }
@@ -15,7 +15,7 @@ class Application_Model_ProfilMapper extends My_Model_Mapper {
             'prenom' => $profil->getPrenom(),
             'numero' => $profil->getNumero(),
             'mail' => $profil->getMail(),
-            'adhesion' => $profil->getAdhesion(),
+            'adhesion' => $profil->getAdhesion()->get(Zend_Date::ISO_8601),
             'question' => $profil->getQuestion(),
             'reponse' => $profil->getReponse(),
         );

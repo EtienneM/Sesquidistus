@@ -4,6 +4,13 @@
         <p>Remplissez les champs ci-dessous afin de vous connecter&nbsp;:</p>
         <?php $this->loginForm->setAction($this->url()); ?>
         <form id="selection" action="<?= $this->loginForm->getAction(); ?>" method="<?= $this->loginForm->getMethod(); ?>">
+            <?php if (count($this->loginForm->getErrorMessages()) > 0): ?>
+            <div class="error">
+            <?php foreach ($this->loginForm->getErrorMessages() as $error): ?>
+            <?= $error ?>
+            <?php endforeach; ?>
+            </div>
+            <?php endif;?>
             <div class="log">
                 <span class="lbl_log"><?= $this->loginForm->login->renderLabel(); ?></span>
                 <span class="in_log"><?= $this->loginForm->login->renderViewHelper(); ?></span>

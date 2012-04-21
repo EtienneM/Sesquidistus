@@ -31,7 +31,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 ->appendFile('/js/galerie.js')
                 ->appendFile('/js/jquery/jquery.dropmenu.js')
                 ->appendFile('/js/jquery/jquery.ba-resize.min.js')
-                ->appendFile('/js/jquery/hoverIE.js', 'text/javascript', array('conditional' => 'IE'));
+                ->appendFile('/js/jquery/hoverIE.js', 'text/javascript', array('conditional' => 'IE'))
+                ->appendFile('/js/flash.js')
+                ->appendFile('/js/jquery/jquery.jgrowl_minimized.js');
     }
 
     protected function _initLink() {
@@ -45,6 +47,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                     'type' => 'image/x-icon',
                         ), 'PREPEND')
                 ->appendStylesheet('/css/style.css')
+                ->appendStylesheet('/css/jquery.jgrowl.css')
                 ->appendStylesheet('/css/dropmenu_apple.css')
                 ->appendStylesheet('/css/dialog.css')
                 ->appendStylesheet('/css/accordion.css')
@@ -71,11 +74,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected function _initAcl() {
         $acl = Application_Model_Acl::getInstance();
         Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($acl);
-        Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole(self::getCurrentUser()->getRoleId());
+        Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole(self::_getCurrentUserRoleId());
         Zend_Registry::set('Zend_Acl', $acl);
         $front = Zend_Controller_Front::getInstance();
         $front->registerPlugin(new My_Auth());
-        return $acl;
     }
 
     protected function _initUser() {
@@ -83,33 +85,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $view = $this->getResource('view');
         $view->user = null;
         $auth = Zend_Auth::getInstance();
-        if ($auth->hasIdentity()) {
+        if ($auth->hasIdentity()
+                && $auth->getIdentity()->getRoleId() != Application_Model_Acl::ROLE_VISITEUR) {
             $view->user = $auth->getIdentity();
         }
-        return self::getCurrentUser();
     }
 
-    protected static $_currentUser;
-
-    public static function setCurrentUser(Application_Model_User $user) {
-        self::$_currentUser = $user;
-    }
-
-    /**
-     * @return App_Model_User
-     */
-    public static function getCurrentUser() {
-        if (null === self::$_currentUser) {
-            self::setCurrentUser(new Application_Model_User());
+    private static function _getCurrentUserRoleId() {
+        $auth = Zend_Auth::getInstance();
+        if (!$auth->hasIdentity()) {
+            $auth->getStorage()->write(new Application_Model_User());
         }
-        return self::$_currentUser;
-    }
-
-    /**
-     * @return App_Model_User
-     */
-    public static function getCurrentUserId() {
-        return self::getCurrentUser()->getId();
+        return $auth->getIdentity()->getRoleId();
     }
 
 }

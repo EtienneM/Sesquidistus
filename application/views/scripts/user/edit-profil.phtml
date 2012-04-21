@@ -3,44 +3,48 @@
     <div class="box">
         <div class="titreNews">Mon profil</div>
         <fieldset>
-            <legend>Edition du profil: </legend>
-            <form method="POST" action="./?categorie=actions_profil">
+            <legend>&Eacute;dition du profil&nbsp;: </legend>
+            <?php $this->profilForm->setAction($this->url()); ?>
+            <form method="<?= $this->profilForm->getMethod(); ?>" action="<?= $this->profilForm->getAction(); ?>">
                 <table style="width:100%;">
                     <tr>
-                        <td rowspan="6"><img src="<?php echo $r['AVATAR']; ?>" style="width:120px; height:140px; padding:8px; cursor:pointer" title="Cliquez pour changez votre photo!" class="bouton4" alt="Ma photo" id="avatar" /></td>     
-                    </tr>
-                    <tr class="style2">
-                        <th><label for="surnom">Login:</label></th><td><input type="text" id="surnom" name="surnom" value="<?php echo utf8_encode($r['LOGIN']); ?>" disabled="disabled"/></td>
-                        <th><label for="prenom">Prénom:</label></th><td><input type="text" id="prenom" name="prenom" value="<?php echo utf8_encode(stripslashes($r['PRENOM'])); ?>"/></td>
-                    </tr>
-                    <tr class="style1">
-                        <th><label for="mail">Adresse mail:</label></th><td><input type="text" id="mail" name="mail" value="<?php echo $r['MAIL']; ?>"/></td>
-                        <th><label for="membre_depuis">Membre depuis:</label></th>
-                        <td>
-                            <select id="membre_depuis" name="membre_depuis">
-                                <?php
-                                $year = substr($r['ADHESION'], 0, 4);
-                                //On génère les dates d'aujourd'hui jusqu'il y a 15 ans.
-                                $date = date("Y");
-                                for ($i = 0; $i < 15; $i++) {
-                                    $res = $date - $i;
-                                    $sel = "";
-                                    if ($year == $res) {
-                                        $sel = "selected=selected";
-                                    }
-                                    echo '<option value="'.$res.'" '.$sel.'>'.$res.'</option>';
-                                }
-                                ?>
-                            </select>
+                        <td rowspan="6">
+                            <img src="<?= Application_Model_Profil::getAvatarPath().$this->user->profil->avatar ?>" 
+                                 title="Cliquez pour changez votre photo!" class="bouton4" alt="Ma photo" id="avatar" />
                         </td>
                     </tr>
+                    <tr class="style1">
+                        <th><?= $this->profilForm->login->renderLabel(); ?></th>
+                        <td><?= $this->profilForm->login->renderViewHelper(); ?></td>
+                        <th><?= $this->profilForm->prenom->renderLabel(); ?></th>
+                        <td><?= $this->profilForm->prenom->renderViewHelper(); ?></td>
+                    </tr>
+                    <?php //Zend_Debug::dump($this->profilForm->getMessages()) ?>
+                    <?php if ($this->profilForm->getElement('mail')->hasErrors()) {
+                              $this->profilForm->getElement('mail')->setAttrib('class', 'error');
+                    } ?>
+                    <tr class="style2">
+                        <th><?= $this->profilForm->mail->renderLabel(); ?></th>
+                        <td><?= $this->profilForm->mail->renderViewHelper(); ?></td>
+                        <th><?= $this->profilForm->adhesion->renderLabel(); ?></th>
+                        <td><?= $this->profilForm->adhesion->renderViewHelper(); ?></td>
+                    </tr>
+                    <tr class="style1">
+                        <th><?= $this->profilForm->numero->renderLabel(); ?></th>
+                        <td><?= $this->profilForm->numero->renderViewHelper(); ?></td>
+                        <th></th>
+                        <td></td>
+                    </tr>
                 </table>
-                <input type="submit" value="Modifier" class="bouton1" />
-                <a href="./?categorie=view_profil&u_id=<?php echo $_SESSION['id']; ?>"><input type="button" value="Visualiser mon profil existant" class="bouton1"/></a>
+                <?= $this->profilForm->submit; ?>
+                <a href="<?= $this->url(array('action' => 'view', 'login' => $this->user->login)); ?>">
+                    <input type="button" value="Visualiser mon profil existant" class="bouton1"/>
+                </a>
             </form>
         </fieldset>
-        <div style="position:absolute;bottom:10px;right:15px">
-            <a href="./doc/doc_membres/doc_membre.html#changer_photo" target="_blank"><img src="./images/help.png" alt="aide"/></a>
+        <div class="help">
+            <?php //TODO Doc ?>
+            <a href="/doc/doc_membres/doc_membre.html#changer_photo" target="_blank"><img src="/images/help.png" alt="aide"/></a>
         </div>
     </div>
 
@@ -71,11 +75,10 @@
                 </table>
                 <input type="hidden" value="maj_mdp" name="mode" />
                 <input type="submit" value="Valider" class="bouton1" id="btn_valider"/>
-                <script type="text/javascript" src="./modules/membres/profil.js"></script>
             </form>
         </fieldset>
     </div> 
-    <div style="position:absolute;bottom:10px;right:15px">
-        <a href="./doc/doc_membres/doc_membre.html#changer_mdp" target="_blank"><img src="./images/help.png" alt="aide"/></a>
+    <div class="help">
+        <a href="./doc/doc_membres/doc_membre.html#changer_mdp" target="_blank"><img src="/images/help.png" alt="aide"/></a>
     </div>
 </div>
