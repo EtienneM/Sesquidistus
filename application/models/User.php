@@ -64,6 +64,11 @@ class Application_Model_User extends My_Model implements Zend_Acl_Role_Interface
         $this->_passwd = (string) $passwd;
         return $this;
     }
+    
+    public static function hashPasswd($password) {
+        $saltArray = array("%SUC%", "*UDS*");
+        return md5($saltArray[0].md5($password).$saltArray[1]);
+    }
 
     /**
      *

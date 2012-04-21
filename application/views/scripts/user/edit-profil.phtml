@@ -1,11 +1,11 @@
 <div class="totalBox">
-    <!-- Div edititon du profil -->
+    <!-- Div édition du profil -->
     <div class="box">
         <div class="titreNews">Mon profil</div>
         <fieldset>
             <legend>&Eacute;dition du profil&nbsp;: </legend>
             <?php $this->profilForm->setAction($this->url()); ?>
-            <form method="<?= $this->profilForm->getMethod(); ?>" action="<?= $this->profilForm->getAction(); ?>">
+            <form method="<?= $this->profilForm->getMethod(); ?>" action="<?= $this->profilForm->getAction(); ?>" id="editProfil">
                 <table style="width:100%;">
                     <tr>
                         <td rowspan="6">
@@ -16,16 +16,32 @@
                     <tr class="style1">
                         <th><?= $this->profilForm->login->renderLabel(); ?></th>
                         <td><?= $this->profilForm->login->renderViewHelper(); ?></td>
+                        <?php
+                        if ($this->profilForm->getElement('prenom')->hasErrors()) {
+                            $this->profilForm->getElement('prenom')->setAttrib('class', 'error');
+                        }
+                        ?>
                         <th><?= $this->profilForm->prenom->renderLabel(); ?></th>
-                        <td><?= $this->profilForm->prenom->renderViewHelper(); ?></td>
+                        <td>
+                            <?= $this->profilForm->prenom->renderViewHelper(); ?>
+                            <?php foreach ($this->profilForm->prenom->getMessages() as $message): ?>
+                                <label for="prenom" class="error"><?= $message ?></label>
+                            <?php endforeach; ?>
+                        </td>
                     </tr>
-                    <?php //Zend_Debug::dump($this->profilForm->getMessages()) ?>
-                    <?php if ($this->profilForm->getElement('mail')->hasErrors()) {
-                              $this->profilForm->getElement('mail')->setAttrib('class', 'error');
-                    } ?>
+                    <?php
+                    if ($this->profilForm->getElement('mail')->hasErrors()) {
+                        $this->profilForm->getElement('mail')->setAttrib('class', 'error');
+                    }
+                    ?>
                     <tr class="style2">
                         <th><?= $this->profilForm->mail->renderLabel(); ?></th>
-                        <td><?= $this->profilForm->mail->renderViewHelper(); ?></td>
+                        <td>
+                            <?= $this->profilForm->mail->renderViewHelper(); ?>
+                            <?php foreach ($this->profilForm->mail->getMessages() as $message): ?>
+                                <label for="mail" class="error"><?= $message ?></label>
+                            <?php endforeach; ?>
+                        </td>
                         <th><?= $this->profilForm->adhesion->renderLabel(); ?></th>
                         <td><?= $this->profilForm->adhesion->renderViewHelper(); ?></td>
                     </tr>
@@ -43,7 +59,7 @@
             </form>
         </fieldset>
         <div class="help">
-            <?php //TODO Doc ?>
+            <?php //TODO Doc   ?>
             <a href="/doc/doc_membres/doc_membre.html#changer_photo" target="_blank"><img src="/images/help.png" alt="aide"/></a>
         </div>
     </div>
@@ -51,30 +67,22 @@
     <br />
 
     <!-- Div du changement de mot de passe -->
-    <?php
-    //Div qui va nous servir pour la dialog de confirmation.
-    echo '<div id="confirmation" title="Confirmation" style="display: none;">'.
-    '<p>Etes-vous sur de vouloir modifier le mot de passe?</p>'.
-    '</div>';
-    ?>
     <div class="box">
         <div class="titreNews">Mot de passe</div>
         <fieldset>
-            <legend>Changement du mot de passe:</legend>
-            <form method="POST" id="pwd_form" action="./?categorie=actions_profil">
+            <legend>Changement du mot de passe&nbsp;:</legend>
+            <form method="<?= $this->pwdForm->getMethod(); ?>" action="<?= $this->pwdForm->getAction(); ?>" id="editPwd">
                 <table id="pwd">
                     <tr class="style1">
-                        <th><label for="old_pwd">Mot de passe actuel: </label></th><td><input type="password" id="old_pwd" name ="old_pwd" value="" ></td>
+                        <th><?= $this->pwdForm->new_pwd->renderLabel(); ?></th>
+                        <td><?= $this->pwdForm->new_pwd->renderViewHelper(); ?></td>
                     </tr>
-                    <tr class="style2">
-                        <th class="style2"><label for="new_pwd">Nouveau mot de passe: </label></th><td><input type="password" id="new_pwd" name="new_pwd" value="" ></td>
-                    </tr>
-                    <tr class="style1"> 
-                        <th><label for="new_pwd_confirm">Confirmation: </label></th><td><input type="password" id="new_pwd_confirm" name="new_pwd_confirm" value="" ></td>
+                    <tr class="style2"> 
+                        <th><?= $this->pwdForm->confirm_pwd->renderLabel(); ?></th>
+                        <td><?= $this->pwdForm->confirm_pwd->renderViewHelper(); ?></td>
                     </tr>
                 </table>
-                <input type="hidden" value="maj_mdp" name="mode" />
-                <input type="submit" value="Valider" class="bouton1" id="btn_valider"/>
+                <?= $this->pwdForm->submit; ?>
             </form>
         </fieldset>
     </div> 

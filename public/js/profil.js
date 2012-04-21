@@ -4,30 +4,14 @@
  *
  * Auteur : Pierre LEROY <pleroy@etu.unistra.fr>
  */
-$("#confirmation").dialog({
- autoOpen: false,
- width: 400,
- closeText: 'X',
- draggable: false,
- resizable: false,
- modal: true,
- buttons: {
-  "Oui": function()
-	 {
-           $("#pwd_form").submit();
-           $(this).dialog("close");
-         },
-  "Non": function()
-         {
-	   $(this).dialog("close");                        
-         }
-  }
+$(document).ready(function() {
+    $('form#editProfil').validate();
+    $('form#editPwd').validate({
+        rules: {
+            confirm_pwd: {
+                equalTo: '#new_pwd'
+            }
+        }
+    });
 });
-$("#btn_valider").click(
-  function()
-  {
-    $("#confirmation").dialog("open");
-    return false;
-  }
-);
 

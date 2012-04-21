@@ -6,11 +6,6 @@ class AuthController extends Zend_Controller_Action {
         $this->view->headLink()->appendStylesheet("/css/membres/login.css");
     }
 
-    public function hashPasswd($password) {
-        $saltArray = array("%SUC%", "*UDS*");
-        return md5($saltArray[0].md5($password).$saltArray[1]);
-    }
-
     public function indexAction() {
         return $this->_forward('login');
     }
@@ -28,7 +23,7 @@ class AuthController extends Zend_Controller_Action {
             );
 
             $adapter->setIdentity($loginForm->getValue('login'));
-            $adapter->setCredential($this->hashPasswd($loginForm->getValue('passwd')));
+            $adapter->setCredential(Application_Model_User::hashPasswd($loginForm->getValue('passwd')));
             $auth = Zend_Auth::getInstance();
             $result = $auth->authenticate($adapter);
             if ($result->isValid()) {

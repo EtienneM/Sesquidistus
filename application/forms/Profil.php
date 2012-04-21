@@ -10,12 +10,14 @@ class Application_Form_Profil extends Zend_Form {
             'required' => true,
             'readonly' => true,
             'filters' => array('StringTrim'),
+            'class' => 'required',
         ));
         $this->addElement(
                 'text', 'prenom', array(
             'label' => 'Prénom :',
             'required' => true,
             'filters' => array('StringTrim'),
+            'class' => 'required',
         ));
         $this->addElement(
                 'text', 'mail', array(
@@ -23,17 +25,20 @@ class Application_Form_Profil extends Zend_Form {
             'required' => true,
             'filters' => array('StringTrim'),
             'validators' => array('EmailAddress'),
+            'class' => 'required email',
         ));
         $year = array();
+        // Les années de 1995 à cette année
         for ($i = 1995; $i <= date('Y'); $i++) {
             $year[$i] = $i;
         }
         $this->addElement(
                 'select', 'adhesion', array(
             'multiOptions' => $year,
-            'label' => 'Membre depuis :',
+            'label' => 'Joueur depuis :',
             'required' => true,
             'filters' => array('StringTrim'),
+            'class' => 'required',
         ));
         $this->addElement(
                 'text', 'numero', array(

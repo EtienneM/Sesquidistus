@@ -21,6 +21,7 @@
         <formFile formName="Test"/>
         <formFile formName="Login"/>
         <formFile formName="Profil"/>
+        <formFile formName="Password"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>

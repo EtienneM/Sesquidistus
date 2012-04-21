@@ -13,34 +13,53 @@ class UserController extends Zend_Controller_Action {
     public function editprofilAction() {
         $this->view->headLink()->appendStylesheet("/css/membres/profil.css");
         $this->view->headScript()->appendFile('/js/profil.js');
+        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.min.js');
+        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.additional-methods.min.js');
+        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js');
         $profilForm = new Application_Form_Profil($this->getRequest()->getPost());
-        $profilForm->removeDecorator('Errors');
-        
-        // Si le formulaire a été validé par l'utilisateur et qu'il est correct
-        if (count($this->getRequest()->getPost()) > 0 && $profilForm->isValid($this->getRequest()->getPost())) {
-            $profil = new Application_Model_Profil($profilForm->getValues());
-            $user = Zend_Auth::getInstance()->getStorage()->read();
-            $profil->id = $user->profil->id;
-            $mapper = new Application_Model_ProfilMapper();
-            $mapper->save($profil);
-            // MàJ des infos de l'utilisateur stockées dans la session
-            $userMapper = new Application_Model_UserMapper();
-            Zend_Auth::getInstance()->getStorage()->write($userMapper->findByLogin($user->login));
-            $this->_helper->FlashMessenger('Modification effetuée');
-        } else {
-            foreach ($profilForm->getMessages() as $messages) {
-                foreach ($messages as $message) {
-                    $this->_helper->FlashMessenger($message);
-                }
+
+        // Si le formulaire a été validé par l'utilisateur...
+        if (count($this->getRequest()->getPost()) > 0) {
+            // ...  et qu'il est correct
+            if ($profilForm->isValid($this->getRequest()->getPost())) {
+                $values = $profilForm->getValues();
+                $values['adhesion'] = new Zend_Date($values['adhesion'], Zend_Date::YEAR);
+                $profil = new Application_Model_Profil($values);
+                $user = Zend_Auth::getInstance()->getIdentity();
+                $profil->id = $user->profil->id;
+                $mapper = new Application_Model_ProfilMapper();
+                $mapper->save($profil);
+                // MàJ des infos de l'utilisateur stockées dans la session
+                $userMapper = new Application_Model_UserMapper();
+                Zend_Auth::getInstance()->getStorage()->write($userMapper->findByLogin($user->login));
+                $this->_helper->FlashMessenger('Modification effetuée');
             }
+            $this->view->profilForm = $profilForm;
+            return;
         }
         $user = Zend_Auth::getInstance()->getIdentity();
         $profilForm->setDefault('login', $user->login);
         $profilForm->setDefault('prenom', $user->profil->prenom);
         $profilForm->setDefault('mail', $user->profil->mail);
-        $profilForm->setDefault('adhesion', $user->profil->adhesion->get('Y'));
-        $profilForm->setDefault('adhesion', $user->profil->numero);
+        $profilForm->setDefault('adhesion', $user->profil->adhesion->get('YYYY'));
+        $profilForm->setDefault('numero', $user->profil->numero);
         $this->view->profilForm = $profilForm;
+
+        $this->view->pwdForm = new Application_Form_Password();
+    }
+
+    public function editpwdAction() {
+        $form = new Application_Form_Password($this->getRequest()->getPost());
+        if ($form->isValid($this->getRequest()->getPost())) {
+            Zend_Debug::dump('valide');
+            $user = Zend_Auth::getInstance()->getIdentity();
+            $values = $form->getValues();
+            $user->setPasswd(Application_Model_User::hashPasswd($values['new_pwd']));
+            Zend_Debug::dump($user);
+            $userMapper = new Application_Model_UserMapper();
+            $userMapper->save($user);
+        }
+        $this->getResponse()->setRedirect('editProfil');
     }
 
 }
