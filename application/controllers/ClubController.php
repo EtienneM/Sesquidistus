@@ -13,10 +13,14 @@ class ClubController extends My_Controller_Action_CustomContent {
         $id = $request->getParam('id');
         if (!isset($id)) {
             $id = 1;
+        } else if ($id == 3) {
+            //$this->getResponse()->setRedirect('/user/list');
         } else if ($id == 5) {
             $this->view->headScript()
                     ->appendFile('http://maps.google.com/maps/api/js?sensor=false')
-                    ->appendFile('/js/entrainement.js');
+                    ->appendFile('/js/jquery/gmap3.min.js');
+            $lieuxMapper = new Application_Model_LieuUltimateMapper();
+            $this->view->lieux = $lieuxMapper->fetchAll();
         }
         $clubMapper = new Application_Model_ClubMapper();
         $this->view->sections = $clubMapper->fetchAll();

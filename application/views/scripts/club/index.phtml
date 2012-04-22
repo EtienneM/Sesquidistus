@@ -2,17 +2,38 @@
     <!-- div du menu -->
     <?php echo $this->partial('_sidebar.phtml', array('sections' => $this->sections, 'id' => $this->club->id, 'controller' => $this->controller)) ?>
     <?php if ($this->club->id == 3): //Section l'équipe => Trombinoscope ?>
-    A faire...
-    <?php // TODO inclusion du trombinoscope ?>
-    <?php elseif ($this->club->id == 5): // Section Lieux d'entraînement ?>
+
+        <?php // TODO inclusion du trombinoscope ?>
+        <?php // elseif ($this->club->id == 5): // Section Lieux d'entraînement ?>
     <?php else: ?>
-    <!-- div du contenu de la page -->
-    <div class="box" id="news">
-        <div class="titreNews"><span><?= $this->escape($this->club->titre); ?></span></div>
-        <div class="contenuNews">
-            <div><?= $this->club->contenu ?></div>
+        <!-- div du contenu de la page -->
+        <div class="box" id="news">
+            <div class="titreNews"><span><?= $this->escape($this->club->titre); ?></span></div>
+            <div class="contenuNews">
+                <div><?= $this->club->contenu ?></div>
+            </div>
+            <?php if ($this->club->id == 5): ?>
+                <?php foreach ($this->lieux as $lieu): ?>
+                    <div class="box map" id="map<?= $lieu->numero; ?>">
+                        <div class="titreNews"><?= $this->escape($lieu->nom); ?></div>
+                        <div id="map_canvas<?= $lieu->numero; ?>" class="canvas"></div>
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#map_canvas<?= $lieu->numero; ?>').gmap3({
+                                    action: 'addMarker',
+                                    address: "<?= $this->escape($lieu->adresse); ?>",
+                                    map:{
+                                        center: true,
+                                        zoom: 14
+                                    }
+                                });
+                            });
+                        </script>
+                        <p><?= $this->escape($lieu->adresse); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
-    </div>
     <?php endif; ?>
 </div>
 <?php //Javascript chelou pour l'admin ?>

@@ -54,3 +54,22 @@ div.cadreCat:hover {
     color:white;
     border:0px;
 }
+
+div.map {
+    width:510px; 
+    margin:22px auto;
+}
+
+div.canvas {
+    width: 500px; /* Obligatoire pour google maps */
+    height: 300px; /* Obligatoire pour google maps */
+    margin:0 auto;
+}
+
+div.map p {
+    text-align:center; 
+    background-color:#222; 
+    color:white; 
+    margin:0 5px 5px 5px; 
+    padding:8px;
+}

@@ -39,6 +39,7 @@
           <dbTableFile dbTableName="Profil"/>
           <dbTableFile dbTableName="Club"/>
           <dbTableFile dbTableName="Ultimate"/>
+          <dbTableFile dbTableName="LieuEntrainement"/>
         </dbTableDirectory>
         <modelFile modelName="ArticleMapper"/>
         <modelFile modelName="Article"/>
@@ -57,6 +58,8 @@
         <modelFile modelName="ClubMapper"/>
         <modelFile modelName="UltimateMapper"/>
         <modelFile modelName="Ultimate"/>
+        <modelFile modelName="LieuEntrainement"/>
+        <modelFile modelName="LieuEntrainementMapper"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>
