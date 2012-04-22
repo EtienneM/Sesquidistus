@@ -38,6 +38,7 @@
           <dbTableFile dbTableName="Membre"/>
           <dbTableFile dbTableName="Profil"/>
           <dbTableFile dbTableName="Club"/>
+          <dbTableFile dbTableName="Ultimate"/>
         </dbTableDirectory>
         <modelFile modelName="ArticleMapper"/>
         <modelFile modelName="Article"/>
@@ -54,6 +55,8 @@
         <modelFile modelName="Profil"/>
         <modelFile modelName="Club"/>
         <modelFile modelName="ClubMapper"/>
+        <modelFile modelName="UltimateMapper"/>
+        <modelFile modelName="Ultimate"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>
