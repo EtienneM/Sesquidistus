@@ -28,7 +28,7 @@
         </galerie>
         <evenement>
             <label>Nos évènements</label>
-            <controller>evenement</controller>
+            <controller>evenements</controller>
             <action>index</action>
         </evenement>
         <kym>
