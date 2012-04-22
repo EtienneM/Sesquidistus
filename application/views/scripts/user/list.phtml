@@ -1,29 +1,6 @@
 <div class="totalBox">
     <div class="box">
         <div class="titreNews">Trombinoscope</div>
-        <?php foreach ($this->everybody as $key => $members) : ?>
-            <?= $key; ?><hr/>
-            <table>
-                <?php $i = 0; ?>
-                <?php foreach ($members as $member): ?>
-                    <?php if ($i % 5 == 0): ?>
-                        <?php if ($i != 0): ?>
-                            </tr>
-                        <?php endif; ?>
-                        <tr>
-                        <?php endif; ?>
-                        <td>
-                            <div class="bouton4">
-                                <a class="black" href="<?= $this->url(array('action' => 'view', 'user' => $member->id_membre)); ?>">
-                                    <img src="<?= $member->avatarPath; ?>" 
-                                         title="<?= $this->escape($member->prenom); ?>" alt="<?= $this->escape($member->prenom); ?>" />
-                                         <?= $this->escape($member->prenom); ?>
-                                </a>
-                            </div>
-                        </td>
-                        <?php $i++; ?>
-                    <?php endforeach; ?>
-            </table>
-        <?php endforeach; ?>
+        <?= $this->partial('_trombi.phtml', array('everybody' => $this->everybody, 'nbPerLine' => 5)); ?>
     </div>
 </div>
