@@ -3,7 +3,7 @@
 class UserController extends Zend_Controller_Action {
 
     public function init() {
-        
+        $this->_title = 'Page membres';
     }
 
     public function indexAction() {

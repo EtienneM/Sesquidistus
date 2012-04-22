@@ -16,8 +16,8 @@
                             <div class="bouton4">
                                 <a class="black" href="<?= $this->url(array('action' => 'view', 'user' => $member->id_membre)); ?>">
                                     <img src="<?= $member->avatarPath; ?>" 
-                                         title="<?= $member->prenom; ?>" alt="<?= $member->prenom; ?>" />
-                                         <?= $member->prenom; ?>
+                                         title="<?= $this->escape($member->prenom); ?>" alt="<?= $this->escape($member->prenom); ?>" />
+                                         <?= $this->escape($member->prenom); ?>
                                 </a>
                             </div>
                         </td>

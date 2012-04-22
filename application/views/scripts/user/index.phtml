@@ -3,19 +3,27 @@
         <div class="titreNews">Espace membre : Bienvenue <?= $this->user->login ?> !</div>
         <ul class="login">
             <li title="Accédez à votre profil">
-                <div class="rotate"><a class="black" href="<?= $this->url(array('action'=>'editProfil')); ?>"><img alt="Profil" src="/images/membres/profil.png"/><br/>Profil</a></div>
+                <div class="rotate">
+                    <a class="black" href="<?= $this->url(array('action' => 'editProfil')); ?>">
+                        <img alt="Profil" src="/images/membres/profil.png"/><br/>Profil
+                    </a>
+                </div>
             </li>
             <li title="Accédez au trombinoscope">
-                <div class="rotate"><a class="black" href="<?= $this->url(array('action'=>'list')); ?>"><img alt="Trombi" src="/images/membres/membre.png"/><br/>Trombi</a></div>
+                <div class="rotate">
+                    <a class="black" href="<?= $this->url(array('action' => 'list')); ?>">
+                        <img alt="Trombi" src="/images/membres/membre.png"/><br/>Trombi
+                    </a>
+                </div>
             </li>
             <?php /* TODO Forum à voir...
-            <li title="Accédez au forum">
-                <div class="rotate"><a class="black" href="./?categorie=forum"><img alt="Forum" src="/images/membres/forum.png"/><br/>Forum</a></div>
-            </li>*/ ?>
+              <li title="Accédez au forum">
+              <div class="rotate"><a class="black" href="./?categorie=forum"><img alt="Forum" src="/images/membres/forum.png"/><br/>Forum</a></div>
+              </li> */ ?>
             <?php /* TODO Galerie membre soumet photos+vidéos
-            <li title="Accédez à la galerie">
-                <div class="rotate"><a class="black" href="./?categorie=member_galerie"><img alt="Galerie" src="/images/membres/galerie.png"/><br/>Galerie</a></div>
-            </li>*/ ?>
+              <li title="Accédez à la galerie">
+              <div class="rotate"><a class="black" href="./?categorie=member_galerie"><img alt="Galerie" src="/images/membres/galerie.png"/><br/>Galerie</a></div>
+              </li> */ ?>
             <?php /*
               <li title="Accédez à la page de sondage">
               <div class="rotate">

@@ -4,7 +4,7 @@ class UltimateController extends My_Controller_Action_CustomContent {
 
     public function init() {
         $this->_titre = 'L\'utlimate';
-        $this->_styleSheets[] = '/css/club/club.css';
+        $this->view->headLink()->appendStylesheet('/css/club/club.css');
 
         $this->_sections = array(
             array(

@@ -3,7 +3,7 @@
 class CalendrierController extends Zend_Controller_Action {
 
     public function init() {
-        
+        $this->_titre = 'Calendrier';
     }
 
     public function indexAction() {
@@ -17,8 +17,7 @@ class CalendrierController extends Zend_Controller_Action {
           Zend_Debug::dump($e->findApplication_Model_DbTable_Evenement()); */
         $this->mergeQueryString();
         $this->view->headLink()->appendStylesheet('/css/calendrier/calendrier_consultation.css');
-        $this->view->headScript()
-                ->appendFile('/js/calendrier.js');
+        $this->view->headScript()->appendFile('/js/calendrier.js');
 
         $mois = $this->getRequest()->getParam('mois');
         $annee = $this->getRequest()->getParam('annee');

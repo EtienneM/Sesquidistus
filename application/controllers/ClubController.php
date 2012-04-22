@@ -3,20 +3,9 @@
 class ClubController extends My_Controller_Action_CustomContent {
 
     public function init() {
-        $this->_titre = 'Le club';
-        $this->_styleSheets[] = '/css/club/club.css';
-
-        $this->_sections = array(
-            array(
-                'id' => 1,
-                'label' => 'Présentation',
-            ),
-            array(
-                'id' => 2,
-                'label' => 'Palmarès',
-            ),
-        );
         parent::init();
+        $this->_titre = 'Le club';
+        $this->view->headLink()->appendStylesheet('/css/club/club.css');
     }
 
     public function indexAction() {
@@ -24,15 +13,20 @@ class ClubController extends My_Controller_Action_CustomContent {
         $id = $request->getParam('id');
         if (!isset($id)) {
             $id = 1;
+        } else if ($id == 5) {
+            $this->view->headScript()
+                    ->appendFile('http://maps.google.com/maps/api/js?sensor=false')
+                    ->appendFile('/js/entrainement.js');
         }
-        // Requête SQL pour trouver en fonction de l'id le contenu
-        $this->view->club = array(
-            'titre' => 'biniou',
-            'contenu' => 'bliblablou'
-        );
-        $this->view->id = $id;
+        $clubMapper = new Application_Model_ClubMapper();
+        $this->view->sections = $clubMapper->fetchAll();
+        foreach ($this->view->sections as $section) {
+            if ($id == $section->id) {
+                $this->view->club = $section;
+                break;
+            }
+        }
     }
-
 
 }
 
