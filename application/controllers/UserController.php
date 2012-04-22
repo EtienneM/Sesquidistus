@@ -62,5 +62,30 @@ class UserController extends Zend_Controller_Action {
         $this->getResponse()->setRedirect('editProfil');
     }
 
+    public function listAction() {
+        $this->view->headLink()->appendStylesheet('/css/membres/trombi.css');
+        $profilMapper = new Application_Model_ProfilMapper();
+        $everybody = array();
+        $profils = $profilMapper->findAncien(false);
+        if (count($profils) > 0) {
+            $everybody["Sesqui d'aujourd'hui"] = array();
+        }
+        foreach ($profils as $profil) {
+            $avatar = ($profil->avatar == '') ? '/images/membres/no_avatar.png' : Application_Model_Profil::getAvatarPath().$profil->avatar;
+            $profil->avatar = $avatar;
+            $everybody["Sesqui d'aujourd'hui"][] = $profil;
+        }
+        $profils = $profilMapper->findAncien();
+        if (count($profils) > 0) {
+            $everybody["Sesqui d'hier"] = array();
+        }
+        foreach ($profils as $profil) {
+            $avatar = ($profil->avatar == '') ? '/images/membres/no_avatar.png' : Application_Model_Profil::getAvatarPath().$profil->avatar;
+            $profil->avatar = $avatar;
+            $everybody["Sesqui d'hier"][] = $profil;
+        }
+        $this->view->everybody = $everybody;
+    }
+
 }
 

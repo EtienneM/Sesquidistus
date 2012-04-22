@@ -1,0 +1,23 @@
+div.box{
+    width:700px; 
+    margin:0 auto;
+}
+
+table {
+    border-collapse:separate; 
+    border-spacing:12px 3px;
+}
+
+td {
+    text-align:center;
+}
+
+div.bouton4 {
+    padding:6px;
+}
+
+div.bouton4 img {
+    width:100px; 
+    display:block;
+}
+ 

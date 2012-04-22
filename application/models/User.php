@@ -131,6 +131,6 @@ class Application_Model_User extends My_Model implements Zend_Acl_Role_Interface
         }
         return $this->_aclRoleId;
     }
-
+    
 }
 

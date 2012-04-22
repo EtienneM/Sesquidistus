@@ -1,0 +1,30 @@
+<div class="totalBox">
+    <div class="box">
+        <div class="titreNews">Trombinoscope</div>
+        <?php foreach ($this->everybody as $key => $members) : ?>
+            <?= $key; ?><hr/>
+            <table>
+                <?php $i = 0; ?>
+                <?php foreach ($members as $member): ?>
+                    <?php if ($i % 5 == 0): ?>
+                        <?php if ($i != 0): ?>
+                            </tr>
+                        <?php endif; ?>
+                        <tr>
+                        <?php endif; ?>
+                        <td>
+                            <div class="bouton4">
+                                <a class="black" href="<?= $this->url(array('action' => 'view', 'user' => $member->id)); ?>">
+                                    <img src="<?= $member->avatar; ?>" 
+                                         title="<?= $member->prenom; ?>" alt="<?= $member->prenom; ?>" />
+                                         <?= $member->prenom; ?>
+                                </a>
+                            </div>
+                        </td>
+
+                        <?php $i++; ?>
+                    <?php endforeach; ?>
+            </table>
+        <?php endforeach; ?>
+    </div>
+</div>

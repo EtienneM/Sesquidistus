@@ -10,6 +10,7 @@ class Application_Model_Profil extends My_Model {
     protected $_avatar;
     protected $_question;
     protected $_reponse;
+    protected $_ancien;
 
     /**
      * 
@@ -115,6 +116,15 @@ class Application_Model_Profil extends My_Model {
 
     public function setReponse($reponse) {
         $this->_reponse = (string) $reponse;
+        return $this;
+    }
+    
+    public function getAncien() {
+        return $this->_ancien;
+    }
+
+    public function setAncien($ancien) {
+        $this->_ancien = (bool) $ancien;
         return $this;
     }
 

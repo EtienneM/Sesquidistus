@@ -18,6 +18,7 @@ class Application_Model_ProfilMapper extends My_Model_Mapper {
             'adhesion' => $profil->getAdhesion()->get(Zend_Date::ISO_8601),
             'question' => $profil->getQuestion(),
             'reponse' => $profil->getReponse(),
+            'ancien' => $profil->getAncien(),
         );
 
         if (null === ($id = $profil->getId())) {
@@ -35,6 +36,24 @@ class Application_Model_ProfilMapper extends My_Model_Mapper {
         }
         $row = $result->current();
         $evenement->setOptions($row->toArray());
+    }
+    
+    /**
+     * Trouve tous les anciens (ou non ancien) de la base de données
+     * 
+     * @param boolean $ancien
+     * @return Array
+     */
+    public function findAncien($ancien=true) {
+        $table = $this->getDbTable();
+        $select = $table->select()
+                ->where('ancien = ?', $ancien)
+                ->order('prenom ASC');
+        $entries = array();
+        foreach ($table->fetchAll($select) as $row) {
+            $entries[] = new Application_Model_Profil($row->toArray());
+        }
+        return $entries;
     }
 
 }
