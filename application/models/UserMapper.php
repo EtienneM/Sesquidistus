@@ -31,10 +31,12 @@ class Application_Model_UserMapper extends My_Model_Mapper {
             return;
         }
         $row = $result->current();
+        $profil = new Application_Model_Profil($row->findDependentRowset('Application_Model_DbTable_Profil')->current()->toArray());
         $user->setId($row->id)
                 ->setLogin($row->login)
                 ->setPasswd($row->passwd)
-                ->setAdmin($row->admin);
+                ->setAdmin($row->admin)
+                ->setProfil($profil);
     }
 
     /**
@@ -57,6 +59,6 @@ class Application_Model_UserMapper extends My_Model_Mapper {
                 ->setProfil($profil);
         return $user;
     }
-
+    
 }
 

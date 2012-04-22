@@ -14,14 +14,13 @@
                         <?php endif; ?>
                         <td>
                             <div class="bouton4">
-                                <a class="black" href="<?= $this->url(array('action' => 'view', 'user' => $member->id)); ?>">
-                                    <img src="<?= $member->avatar; ?>" 
+                                <a class="black" href="<?= $this->url(array('action' => 'view', 'user' => $member->id_membre)); ?>">
+                                    <img src="<?= $member->avatarPath; ?>" 
                                          title="<?= $member->prenom; ?>" alt="<?= $member->prenom; ?>" />
                                          <?= $member->prenom; ?>
                                 </a>
                             </div>
                         </td>
-
                         <?php $i++; ?>
                     <?php endforeach; ?>
             </table>

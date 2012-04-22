@@ -16,15 +16,15 @@ class Application_Model_Profil extends My_Model {
      * 
      * @return string 
      */
-    public static function getAvatarPath() {
+    protected static function _getAvatarPath() {
         return "/images/avatar/";
     }
-    
+
     /**
      * 
      * @return string 
      */
-    public static function getAvatarMiniPath() {
+    protected static function _getAvatarMiniPath() {
         return "/images/avatar/mini/";
     }
 
@@ -81,13 +81,21 @@ class Application_Model_Profil extends My_Model {
         $this->_adhesion = new Zend_Date($adhesion);
         return $this;
     }
-    
+
     /**
      *
      * @return string
      */
     public function getAvatar() {
         return $this->_avatar;
+    }
+
+    public function getAvatarPath() {
+        return ($this->getAvatar() == '') ? '/images/membres/no_avatar.png' : self::_getAvatarPath().$this->getAvatar();
+    }
+    
+    public function getAvatarMiniPath() {
+        return ($this->getAvatar() == '') ? '/images/membres/mini_no_avatar.png' : self::_getAvatarMiniPath().$this->getAvatar();
     }
 
     /**
@@ -100,7 +108,6 @@ class Application_Model_Profil extends My_Model {
         return $this;
     }
 
-    
     public function getQuestion() {
         return $this->_question;
     }
@@ -118,7 +125,7 @@ class Application_Model_Profil extends My_Model {
         $this->_reponse = (string) $reponse;
         return $this;
     }
-    
+
     public function getAncien() {
         return $this->_ancien;
     }

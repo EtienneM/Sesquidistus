@@ -6,10 +6,10 @@
             <legend>&Eacute;dition du profil&nbsp;: </legend>
             <?php $this->profilForm->setAction($this->url()); ?>
             <form method="<?= $this->profilForm->getMethod(); ?>" action="<?= $this->profilForm->getAction(); ?>" id="editProfil">
-                <table style="width:100%;">
+                <table id="profil">
                     <tr>
                         <td rowspan="6">
-                            <img src="<?= Application_Model_Profil::getAvatarPath().$this->user->profil->avatar ?>" 
+                            <img src="<?= $this->user->profil->avatarPath ?>" 
                                  title="Cliquez pour changez votre photo!" class="bouton4" alt="Ma photo" id="avatar" />
                         </td>
                     </tr>

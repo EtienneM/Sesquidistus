@@ -7,11 +7,11 @@ class UserController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        $this->view->headLink()->appendStylesheet("/css/membres/login.css");
+        $this->view->headLink()->appendStylesheet('/css/membres/login.css');
     }
 
     public function editprofilAction() {
-        $this->view->headLink()->appendStylesheet("/css/membres/profil.css");
+        $this->view->headLink()->appendStylesheet('/css/membres/profil.css');
         $this->view->headScript()->appendFile('/js/profil.js');
         $this->view->headScript()->appendFile('/js/jquery/jquery.validate.min.js');
         $this->view->headScript()->appendFile('/js/jquery/jquery.validate.additional-methods.min.js');
@@ -71,8 +71,6 @@ class UserController extends Zend_Controller_Action {
             $everybody["Sesqui d'aujourd'hui"] = array();
         }
         foreach ($profils as $profil) {
-            $avatar = ($profil->avatar == '') ? '/images/membres/no_avatar.png' : Application_Model_Profil::getAvatarPath().$profil->avatar;
-            $profil->avatar = $avatar;
             $everybody["Sesqui d'aujourd'hui"][] = $profil;
         }
         $profils = $profilMapper->findAncien();
@@ -80,11 +78,21 @@ class UserController extends Zend_Controller_Action {
             $everybody["Sesqui d'hier"] = array();
         }
         foreach ($profils as $profil) {
-            $avatar = ($profil->avatar == '') ? '/images/membres/no_avatar.png' : Application_Model_Profil::getAvatarPath().$profil->avatar;
-            $profil->avatar = $avatar;
             $everybody["Sesqui d'hier"][] = $profil;
         }
         $this->view->everybody = $everybody;
+    }
+    
+    public function viewAction() {
+        $this->view->headLink()->appendStylesheet('/css/membres/profil.css');
+        $userMapper = new Application_Model_UserMapper();
+        $user = new Application_Model_User();
+        $userMapper->find($this->getRequest()->getParam('user'), $user);
+        if (is_null($user->id)) {
+            throw new Zend_Controller_Action_Exception("L'utilisateur donné en 
+                paramètre n'existe pas dans la base de données", 404);
+        }
+        $this->view->member = $user;
     }
 
 }

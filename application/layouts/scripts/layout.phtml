@@ -28,7 +28,7 @@
                 <a href="<?php echo $this->baseUrl(); ?>"><img src="/images/minilogo.png" alt="Sesquidistus" id="sesquiLogo"/></a>
                 <?php if (!is_null($this->user)): ?>
                     <a href="<?= $this->url(array('controller' => 'user', 'action' => 'index')) ?>">
-                        <img class="avatar" src="<?= Application_Model_Profil::getAvatarMiniPath().$this->user->profil->avatar ?>" alt="Photo <?= $this->user->login ?>" title="Espace Membre de <?= $this->user->login ?>" />
+                        <img class="avatar" src="<?= $this->user->profil->avatarMiniPath; ?>" alt="Photo <?= $this->user->login ?>" title="Espace Membre de <?= $this->user->login ?>" />
                     </a>
                     <span class="userLogin">
                         <a class="white2" href="<?= $this->url(array('controller' => 'user', 'action' => 'index')) ?>">

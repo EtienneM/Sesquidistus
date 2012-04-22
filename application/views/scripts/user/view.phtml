@@ -1,0 +1,34 @@
+<div class="totalBox">
+    <div class="box">
+        <div class="titreNews">Feuille profil membre</div>
+        <fieldset>
+            <legend>Profil :</legend>
+            <table id="profil">
+                <tr>
+                    <td rowspan="3" id="avatar">
+                        <img src="<?= $this->member->profil->avatarPath ?>" 
+                             class="bouton2" alt="Ma photo" />
+                    </td>
+                </tr>
+                <tr class="style1">
+                    <th>Login&nbsp;:</th>
+                    <td><?= $this->member->login; ?></td>
+                    <th>Membre depuis&nbsp;:</th>
+                    <td><?= $this->member->profil->adhesion->get(Zend_Date::YEAR); ?></td>
+                </tr>
+                <tr class="style2">
+                    <?php /* TODO On affiche l'e-mail ? C'est une page public. 
+                     * Ou alors juste pour les gens connecté ?
+                      <th>E-mail&nbsp;:</th>
+                      <td><?= $this->member->profil->mail; ?></td>
+                     */ ?>
+                    <th>Prénom&nbsp;:</th>
+                    <td><?= $this->member->profil->prenom; ?></td>                    
+                    <th>Numéro</th>
+                    <td><?= $this->member->profil->numero; ?></td>
+                </tr>
+
+            </table>
+        </fieldset>
+    </div>
+</div>

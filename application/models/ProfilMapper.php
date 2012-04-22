@@ -29,13 +29,13 @@ class Application_Model_ProfilMapper extends My_Model_Mapper {
         }
     }
     
-    public function find($id, Application_Model_Profil $evenement) {
+    public function find($id, Application_Model_Profil $profil) {
         $result = $this->getDbTable()->find($id);
         if (0 == count($result)) {
             return;
         }
         $row = $result->current();
-        $evenement->setOptions($row->toArray());
+        $profil->setOptions($row->toArray());
     }
     
     /**
