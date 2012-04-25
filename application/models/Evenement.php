@@ -61,8 +61,9 @@ class Application_Model_Evenement extends My_Model {
     }
 
     public function setHoraire_debut($horaireDebut) {
-        // TODO Transformer de string en Zend_Date
-        $this->_horaire_debut = (string) $horaireDebut;
+        if (!empty($horaireDebut)) {
+            $this->_horaire_debut = new Zend_Date($horaireDebut);
+        }
         return $this;
     }
 

@@ -53,12 +53,38 @@ class Application_Model_EvenementMapper extends My_Model_Mapper {
      * @param Zend_Date $date 
      * @return array Array of Evenement
      */
-    public function getFromMonth(Zend_Date $date) {
+    public function findByMonth(Zend_Date $date) {
+        $dateEnd = new Zend_Date($date);
+        $dateEnd->addMonth(1);
+        return $this->findBetweenInterval($date, $dateEnd);
+    }
+    
+    /**
+     * Get every event of a season. i.e. between $dateBegin and 
+     * $dateBegin + 1 year - 1 day. For example, from the 1st september 2010 and 
+     * the 31st august 2011.
+     * 
+     * @param Zend_Date $dateBegin 
+     * @param int $typeEventId Id of the type of event you want to get
+     * @param string $order Order to sort the request. Default is 'DESC'.
+     * @return array Array of Evenement
+     */
+    public function findBySeason(Zend_Date $dateBegin, $typeEventId = null, $order = 'DESC') {
+        $dateEnd = new Zend_Date($dateBegin);
+        $dateEnd->addYear(1)->subDay(1);
+        return $this->findBetweenInterval($dateBegin, $dateEnd, $typeEventId, $order);
+    }
+    
+    
+    private function findBetweenInterval(Zend_Date $date1, Zend_Date $date2, $typeEventId = null, $order = 'ASC') {
         $table = $this->getDbTable();
         $select = $table->select()
-                ->where('evenement.date >= ?', $date->get(Zend_Date::ISO_8601))
-                ->where('evenement.date < ?', $date->addMonth(1)->get(Zend_Date::ISO_8601))
-                ->order('evenement.date ASC');
+                ->where('evenement.date >= ?', $date1->get(Zend_Date::ISO_8601))
+                ->where('evenement.date < ?', $date2->get(Zend_Date::ISO_8601))
+                ->order('evenement.date '.$order);
+        if (!is_null($typeEventId)) {
+            $select->where('evenement.type = ?', $typeEventId);
+        }
         $entries = array();
         foreach ($table->fetchAll($select) as $row) {
             // TODO Modifier la requête pour faire une jointure ?

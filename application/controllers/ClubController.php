@@ -10,10 +10,7 @@ class ClubController extends My_Controller_Action_CustomContent {
 
     public function indexAction() {
         $request = $this->getRequest();
-        $id = $request->getParam('id');
-        if (!isset($id)) {
-            $id = 1;
-        }
+        $id = $request->getParam('id', 1);
         $clubMapper = new Application_Model_ClubMapper();
         $this->view->sections = $clubMapper->fetchAll();
         // Recherche de la section courante

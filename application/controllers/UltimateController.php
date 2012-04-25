@@ -10,10 +10,7 @@ class UltimateController extends My_Controller_Action_CustomContent {
 
     public function indexAction() {
         $request = $this->getRequest();
-        $id = $request->getParam('id');
-        if (!isset($id)) {
-            $id = 1;
-        }
+        $id = $request->getParam('id', 1);
         $ultimateMapper = new Application_Model_UltimateMapper();
         $this->view->sections = $ultimateMapper->fetchAll();
         foreach ($this->view->sections as $section) {
