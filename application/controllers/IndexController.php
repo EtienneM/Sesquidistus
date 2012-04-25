@@ -7,13 +7,16 @@ class IndexController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
+        $this->view->headLink()->appendStylesheet('/css/pagination.css');
         $article = new Application_Model_ArticleMapper();
         $idEvent = $this->getRequest()->getParam('id_event');
-        if (is_null($idEvent)) {
-            $this->view->articles = $article->fetchAll();
-        } else {
-            $this->view->articles = $article->findByEvent($idEvent);
-        }
+        $page = $this->getRequest()->getParam('page', 1);
+        Zend_View_Helper_PaginationControl::setDefaultViewPartial('index/_controls.phtml');
+        Zend_Paginator::setDefaultScrollingStyle('Sliding');
+        $articles = $article->findByEvent($idEvent, $page, $paginator);
+        $this->view->articles = $articles;
+        $this->view->paginator = $paginator;
+
         $this->view->nextTraining = array(
             'titre' => 'Entrainement Outdoor',
             'date' => new Zend_Date(),

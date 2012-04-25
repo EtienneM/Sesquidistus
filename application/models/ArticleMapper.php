@@ -49,13 +49,27 @@ class Application_Model_ArticleMapper extends My_Model_Mapper {
         return $entries;
     }
 
-    public function findByEvent($idEvent) {
+    /**
+     * Trouve les articles correspondant à un évènement pour la page sépcifier.
+     * Cette méthode retourne un tableau d'articles et un Zend_Paginator 
+     * au niveau du troisième argument.
+     * 
+     * @param int $idEvent 
+     * @param int $page
+     * @param Zend_Paginator $paginator
+     * @return \Application_Model_Article 
+     */
+    public function findByEvent($idEvent = null, $page = 1, Zend_Paginator &$paginator = null) {
         $table = $this->getDbTable();
-        $select = $table->select()
-                ->where('article.id_event = ?', $idEvent)
-                ->order('article.date_article DESC');
+        $select = $table->select()->order('article.date_article DESC');
+        if (!is_null($idEvent)) {
+            $select->where('article.id_event = ?', $idEvent);
+        }
         $entries = array();
-        foreach ($table->fetchAll($select) as $row) {
+        $paginator = Zend_Paginator::factory($select);
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage(5);
+        foreach ($paginator as $row) {
             $entry = new Application_Model_Article();
             $entry->setId($row->id)
                     ->setTitre($row->titre)
