@@ -18,21 +18,24 @@
                     <th>Date</th>
                     <th>Contenu</th>
                 </tr>
-                <?php foreach ($evenements as $evenement): ?>
+                <?php foreach ($evenements['evenements'] as $evenement): ?>
                     <tr class="mouseover">
                         <td><?= $evenement->titre ?></td>
                         <td><?= (is_string($evenement->lieu)) ? $evenement->lieu : $evenement->lieu->nom; ?></td>
                         <td><?= $evenement->date->get(Zend_Date::DATES) ?></td>
                         <td>
-                            <span style="margin-right:5px;">
+                            <?php if($evenements['article'][$evenement->id]): ?>
+                            <a href="<?= $this->url(array('controller' => 'index', 'type' => null, 'id_event' => $evenement->id)); ?>">
                                 <img style="cursor:pointer" id="ico<?= $evenement->id; ?>" src="/images/page.png" alt="Articles" title="Accéder aux articles liés à cet évènement" />
-                            </span>
-                            <span style="margin-right:5px;">
+                            </a>
+                            <?php endif; ?>
+                            <?php /* TODO mais ne semble pas terrible sur le précédent site...
+                            <span>
                                 <img style="cursor:pointer" id="icoPhoto<?= $evenement->id; ?>" src="/images/image.png" alt="Images" title="Images de l'évènement" />
                             </span>
-                            <span style="margin-right:5px;">
+                            <span>
                                 <img style="cursor:pointer" id="icoVideo<?= $evenement->id; ?>" src="/images/film.png" alt="Video" title="Vidéos de l'évènement" />
-                            </span>
+                            </span> */ ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

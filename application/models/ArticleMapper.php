@@ -49,5 +49,22 @@ class Application_Model_ArticleMapper extends My_Model_Mapper {
         return $entries;
     }
 
+    public function findByEvent($idEvent) {
+        $table = $this->getDbTable();
+        $select = $table->select()
+                ->where('article.id_event = ?', $idEvent)
+                ->order('article.date_article DESC');
+        $entries = array();
+        foreach ($table->fetchAll($select) as $row) {
+            $entry = new Application_Model_Article();
+            $entry->setId($row->id)
+                    ->setTitre($row->titre)
+                    ->setContenu($row->contenu)
+                    ->setDate_article($row->date_article);
+            $entries[] = $entry;
+        }
+        return $entries;
+    }
+
 }
 

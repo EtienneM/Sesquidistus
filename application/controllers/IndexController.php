@@ -8,7 +8,12 @@ class IndexController extends Zend_Controller_Action {
 
     public function indexAction() {
         $article = new Application_Model_ArticleMapper();
-        $this->view->articles = $article->fetchAll();
+        $idEvent = $this->getRequest()->getParam('id_event');
+        if (is_null($idEvent)) {
+            $this->view->articles = $article->fetchAll();
+        } else {
+            $this->view->articles = $article->findByEvent($idEvent);
+        }
         $this->view->nextTraining = array(
             'titre' => 'Entrainement Outdoor',
             'date' => new Zend_Date(),
