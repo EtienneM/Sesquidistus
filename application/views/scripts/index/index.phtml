@@ -1,109 +1,125 @@
 <div id="globalMini">
     <?php /*
-    <div id="inscription" class="totalBox">
-        <div class="box">
-            <div class="titreNews">Inscription tournoi</div>
-            <p style="text-align:left;"> 
-            </p>
-        </div>
-	</div>*/ ?>
-    <?php if(count($this->nextTraining) != 0): ?>
-    <div id="nextTraining" class="totalBox">
-        <div class="box" style="min-height:150px;">
-            <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette3_mini.gif" />
-            <div class="titreNews">Prochain entraînement</div>
-            <p style="text-align:left;"> 
-                <div style="color:#bc0101; margin-bottom:10px; font-size:11px"><?php echo $this->escape($this->nextTraining['titre']) ?></div>
+      <div id="inscription" class="totalBox">
+      <div class="box">
+      <div class="titreNews">Inscription tournoi</div>
+      <p style="text-align:left;">
+      </p>
+      </div>
+      </div> */ ?>
+    <?php if (!empty($this->nextTraining)): ?>
+        <div id="nextTraining" class="totalBox">
+            <div class="box" style="min-height:150px;">
+                <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette3_mini.gif" />
+                <div class="titreNews">Prochain entraînement</div>
+                <p style="text-align:left;"> 
+                <div style="color:#bc0101; margin-bottom:10px; font-size:11px"><?= $this->escape($this->nextTraining->titre); ?></div>
                 <table>
                     <tr>
                         <td style="color:#555">Date&nbsp;:</td>
-                        <td><?php echo $this->escape($this->nextTraining['date']->get('dd/MM/YYYY')) ?></td>
+                        <td><?= $this->escape($this->nextTraining->date->get('dd/MM/YYYY')) ?></td>
                     </tr>
                     <tr>
                         <td style="color:#555">Lieu&nbsp;:</td>
                         <td>
-                            <?php echo $this->escape($this->nextTraining['nom_lieu']) ?>
-                            <a title="Google maps" href="<?php echo $this->url(array('controller'=>'index')) ?>">
-                                <img src="/images/loupe.png"/>
-                            </a>
+                            <?php
+                            if (is_string($this->nextTraining->lieu)) {
+                                echo $this->escape($this->nextTraining->lieu);
+                            } else {
+                                echo $this->escape($this->nextTraining->lieu->nom);
+                                ?>
+                                <a title="Google maps" href="<?= $this->url(array('controller' => 'club', 'id' => 5)) ?>/#map<?= $this->nextTraining->lieu->numero ?>">
+                                    <img src="/images/loupe.png"/>
+                                </a>
+                                <?php
+                            }
+                            ?>
                         </td>
                     </tr>
                     <tr>
                         <td style="color:#555">Début&nbsp;:</td>
-                        <td><?php echo $this->escape($this->nextTraining['horaire_debut']) ?></td>
+                        <td><?php echo $this->escape($this->nextTraining->horaire_debut) ?></td>
                     </tr>
                     <tr>
                         <td style="color:#555">Fin&nbsp;:</td>
-                        <td><?php echo $this->escape($this->nextTraining['horaire_fin']) ?></td>
+                        <td><?php echo $this->escape($this->nextTraining->horaire_fin) ?></td>
                     </tr>
                 </table>
-            </p>
+                </p>
+            </div>
         </div>
-	</div>
     <?php endif; ?>
-    <?php if(count($this->nextTournoi) != 0): ?>
-    <div id="nextTournoi" class="totalBox">	
-        <div class="box" style="min-height:150px;">
-            <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette4.gif" />
-            <div class="titreNews">Prochain tournoi</div>
+    <?php if (!empty($this->nextTournoi)): ?>
+        <div id="nextTournoi" class="totalBox">	
+            <div class="box" style="min-height:150px;">
+                <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette4.gif" />
+                <div class="titreNews">Prochain tournoi</div>
                 <p style="text-align:left;"> 
-                <div style="color:#bc0101; margin-bottom:10px; font-size:11px;"><?php echo $this->escape($this->nextTournoi['titre']) ?> </div>
+                <div style="color:#bc0101; margin-bottom:10px; font-size:11px;"><?= $this->escape($this->nextTournoi->titre) ?> </div>
                 <table style="font-size:11px">
                     <tr>
                         <td style="color:#555">Date&nbsp;:</td>
-                        <td><span id="dateNextTournoi"><?php echo $this->escape($this->nextTournoi['dateEvent']) ?></span></td>
+                        <td><span id="dateNextTournoi"><?= $this->escape($this->nextTournoi->date->get('dd/MM/YYYY')) ?></span></td>
                     </tr>
                     <tr>
                         <td style="color:#555">Lieu&nbsp;:</td>
-                        <td><?php echo $this->escape($this->nextTournoi['nom_lieu']) ?></td>
+                        <td>
+                            <?php
+                            if (is_string($this->nextTournoi->lieu)) {
+                                echo $this->escape($this->nextTournoi->lieu);
+                            } else {
+                                echo $this->escape($this->nextTournoi->lieu->nom);
+                            }
+                            ?>
+                        </td>
                     </tr>
-                    <?php if(isset($this->nextTournoi['horaire_debut'])): ?>
-                    <tr>
-                        <td style="color:#555">Début&nbsp;:</td>
-                        <td><?php echo $this->escape($this->nextTournoi['horaire_debut']) ?></td>
-                    </tr>
+                    <?php if (isset($this->nextTournoi->horaire_debut)): ?>
+                        <tr>
+                            <td style="color:#555">Début&nbsp;:</td>
+                            <td><?= $this->escape($this->nextTournoi->horaire_debut) ?></td>
+                        </tr>
                     <?php endif ?>
-                    <?php if(isset($this->nextTournoi['horaire_fin'])): ?>
-                    <tr>
-                        <td style="color:#555">Fin&nbsp;:</td>
-                        <td><?php echo $this->escape($this->nextTournoi['horaire_fin']) ?></td>
-                    </tr>
+                    <?php if (isset($this->nextTournoi->horaire_fin)): ?>
+                        <tr>
+                            <td style="color:#555">Fin&nbsp;:</td>
+                            <td><?= $this->escape($this->nextTournoi->horaire_fin) ?></td>
+                        </tr>
                     <?php endif ?>
-                    <?php // Script chelou... ?>
+                    <?php // Script chelou...  ?>
                 </table>
-            </p>
+                </p>
+            </div>
         </div>
-	</div>
     <?php endif ?>
-    <?php if(count($this->video) != 0): ?>
-    <div id="newVideo" class="totalBox">
-        <div class="box">
-            <div class="titreNews">Vidéo du moment</div>
-            <a href="">
-                <div style="position:relative;">
-                    <img style="width:170px;" src="<?php echo 'image' ?>" alt="<?php echo 'titre'?>" title="<?php echo 'titre' ?>" />
-                </div>
-                <div style="position:absolute; margin-top:-92px; margin-left:60px">
-                    <img style="width:50px;" src="/images/play.png" alt="<?php echo 'titre' ?>" title="<?php echo 'titre' ?>"/>
-                </div>
-            </a>
+    <?php if (count($this->video) != 0): ?>
+        <div id="newVideo" class="totalBox">
+            <div class="box">
+                <div class="titreNews">Vidéo du moment</div>
+                <a href="">
+                    <div style="position:relative;">
+                        <img style="width:170px;" src="<?php echo 'image' ?>" alt="<?php echo 'titre' ?>" title="<?php echo 'titre' ?>" />
+                    </div>
+                    <div style="position:absolute; margin-top:-92px; margin-left:60px">
+                        <img style="width:50px;" src="/images/play.png" alt="<?php echo 'titre' ?>" title="<?php echo 'titre' ?>"/>
+                    </div>
+                </a>
+            </div>
         </div>
-    </div>
     <?php endif ?>
 </div>
 
 <div id="globalNews">
     <!-- Pour chaque actualité -->
-    <?php foreach($this->articles as $article): ?>
-    <div class="totalBox">
-        <div class="box">
-            <div class="titreNews"><?php echo $this->escape($article->titre) ?></div>
-            <div><?php echo $article->contenu ?></div>
-            <div style="margin-top:30px">
-                <span class="note">Article créé par <?php echo 'auteur' ?> le <?php echo $this->escape($article->date_article->get('dd/MM/YYYY')) ?></span>
+    <?php foreach ($this->articles as $article): ?>
+        <div class="totalBox">
+            <div class="box">
+                <div class="titreNews"><?php echo $this->escape($article->titre) ?></div>
+                <div><?php echo $article->contenu ?></div>
+                <div style="margin-top:30px">
+                    <span class="note">Article créé par <?php echo 'auteur' ?> le <?php echo $this->escape($article->date_article->get('dd/MM/YYYY')) ?></span>
+                </div>
             </div>
         </div>
-    </div>
     <?php endforeach ?>
     <?= $this->paginator; ?>
 </div>

@@ -61,9 +61,7 @@ class Application_Model_Evenement extends My_Model {
     }
 
     public function setHoraire_debut($horaireDebut) {
-        if (!empty($horaireDebut)) {
-            $this->_horaire_debut = new Zend_Date($horaireDebut);
-        }
+        $this->_horaire_debut = (string) $horaireDebut;
         return $this;
     }
 

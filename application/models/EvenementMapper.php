@@ -58,7 +58,7 @@ class Application_Model_EvenementMapper extends My_Model_Mapper {
         $dateEnd->addMonth(1);
         return $this->findBetweenInterval($date, $dateEnd);
     }
-    
+
     /**
      * Get every event of a season. i.e. between $dateBegin and 
      * $dateBegin + 1 year - 1 day. For example, from the 1st september 2010 and 
@@ -74,8 +74,7 @@ class Application_Model_EvenementMapper extends My_Model_Mapper {
         $dateEnd->addYear(1)->subDay(1);
         return $this->findBetweenInterval($dateBegin, $dateEnd, $typeEventId, $order);
     }
-    
-    
+
     private function findBetweenInterval(Zend_Date $date1, Zend_Date $date2, $typeEventId = null, $order = 'ASC') {
         $table = $this->getDbTable();
         $select = $table->select()
@@ -99,6 +98,31 @@ class Application_Model_EvenementMapper extends My_Model_Mapper {
             $entries[] = $entry;
         }
         return $entries;
+    }
+
+    public function findNext($typeEvent) {
+        $table = $this->getDbTable();
+        $select = $table->select()
+                ->where('date >= CURDATE()')
+                ->order('date')
+                ->limit(1);
+        if (is_array($typeEvent)) {
+            $select->where('type IN (?)', $typeEvent);
+        } else {
+            $select->where('type = ?', $typeEvent);
+        }
+        
+        $row = $table->fetchRow($select);
+        if (is_null($row)) return null;
+        $type = new Application_Model_TypeEvent($row->findParentRow('Application_Model_DbTable_TypeEvent')->toArray());
+        $entry = new Application_Model_Evenement($row->toArray());
+        $entry->setType($type);
+        if ($row['id_lieu'] == 0) {
+            $entry->setLieu($row->lieu);
+        } else {
+            $entry->setLieu(new Application_Model_LieuUltimate($row->findParentRow('Application_Model_DbTable_LieuUltimate')->toArray()));
+        }
+        return $entry;
     }
 
 }

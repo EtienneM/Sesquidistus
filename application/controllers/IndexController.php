@@ -17,18 +17,9 @@ class IndexController extends Zend_Controller_Action {
         $this->view->articles = $articles;
         $this->view->paginator = $paginator;
 
-        $this->view->nextTraining = array(
-            'titre' => 'Entrainement Outdoor',
-            'date' => new Zend_Date(),
-            'nom_lieu' => 'Stade U',
-            'horaire_debut' => '9h',
-            'horaire_fin' => '10h',
-        );
-        $this->view->nextTournoi = array(
-            'titre' => 'Championnat FFDF Open Outdoor ',
-            'dateEvent' => 'Du 28/04/2012 au 29/04/2012',
-            'nom_lieu' => 'Besançon',
-        );
+        $evenementMapper = new Application_Model_EvenementMapper();
+        $this->view->nextTraining = $evenementMapper->findNext(1);
+        $this->view->nextTournoi = $evenementMapper->findNext(array(4,5));
         $this->view->video = array();
     }
 
