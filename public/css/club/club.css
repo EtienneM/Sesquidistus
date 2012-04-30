@@ -86,6 +86,9 @@ a.doc {
     left:125px; 
     bottom:1px
 }
-textarea#content {
+form#frmContent {
     display: none;
+}
+form#frmContent input {
+    float: right;
 }

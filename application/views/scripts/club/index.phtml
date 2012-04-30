@@ -15,7 +15,11 @@
             <div class="contenuNews">
                 <div><?= $this->club->contenu ?></div>
                 <?php if (!is_null($this->user) && $this->user->getRoleId() == Application_Model_Acl::ROLE_ADMIN): ?>
-                <textarea id="content"><?= $this->club->contenu ?></textarea>
+                    <form method="POST" id="frmContent" action="<?= $this->url(array('controller' => 'club', 'action' => 'modifier')); ?>">
+                        <textarea id="content" name="content"><?= $this->club->contenu ?></textarea>
+                        <input type="hidden" id="title" name="title"/>
+                        <input type="submit" value="Valider le contenu" class="bouton1" />
+                    </form>
                 <?php endif; ?>
             </div>
             <?php if ($this->club->id == 5): // Pour les lieux d'entrainement  ?>
@@ -41,7 +45,7 @@
             <?php endif; ?>
         <?php endif; ?>
     </div>
-    <?php if (!is_null($this->user) && $this->user->getRoleId() == Application_Model_Acl::ROLE_ADMIN): ?>
+    <?php if ($this->club->id != 3 && !is_null($this->user) && $this->user->getRoleId() == Application_Model_Acl::ROLE_ADMIN): ?>
         <div id="modifContent">
             <input class="bouton1" type="button" value="Modifier le contenu" />
         </div>

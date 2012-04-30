@@ -18,6 +18,7 @@ class ClubController extends My_Controller_Action_CustomContent {
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);
         $clubMapper = new Application_Model_ClubMapper();
+
         $this->view->sections = $clubMapper->fetchAll();
         // Recherche de la section courante
         foreach ($this->view->sections as $section) {
@@ -56,7 +57,48 @@ class ClubController extends My_Controller_Action_CustomContent {
     }
 
     public function modifierAction() {
-        
+        $request = $this->getRequest();
+        $id = $request->getParam('id', 1);
+        $clubMapper = new Application_Model_ClubMapper();
+        // Enregistrement du nouveau contenu s'il est présent
+        if (!is_null($content = $request->getParam('content')) && !is_null($title = $request->getParam('title'))) {
+            $club = new Application_Model_Club(array(
+                        'id' => $id,
+                        'titre' => $title,
+                        'contenu' => $content));
+            $clubMapper->save($club);
+            $this->_helper->flashMessenger('Modification du contenu réussi');
+        }
+        $this->_redirect('/club/index/id/'.$id);
+    }
+
+    public function ajouterAction() {
+        $request = $this->getRequest();
+        $id = $request->getParam('id', 1);
+        $clubMapper = new Application_Model_ClubMapper();
+        // Enregistrement du nouveau contenu s'il est présent
+        if (!is_null($title = $request->getParam('addTitle'))) {
+            $club = new Application_Model_Club(array(
+                        'titre' => $title,
+                        'contenu' => ''));
+            $clubMapper->save($club);
+            $this->_helper->flashMessenger('Catégorie ajoutée avec succès');
+        }
+        $this->_redirect('/club/index/id/'.$id);
+    }
+
+    public function supprimerAction() {
+        $request = $this->getRequest();
+        $id = $request->getParam('id', 1);
+        $clubMapper = new Application_Model_ClubMapper();
+        if (!is_null($idDelCat = $request->getParam('delCat'))) {
+            $clubMapper->getDbTable()->delete(array('id = ?' => $idDelCat));
+            $this->_helper->flashMessenger('Catégorie supprimée avec succès');
+            if ($id == $idDelCat) {
+                $id = 1;
+            }
+        }
+        $this->_redirect('/club/index/id/'.$id);
     }
 
 }
