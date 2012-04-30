@@ -1,8 +1,6 @@
-<?php //Si admin alors afficher des trucs                ?>
-<!-- Sous-menu de la categorie Calendrier -->
-<div id="menuSelectionCat">
-</div>
-<?php // Fin de si admin ?>
+<?php if ($this->isAdmin()) {
+    echo $this->partial('calendrier/_menuAdmin.phtml', array('action' => 'index'));
+} ?>
 
 <div id="selectDate">
     <?php $this->datePicker->setAction($this->url()); ?>
@@ -132,11 +130,12 @@
                                 $dayOfWeeks = $jourCourant->get(Zend_Date::WEEKDAY_DIGIT);
                                 if ($dayOfWeeks != 0):
                                     for ($j = 0; $j < $nbJours - $dayOfWeeks; $j++):
-                                    ?>
-                                    <td class="calendarVide">&nbsp;</td>
-                                <?php endfor; 
-                                endif; ?>
-                                
+                                        ?>
+                                        <td class="calendarVide">&nbsp;</td>
+                                    <?php endfor;
+                                endif;
+                                ?>
+
                             </tr>
                             <?php
                         endif;
@@ -157,34 +156,34 @@
 </div>
 
 
-<?php // Génération de la légende dont les types d'évènements existe le mois affiché.  ?>
+<?php // Génération de la légende dont les types d'évènements existe le mois affiché.   ?>
 <div class="totalBox" id="legende">
     <div class="box">
         <div class="titreNews">Légende :</div>
         <?php $margin = 0 ?>
-        <?php foreach ($this->legend as $l): ?>
+<?php foreach ($this->legend as $l): ?>
             <div id="lgd<?= $this->escape($l->numero) ?>" class="lgdElement" style="margin-left:<?= $margin ?>px;">
                 <img src="/images/headerWTransparent.png" style="background-color:<?= $this->escape($l->color) ?>;"/>
                 <span><?= $this->escape($l->nom) ?></span>
             </div>
             <?php $margin = 10; ?>
-        <?php endforeach; ?>
+<?php endforeach; ?>
     </div>
 </div>
 
 
-<?php // Génération du récapitulatif   ?>
+<?php // Génération du récapitulatif    ?>
 <div id="globalRecap">
     <div id="accordionCal">
         <h4 class="header titreSaison">
-            Récapitulatif des évènements du mois de <?php echo 'mois' ?> <?php echo 'année' ?>
+            Récapitulatif des évènements du mois de <?= $this->escape($this->evenements[0]->date->get(Zend_Date::MONTH)) ?> <?= $this->escape($this->evenements[0]->date->get(Zend_Date::YEAR)) ?>
         </h4>
         <div id="boiteRecap" class="box2">
-            <?php foreach ($this->evenements as $evenement): ?>
+<?php foreach ($this->evenements as $evenement): ?>
                 <div class="printInfo" id="recapEvent<?= $this->escape($evenement->id) ?>">
                     <span class="dateMiniTab">
-                        <?php echo $this->escape(ucfirst($evenement->date->get(Zend_Date::WEEKDAY))) ?> 
-                        <?php echo $this->escape($evenement->date->get(Zend_Date::DATE_LONG)) ?>
+                        <?= $this->escape(ucfirst($evenement->date->get(Zend_Date::WEEKDAY))) ?> 
+    <?= $this->escape($evenement->date->get(Zend_Date::DATE_LONG)) ?>
                     </span>
                     <table style="border-color:<?= $this->escape($evenement->type->color) ?>">
                         <tr>
@@ -201,46 +200,47 @@
                                 <td><?= $this->escape($evenement->lieu) ?></td>
                             <?php else: ?>
                                 <td><?= $this->escape($evenement->lieu->nom) ?></td>
-                            <?php endif; ?>
+                        <?php endif; ?>
                         </tr>
-                        <?php if ($evenement->horaire_debut != ''): ?>
+    <?php if ($evenement->horaire_debut != ''): ?>
                             <tr>
                                 <td class="print">Début</td>
                                 <td><?= $this->escape($evenement->horaire_debut) ?></td>
                             </tr>
                         <?php endif; ?>
-                        <?php if ($evenement->horaire_fin != ''): ?>
+    <?php if ($evenement->horaire_fin != ''): ?>
                             <tr>
                                 <td class="print">Fin</td>
                                 <td><?= $this->escape($evenement->horaire_fin) ?></td>
                             </tr>
                         <?php endif; ?>
-                        <?php if ($evenement->description != ''): ?>
+    <?php if ($evenement->description != ''): ?>
                             <tr>
                                 <td class="print">Commentaire</td>
                                 <td><?= $this->escape($evenement->description); ?></td>
                             </tr>
-                        <?php endif; ?>
+    <?php endif; ?>
                     </table>
                 </div>
-            <?php endforeach ?>
+<?php endforeach ?>
         </div>
     </div>
-    <?php 
+    <?php
     /*
      * TODO Support des deux boutons suivants
      */
-    /*<span>
-        <span id="pdfCalendar" class="bouton1">Version pdf</span>
-        <?php // Faire ce bouton via un appel à une action et pas tout faire en JS...    ?>
-        <span id="printCalendar" class="bouton1">Version imprimable</span>
-    </span>
-    <form id="formPdfCalendar" method="post" action="">
-        <input type="hidden" name="mois_pdf" value="<?php echo 'mois' ?>"/>
-        <input type="hidden" name="annee_pdf" value="<?php echo 'année' ?>"/>
-        <input type="hidden" name="date1" value="<?php echo 'date1' ?>"/>
-        <input type="hidden" name="date2" value="<?php echo 'date2' ?>"/>
-    </form>*/ ?>
+    /* <span>
+      <span id="pdfCalendar" class="bouton1">Version pdf</span>
+      <?php // Faire ce bouton via un appel à une action et pas tout faire en JS...    ?>
+      <span id="printCalendar" class="bouton1">Version imprimable</span>
+      </span>
+      <form id="formPdfCalendar" method="post" action="">
+      <input type="hidden" name="mois_pdf" value="<?php echo 'mois' ?>"/>
+      <input type="hidden" name="annee_pdf" value="<?php echo 'année' ?>"/>
+      <input type="hidden" name="date1" value="<?php echo 'date1' ?>"/>
+      <input type="hidden" name="date2" value="<?php echo 'date2' ?>"/>
+      </form> */
+    ?>
 </div>
 
 

@@ -55,7 +55,8 @@ class Application_Model_Acl extends Zend_Acl {
                 ->allow(self::ROLE_MEMBRE, array('user'), array('index', 'editProfil', 'editPwd'))
                 ->allow(self::ROLE_MEMBRE, array('auth'), array('logout'))
                 ->allow(self::ROLE_ADMIN, array('club'), array('modifier', 'ajouter', 'supprimer'))
-                ->allow(self::ROLE_ADMIN, array('ultimate'), array('modifier', 'ajouter', 'supprimer'));
+                ->allow(self::ROLE_ADMIN, array('ultimate'), array('modifier', 'ajouter', 'supprimer'))
+                ->allow(self::ROLE_ADMIN, array('calendrier'), array('ajouter'));
     }
 
     protected static $_user = null;

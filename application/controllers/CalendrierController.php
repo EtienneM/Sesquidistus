@@ -79,8 +79,13 @@ class CalendrierController extends Zend_Controller_Action {
                         $action, $controller, $module, $params);
     }
 
-    public function ajoutAction() {
+    public function ajouterAction() {
         $this->view->headLink()->appendStylesheet('/css/calendrier/calendrier_ajout.css');
+        $this->view->headScript()->appendFile('/js/calendrier_ajout.js');
+        $typeEventMapper = new Application_Model_TypeEventMapper();
+        $this->view->types = $typeEventMapper->fetchAll();
+        $lieuMapper = new Application_Model_LieuUltimateMapper();
+        $this->view->lieux = $lieuMapper->fetchAll();
     }
 
 }

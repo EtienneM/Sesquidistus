@@ -13,7 +13,7 @@ $(document).ready(function() {
             language : 'fr',
             content_css : '/css/club/club.css,/css/style.css',
             
-            plugins : 'table,fullscreen,preview',
+            plugins : 'table,fullscreen,preview,inlinepopups',
             theme_advanced_toolbar_location : 'top',
             theme_advanced_toolbar_align : 'left',
             theme_advanced_resizing : false,

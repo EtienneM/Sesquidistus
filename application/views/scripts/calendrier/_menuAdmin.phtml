@@ -1,0 +1,4 @@
+<div id="menuSelectionCat">
+    <a id="consultButton" class="bouton1 <?= ($this->action == 'index')?'boutonPageCourante':''; ?>" href="<?= $this->url(array('controller' => 'calendrier', 'action' => 'index')); ?>">Consulter le calendrier</a>
+    <a id="ajoutButton" class="bouton1 <?= ($this->action == 'ajouter')?'boutonPageCourante':''; ?>" href="<?= $this->url(array('controller' => 'calendrier', 'action' => 'ajouter')); ?>">Ajouter un évènement</a>
+</div>
