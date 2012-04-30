@@ -8,5 +8,12 @@
             </div>
         </a>
     <?php endforeach; ?>
+    <?php if ($this->admin): ?>
+        <span class="bouton1 actionContent" style="" id="ajoutCat" title="Ajouter une catégorie">+</span>
+        <span class="bouton1 actionContent" style="" id="supprCat" title="Supprimer une catégorie">-</span>
+        <a class="doc" href="./doc/doc_club_ultimate/doc_admin_club_ultimate.html" target="_blank">
+            <img src="./images/help.png" title="aide en ligne" alt="aide"/>
+        </a>
+    <?php endif; ?>
 </div>
 

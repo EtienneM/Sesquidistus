@@ -1,6 +1,11 @@
 <div id="globalContent">
     <!-- div du menu -->
-    <?= $this->partial('_sidebar.phtml', array('sections' => $this->sections, 'id' => $this->club->id, 'controller' => $this->controller)) ?>
+    <?=
+    $this->partial('_sidebar.phtml', array('sections' => $this->sections,
+        'id' => $this->club->id,
+        'controller' => $this->controller,
+        'admin' => !is_null($this->user) && $this->user->getRoleId() == Application_Model_Acl::ROLE_ADMIN))
+    ?>
     <!-- div du contenu de la page -->
     <div class="box" id="news">
         <div class="titreNews"><span><?= $this->escape($this->club->titre); ?></span></div>
@@ -9,8 +14,11 @@
         <?php else: ?>
             <div class="contenuNews">
                 <div><?= $this->club->contenu ?></div>
+                <?php if (!is_null($this->user) && $this->user->getRoleId() == Application_Model_Acl::ROLE_ADMIN): ?>
+                <textarea id="content"><?= $this->club->contenu ?></textarea>
+                <?php endif; ?>
             </div>
-            <?php if ($this->club->id == 5): // Pour les lieux d'entrainement ?>
+            <?php if ($this->club->id == 5): // Pour les lieux d'entrainement  ?>
                 <?php foreach ($this->lieux as $lieu): ?>
                     <div class="box map" id="map<?= $lieu->numero; ?>">
                         <div class="titreNews"><?= $this->escape($lieu->nom); ?></div>
@@ -33,5 +41,10 @@
             <?php endif; ?>
         <?php endif; ?>
     </div>
+    <?php if (!is_null($this->user) && $this->user->getRoleId() == Application_Model_Acl::ROLE_ADMIN): ?>
+        <div id="modifContent">
+            <input class="bouton1" type="button" value="Modifier le contenu" />
+        </div>
+    <?php endif; ?>
 </div>
-<?php //Javascript chelou pour l'admin ?>
+<?php //Javascript chelou pour l'admin  ?>

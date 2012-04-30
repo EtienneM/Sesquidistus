@@ -9,6 +9,12 @@ class ClubController extends My_Controller_Action_CustomContent {
     }
 
     public function indexAction() {
+        $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity()
+                && $auth->getIdentity()->getRoleId() == Application_Model_Acl::ROLE_ADMIN) {
+            $this->view->headScript()->appendFile('/js/club.js')
+                    ->appendFile('/js/tinymce/jquery.tinymce.js');
+        }
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);
         $clubMapper = new Application_Model_ClubMapper();
@@ -20,7 +26,7 @@ class ClubController extends My_Controller_Action_CustomContent {
                 break;
             }
         }
-        
+
         if ($id == 3) {
             $this->view->headLink()->appendStylesheet('/css/membres/trombi.css');
             $profilMapper = new Application_Model_ProfilMapper();
@@ -47,6 +53,10 @@ class ClubController extends My_Controller_Action_CustomContent {
             $lieuxMapper = new Application_Model_LieuUltimateMapper();
             $this->view->lieux = $lieuxMapper->fetchAll();
         }
+    }
+
+    public function modifierAction() {
+        
     }
 
 }
