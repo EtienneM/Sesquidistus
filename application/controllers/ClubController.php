@@ -12,7 +12,7 @@ class ClubController extends My_Controller_Action_CustomContent {
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()
                 && $auth->getIdentity()->getRoleId() == Application_Model_Acl::ROLE_ADMIN) {
-            $this->view->headScript()->appendFile('/js/club.js')
+            $this->view->headScript()->appendFile('/js/category.js')
                     ->appendFile('/js/tinymce/jquery.tinymce.js');
         }
         $request = $this->getRequest();

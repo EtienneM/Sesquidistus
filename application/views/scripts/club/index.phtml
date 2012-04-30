@@ -3,8 +3,7 @@
     <?=
     $this->partial('_sidebar.phtml', array('sections' => $this->sections,
         'id' => $this->club->id,
-        'controller' => $this->controller,
-        'admin' => !is_null($this->user) && $this->user->getRoleId() == Application_Model_Acl::ROLE_ADMIN))
+        'controller' => $this->controller))
     ?>
     <!-- div du contenu de la page -->
     <div class="box" id="news">
@@ -14,7 +13,7 @@
         <?php else: ?>
             <div class="contenuNews">
                 <div><?= $this->club->contenu ?></div>
-                <?php if (!is_null($this->user) && $this->user->getRoleId() == Application_Model_Acl::ROLE_ADMIN): ?>
+                <?php if ($this->isAdmin()): ?>
                     <form method="POST" id="frmContent" action="<?= $this->url(array('controller' => 'club', 'action' => 'modifier')); ?>">
                         <textarea id="content" name="content"><?= $this->club->contenu ?></textarea>
                         <input type="hidden" id="title" name="title"/>
@@ -45,10 +44,9 @@
             <?php endif; ?>
         <?php endif; ?>
     </div>
-    <?php if ($this->club->id != 3 && !is_null($this->user) && $this->user->getRoleId() == Application_Model_Acl::ROLE_ADMIN): ?>
+    <?php if ($this->club->id != 3 && $this->isAdmin()): ?>
         <div id="modifContent">
             <input class="bouton1" type="button" value="Modifier le contenu" />
         </div>
     <?php endif; ?>
 </div>
-<?php //Javascript chelou pour l'admin  ?>

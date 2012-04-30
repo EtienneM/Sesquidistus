@@ -1,12 +1,29 @@
 <div id="globalContent">
-<!-- div du menu -->
-<?php echo $this->partial('_sidebar.phtml', array('sections' => $this->sections, 'id' => $this->ultimate->id, 'controller' => $this->controller)) ?>
-<!-- div du contenu de la page -->
+    <!-- div du menu -->
+    <?=
+    $this->partial('_sidebar.phtml', array(
+        'sections' => $this->sections,
+        'id' => $this->ultimate->id,
+        'controller' => $this->controller))
+    ?>
+    <!-- div du contenu de la page -->
     <div class="box" id="news">
         <div class="titreNews"><span><?= $this->escape($this->ultimate->titre); ?></span></div>
         <div class="contenuNews">
             <div><?= $this->ultimate->contenu ?></div>
+            <?php if ($this->isAdmin()): ?>
+                <form method="POST" id="frmContent" action="<?= $this->url(array('controller' => 'ultimate', 'action' => 'modifier')); ?>">
+                    <textarea id="content" name="content"><?= $this->ultimate->contenu ?></textarea>
+                    <input type="hidden" id="title" name="title"/>
+                    <input type="submit" value="Valider le contenu" class="bouton1" />
+                </form>
+            <?php endif; ?>
         </div>
     </div>
+    <?php if ($this->isAdmin()): ?>
+        <div id="modifContent">
+            <input class="bouton1" type="button" value="Modifier le contenu" />
+        </div>
+    <?php endif; ?>
 </div>
 <?php //Javascript chelou pour admin ?>

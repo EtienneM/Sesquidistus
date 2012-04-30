@@ -8,7 +8,7 @@
             </div>
         </a>
     <?php endforeach; ?>
-    <?php if ($this->admin): ?>
+    <?php if ($this->isAdmin()): ?>
         <span class="bouton1 actionContent" id="ajoutCat" title="Ajouter une catégorie">+</span>
         <span class="bouton1 actionContent" id="supprCat" title="Supprimer une catégorie">-</span>
         <a class="doc" href="/doc/doc_club_ultimate/doc_admin_club_ultimate.html" target="_blank">
@@ -16,17 +16,17 @@
         </a>
         <div id="addCategory" style="display:none;">
             <p class="i">Veuillez entrer le nom de la nouvelle catégorie&nbsp;:</p>
-            <form id="formAjoutCat" method="post" action="<?= $this->url(array('controller' => 'club', 'action' => 'ajouter')); ?>">
+            <form id="formAjoutCat" method="post" action="<?= $this->url(array('controller' => $this->controller, 'action' => 'ajouter')); ?>">
                 <input type="text" size=30 name="addTitle" id="addTitle" />
             </form>
         </div>
         <div id="delCategory" style="display:none;">
             <p class="i">Veuillez sélectionner la catégorie à supprimer&nbsp;:</p>
-            <form id="formSupprCat" method="post" action="<?= $this->url(array('controller' => 'club', 'action' => 'supprimer')); ?>">
+            <form id="formSupprCat" method="post" action="<?= $this->url(array('controller' => $this->controller, 'action' => 'supprimer')); ?>">
                 <select id="delCat" name="delCat">
                     <?php
                     foreach ($this->sections as $section):
-                        if ($section->id == 3) {
+                        if ($section->id == 3 && $this->controller == 'club') {
                             continue;
                         }
                         ?>

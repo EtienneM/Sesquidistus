@@ -11,7 +11,7 @@ $(document).ready(function() {
             width : '560',
             height : '475',
             language : 'fr',
-            content_css : '/css/club/club.css',
+            content_css : '/css/club/club.css,/css/style.css',
             
             plugins : 'table,fullscreen,preview',
             theme_advanced_toolbar_location : 'top',
