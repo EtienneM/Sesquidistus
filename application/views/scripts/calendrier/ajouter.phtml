@@ -3,7 +3,7 @@
 <div class="totalBox">
     <div  class="box" style="background-color:#EEE">
         <div class="titreNews">Ajout d'un évènement</div>
-        <form id="formAjout" style="display:inline" method="post" action="./modules/calendrier/action.php">
+        <form id="formAjout" style="display:inline" method="POST" action="<?= $this->url(array('controller' => 'calendrier', 'action' => 'ajouter')); ?>">
             <div id="globCalendar">
                 <div style="text-align:left">
                     <div style="float:right">
@@ -26,11 +26,11 @@
                             </select>
                         </div>
                     </div><?php /*
-                    <div id="divButtonType" style="position:absolute; margin-top:-30px; margin-left:265px">
-                        <span id="modifType" title="Modifier ce type d'évènement" class="bouton1">#</span>
-                        <span id="supprType" title="Supprimer ce type d'évènement" class="bouton1">X</span>
-                        <span id="addType" title="Ajouter un type d'évènement à la base de données" class="bouton1">+</span>
-                    </div>*/ ?>
+                                  <div id="divButtonType" style="position:absolute; margin-top:-30px; margin-left:265px">
+                                  <span id="modifType" title="Modifier ce type d'évènement" class="bouton1">#</span>
+                                  <span id="supprType" title="Supprimer ce type d'évènement" class="bouton1">X</span>
+                                  <span id="addType" title="Ajouter un type d'évènement à la base de données" class="bouton1">+</span>
+                                  </div> */ ?>
 
                     <?php
                     /*
@@ -39,7 +39,7 @@
                     ?>
                     <div class="bouton2 dataForm">
                         <span style="font-size:12px;  padding:0 10px 0 3px">Nom</span>
-                        <input class="inputStyle" id="textevenement" name="nomEvent" maxlength="35" type="text"/>
+                        <input class="inputStyle required" id="textevenement" name="nomEvent" maxlength="35" type="text"/>
                     </div>
 
                     <?php
@@ -127,11 +127,12 @@
                     </div>
                 </div>
                 <?php /*
-                <div style="text-align:center">
-                    <span style="font-size:10px" id="prevDate" class="bouton1">&lt;&lt; Mois précédents</span>
-                    <span style="margin-left:70px; font-size:10px" id="nextDate" class="bouton1">Mois suivants &gt;&gt;</span>
-                </div>*/ ?>
+                  <div style="text-align:center">
+                  <span style="font-size:10px" id="prevDate" class="bouton1">&lt;&lt; Mois précédents</span>
+                  <span style="margin-left:70px; font-size:10px" id="nextDate" class="bouton1">Mois suivants &gt;&gt;</span>
+                  </div> */ ?>
                 <div id="datepicker">
+                    <span id="errorDatepicker" class="error" style="display:none">Sélectionner au moins une date</span>
                     <?php $displayedMonth = new Zend_Date(); ?>
                     <?php for ($month = 0; $month < 3; $month++): ?>
                         <div class="calendar" style="left:<?= 40 + $month * 230 ?>px">
@@ -209,11 +210,12 @@
                                     ?>
                                 </tbody>
                             </table>
-                            <span class="spanEcrireDate"><?= $jourCourant->get(Zend_Date::MONTH_NAME.' '.Zend_Date::YEAR); ?></span>
+                            <span class="spanEcrireDate"><?= $displayedMonth->get(Zend_Date::MONTH_NAME.' '.Zend_Date::YEAR); ?></span>
                         </div>
                         <?php $displayedMonth->addMonth(1); ?>
                     <?php endfor; ?>
                 </div>
+                <input type="hidden" id="hdnDates" name="hdnDates" class="required" />
                 <?php
                 /*
                  * Commentaire
@@ -231,39 +233,40 @@
                 </div>
                 <div style="text-align:right">
                     <input type="reset" id="resetDate" class="bouton1" value="Remise à zéro" />
-                    <span id="validerDate" class="bouton1" style="padding:8px 5px; font-size:14px">Valider l'évènement</span>
+                    <input type="submit" id="validerDate" class="bouton1" style="padding:8px 5px; font-size:14px" value="Valider l'évènement" />
                 </div>
-                <input type="hidden" id="dateEventValue" name="dateEvent" value="" />
             </div>
         </form>
     </div>
 </div>
 
-<!-- Formulaire action Type -->
-<div id="divFormActionType" style="display:none">
-    <div style="float:right">
-        <a href="./doc/doc_event/doc_admin_type_event.html">
-            <img src="/images/help.png" alt="help" title="aide en ligne" />
-        </a>
-    </div>
-    <form id="formActionType" method="post" action="./modules/calendrier/action_type.php">
-        <div id="titreNewType" class="bouton2 dataForm">
-            <span style="font-size:12px;  padding:0 10px 0 3px">Titre:</span>
-            <input id="type_nom" class="inputStyle" type="text" name="nomType" />
-        </div>
-        <div class="bouton2 dataForm">
-            <span style="font-size:12px;  padding:0 10px 0 3px">Couleur:</span>
-            <input id="type_color" style="width:100px; font-size:12px" type="text" name="color" />
-            <span id="Button_type_color" class="bouton1">Choix</span>
-        </div>
-        <input id="idType_event" type="hidden" name="idType_event" />
-        <input id="modeType" type="hidden" name="modeType" />
-    </form>
-</div>		
-<!-- Fin formulaire ajout Type -->	
+<?php /*
+  <!-- Formulaire action Type -->
+  <div id="divFormActionType" style="display:none">
+  <div style="float:right">
+  <a href="./doc/doc_event/doc_admin_type_event.html">
+  <img src="/images/help.png" alt="help" title="aide en ligne" />
+  </a>
+  </div>
+  <form id="formActionType" method="post" action="./modules/calendrier/action_type.php">
+  <div id="titreNewType" class="bouton2 dataForm">
+  <span style="font-size:12px;  padding:0 10px 0 3px">Titre:</span>
+  <input id="type_nom" class="inputStyle" type="text" name="nomType" />
+  </div>
+  <div class="bouton2 dataForm">
+  <span style="font-size:12px;  padding:0 10px 0 3px">Couleur:</span>
+  <input id="type_color" style="width:100px; font-size:12px" type="text" name="color" />
+  <span id="Button_type_color" class="bouton1">Choix</span>
+  </div>
+  <input id="idType_event" type="hidden" name="idType_event" />
+  <input id="modeType" type="hidden" name="modeType" />
+  </form>
+  </div>
+  <!-- Fin formulaire ajout Type -->
 
-<!-- Formulaire ajout Type -->
-<form style="display:none" id="formSupprType" method="post" action="./modules/calendrier/suppr_type.php">
-    <input id="idType_eventSuppr" type="hidden" name="idType_eventSuppr" />
-</form>
-<!-- fin Formulaire ajout Type -->
+  <!-- Formulaire ajout Type -->
+  <form style="display:none" id="formSupprType" method="post" action="./modules/calendrier/suppr_type.php">
+  <input id="idType_eventSuppr" type="hidden" name="idType_eventSuppr" />
+  </form>
+  <!-- fin Formulaire ajout Type -->
+ */ ?>

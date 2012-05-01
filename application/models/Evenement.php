@@ -5,11 +5,12 @@ class Application_Model_Evenement extends My_Model {
     protected $_titre;
     protected $_description;
     protected $_date;
-    //protected $_duree;
+    protected $_duree;
     protected $_horaire_debut;
     protected $_horaire_fin;
     protected $_type;
     protected $_lieu;
+    protected $_id_lieu;
 
     public function getId() {
         return $this->_id;
@@ -47,14 +48,14 @@ class Application_Model_Evenement extends My_Model {
         return $this;
     }
 
-    /* public function getDuree() {
-      return $this->_duree;
-      }
+    public function getDuree() {
+        return $this->_duree;
+    }
 
-      public function setDuree($duree) {
-      $this->_duree = (int) $duree;
-      return $this;
-      } */
+    public function setDuree($duree) {
+        $this->_duree = (int) $duree;
+        return $this;
+    }
 
     public function getHoraire_debut() {
         return $this->_horaire_debut;
@@ -92,6 +93,15 @@ class Application_Model_Evenement extends My_Model {
         // TODO Vérifie si type est un int (pour id_lieu), un string (pour lieu) 
         // ou un Application_Model_LieuUltimate
         $this->_lieu = $lieu;
+        return $this;
+    }
+
+    public function getId_lieu() {
+        return $this->_id_lieu;
+    }
+
+    public function setId_lieu($id_lieu) {
+        $this->_id_lieu = (int) $id_lieu;
         return $this;
     }
 

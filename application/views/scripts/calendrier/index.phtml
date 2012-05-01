@@ -176,7 +176,7 @@
 <div id="globalRecap">
     <div id="accordionCal">
         <h4 class="header titreSaison">
-            Récapitulatif des évènements du mois de <?= $this->escape($this->evenements[0]->date->get(Zend_Date::MONTH_NAME)) ?> <?= $this->escape($this->evenements[0]->date->get(Zend_Date::YEAR)) ?>
+            Récapitulatif des évènements du mois de <?= $this->escape($this->displayedMonth->get(Zend_Date::MONTH_NAME)) ?> <?= $this->escape($this->displayedMonth->get(Zend_Date::YEAR)) ?>
         </h4>
         <div id="boiteRecap" class="box2">
 <?php foreach ($this->evenements as $evenement): ?>

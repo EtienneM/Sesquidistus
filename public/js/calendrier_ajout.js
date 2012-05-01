@@ -44,11 +44,42 @@ $(document).ready(function() {
      * Clique sur une case du calendrier
      */
     $('td.calendar').click(function() {
+        // Désélection
         if($(this).hasClass("selected")) {
             $(this).attr("class", "calendar").addClass("defaultCalendar");
-        } else {
+            var dates = $('input#hdnDates').val().split(',');
+            $('input#hdnDates').val('');
+            for (var i = 0; i < dates.length; i++) {
+                if (dates[i] != '' && dates[i] != $(this).attr('title')) {
+                    $('input#hdnDates').val(dates[i]+','+$('input#hdnDates').val());
+                }
+            }
+        } else { //Séléection d'une date
+            $('span#errorDatepicker').css('display', 'none');
             $(this).attr("class","calendar").addClass("eventSelected").addClass("selected");
+            $('input#hdnDates').val($(this).attr('title')+','+$('input#hdnDates').val());
         }
+    });
+    
+    /*
+     * Reset
+     */
+    $('input#resetDate').click(function() {
+        $('td.selected').attr("class", "calendar").addClass("defaultCalendar");
+        $('input#text_lieuEvent').removeAttr('disabled');
+        $('select.horaire').attr("disabled", "disabled");
+    });
+    
+    /*
+     * Validation du formulaire
+     */
+    $('form#formAjout').validate();
+    $('form#formAjout').submit(function() {
+        if ($('input#hdnDates').val() == '') {
+            $('span#errorDatepicker').css('display', 'inline');
+            return false;
+        }
+        return true;
     });
 });
 

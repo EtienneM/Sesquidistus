@@ -13,12 +13,13 @@ class Application_Model_EvenementMapper extends My_Model_Mapper {
         $data = array(
             'titre' => $evenement->getTitre(),
             'description' => $evenement->getDescription(),
-            'date' => $evenement->getDate(),
+            'date' => $evenement->getDate()->get(Zend_Date::ISO_8601),
             'duree' => $evenement->getDuree(),
-            'horaire_debut' => $evenement->getHoraireDebut(),
-            'horaire_fin' => $evenement->getHoraireFin(),
+            'horaire_debut' => $evenement->getHoraire_debut(),
+            'horaire_fin' => $evenement->getHoraire_fin(),
             'type' => $evenement->getType(),
             'lieu' => $evenement->getLieu(),
+            'id_lieu' => $evenement->getId_lieu(),
         );
 
         if (null === ($id = $evenement->getId())) {

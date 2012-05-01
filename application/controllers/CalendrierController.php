@@ -3,7 +3,7 @@
 class CalendrierController extends Zend_Controller_Action {
 
     public function init() {
-        $this->_titre = 'Calendrier';
+        $this->view->headTitle()->append('Calendrier');
     }
 
     public function indexAction() {
@@ -81,7 +81,52 @@ class CalendrierController extends Zend_Controller_Action {
 
     public function ajouterAction() {
         $this->view->headLink()->appendStylesheet('/css/calendrier/calendrier_ajout.css');
+        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.min.js');
+        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.additional-methods.min.js');
+        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js');
         $this->view->headScript()->appendFile('/js/calendrier_ajout.js');
+
+        $request = $this->getRequest();
+        // Si le formulaire a été soumis
+        if (count($request->getPost()) > 0) {
+            /*
+             * Validation
+             */
+            $nom = $request->getParam('nomEvent');
+            $dates = explode(',', $request->getParam('hdnDates'));
+            if (!empty($nom) && !empty($dates)) {
+                $evenementMapper = new Application_Model_EvenementMapper();
+                if (!$request->getParam('boolHoraire')) {
+                    $horaireDebut = $request->getParam('debutEventHeure').'h'.$request->getParam('debutEventMinute');
+                    $horaireFin = $request->getParam('finEventHeure').'h'.$request->getParam('finEventMinute');
+                } else {
+                    $horaireDebut = null;
+                    $horaireFin = null;
+                }
+                foreach ($dates as $date) {
+                    // Because of the last ',' in hdnDates value
+                    if (empty($date)) {
+                        continue;
+                    }
+                    $evenement = new Application_Model_Evenement(array(
+                                'type' => $request->getParam('typeEvent', 1),
+                                'date' => $date,
+                                'titre' => $nom,
+                                'id_lieu' => $request->getParam('id_lieuEvent', 0),
+                                'lieu' => $request->getParam('text_lieuEvent', ''),
+                                'duree' => $request->getParam('duree_event'),
+                                'horaire_debut' => $horaireDebut,
+                                'horaire_fin' => $horaireFin,
+                                'description' => $request->getParam('commentaireEvent'),
+                            ));
+                    $evenementMapper->save($evenement);
+                }
+                $this->_helper->flashMessenger("Evènement correctement ajouté");
+            } else {
+                $this->_helper->flashMessenger("Le nom et les dates de l'évènement doivent être renseignés");
+            }
+        }
+
         $typeEventMapper = new Application_Model_TypeEventMapper();
         $this->view->types = $typeEventMapper->fetchAll();
         $lieuMapper = new Application_Model_LieuUltimateMapper();
