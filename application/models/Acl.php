@@ -38,6 +38,7 @@ class Application_Model_Acl extends Zend_Acl {
         $this->addResource('index')
                 ->addResource('calendrier')
                 ->addResource('club')
+                ->addResource('lieu')
                 ->addResource('ultimate')
                 ->addResource('galerie')
                 ->addResource('evenements')
@@ -56,7 +57,8 @@ class Application_Model_Acl extends Zend_Acl {
                 ->allow(self::ROLE_MEMBRE, array('auth'), array('logout'))
                 ->allow(self::ROLE_ADMIN, array('club'), array('modifier', 'ajouter', 'supprimer'))
                 ->allow(self::ROLE_ADMIN, array('ultimate'), array('modifier', 'ajouter', 'supprimer'))
-                ->allow(self::ROLE_ADMIN, array('calendrier'), array('ajouter'));
+                ->allow(self::ROLE_ADMIN, array('calendrier'), array('ajouter'))
+                ->allow(self::ROLE_ADMIN, array('lieu'), array('modifier'));
     }
 
     protected static $_user = null;

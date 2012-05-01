@@ -1,0 +1,22 @@
+<div id="accordionLieu">
+    <h4 class="header titreSaison">Gestion des lieux d'entraînement</h4>
+    <div class="box2">
+        <div style="float:right">
+            <a href="/doc/doc_lieu_entrainement/doc_admin_lieu.html">
+                <img src="/images/help.png" alt="help" title="aide en ligne" />
+            </a>
+        </div>
+        <form id="formLieu" method="POST" action="./modules/club/action_lieu.php">
+            <select id="listeLieu" name="id_lieu">
+                <?php foreach ($this->lieux as $lieu): ?>
+                    <option value="<?= $lieu->numero; ?>"><?= $lieu->nom ?></option>;
+                <?php endforeach; ?>
+            </select>
+            <a href="<?= $this->url(array('controller' => 'lieu', 'action' => 'modifier')) ?>" class="bouton1 modifier" id="boutonModif" title="Modifier le lieu d'entrainement">#</a>
+            <a href="<?= $this->url(array('controller' => 'lieu', 'action' => 'supprimer')) ?>" class="bouton1" id="boutonSuppr" title="Supprimer le lieu">X</a>
+            <a href="<?= $this->url(array('controller' => 'lieu', 'action' => 'modifier')) ?>" class="bouton1 modifier" id="boutonAdd" title="Ajouter un lieu d'entrainement">+</a>
+        </form>
+    </div>
+</div>
+
+<div id="dialog" style="display:none"></div>

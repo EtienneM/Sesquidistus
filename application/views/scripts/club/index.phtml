@@ -22,25 +22,10 @@
                 <?php endif; ?>
             </div>
             <?php if ($this->club->id == 5): // Pour les lieux d'entrainement  ?>
-                <?php foreach ($this->lieux as $lieu): ?>
-                    <div class="box map" id="map<?= $lieu->numero; ?>">
-                        <div class="titreNews"><?= $this->escape($lieu->nom); ?></div>
-                        <div id="map_canvas<?= $lieu->numero; ?>" class="canvas"></div>
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                $('#map_canvas<?= $lieu->numero; ?>').gmap3({
-                                    action: 'addMarker',
-                                    address: "<?= $this->escape($lieu->adresse); ?>",
-                                    map:{
-                                        center: true,
-                                        zoom: 14
-                                    }
-                                });
-                            });
-                        </script>
-                        <p><?= $this->escape($lieu->adresse); ?></p>
-                    </div>
-                <?php endforeach; ?>
+                <?= $this->partial('lieu/_affiche.phtml', array('lieux' => $this->lieux)); ?>
+                <?php if ($this->isAdmin()){
+                    echo $this->partial('lieu/_action.phtml', array('lieux' => $this->lieux));
+                } ?>
             <?php endif; ?>
         <?php endif; ?>
     </div>

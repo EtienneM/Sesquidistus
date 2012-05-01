@@ -10,7 +10,7 @@ class Application_Model_LieuUltimate extends My_Model {
     }
 
     public function setNumero($numero) {
-        $this->_numero = (int) $numero;
+        $this->_numero = $numero;
         return $this;
     }
 
