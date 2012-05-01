@@ -19,37 +19,43 @@
                         <td style="color:#555">Date&nbsp;:</td>
                         <td><?= $this->escape($this->nextTraining->date->get('dd/MM/YYYY')) ?></td>
                     </tr>
+                    <?php if (!empty($this->nextTraining->lieu)): ?>
                     <tr>
                         <td style="color:#555">Lieu&nbsp;:</td>
                         <td>
                             <?php
-                            if (is_string($this->nextTraining->lieu)) {
-                                echo $this->escape($this->nextTraining->lieu);
-                            } else {
-                                echo $this->escape($this->nextTraining->lieu->nom);
-                                ?>
-                                <a title="Google maps" href="<?= $this->url(array('controller' => 'club', 'id' => 5)) ?>/#map<?= $this->nextTraining->lieu->numero ?>">
-                                    <img src="/images/loupe.png"/>
-                                </a>
-                                <?php
-                            }
+                                if (is_string($this->nextTraining->lieu)) {
+                                    echo $this->escape($this->nextTraining->lieu);
+                                } else {
+                                    echo $this->escape($this->nextTraining->lieu->nom);
+                                    ?>
+                                    <a title="Google maps" href="<?= $this->url(array('controller' => 'club', 'id' => 5)) ?>/#map<?= $this->nextTraining->lieu->numero ?>">
+                                        <img src="/images/loupe.png"/>
+                                    </a>
+                                    <?php
+                                }
                             ?>
                         </td>
                     </tr>
+                    <?php endif; ?>
+                    <?php if (!empty($this->nextTraining->horaire_debut)): ?>
                     <tr>
                         <td style="color:#555">Début&nbsp;:</td>
                         <td><?php echo $this->escape($this->nextTraining->horaire_debut) ?></td>
                     </tr>
+                    <?php endif; ?>
+                    <?php if (!empty($this->nextTraining->horaire_fin)): ?>
                     <tr>
                         <td style="color:#555">Fin&nbsp;:</td>
                         <td><?php echo $this->escape($this->nextTraining->horaire_fin) ?></td>
                     </tr>
+                    <?php endif; ?>
                 </table>
                 </p>
             </div>
         </div>
     <?php endif; ?>
-    <?php if (!empty($this->nextTournoi)): ?>
+<?php if (!empty($this->nextTournoi)): ?>
         <div id="nextTournoi" class="totalBox">	
             <div class="box" style="min-height:150px;">
                 <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette4.gif" />
@@ -73,25 +79,25 @@
                             ?>
                         </td>
                     </tr>
-                    <?php if (isset($this->nextTournoi->horaire_debut)): ?>
+    <?php if (isset($this->nextTournoi->horaire_debut)): ?>
                         <tr>
                             <td style="color:#555">Début&nbsp;:</td>
                             <td><?= $this->escape($this->nextTournoi->horaire_debut) ?></td>
                         </tr>
                     <?php endif ?>
-                    <?php if (isset($this->nextTournoi->horaire_fin)): ?>
+    <?php if (isset($this->nextTournoi->horaire_fin)): ?>
                         <tr>
                             <td style="color:#555">Fin&nbsp;:</td>
                             <td><?= $this->escape($this->nextTournoi->horaire_fin) ?></td>
                         </tr>
                     <?php endif ?>
-                    <?php // Script chelou...  ?>
+    <?php // Script chelou...   ?>
                 </table>
                 </p>
             </div>
         </div>
     <?php endif ?>
-    <?php if (count($this->video) != 0): ?>
+<?php if (count($this->video) != 0): ?>
         <div id="newVideo" class="totalBox">
             <div class="box">
                 <div class="titreNews">Vidéo du moment</div>
@@ -105,12 +111,12 @@
                 </a>
             </div>
         </div>
-    <?php endif ?>
+<?php endif ?>
 </div>
 
 <div id="globalNews">
     <!-- Pour chaque actualité -->
-    <?php foreach ($this->articles as $article): ?>
+<?php foreach ($this->articles as $article): ?>
         <div class="totalBox">
             <div class="box">
                 <div class="titreNews"><?php echo $this->escape($article->titre) ?></div>
@@ -121,5 +127,5 @@
             </div>
         </div>
     <?php endforeach ?>
-    <?= $this->paginator; ?>
+<?= $this->paginator; ?>
 </div>
