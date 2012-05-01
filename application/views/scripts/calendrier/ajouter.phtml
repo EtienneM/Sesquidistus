@@ -25,12 +25,12 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                    </div>
+                    </div><?php /*
                     <div id="divButtonType" style="position:absolute; margin-top:-30px; margin-left:265px">
                         <span id="modifType" title="Modifier ce type d'évènement" class="bouton1">#</span>
                         <span id="supprType" title="Supprimer ce type d'évènement" class="bouton1">X</span>
                         <span id="addType" title="Ajouter un type d'évènement à la base de données" class="bouton1">+</span>
-                    </div>
+                    </div>*/ ?>
 
                     <?php
                     /*
@@ -51,10 +51,10 @@
                         <span id="spanListeLieu" style="font-size:12px; padding:0 11px 0 3px">Lieu</span>
                         <div id="divListeLieu" style="display:inline">
                             <select id="id_lieuEvent" style="font-size:12px" name="id_lieuEvent">
-                                <option value="0" selected="selected">Autre...</option>
                                 <?php foreach ($this->lieux as $lieu): ?>
                                     <option value="<?= $lieu->numero ?>"><?= $lieu->nom; ?></option>
                                 <?php endforeach; ?>
+                                <option value="0" selected="selected">Autre...</option>
                             </select>
                         </div>
                         <input id="text_lieuEvent" class="inputStyle" style="margin-left:50px" type="text" maxlength="35" name="text_lieuEvent" />
@@ -92,7 +92,7 @@
                                 <?php endfor; ?>
                             </select>
                         </div>
-                        <input type="checkbox" id="checkHoraire" name="boolHoraire" value="true" title="Ne pas définir d'horaire" />
+                        <input type="checkbox" id="checkHoraire" name="boolHoraire" value="true" checked="checked" title="Ne pas définir d'horaire" />
                     </div>
                     <div class="bouton2 dataForm2">
                         <span style="font-size:12px; padding:0 19px 0 3px">Fin</span>
@@ -125,34 +125,116 @@
                             (Vous pouvez sélectionner plusieurs dates afin d'enregistrer plusieurs fois le même évènement à des dates différentes)
                         </span>
                     </div>
-                </div>	
+                </div>
+                <?php /*
                 <div style="text-align:center">
                     <span style="font-size:10px" id="prevDate" class="bouton1">&lt;&lt; Mois précédents</span>
                     <span style="margin-left:70px; font-size:10px" id="nextDate" class="bouton1">Mois suivants &gt;&gt;</span>
-                </div>
-                <div id="datepicker"></div>
-            </div>
+                </div>*/ ?>
+                <div id="datepicker">
+                    <?php $displayedMonth = new Zend_Date(); ?>
+                    <?php for ($month = 0; $month < 3; $month++): ?>
+                        <div class="calendar" style="left:<?= 40 + $month * 230 ?>px">
+                            <table>
+                                <thead>
+                                    <tr class="calendar">
+                                        <?php
+                                        $jours = array("Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di");
+                                        $nbJours = count($jours);
+                                        for ($i = 0; $i < $nbJours; $i++):
+                                            if ($i >= $nbJours - 2)
+                                                $color = 'color:#d72c2c;';
+                                            else
+                                                $color = '';
+                                            ?>
+                                            <td style="text-align:center; font-weight:bold; <?= $color ?>"><?= $jours[$i] ?></td>
+                                        <?php endfor; ?>
+                                    </tr>
+                                </thead>
+                                <?php $nbJoursMois = $displayedMonth->get(Zend_Date::MONTH_DAYS); ?>
+                                <tbody>
+                                    <?php
+                                    $jourCourant = new Zend_Date($displayedMonth);
+                                    for ($i = 0; $i < $nbJoursMois; $i++):
+                                        // Si jourCourant est lundi
+                                        if ($jourCourant->get(Zend_Date::WEEKDAY_DIGIT) == 1):
+                                            ?>
+                                            <tr>
+                                                <?php
+                                            endif;
+                                            // Création des cases vides de début de mois 
+                                            if ($i == 0):
+                                                ?>
+                                            <tr>
+                                                <?php
+                                                $dayOfWeeks = ($jourCourant->get(Zend_Date::WEEKDAY_DIGIT) + $nbJours - 1) % $nbJours;
+                                                for ($j = 0; $j < $dayOfWeeks; $j++):
+                                                    ?>
+                                                    <td class="calendarVide">&nbsp;</td>
+                                                    <?php
+                                                endfor;
+                                            endif
+                                            ?>
+                                            <td 
+                                                title="<?= $jourCourant->get(Zend_Date::DAY.'/'.Zend_Date::MONTH_SHORT.'/'.Zend_Date::YEAR); ?>"
+                                                class="calendar defaultCalendar">
+                                                <div class="day">
+                                                    <?= $jourCourant->get(Zend_Date::DAY) ?>
+                                                </div>
+                                            </td><?php
+                                            // Création des cases vides de fin de mois 
+                                            if ($i == $nbJoursMois - 1):
+                                                $dayOfWeeks = $jourCourant->get(Zend_Date::WEEKDAY_DIGIT);
+                                                if ($dayOfWeeks != 0):
+                                                    for ($j = 0; $j < $nbJours - $dayOfWeeks; $j++):
+                                                                ?>
+                                                        <td class="calendarVide">&nbsp;</td>
+                                                        <?php
+                                                    endfor;
+                                                endif;
+                                                ?>
 
-            <?php 
-                    /*
-                     * Commentaire
-                     */
-                    ?>
-            <div style="position:absolute; margin-bottom:0px; left:0px" id="commentaireEvenement">
-                <div style="margin-left:0px; width:300px">
-                    <div class="totalBox">
-                        <div class="box">
-                            <div class="titreNews">Commentaire (facultatif)</div>
-                            <textarea style="font-size:12px;" id="CommentaireEvent" name="commentaireEvent" tabindex="4" cols="35" rows="8"></textarea>
+                                            </tr>
+                                            <?php
+                                        endif;
+                                        // Si jourCourant est dimanche
+                                        if (ucwords($jourCourant->get(Zend_Date::WEEKDAY)) == $jours[$nbJours - 1]):
+                                            ?>
+                                            </tr>
+                                        <?php endif; ?>
+
+                                        <?php
+                                        $jourCourant->addDay(1);
+                                    endfor;
+                                    ?>
+                                </tbody>
+                            </table>
+                            <span class="spanEcrireDate"><?= $jourCourant->get(Zend_Date::MONTH_NAME.' '.Zend_Date::YEAR); ?></span>
+                        </div>
+                        <?php $displayedMonth->addMonth(1); ?>
+                    <?php endfor; ?>
+                </div>
+                <?php
+                /*
+                 * Commentaire
+                 */
+                ?>
+                <div id="commentaireEvenement">
+                    <div style="margin-left:0px; width:300px">
+                        <div class="totalBox">
+                            <div class="box">
+                                <div class="titreNews">Commentaire (facultatif)</div>
+                                <textarea style="font-size:12px;" id="CommentaireEvent" name="commentaireEvent" tabindex="4" cols="35" rows="8"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div style="text-align:right">
+                    <input type="reset" id="resetDate" class="bouton1" value="Remise à zéro" />
+                    <span id="validerDate" class="bouton1" style="padding:8px 5px; font-size:14px">Valider l'évènement</span>
+                </div>
+                <input type="hidden" id="dateEventValue" name="dateEvent" value="" />
             </div>
-            <div style="text-align:right">
-                <input type="reset" id="resetDate" class="bouton1" value="Remise à zéro" />
-                <span id="validerDate" class="bouton1" style="padding:8px 5px; font-size:14px">Valider l'évènement</span>
-            </div>
-            <input type="hidden" id="dateEventValue" name="dateEvent" value="" />
         </form>
     </div>
 </div>

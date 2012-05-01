@@ -30,14 +30,25 @@ $(document).ready(function() {
     /*
      * (Dés)active la sélection des horaires
      */
-	$('input[type="checkbox"]#checkHoraire').change(function() {
-		if($(this).is(':checked')){
-			$('select.horaire').attr("disabled", "disabled");
-			$(this).attr("title", "Définir des horaires");
-		} else {
-			$('select.horaire').removeAttr("disabled");
-			$(this).attr("title", "Ne pas définir d'horaire");
-		}
-	}).attr('checked', true).change();
+    $('input[type="checkbox"]#checkHoraire').change(function() {
+        if($(this).is(':checked')){
+            $('select.horaire').attr("disabled", "disabled");
+            $(this).attr("title", "Définir des horaires");
+        } else {
+            $('select.horaire').removeAttr("disabled");
+            $(this).attr("title", "Ne pas définir d'horaire");
+        }
+    }).change();
+    
+    /*
+     * Clique sur une case du calendrier
+     */
+    $('td.calendar').click(function() {
+        if($(this).hasClass("selected")) {
+            $(this).attr("class", "calendar").addClass("defaultCalendar");
+        } else {
+            $(this).attr("class","calendar").addClass("eventSelected").addClass("selected");
+        }
+    });
 });
 

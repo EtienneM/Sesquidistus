@@ -25,7 +25,7 @@
             'mois' => $previousMonth->get(Zend_Date::MONTH),
             'annee' => $previousMonth->get(Zend_Date::YEAR),
         ));
-        ?>"id="prevDate" class="bouton1">
+        ?>" id="prevDate" class="bouton1">
             &lt;&lt; Mois précédent
         </a>
         <span id="texteMoisCourant">
@@ -176,7 +176,7 @@
 <div id="globalRecap">
     <div id="accordionCal">
         <h4 class="header titreSaison">
-            Récapitulatif des évènements du mois de <?= $this->escape($this->evenements[0]->date->get(Zend_Date::MONTH)) ?> <?= $this->escape($this->evenements[0]->date->get(Zend_Date::YEAR)) ?>
+            Récapitulatif des évènements du mois de <?= $this->escape($this->evenements[0]->date->get(Zend_Date::MONTH_NAME)) ?> <?= $this->escape($this->evenements[0]->date->get(Zend_Date::YEAR)) ?>
         </h4>
         <div id="boiteRecap" class="box2">
 <?php foreach ($this->evenements as $evenement): ?>
