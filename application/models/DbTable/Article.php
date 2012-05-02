@@ -10,6 +10,11 @@ class Application_Model_DbTable_Article extends Zend_Db_Table_Abstract {
             'refTableClass' => 'Application_Model_DbTable_Evenement',
             'refColumns' => 'id',
         ),
+        'User' => array(
+            'columns' => 'id_member',
+            'refTableClass' => 'Application_Model_DbTable_User',
+            'refColumns' => 'id',
+        ),
     );
 
 }

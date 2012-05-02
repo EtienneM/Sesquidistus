@@ -119,7 +119,14 @@
                 <div class="titreNews"><?php echo $this->escape($article->titre) ?></div>
                 <div><?php echo $article->contenu ?></div>
                 <div style="margin-top:30px">
-                    <span class="note">Article créé par <?php echo 'auteur' ?> le <?php echo $this->escape($article->date_article->get('dd/MM/YYYY')) ?></span>
+                    <?php 
+                    if ($article->author !== null) {
+                        $author = 'par '.$article->author->login;
+                    } else {
+                        $author = '';
+                    }
+                    ?>
+                    <span class="note">Article créé <?= $author ?> le <?php echo $this->escape($article->date_article->get('dd/MM/YYYY')) ?></span>
                 </div>
             </div>
         </div>

@@ -6,7 +6,8 @@ class Application_Model_Article extends My_Model {
     protected $_contenu;
     protected $_date_article;
     protected $_id_event;
-    protected $_id_member;
+    protected $_id_member; // Correspond à une colonne de la BDD
+    protected $_author; // Correspond à l'objet User mais à aucune colonne
 
     public function setId($id) {
         $this->_id = (int) $id;
@@ -59,6 +60,15 @@ class Application_Model_Article extends My_Model {
 
     public function setId_member($id_member) {
         $this->_id_member = (int) $id_member;
+        return $this;
+    }
+
+    public function getAuthor() {
+        return $this->_author;
+    }
+
+    public function setAuthor(Application_Model_User $author=null) {
+        $this->_author = $author;
         return $this;
     }
 
