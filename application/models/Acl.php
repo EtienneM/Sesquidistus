@@ -61,7 +61,7 @@ class Application_Model_Acl extends Zend_Acl {
                 ->allow(self::ROLE_ADMIN, array('ultimate'), array('modifier', 'ajouter', 'supprimer'))
                 ->allow(self::ROLE_ADMIN, array('calendrier'), array('ajouter'))
                 ->allow(self::ROLE_ADMIN, array('lieu'), array('modifier'))
-                ->allow(self::ROLE_ADMIN, array('article'), array('ecrire'))
+                ->allow(self::ROLE_ADMIN, array('article'), array('ecrire', 'supprimer'))
                 ->allow(self::ROLE_ADMIN, array('evenements'), array('list'));
     }
 

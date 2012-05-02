@@ -18,21 +18,30 @@ class ArticleController extends Zend_Controller_Action {
                 ->appendFile('/js/article.js');
         $this->view->headLink()->appendStylesheet('/css/article.css');
 
+        $articleMapper = new Application_Model_ArticleMapper();
+        $article = new Application_Model_Article();
         $request = $this->getRequest();
         $titre = $request->getParam('titre');
+        $id = $request->getParam('id');
+        
+        // Modifier un article
+        if (!empty($id)) {
+            $articleMapper->find($id, $article);
+        }
+        
         if (!empty($titre)) {
-            $articleMapper = new Application_Model_ArticleMapper();
-            $article = new Application_Model_Article(array(
+            $article->setOptions(array(
                         'titre' => $titre,
                         'contenu' => $request->getParam('contenu'),
                         'id_event' => $request->getParam('idEvent'),
                         'date_article' => new Zend_Date(),
                         'id_member' => Zend_Auth::getInstance()->getIdentity()->id,
                     ));
-            //Zend_Debug::dump($article);
             $articleMapper->save($article);
             $this->_helper->flashMessenger('Article ajouté avec succès');
         }
+        
+        $this->view->article = $article;
     }
 
 }

@@ -1,3 +1,8 @@
+img.editArticle {
+    height: 15px; 
+    float: right;
+}
+
 .mceContentBody {
     background-color: white;
 }

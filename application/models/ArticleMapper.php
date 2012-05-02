@@ -35,6 +35,11 @@ class Application_Model_ArticleMapper extends My_Model_Mapper {
                 ->setTitre($row->titre)
                 ->setContenu($row->contenu)
                 ->setDate_article($row->date_article);
+        $eventRow = $row->findParentRow('Application_Model_DbTable_Evenement');
+        if (!empty($eventRow)) {
+            $event = new Application_Model_Evenement($row->findParentRow('Application_Model_DbTable_Evenement')->toArray());
+            $article->setEvent($event);
+        }
     }
 
     public function fetchAll() {
@@ -73,17 +78,15 @@ class Application_Model_ArticleMapper extends My_Model_Mapper {
         $paginator->setItemCountPerPage(5);
         foreach ($paginator as $row) {
             $entry = new Application_Model_Article();
-            $authorRow = $row->findParentRow('Application_Model_DbTable_User');
-            if (!empty($authorRow)) {
-                $author = new Application_Model_User($row->findParentRow('Application_Model_DbTable_User')->toArray());
-            } else {
-                $author = null;
-            }
             $entry->setId($row->id)
                     ->setTitre($row->titre)
                     ->setContenu($row->contenu)
-                    ->setDate_article($row->date_article)
-                    ->setAuthor($author);
+                    ->setDate_article($row->date_article);
+            $authorRow = $row->findParentRow('Application_Model_DbTable_User');
+            if (!empty($authorRow)) {
+                $author = new Application_Model_User($row->findParentRow('Application_Model_DbTable_User')->toArray());
+                $entry->setAuthor($author);
+            }
             $entries[] = $entry;
         }
         return $entries;

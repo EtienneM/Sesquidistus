@@ -1,20 +1,29 @@
 <form id="frmEcrire" style="margin-bottom:200px;" method="POST" action="<?= $this->url(array('controller' => 'article', 'action' => 'ecrire')) ?>">
+    <input type="hidden" name="id" value="<?= $this->article->id; ?>" />
     <div style="width:700px;margin:0 auto;">
         <h3>
-            Création d'un article pour l'évènement&nbsp;: 
+            <?php if ($this->article->id === null): ?>
+            Création 
+            <?php else: ?>
+            Modification 
+            <?php endif; ?>
+            d'un article pour l'évènement&nbsp;: 
             <select id="sltEvents" name="idEvent">
                 <option value="null" selected="selected">Aucun</option>
+                <?php if($this->article->event !== null): ?>
+                <option value="<?= $this->article->event->id; ?>" selected="selected"><?= $this->article->event->titre.' : '.$this->article->event->date->get(Zend_Date::DAY.'/'.Zend_Date::MONTH.'/'.Zend_Date::YEAR); ?></option>
+                <?php endif; ?>
                 <option value="-1">Autre...</option>
             </select> 
             <input type="hidden" value="<?= $this->url(array('controller' => 'evenements', 'action' => 'list')) ?>" id="urlList" />
         </h3>
         <div style="display:inline;padding:8px 5px;" class="bouton2">
-            <input type="text" maxlength="50" size="50" name="titre" value="<?= '' ?>" class="required" />
+            <input type="text" maxlength="50" size="50" name="titre" value="<?= $this->article->titre; ?>" class="required" />
             <span>(Titre de l'article)</span>
         </div>
         <div id="tinyMceBox" style="margin-top:30px;">
             <textarea id="contenu" name="contenu" rows="15" cols="80" class="tinymce">
-                <?= '' ?>
+                <?= $this->article->contenu; ?>
             </textarea>
         </div>
         <input class="bouton1" style="float:right" id="buttonValider" type="submit" value="Valider l'article" />

@@ -7,7 +7,8 @@ class IndexController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        $this->view->headLink()->appendStylesheet('/css/pagination.css');
+        $this->view->headLink()->appendStylesheet('/css/pagination.css')
+                ->appendStylesheet('/css/article.css');
         $article = new Application_Model_ArticleMapper();
         $idEvent = $this->getRequest()->getParam('id_event');
         $page = $this->getRequest()->getParam('page', 1);

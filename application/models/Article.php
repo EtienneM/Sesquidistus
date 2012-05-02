@@ -6,6 +6,7 @@ class Application_Model_Article extends My_Model {
     protected $_contenu;
     protected $_date_article;
     protected $_id_event;
+    protected $_event;
     protected $_id_member; // Correspond à une colonne de la BDD
     protected $_author; // Correspond à l'objet User mais à aucune colonne
 
@@ -51,6 +52,15 @@ class Application_Model_Article extends My_Model {
 
     public function setId_event($id_event) {
         $this->_id_event = (int) $id_event;
+        return $this;
+    }
+    
+    public function getEvent() {
+        return $this->_event;
+    }
+
+    public function setEvent(Application_Model_Evenement $event=null) {
+        $this->_event = $event;
         return $this;
     }
 
