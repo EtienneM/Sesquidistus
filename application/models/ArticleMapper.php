@@ -14,6 +14,7 @@ class Application_Model_ArticleMapper extends My_Model_Mapper {
             'titre' => $article->getTitre(),
             'contenu' => $article->getContenu(),
             'date_article' => $article->getDate_article()->get(Zend_Date::ISO_8601),
+            'id_event' => $article->getId_event(),
             'id_member' => $article->getId_member(),
         );
         if (null === ($id = $article->getId())) {
