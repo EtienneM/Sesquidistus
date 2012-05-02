@@ -13,7 +13,8 @@ class Application_Model_ArticleMapper extends My_Model_Mapper {
         $data = array(
             'titre' => $article->getTitre(),
             'contenu' => $article->getContenu(),
-            'date_article' => $article->getDate_article(),
+            'date_article' => $article->getDate_article()->get(Zend_Date::ISO_8601),
+            'id_member' => $article->getId_member(),
         );
         if (null === ($id = $article->getId())) {
             unset($data['id']);
@@ -50,7 +51,7 @@ class Application_Model_ArticleMapper extends My_Model_Mapper {
     }
 
     /**
-     * Trouve les articles correspondant à un évènement pour la page sépcifier.
+     * Trouve les articles correspondant à un évènement pour la page spécifier.
      * Cette méthode retourne un tableau d'articles et un Zend_Paginator 
      * au niveau du troisième argument.
      * 

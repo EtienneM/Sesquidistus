@@ -6,6 +6,7 @@ class Application_Model_Article extends My_Model {
     protected $_contenu;
     protected $_date_article;
     protected $_id_event;
+    protected $_id_member;
 
     public function setId($id) {
         $this->_id = (int) $id;
@@ -52,6 +53,14 @@ class Application_Model_Article extends My_Model {
         return $this;
     }
 
+    public function getId_member() {
+        return $this->_id_member;
+    }
+
+    public function setId_member($id_member) {
+        $this->_id_member = (int) $id_member;
+        return $this;
+    }
 
 }
 

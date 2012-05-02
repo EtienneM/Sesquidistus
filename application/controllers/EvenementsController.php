@@ -39,5 +39,24 @@ class EvenementsController extends Zend_Controller_Action {
         $this->view->type = $type;
     }
 
+    public function listAction() {
+        $request = $this->getRequest();
+        if ($request->isXmlHttpRequest()) {
+            $this->_helper->layout->disableLayout();
+        }
+        $begining = $request->getParam('term');
+        $evenementMapper = new Application_Model_EvenementMapper();
+        $events = $evenementMapper->findByWord($begining);
+        $results = array();
+        foreach ($events as $event) {
+            $results[] = array(
+                'id' => $event->id,
+                'value' => $event->titre.' : '.$event->date->get(Zend_Date::DAY.'/'.Zend_Date::MONTH.'/'.Zend_Date::YEAR),
+            );
+        }
+        $this->getResponse()->setHeader('content-type', 'application/json', true);
+        echo Zend_Json::encode($results);
+    }
+
 }
 

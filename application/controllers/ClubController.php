@@ -53,6 +53,7 @@ class ClubController extends My_Controller_Action_CustomContent {
                     ->appendFile('/js/jquery/gmap3.min.js')
                     ->appendFile('/js/jquery/jquery.form.js')
                     ->appendFile('/js/jquery/jquery.validate.min.js')
+                    ->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js')
                     ->appendFile('/js/lieux_admin.js');
             $lieuxMapper = new Application_Model_LieuUltimateMapper();
             $this->view->lieux = $lieuxMapper->fetchAll();

@@ -125,6 +125,22 @@ class Application_Model_EvenementMapper extends My_Model_Mapper {
         }
         return $entry;
     }
+    
+    public function findByWord($begining) {
+        $table = $this->getDbTable();
+        $begining = '%'.$begining.'%';
+        $select = $table->select()
+                ->where('evenement.titre LIKE ?', $begining)
+                ->orWhere('evenement.description LIKE ?', $begining)
+                ->orWhere('evenement.lieu LIKE ?', $begining)
+                ->order('evenement.date DESC');
+        $entries = array();
+        foreach ($table->fetchAll($select) as $row) {
+            $entry = new Application_Model_Evenement($row->toArray());
+            $entries[] = $entry;
+        }
+        return $entries;
+    }
 
 }
 

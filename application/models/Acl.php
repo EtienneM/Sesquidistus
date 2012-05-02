@@ -43,7 +43,8 @@ class Application_Model_Acl extends Zend_Acl {
                 ->addResource('galerie')
                 ->addResource('evenements')
                 ->addResource('auth')
-                ->addResource('user');
+                ->addResource('user')
+                ->addResource('article');
 
         $this->allow(self::ROLE_VISITEUR, array('index'), array('index', 'contact', 'apropos', 'mentions'))
                 ->allow(self::ROLE_VISITEUR, array('calendrier'), array('index'))
@@ -53,12 +54,15 @@ class Application_Model_Acl extends Zend_Acl {
                 ->allow(self::ROLE_VISITEUR, array('evenements'), array('index'))
                 ->allow(self::ROLE_VISITEUR, array('user'), array('list', 'view'))
                 ->allow(self::ROLE_VISITEUR, array('auth'), array('login', 'forget'))
+                ->allow(self::ROLE_VISITEUR, array('article'), array('index'))
                 ->allow(self::ROLE_MEMBRE, array('user'), array('index', 'editProfil', 'editPwd'))
                 ->allow(self::ROLE_MEMBRE, array('auth'), array('logout'))
                 ->allow(self::ROLE_ADMIN, array('club'), array('modifier', 'ajouter', 'supprimer'))
                 ->allow(self::ROLE_ADMIN, array('ultimate'), array('modifier', 'ajouter', 'supprimer'))
                 ->allow(self::ROLE_ADMIN, array('calendrier'), array('ajouter'))
-                ->allow(self::ROLE_ADMIN, array('lieu'), array('modifier'));
+                ->allow(self::ROLE_ADMIN, array('lieu'), array('modifier'))
+                ->allow(self::ROLE_ADMIN, array('article'), array('ecrire'))
+                ->allow(self::ROLE_ADMIN, array('evenements'), array('list'));
     }
 
     protected static $_user = null;

@@ -3,7 +3,7 @@
 class AuthController extends Zend_Controller_Action {
 
     public function init() {
-        $this->_titre = 'Connexion';
+        $this->view->headTitle()->append('Connexion');
         $this->view->headLink()->appendStylesheet("/css/membres/login.css");
     }
 
