@@ -122,7 +122,7 @@
                         <a href="<?= $this->url(array('controller' => 'article', 'action' => 'ecrire', 'id' => $article->id)); ?>">
                             <img class="editArticle" src="/images/edit.png">
                         </a>
-                        <a href="<?= $this->url(array('controller' => 'article', 'action' => 'supprimer', 'id' => $article->id)); ?>">
+                        <a href="<?= $this->url(array('controller' => 'article', 'action' => 'supprimer', 'id' => $article->id)); ?>" class="supprimer">
                             <img class="editArticle" src="/images/del.png">
                         </a>
                     <?php endif; ?>
@@ -143,3 +143,5 @@
     <?php endforeach ?>
     <?= $this->paginator; ?>
 </div>
+
+<div id="dialog" style="display: none;"></div>

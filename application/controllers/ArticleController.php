@@ -43,6 +43,16 @@ class ArticleController extends Zend_Controller_Action {
         
         $this->view->article = $article;
     }
+    
+    public function supprimerAction() {
+        $request = $this->getRequest();
+        $articleMapper = new Application_Model_ArticleMapper();
+        if (!is_null($id = $request->getParam('id'))) {
+            $articleMapper->getDbTable()->delete(array('id = ?' => $id));
+            $this->_helper->flashMessenger('Article supprimé avec succès');
+        }
+        $this->getResponse()->setRedirect('/');
+    }
 
 }
 
