@@ -19,10 +19,10 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1 && strtolower($_GET['album'])!=
 	$sql = new MySQL($host, $user, $passwd, $db);
 	$sql2 = new MySQL($host, $user, $passwd, $db);
 
-	$album = $_GET['album'];
-	$id_album = getIdAlbum($album, $sql);
+	$element = $_GET['album'];
+	$id_album = getIdAlbum($element, $sql);
 	
-	if (verif_if_album_exist($sql, $album)) { // Si le nom de l'album existe dans la DB
+	if (verif_if_album_exist($sql, $element)) { // Si le nom de l'album existe dans la DB
 ?>
 
 <?php
@@ -33,7 +33,7 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1 && strtolower($_GET['album'])!=
 			//echo "Connexion réussie !";
 			if ($sql->execute($query)) {
 				//echo "<br />Requete bien executée!<br />";
-				echo '<form id="form" action="?categorie=admin_galerie_album&album=' . htmlspecialchars(stripslashes($album)) . '" method="post"/>' . "\n";
+				echo '<form id="form" action="?categorie=admin_galerie_album&album=' . htmlspecialchars(stripslashes($element)) . '" method="post"/>' . "\n";
 				echo '<div style="display: block;"><a href="?categorie=admin_galerie" style="float: right"><span class="bouton1">Retour aux albums</span></a></div><br /><br />' . "\n";
 				echo '<div class="bouton2 dataForm">' . "\n";
 				echo '<input type="radio" name="action" id="radio_del" value="delete"/>' . 'Supprimer une(des) photo(s)' . '<span style="margin-left:30px;"/>' . "\n";
@@ -45,7 +45,7 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1 && strtolower($_GET['album'])!=
 <br />
 <div class="totalBox">
 	<div class="box">
-		<div class="titreNews">Administration de l'album "<?php echo stripslashes(stripslashes($album));?>"</div>
+		<div class="titreNews">Administration de l'album "<?php echo stripslashes(stripslashes($element));?>"</div>
 <?php
 				$ok = false;
 				echo '<table id="imageContainer" style="margin-left:auto;margin-right:auto;">' . "\n";
@@ -105,7 +105,7 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1 && strtolower($_GET['album'])!=
 		echo '<div id="accordion">';
 			echo '<h4 class="header titreSaison"><span>Ajouter une image à cet album</span></h4>';
 			echo '<div class="box2" style="vertical-align:left;">';
-				echo '<form action="?categorie=admin_galerie_album&album=' . htmlspecialchars(stripslashes($album)) . '" method="post" enctype="multipart/form-data">';
+				echo '<form action="?categorie=admin_galerie_album&album=' . htmlspecialchars(stripslashes($element)) . '" method="post" enctype="multipart/form-data">';
 				echo '<p>';
 					echo 'Veuillez sélectionner votre image : <input type="file" name="mon_image" /> <br />';
 					echo 'Entrez une description (facultatif) : <input type="text" name="ma_description" />';
@@ -126,7 +126,7 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1 && strtolower($_GET['album'])!=
 						delImg($nom_photo, $dir_mini, $dir, $sql);
 					}
 					echo '<script language="Javascript">';
-					echo 'document.location.replace("?categorie=admin_galerie_album&album=' . $album . '");';
+					echo 'document.location.replace("?categorie=admin_galerie_album&album=' . $element . '");';
 					echo '</script>';
 				}
 				else {
@@ -140,7 +140,7 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1 && strtolower($_GET['album'])!=
 						moveToAlbum($nom_photo, $_POST['listeAlbum'], $sql);
 					}
 					echo '<script language="Javascript">';
-					echo 'document.location.replace("?categorie=admin_galerie_album&album=' . $album . '");';
+					echo 'document.location.replace("?categorie=admin_galerie_album&album=' . $element . '");';
 					echo '</script>';
 				}
 				else {
@@ -239,7 +239,7 @@ if(isset($_SESSION['id']) && $_SESSION['lvl']==1 && strtolower($_GET['album'])!=
 						else { $erreur = "Connexion échouée :".$sql->getError(); }
 						
 						echo '<script language="Javascript">';
-						echo 'document.location.replace("?categorie=admin_galerie_album&album=' . $album . '");';
+						echo 'document.location.replace("?categorie=admin_galerie_album&album=' . $element . '");';
 						echo '</script>';
 
 					}

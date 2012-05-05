@@ -16,8 +16,8 @@ $sql = new MySQL($host, $user, $passwd, $db);
 $sql2 = new MySQL($host, $user, $passwd, $db);
 
 
-$album = $_GET['album'];
-$id_album = getIdAlbum($album, $sql);
+$element = $_GET['album'];
+$id_album = getIdAlbum($element, $sql);
 $images = '';
 ?>
 <script type="text/javascript">
@@ -25,7 +25,7 @@ $images = '';
 </script>
 
 <?php
-if($_GET['album']!="default" && verif_if_album_exist($sql, $album)) {
+if($_GET['album']!="default" && verif_if_album_exist($sql, $element)) {
 
 	$query = 'SELECT * FROM images WHERE id_album = (SELECT id_album FROM albums WHERE nom_album = "' . $_GET['album'] . '")';
 	$tableau = array();
@@ -35,7 +35,7 @@ if($_GET['album']!="default" && verif_if_album_exist($sql, $album)) {
 		if ($sql->execute($query)){
 			//echo "<br />Requete bien executée!<br />";
 			if(isset($_SESSION['id']) && $_SESSION['lvl']==1){
-				echo '<div style="display: block;"><a href="?categorie=admin_galerie_album&album=' . htmlspecialchars(stripslashes($album)) . '"><span class="bouton1">Administrer cet album</span></a>';
+				echo '<div style="display: block;"><a href="?categorie=admin_galerie_album&album=' . htmlspecialchars(stripslashes($element)) . '"><span class="bouton1">Administrer cet album</span></a>';
 				echo '<a href="?categorie=galerie" style="float: right"><span class="bouton1">Retour aux albums</span></a></div><br />';
 			}
 			else {
@@ -44,7 +44,7 @@ if($_GET['album']!="default" && verif_if_album_exist($sql, $album)) {
 ?>
 <div class="totalBox">
 	<div class="box">
-    	<div class="titreNews">Album "<?php echo stripslashes(stripslashes($album));?>"</div>
+    	<div class="titreNews">Album "<?php echo stripslashes(stripslashes($element));?>"</div>
 <?php
 			$ok = false;
 			echo '<table id="imageContainer" style="margin-left:auto;margin-right:auto;">' . "\n";

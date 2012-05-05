@@ -1,0 +1,64 @@
+<?php if ($this->isRole(Application_Model_Acl::ROLE_MEMBRE) || $this->isAdmin()): ?>
+    <p>
+        <?php if ($this->albums !== null): ?>
+            <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'soumettre')) ?>">
+                <span class="bouton1">Soumettre une image</span>
+            </a>
+            <?php if ($this->isAdmin()): ?>
+                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'administration')) ?>" style="float: right">
+                    <span class="bouton1">Administration des albums</span>
+                </a>
+            <?php endif; ?>
+        <?php else: ?>
+        <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index'), null, true) ?>">
+                <span class="bouton1">Retour aux albums</span>
+            </a>
+            <?php if ($this->isAdmin()): ?>
+                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'administration', 'id' => $this->album->id)) ?>" style="float: right">
+                    <span class="bouton1">Administrer cet album</span>
+                </a>
+            <?php endif; ?>
+        <?php endif; ?>
+    </p>
+<?php endif; ?>
+
+<div class="totalBox">
+    <div class="box">
+        <div class="titreNews"><?= $this->titre; ?></div>
+        <table id="albumContainer" style="margin-left:auto;margin-right:auto;">
+            <?php $nbColonne = 4; ?>
+            <?php for ($i = 0; $i < count($this->images); $i++): ?>
+                <?php if ($i % $nbColonne == 0): ?>
+                    <tr>
+                    <?php endif; ?>
+                    <?php if ($this->albums === null) {
+                        $element = $this->images[$i];
+                        $href = $this->images[$i]->getNomWithPath();
+                    } else {
+                        $element = $this->albums[$i];
+                        $href = $this->url(array('controller' => 'galerie', 'action' => 'index', 'id' => $element->id));
+                    } ?>
+                    <td id="<?= $element->id; ?>">
+                        <div class="bouton4 albumBox" style="padding-top: 6px;">
+                            <div style="height: 120px;">
+                                <a href="<?= $href; ?>">
+                                    <img src="<?= $this->images[$i]->getNomWithMiniPath(); ?>" 
+                                         alt="<?= $element->nom; ?>" />
+                                </a>
+                            </div>
+                            <div style="padding-top: 15px;">
+                                <span>
+                                    <a title="<?= $element->nom; ?>" href="<?= $href; ?>">
+                                        <?= $this->shortText($element->nom, 20); ?>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <?php if ($i % $nbColonne == ($nbColonne - 1)): ?>
+                    </tr>
+                <?php endif; ?>
+            <?php endfor; ?>
+        </table>
+    </div>
+</div>
