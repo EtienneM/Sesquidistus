@@ -1,64 +1,107 @@
 <?php if ($this->isRole(Application_Model_Acl::ROLE_MEMBRE) || $this->isAdmin()): ?>
     <p>
         <?php if ($this->albums !== null): ?>
-            <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'soumettre')) ?>">
-                <span class="bouton1">Soumettre une image</span>
-            </a>
-            <?php if ($this->isAdmin()): ?>
-                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'administration')) ?>" style="float: right">
-                    <span class="bouton1">Administration des albums</span>
+            <?php if ($this->isAdmin() && $this->adminAlbum): ?>
+                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'supprimer'), null, true) ?>" 
+                   id="lnkSupprimer"
+                   class="bouton1">
+                    Supprimer album(s)
                 </a>
-            <?php endif; ?>
+                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'ajouter'), null, true) ?>" 
+                   id="lnkAjouter"
+                   class="bouton1">
+                    Ajouter un album
+                </a>
+                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index'), null, true) ?>" 
+                   class="bouton1"
+                   style="float: right">
+                    Retour à la galerie
+                </a>
+            <form method="POST" id="frmAjouter" style="display:none;">
+                Nom du nouvel album&nbsp;: <input type="text" id="nom" name="nom">
+            </form>
         <?php else: ?>
-        <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index'), null, true) ?>">
-                <span class="bouton1">Retour aux albums</span>
+            <a id="lnkSubmit"
+               href="<?= $this->url(array('controller' => 'galerie', 'action' => 'soumettre')) ?>" 
+               class="bouton1">
+                Soumettre une image
             </a>
             <?php if ($this->isAdmin()): ?>
-                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'administration', 'id' => $this->album->id)) ?>" style="float: right">
-                    <span class="bouton1">Administrer cet album</span>
+                <a id="lnkAdmin" 
+                   href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index', 'admin' => true)) ?>" 
+                   class="bouton1"
+                   style="float: right">
+                    Administration des albums
                 </a>
             <?php endif; ?>
         <?php endif; ?>
+
+    <?php else: ?>
+        <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index'), null, true) ?>"
+           class="bouton1">
+            Retour aux albums>
+        </a>
+        <?php if ($this->isAdmin()): ?>
+            <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'administration', 'id' => $this->album->id)) ?>" 
+               style="float: right"
+               class="bouton1">
+                Administrer cet album
+            </a>
+        <?php endif; ?>
+    <?php endif; ?>
     </p>
 <?php endif; ?>
 
 <div class="totalBox">
     <div class="box">
         <div class="titreNews"><?= $this->titre; ?></div>
-        <table id="albumContainer" style="margin-left:auto;margin-right:auto;">
-            <?php $nbColonne = 4; ?>
-            <?php for ($i = 0; $i < count($this->images); $i++): ?>
-                <?php if ($i % $nbColonne == 0): ?>
-                    <tr>
-                    <?php endif; ?>
-                    <?php if ($this->albums === null) {
-                        $element = $this->images[$i];
-                        $href = $this->images[$i]->getNomWithPath();
-                    } else {
-                        $element = $this->albums[$i];
-                        $href = $this->url(array('controller' => 'galerie', 'action' => 'index', 'id' => $element->id));
-                    } ?>
-                    <td id="<?= $element->id; ?>">
-                        <div class="bouton4 albumBox" style="padding-top: 6px;">
-                            <div style="height: 120px;">
-                                <a href="<?= $href; ?>">
-                                    <img src="<?= $this->images[$i]->getNomWithMiniPath(); ?>" 
-                                         alt="<?= $element->nom; ?>" />
-                                </a>
-                            </div>
-                            <div style="padding-top: 15px;">
-                                <span>
-                                    <a title="<?= $element->nom; ?>" href="<?= $href; ?>">
-                                        <?= $this->shortText($element->nom, 20); ?>
+        <?php if ($this->isAdmin() && $this->adminAlbum): ?>
+            <form method="POST" id="frmSupprimer">
+            <?php endif; ?>
+            <table id="albumContainer" style="margin-left:auto;margin-right:auto;">
+                <?php $nbColonne = 4; ?>
+                <?php for ($i = 0; $i < count($this->images); $i++): ?>
+                    <?php if ($i % $nbColonne == 0): ?>
+                        <tr>
+                        <?php endif; ?>
+                        <?php
+                        if ($this->albums === null) {
+                            $element = $this->images[$i];
+                            $href = $this->images[$i]->getNomWithPath();
+                        } else {
+                            $element = $this->albums[$i];
+                            $href = $this->url(array('controller' => 'galerie', 'action' => 'index', 'id' => $element->id));
+                        }
+                        ?>
+                        <td id="<?= $element->id; ?>">
+                            <div class="bouton4 albumBox" style="padding-top: 6px;">
+                                <div style="height: 120px;">
+                                    <a href="<?= $href; ?>">
+                                        <img src="<?= $this->images[$i]->getNomWithMiniPath(); ?>" 
+                                             alt="<?= $element->nom; ?>" />
                                     </a>
-                                </span>
+                                </div>
+                                <div style="padding-top: 15px;">
+                                    <span class="spnNom">
+                                        <a title="<?= $element->nom; ?>" href="<?= $href; ?>">
+                                            <?= $this->shortText($element->nom, 17); ?>
+                                        </a>
+                                        <?php if ($this->isAdmin() && $this->adminAlbum): ?>
+                                            <input type="checkbox" value="<?= $element->id; ?>" name="del[]">
+                                        <?php endif; ?>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <?php if ($i % $nbColonne == ($nbColonne - 1)): ?>
-                    </tr>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </table>
+                        </td>
+                        <?php if ($i % $nbColonne == ($nbColonne - 1)): ?>
+                        </tr>
+                    <?php endif; ?>
+                <?php endfor; ?>
+            </table>
+            <?php if ($this->isAdmin() && $this->adminAlbum): ?>
+            </form>
+        <?php endif; ?>
     </div>
 </div>
+
+<div id="dialog" style="display:none;"></div>

@@ -2,6 +2,10 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
+    protected function _initHelper() {
+        Zend_Controller_Action_HelperBroker::addPath(APPLICATION_PATH.'/controllers/helpers/My/Helper/', 'My_Helper');
+    }
+
     protected function _initMeta() {
         $this->bootstrap('view');
         $view = $this->getResource('view');

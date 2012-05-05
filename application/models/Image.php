@@ -13,16 +13,16 @@ class Application_Model_Image extends My_Model {
      * 
      * @return string 
      */
-    protected static function _getImagesPath() {
-        return "/images/gallery/";
+    public static function _getImagesPath() {
+        return "/images/gallery/photos/";
     }
 
     /**
      * 
      * @return string 
      */
-    protected static function _getImagesMiniPath() {
-        return "/images/gallery/mini/";
+    public static function _getImagesMiniPath() {
+        return "/images/gallery/photos/mini/";
     }
 
     public function setId($id) {
@@ -44,11 +44,11 @@ class Application_Model_Image extends My_Model {
     }
 
     public function getNomWithPath() {
-        return ($this->getNom() == '') ? '/images/gallery/small_noImage.gif' : self::_getImagesPath().$this->getAlbum()->getId().'/'.$this->getNom();
+        return ($this->getNom() == '') ? '/images/gallery/small_noImage.gif' : $this->getAlbum()->getPath().'/'.$this->getNom();
     }
 
     public function getNomWithMiniPath() {
-        return ($this->getNom() == '') ? '/images/gallery/small_noImage.gif' : self::_getImagesMiniPath().$this->getAlbum()->getId().'/'.$this->getNom();
+        return ($this->getNom() == '') ? '/images/gallery/small_noImage.gif' : $this->getAlbum()->getMiniPath().'/'.$this->getNom();
     }
 
     public function getHeight() {

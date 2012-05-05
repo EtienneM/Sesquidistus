@@ -12,11 +12,12 @@ class Application_Model_AlbumMapper extends My_Model_Mapper {
     public function save(Application_Model_Album $album) {
         $data = array(
             'nom' => $album->getNom(),
-            'date' => $album->getDate(),
+            'date' => $album->getDate()->get(Zend_Date::ISO_8601),
         );
         if (null === ($id = $album->getId())) {
             unset($data['id']);
-            $this->getDbTable()->insert($data);
+            $id = $this->getDbTable()->insert($data);
+            $album->setId($id);
         } else {
             $this->getDbTable()->update($data, array('id = ?' => $id));
         }

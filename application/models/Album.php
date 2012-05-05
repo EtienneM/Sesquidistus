@@ -6,6 +6,14 @@ class Application_Model_Album extends My_Model {
     protected $_date;
     protected $_images;
 
+    public function getMiniPath() {
+        return Application_Model_Image::_getImagesMiniPath().$this->getId().'/';
+    }
+
+    public function getPath() {
+        return Application_Model_Image::_getImagesPath().$this->getId().'/';
+    }
+
     public function setId($id) {
         $this->_id = (int) $id;
         return $this;
