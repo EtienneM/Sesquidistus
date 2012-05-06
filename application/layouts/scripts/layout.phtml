@@ -58,7 +58,7 @@
         <!-- Bandeau défilant de photos -->
         <div id="bandeauDefilant">
             <?php if ($this->isAdmin()): ?>
-                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'bandeau')); ?>" class="bouton1">
+                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'bandeau'), null, true); ?>" class="bouton1">
                     Modifier
                 </a>
             <?php endif; ?>

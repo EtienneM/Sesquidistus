@@ -11,3 +11,17 @@ input.bouton1 {
     left: 840px;
     top: 3px;
 }
+
+li.lstImages {
+    display: block;
+    list-style: none outside none;
+}
+
+li.lstImages img {
+    height: 44px;
+}
+
+li.lstImages a {
+    position: relative;
+    bottom: 20px;
+}

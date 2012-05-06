@@ -103,5 +103,18 @@ class GalerieController extends Zend_Controller_Action {
         $this->view->images = $imageMapper->fetchBandeau();
     }
 
+    public function supprimerbandeauAction() {
+        $request = $this->getRequest();
+        $imageMapper = new Application_Model_ImageMapper();
+        if (!is_null($id = $request->getParam('id'))) {
+            $image = new Application_Model_Image();
+            $imageMapper->find($id, $image);
+            unlink(APPLICATION_PATH.'/../public/'.$image->getNomWithPath());
+            $imageMapper->getDbTable()->delete(array('id = ?' => $id));
+            $this->_helper->flashMessenger('Image supprimée avec succès');
+        }
+        $this->_redirect($this->_helper->url('bandeau', 'galerie'));
+    }
+
 }
 

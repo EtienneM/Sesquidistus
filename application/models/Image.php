@@ -33,7 +33,7 @@ class Application_Model_Image extends My_Model {
     public static function _getBandeauPath() {
         return '/images/bandeau/';
     }
-    
+
     /**
      * 
      * @return string 
@@ -63,16 +63,17 @@ class Application_Model_Image extends My_Model {
     public function getNomWithPath() {
         if ($this->getSlideshow()) {
             return self::_getBandeauPath().$this->getNom();
-        } else {
-            if ($this->getNom() == '') {
-                return '/images/gallery/small_noImage.gif';
-            } else {
-                return $this->getAlbum()->getPath().'/'.$this->getNom();
-            }
         }
+        if ($this->getNom() == '') {
+            return '/images/gallery/small_noImage.gif';
+        }
+        return $this->getAlbum()->getPath().'/'.$this->getNom();
     }
 
     public function getNomWithMiniPath() {
+        if ($this->getSlideshow()) {
+            throw new BadMethodCallException('Bandeau n\'a pas de mini-image');
+        }
         return ($this->getNom() == '') ? '/images/gallery/small_noImage.gif' : $this->getAlbum()->getMiniPath().'/'.$this->getNom();
     }
 

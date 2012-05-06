@@ -1,30 +1,36 @@
 <div class="totalBox">
     <?php if ($this->imgToCrop !== null): ?>
-    <div class="box">
-        <div class="titreNews">Mise en forme de l'image</div>
-        <form method="POST" action="<?= $this->url(array('controller' => 'galerie', 'action' => 'bandeau')) ?>">
-            <img src="<?= $this->imgToCrop; ?>" id="crop" name="crop" />
-            <input type="hidden" id="x1" name="x1" />
-            <input type="hidden" id="y1" name="y1" />
-            <input type="hidden" id="x2" name="x2" />
-            <input type="hidden" id="y2" name="y2" />
-            <input type="hidden" id="width" name="width" />
-            <input type="hidden" id="height" name="height" />
-            <input type="hidden" name="imgCrop" value="<?= $this->imgToCrop; ?>" />
-            <input class="bouton1" type="submit" value="Envoyer" />
-        </form>
-    </div>
+        <div class="box">
+            <div class="titreNews">Mise en forme de l'image</div>
+            <form method="POST" action="<?= $this->url(array('controller' => 'galerie', 'action' => 'bandeau')) ?>">
+                <img src="<?= $this->imgToCrop; ?>" id="crop" name="crop" />
+                <input type="hidden" id="x1" name="x1" />
+                <input type="hidden" id="y1" name="y1" />
+                <input type="hidden" id="x2" name="x2" />
+                <input type="hidden" id="y2" name="y2" />
+                <input type="hidden" id="width" name="width" />
+                <input type="hidden" id="height" name="height" />
+                <input type="hidden" name="imgCrop" value="<?= $this->imgToCrop; ?>" />
+                <input class="bouton1" type="submit" value="Envoyer" />
+            </form>
+        </div>
     <?php endif; ?>
     <div class="box">
         <div class="titreNews">Liste des images</div>
         <ul>
-            <?php foreach($this->images as $image): ?>
-            <li><img src="<?= $image->getNomWithPath(); ?>" style="width: 200px;" /></li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-    <div class="box">
-        <div class="titreNews">Ajouter une image</div>
-        <input class="bouton1" type="submit" value="Envoyer" />
-    </div>
+            <?php foreach ($this->images as $image): ?>
+                <li class="lstImages">
+                    <img src="<?= $image->getNomWithPath(); ?>" />
+                    <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'supprimerBandeau', 'id' => $image->getId())); ?>"
+                       class="bouton1">
+                        Supprimer
+                    </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+<div class="box">
+    <div class="titreNews">Ajouter une image</div>
+    <input class="bouton1" type="submit" value="Envoyer" />
+</div>
 </div>
