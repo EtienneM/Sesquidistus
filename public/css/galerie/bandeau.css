@@ -1,0 +1,13 @@
+div#globalBox {
+    width: 920px;
+}
+
+div.box {
+    margin-bottom: 20px;
+}
+
+input.bouton1 {
+    position: relative;
+    left: 840px;
+    top: 3px;
+}

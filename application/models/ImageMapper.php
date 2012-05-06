@@ -15,6 +15,7 @@ class Application_Model_ImageMapper extends My_Model_Mapper {
             'height' => $image->getHeight(),
             'width' => $image->getWidth(),
             'description' => $image->getDescription(),
+            'slideshow' => $image->getSlideshow(),
         );
         if (null === ($id = $image->getId())) {
             unset($data['id']);

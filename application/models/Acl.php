@@ -63,7 +63,7 @@ class Application_Model_Acl extends Zend_Acl {
                 ->allow(self::ROLE_ADMIN, array('lieu'), array('modifier'))
                 ->allow(self::ROLE_ADMIN, array('article'), array('ecrire', 'supprimer'))
                 ->allow(self::ROLE_ADMIN, array('evenements'), array('list'))
-                ->allow(self::ROLE_ADMIN, array('galerie'), array('ajouter', 'supprimer'));
+                ->allow(self::ROLE_ADMIN, array('galerie'), array('ajouter', 'supprimer', 'bandeau'));
     }
 
     protected static $_user = null;

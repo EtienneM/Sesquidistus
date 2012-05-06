@@ -31,7 +31,7 @@ class GalerieController extends Zend_Controller_Action {
         }
         $this->view->images = $images;
     }
-    
+
     public function ajouterAction() {
         $request = $this->getRequest();
         $albumMapper = new Application_Model_AlbumMapper();
@@ -47,7 +47,7 @@ class GalerieController extends Zend_Controller_Action {
         }
         $this->_redirect($this->_helper->url('index', 'galerie', null, array('admin' => true)));
     }
-    
+
     public function supprimerAction() {
         $request = $this->getRequest();
         $albumMapper = new Application_Model_AlbumMapper();
@@ -63,6 +63,44 @@ class GalerieController extends Zend_Controller_Action {
             $this->_helper->flashMessenger('Albums supprimés avec succès');
         }
         $this->_redirect($this->_helper->url('index', 'galerie', null, array('admin' => true)));
+    }
+
+    public function bandeauAction() {
+        $this->view->headScript()->appendFile('/js/jquery/jquery.jcrop.min.js')
+                ->appendFile('/js/bandeau_admin.js');
+        $this->view->headLink()->appendStylesheet('/css/galerie/jquery.jcrop.min.css')
+                ->appendStylesheet('/css/galerie/bandeau.css');
+        $imageMapper = new Application_Model_ImageMapper();
+        $request = $this->getRequest();
+        if (!is_null($imgCrop = $request->getParam('imgCrop'))) {
+            $destWidth = 900;
+            $destHeight = 200;
+            $width = $request->getParam('width');
+            $height = $request->getParam('height');
+            if ($width < $destWidth || $height < $destHeight) {
+                throw new Zend_Exception("La hauteur et ou la largeur sont trop petits ($width x $height)");
+            }
+            // Sauvegarde en BDD
+            $image = new Application_Model_Image(array(
+                        'nom' => basename($imgCrop),
+                        'width' => $width,
+                        'height' => $height,
+                        'slideshow' => true,
+                    ));
+            $imageMapper->save($image);
+            // Sauvegarde de l'image rogné
+            $img_r = imagecreatefromjpeg(APPLICATION_PATH.'/../public/'.$imgCrop);
+            $dst_r = ImageCreateTrueColor($destWidth, $destHeight);
+            $x1 = $request->getParam('x1');
+            $y1 = $request->getParam('y1');
+            $x2 = $request->getParam('x2');
+            $y2 = $request->getParam('y2');
+            imagecopyresampled($dst_r, $img_r, 0, 0, $x1, $y1, $destWidth, $destHeight, $width, $height);
+            $jpeg_quality = 90;
+            imagejpeg($dst_r, APPLICATION_PATH.'/../public/'.$image->getNomWithPath(), $jpeg_quality);
+            unlink(APPLICATION_PATH.'/../public/'.Application_Model_Image::_getBandeauUploadedPath().$image->getNom());
+        }
+        $this->view->images = $imageMapper->fetchBandeau();
     }
 
 }

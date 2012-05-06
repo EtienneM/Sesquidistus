@@ -6,7 +6,7 @@ class Application_Model_Image extends My_Model {
     protected $_height;
     protected $_width;
     protected $_description;
-    protected $_slideshow;
+    protected $_slideshow = false;
     protected $_id_album;
     protected $_album;
 
@@ -25,9 +25,21 @@ class Application_Model_Image extends My_Model {
     public static function _getImagesMiniPath() {
         return '/images/gallery/photos/mini/';
     }
-    
-    protected static function _getBandeauPath() {
+
+    /**
+     * 
+     * @return string 
+     */
+    public static function _getBandeauPath() {
         return '/images/bandeau/';
+    }
+    
+    /**
+     * 
+     * @return string 
+     */
+    public static function _getBandeauUploadedPath() {
+        return self::_getBandeauPath().'uploaded/';
     }
 
     public function setId($id) {
