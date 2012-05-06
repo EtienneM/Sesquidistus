@@ -378,7 +378,7 @@ img{
     padding:0px;
 }
 
-div#gallery{
+div#bandeauDefilant {
     position:relative;
     width:700px;
     height:200px;
@@ -390,6 +390,12 @@ div#gallery{
     border-width:4px;
     border-color:white;
     behavior: url(fix_ie/PIE.htc);
+}
+
+div#bandeauDefilant a {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }
 
 p.slideshow{

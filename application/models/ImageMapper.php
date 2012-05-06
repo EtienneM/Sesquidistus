@@ -9,12 +9,14 @@ class Application_Model_ImageMapper extends My_Model_Mapper {
         return $this->_dbTable;
     }
 
-    public function save(Application_Model_Album $album) {
+    public function save(Application_Model_Image $image) {
         $data = array(
-            'nom' => $album->getNom(),
-            'date' => $album->getDate(),
+            'nom' => $image->getNom(),
+            'height' => $image->getHeight(),
+            'width' => $image->getWidth(),
+            'description' => $image->getDescription(),
         );
-        if (null === ($id = $album->getId())) {
+        if (null === ($id = $image->getId())) {
             unset($data['id']);
             $this->getDbTable()->insert($data);
         } else {
@@ -22,23 +24,25 @@ class Application_Model_ImageMapper extends My_Model_Mapper {
         }
     }
 
-    public function find($id, Application_Model_Album $album) {
+    public function find($id, Application_Model_Image $image) {
         $result = $this->getDbTable()->find($id);
         if (0 == count($result)) {
             return;
         }
         $row = $result->current();
-        $album->setId($row->id)
-                ->setNom($row->nom);
+        $image->setOptions($row->toArray());
     }
 
+    /**
+     *
+     * @return \Application_Model_Image
+     */
     public function fetchAll() {
         $resultSet = $this->getDbTable()->fetchAll(null, 'date DESC');
         $entries = array();
         foreach ($resultSet as $row) {
-            $entry = new Application_Model_Album();
-            $entry->setId($row->id)
-                    ->setNom($row->nom);
+            $entry = new Application_Model_Image();
+            $entry->setOptions($row->toArray());
             $entries[] = $entry;
         }
         return $entries;
@@ -60,6 +64,23 @@ class Application_Model_ImageMapper extends My_Model_Mapper {
         $entry = new Application_Model_Image($row->toArray());
         $entry->setAlbum($album);
         return $entry;
+    }
+    
+    /**
+     *
+     * @return \Application_Model_Image 
+     */
+    public function fetchBandeau() {
+        $table = $this->getDbTable();
+        $select = $table->select()
+                ->where('slideshow = ?', true);
+
+        $entries = array();
+        foreach ($table->fetchAll($select) as $row) {
+            $entry = new Application_Model_Image($row->toArray());
+            $entries[] = $entry;
+        }
+        return $entries;
     }
 
 }

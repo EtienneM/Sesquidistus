@@ -59,7 +59,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     protected function _initNavigation() {
-        $this->bootstrap("layout");
+        $this->bootstrap('layout');
         $layout = $this->getResource('layout');
         $view = $layout->getView();
         $config = new Zend_Config_Xml(APPLICATION_PATH.'/configs/navigation.xml', 'nav');
@@ -67,12 +67,23 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $view->navigation($navigation);
     }
 
+    protected function _initBandeau() {
+        $this->bootstrap(array('layout', 'db'));
+        $layout = $this->getResource('layout');
+        $view = $layout->getView();
+        $imageMapper = new Application_Model_ImageMapper();
+        $view->imagesBandeau = array();
+        foreach ($imageMapper->fetchBandeau() as $image) {
+            $view->imagesBandeau[] = $image->getNomWithPath();
+        }
+    }
+    
     protected function _initFooter() {
         $this->bootstrap('view');
         $view = $this->getResource('view');
 
         $view->fromYear = 2010;
-        $view->nowYear = (int) date("Y");
+        $view->nowYear = (int) date('Y');
     }
 
     protected function _initAcl() {

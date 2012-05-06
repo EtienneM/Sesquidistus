@@ -6,6 +6,7 @@ class Application_Model_Image extends My_Model {
     protected $_height;
     protected $_width;
     protected $_description;
+    protected $_slideshow;
     protected $_id_album;
     protected $_album;
 
@@ -14,7 +15,7 @@ class Application_Model_Image extends My_Model {
      * @return string 
      */
     public static function _getImagesPath() {
-        return "/images/gallery/photos/";
+        return '/images/gallery/photos/';
     }
 
     /**
@@ -22,7 +23,11 @@ class Application_Model_Image extends My_Model {
      * @return string 
      */
     public static function _getImagesMiniPath() {
-        return "/images/gallery/photos/mini/";
+        return '/images/gallery/photos/mini/';
+    }
+    
+    protected static function _getBandeauPath() {
+        return '/images/bandeau/';
     }
 
     public function setId($id) {
@@ -44,7 +49,15 @@ class Application_Model_Image extends My_Model {
     }
 
     public function getNomWithPath() {
-        return ($this->getNom() == '') ? '/images/gallery/small_noImage.gif' : $this->getAlbum()->getPath().'/'.$this->getNom();
+        if ($this->getSlideshow()) {
+            return self::_getBandeauPath().$this->getNom();
+        } else {
+            if ($this->getNom() == '') {
+                return '/images/gallery/small_noImage.gif';
+            } else {
+                return $this->getAlbum()->getPath().'/'.$this->getNom();
+            }
+        }
     }
 
     public function getNomWithMiniPath() {
@@ -86,7 +99,7 @@ class Application_Model_Image extends My_Model {
         $this->_id_album = (int) $id_album;
         return $this;
     }
-    
+
     /**
      *
      * @return Application_Model_Album 
@@ -100,7 +113,14 @@ class Application_Model_Image extends My_Model {
         return $this;
     }
 
+    public function getSlideshow() {
+        return $this->_slideshow;
+    }
 
+    public function setSlideshow($slideshow) {
+        $this->_slideshow = (bool) $slideshow;
+        return $this;
+    }
 
 }
 

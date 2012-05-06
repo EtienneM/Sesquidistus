@@ -12,10 +12,10 @@
         <?php if (Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->hasMessages()): ?>
             <script type="text/javascript">
                 $(document).ready(function() {
-            <?php foreach (Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getCurrentMessages() as $message): ?>
-                    displayFlash("<?= $this->escape($message) ?>");
-            <?php endforeach; ?>
-            });
+    <?php foreach (Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getCurrentMessages() as $message): ?>
+                displayFlash("<?= $this->escape($message) ?>");
+    <?php endforeach; ?>
+        });
             </script>
         <?php endif; ?>
         <?= $this->headLink()."\n" ?>
@@ -55,13 +55,37 @@
             <?= $this->navigation()->menu()->setPartial('_nav.phtml'); ?>
         </div>
 
-        <!-- Gallerie sous menu -->
-        <div id="gallery">
+        <!-- Bandeau défilant de photos -->
+        <div id="bandeauDefilant">
+            <?php if ($this->isAdmin()): ?>
+                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'bandeau')); ?>" class="bouton1">
+                    Modifier
+                </a>
+            <?php endif; ?>
         </div>
+        <script type="text/javascript">
+<?php
+for ($i = 0; $i < count($this->imagesBandeau); $i++) {
+    $this->imagesBandeau[$i] = "'".$this->imagesBandeau[$i]."'";
+}
+?>
+                $(document).ready(function() {
+                    var tabImgGalerie = new Array(<?= join(',', $this->imagesBandeau); ?>);
+                    var i = 0;
+                    $('div#bandeauDefilant').css('backgroundImage', 'url('+tabImgGalerie[i++]+')');
+                    setInterval(function() {
+                        $('div#bandeauDefilant').css('backgroundImage', 'url('+tabImgGalerie[i]+')');
+                        i++;
+                        if (i >= tabImgGalerie.length) {
+                            i = 0;
+                        }
+                    }, 4000);
+                });    
+        </script>
 
 
         <div id="globalBox">
-            <?php echo $this->layout()->content."\n"; ?>
+<?php echo $this->layout()->content."\n"; ?>
         </div>
 
 
