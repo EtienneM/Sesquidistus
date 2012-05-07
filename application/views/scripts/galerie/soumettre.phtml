@@ -1,12 +1,15 @@
 <div class="totalBox">
     <div class="box">
-        <div class="titreNews">Soumettre une image</div>
+        <div class="titreNews">Soumettre une/des images</div>
         <form action="?categorie=member_galerie" method="post" enctype="multipart/form-data">
-            <p>
-                Veuillez sélectionner votre image : <input type="file" name="mon_image" /> <br />
-                Entrez une description (facultatif) : <input type="text" name="ma_description" />
-            </p>
-            <input type="submit" class="bouton1" name="go_photo" value="Envoyer" style="float: right;"/> <br /><br />
+            <?php /* <p>
+              Veuillez sélectionner votre image : <input type="file" name="mon_image" /> <br />
+              Entrez une description (facultatif) : <input type="text" name="ma_description" />
+              </p> */ ?>
+            <div id="dropbox">
+                <input type="hidden" id="urlUpload" value="<?= $this->url(array('controller' => 'galerie', 'action' => 'upload')) ?>" />
+            </div>
+            <input type="submit" class="bouton1"value="Envoyer" style="float: right; position: relative; bottom: 25px;"/>
         </form>
         <div style="position: absolute; top: 0px; right: 0px;">
             <a target="_blank" href="/doc/doc_galerie/doc_galerie.html#submit_photo">

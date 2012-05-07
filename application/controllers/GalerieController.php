@@ -84,6 +84,9 @@ class GalerieController extends Zend_Controller_Action {
      * Soumettre une vidéo ou des photos
      */
     public function soumettreAction() {
+        $this->view->headScript()->appendFile('/js/fileuploader.js')
+                ->appendFile('/js/galerie.js');
+        $this->view->headLink()->appendStylesheet('/css/fileuploader.css');
         $request = $this->getRequest();
         if (!is_null($uri = $request->getParam('lienVideo'))) {
             $videoMapper = new Application_Model_VideoMapper();
@@ -98,6 +101,16 @@ class GalerieController extends Zend_Controller_Action {
             $videoMapper->save($video);
             $this->_helper->flashMessenger('Vidéo ajoutée avec succès');
         }
+    }
+    
+    /*
+     * Upload d'une photo
+     */
+    public function uploadAction() {
+        echo '{"success":true}';
+        Zend_Debug::dump($this->getRequest()->getParams());
+        
+        exit;
     }
 
     /**
