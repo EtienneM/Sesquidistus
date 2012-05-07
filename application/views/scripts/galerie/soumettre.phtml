@@ -1,0 +1,34 @@
+<div class="totalBox">
+    <div class="box">
+        <div class="titreNews">Soumettre une image</div>
+        <form action="?categorie=member_galerie" method="post" enctype="multipart/form-data">
+            <p>
+                Veuillez sélectionner votre image : <input type="file" name="mon_image" /> <br />
+                Entrez une description (facultatif) : <input type="text" name="ma_description" />
+            </p>
+            <input type="submit" class="bouton1" name="go_photo" value="Envoyer" style="float: right;"/> <br /><br />
+        </form>
+        <div style="position: absolute; top: 0px; right: 0px;">
+            <a target="_blank" href="/doc/doc_galerie/doc_galerie.html#submit_photo">
+                <img style="width: 25px;" alt="aide" src="/images/help.png"/>
+            </a>
+        </div>
+    </div>
+    <br />
+    <div class="box">
+        <div class="titreNews">Soumettre une vidéo</div>
+        <form action="<?= $this->url(array('controller' => 'galerie', 'action' => 'soumettre')) ?>" 
+              method="post" enctype="multipart/form-data" id="frmAddVideo">
+            <span style="font-style:italic">Uniquement les vidéos Youtube et Dailymotion</span>
+            <p>
+                Entrez l'adresse url de la vidéo : <input type="text" name="lienVideo" />
+                <input type="submit" class="bouton1" value="Envoyer" style="float: right;"/>
+            </p>
+        </form>
+        <div style="position: absolute; top: 0px; right: 0px;">
+            <a target="_blank" href="./doc/doc_galerie/doc_galerie.html#submit_video">
+                <img style="width: 25px;" alt="aide" src="/images/help.png"/>
+            </a>
+        </div>
+    </div>
+</div>

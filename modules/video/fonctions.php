@@ -214,6 +214,7 @@ function verif_if_video_exist($sql, $id) {
 
 // Fonction utilisé lors de la soumission d'un vidéo
 // Récupère les informations sur la vidéo chez l'hébergeur
+// src: http://www.phpsources.org/scripts607-PHP.htm
 function getVideoInfo($url){
 	$type = "";
 	$id = -1;

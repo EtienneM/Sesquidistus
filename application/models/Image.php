@@ -72,7 +72,7 @@ class Application_Model_Image extends My_Model {
 
     public function getNomWithMiniPath() {
         if ($this->getSlideshow()) {
-            throw new BadMethodCallException('Bandeau n\'a pas de mini-image');
+            throw new BadMethodCallException("Bandeau n'a pas de mini-image");
         }
         return ($this->getNom() == '') ? '/images/gallery/small_noImage.gif' : $this->getAlbum()->getMiniPath().'/'.$this->getNom();
     }

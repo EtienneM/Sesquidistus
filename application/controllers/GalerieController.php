@@ -17,8 +17,23 @@ class GalerieController extends Zend_Controller_Action {
         if (empty($idAlbum)) { // Afficher la liste des albums
             $albums = $albumMapper->fetchAll();
             $images = array();
+            $iDefault = null;
             for ($i = 0; $i < count($albums); $i++) {
+                if ($albums[$i]->id == 1) {
+                    $iDefault = $i;
+                    continue;
+                }
                 $images[] = $imageMapper->findFirstImage($albums[$i]);
+            }
+            if (!is_null($iDefault)) {
+                $tmp = array();
+                for ($i = 0; $i < count($albums); $i++) {
+                    if ($i == $iDefault) {
+                        continue;
+                    }
+                    $tmp[] = $albums[$i];
+                }
+                $albums = $tmp;
             }
             $this->view->titre = 'Galerie photos & vidéos';
             $this->view->albums = $albums;
@@ -65,6 +80,30 @@ class GalerieController extends Zend_Controller_Action {
         $this->_redirect($this->_helper->url('index', 'galerie', null, array('admin' => true)));
     }
 
+    /**
+     * Soumettre une vidéo ou des photos
+     */
+    public function soumettreAction() {
+        $request = $this->getRequest();
+        if (!is_null($uri = $request->getParam('lienVideo'))) {
+            $videoMapper = new Application_Model_VideoMapper();
+            $getId = new My_Filter_VideoID();
+            $res = $getId->filter($uri);
+            $video = new Application_Model_Video(array(
+                        'type' => $res['type'],
+                        'id_site' => $res['id'],
+                        'titre' => $res['title'],
+                        'description' => $res['description'],
+                    ));
+            $videoMapper->save($video);
+            $this->_helper->flashMessenger('Vidéo ajoutée avec succès');
+        }
+    }
+
+    /**
+     * Action pour l'administration du bandeau défilant
+     * @throws Zend_Exception 
+     */
     public function bandeauAction() {
         $this->view->headScript()->appendFile('/js/jquery/jquery.jcrop.min.js')
                 ->appendFile('/js/jquery/jquery.validate.min.js')
@@ -77,7 +116,6 @@ class GalerieController extends Zend_Controller_Action {
         $errorMessages = $request->getParam('errorMessages', array());
         // Une image vient d'être uploadée et doit être rognée
         if (!is_null($img = $request->getParam('imgToCrop'))) {
-            Zend_Debug::dump($img);
             // S'il n'y a pas eu d'erreurs
             if (empty($errorMessages)) {
                 $this->view->imgToCrop = Application_Model_Image::_getBandeauUploadedPath().$img;
@@ -113,6 +151,9 @@ class GalerieController extends Zend_Controller_Action {
         $this->view->images = $imageMapper->fetchBandeau();
     }
 
+    /**
+     * Suppression d'une image du bandeau défilant 
+     */
     public function supprimerbandeauAction() {
         $request = $this->getRequest();
         $imageMapper = new Application_Model_ImageMapper();
@@ -126,11 +167,12 @@ class GalerieController extends Zend_Controller_Action {
         $this->_redirect($this->_helper->url('bandeau', 'galerie'));
     }
 
+    /**
+     * Ajout d'une image au bandeau défilant
+     */
     public function ajouterbandeauAction() {
-        //$imageMapper = new Application_Model_ImageMapper();
         $adapter = new Zend_File_Transfer_Adapter_Http();
-        $adapter//->setDestination(APPLICATION_PATH.'/../public/'.Application_Model_Image::_getBandeauUploadedPath())
-                ->addValidator(new Zend_Validate_File_Count(1))
+        $adapter->addValidator(new Zend_Validate_File_Count(1))
                 ->addValidator(new Zend_Validate_File_Size(array('min' => 0, 'max' => 5242880)))// Max size = 5 Mo
                 ->addValidator(new Zend_Validate_File_IsImage('image/jpeg'));
         $file = $adapter->getFileInfo('imgSrc');
@@ -140,7 +182,7 @@ class GalerieController extends Zend_Controller_Action {
                     'target' => APPLICATION_PATH.'/../public/'.Application_Model_Image::_getBandeauUploadedPath().$filename,
                     'overwrite' => true,
                 )));
-        $adapter->receive();
+        $adapter->receive('imgSrc');
         $this->_forward('bandeau', 'galerie', null, array('imgToCrop' => $filename, 'errorMessages' => $adapter->getMessages()));
     }
 
