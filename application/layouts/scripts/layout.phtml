@@ -69,23 +69,14 @@ for ($i = 0; $i < count($this->imagesBandeau); $i++) {
     $this->imagesBandeau[$i] = "'".$this->imagesBandeau[$i]."'";
 }
 ?>
-                $(document).ready(function() {
-                    var tabImgGalerie = new Array(<?= join(',', $this->imagesBandeau); ?>);
-                    var i = 0;
-                    $('div#bandeauDefilant').css('backgroundImage', 'url('+tabImgGalerie[i++]+')');
-                    setInterval(function() {
-                        $('div#bandeauDefilant').css('backgroundImage', 'url('+tabImgGalerie[i]+')');
-                        i++;
-                        if (i >= tabImgGalerie.length) {
-                            i = 0;
-                        }
-                    }, 4000);
-                });    
+    $(document).ready(function() {
+        slideshow(new Array(<?= join(',', $this->imagesBandeau); ?>));
+    });
         </script>
 
 
         <div id="globalBox">
-<?php echo $this->layout()->content."\n"; ?>
+            <?php echo $this->layout()->content."\n"; ?>
         </div>
 
 

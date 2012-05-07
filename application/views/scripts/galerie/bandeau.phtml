@@ -6,8 +6,6 @@
                 <img src="<?= $this->imgToCrop; ?>" id="crop" name="crop" />
                 <input type="hidden" id="x1" name="x1" />
                 <input type="hidden" id="y1" name="y1" />
-                <input type="hidden" id="x2" name="x2" />
-                <input type="hidden" id="y2" name="y2" />
                 <input type="hidden" id="width" name="width" />
                 <input type="hidden" id="height" name="height" />
                 <input type="hidden" name="imgCrop" value="<?= $this->imgToCrop; ?>" />
@@ -25,12 +23,23 @@
                        class="bouton1">
                         Supprimer
                     </a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-</div>
-<div class="box">
-    <div class="titreNews">Ajouter une image</div>
-    <input class="bouton1" type="submit" value="Envoyer" />
-</div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <div class="box">
+        <div class="titreNews">Ajouter une image</div>
+        <form method="POST"
+              action="<?= $this->url(array('controller' => 'galerie', 'action' => 'ajouterBandeau')); ?>" 
+              id="frmAdd"
+              enctype="multipart/form-data">
+            <div><input type="file" id="imgSrc" name="imgSrc" class="required" /></div>
+            <ul>
+                <?php foreach($this->errorMessages as $message): ?>
+                <li class="error"><?= $message; ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <input type="submit" value="Envoyer" class="bouton1" />
+        </form>
+    </div>
 </div>

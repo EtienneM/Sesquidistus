@@ -67,12 +67,23 @@ class GalerieController extends Zend_Controller_Action {
 
     public function bandeauAction() {
         $this->view->headScript()->appendFile('/js/jquery/jquery.jcrop.min.js')
+                ->appendFile('/js/jquery/jquery.validate.min.js')
+                ->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js')
                 ->appendFile('/js/bandeau_admin.js');
         $this->view->headLink()->appendStylesheet('/css/galerie/jquery.jcrop.min.css')
                 ->appendStylesheet('/css/galerie/bandeau.css');
         $imageMapper = new Application_Model_ImageMapper();
         $request = $this->getRequest();
-        if (!is_null($imgCrop = $request->getParam('imgCrop'))) {
+        $errorMessages = $request->getParam('errorMessages', array());
+        // Une image vient d'être uploadée et doit être rognée
+        if (!is_null($img = $request->getParam('imgToCrop'))) {
+            Zend_Debug::dump($img);
+            // S'il n'y a pas eu d'erreurs
+            if (empty($errorMessages)) {
+                $this->view->imgToCrop = Application_Model_Image::_getBandeauUploadedPath().$img;
+            }
+        } // Une imgae vient d'être rognée
+        else if (!is_null($imgCrop = $request->getParam('imgCrop'))) {
             $destWidth = 900;
             $destHeight = 200;
             $width = $request->getParam('width');
@@ -93,13 +104,12 @@ class GalerieController extends Zend_Controller_Action {
             $dst_r = ImageCreateTrueColor($destWidth, $destHeight);
             $x1 = $request->getParam('x1');
             $y1 = $request->getParam('y1');
-            $x2 = $request->getParam('x2');
-            $y2 = $request->getParam('y2');
             imagecopyresampled($dst_r, $img_r, 0, 0, $x1, $y1, $destWidth, $destHeight, $width, $height);
             $jpeg_quality = 90;
             imagejpeg($dst_r, APPLICATION_PATH.'/../public/'.$image->getNomWithPath(), $jpeg_quality);
             unlink(APPLICATION_PATH.'/../public/'.Application_Model_Image::_getBandeauUploadedPath().$image->getNom());
         }
+        $this->view->errorMessages = $errorMessages;
         $this->view->images = $imageMapper->fetchBandeau();
     }
 
@@ -114,6 +124,24 @@ class GalerieController extends Zend_Controller_Action {
             $this->_helper->flashMessenger('Image supprimée avec succès');
         }
         $this->_redirect($this->_helper->url('bandeau', 'galerie'));
+    }
+
+    public function ajouterbandeauAction() {
+        //$imageMapper = new Application_Model_ImageMapper();
+        $adapter = new Zend_File_Transfer_Adapter_Http();
+        $adapter//->setDestination(APPLICATION_PATH.'/../public/'.Application_Model_Image::_getBandeauUploadedPath())
+                ->addValidator(new Zend_Validate_File_Count(1))
+                ->addValidator(new Zend_Validate_File_Size(array('min' => 0, 'max' => 5242880)))// Max size = 5 Mo
+                ->addValidator(new Zend_Validate_File_IsImage('image/jpeg'));
+        $file = $adapter->getFileInfo('imgSrc');
+        $filterAccent = new My_Filter_Accent();
+        $filename = $filterAccent->filter($file['imgSrc']['name']);
+        $adapter->addFilter(new Zend_Filter_File_Rename(array(
+                    'target' => APPLICATION_PATH.'/../public/'.Application_Model_Image::_getBandeauUploadedPath().$filename,
+                    'overwrite' => true,
+                )));
+        $adapter->receive();
+        $this->_forward('bandeau', 'galerie', null, array('imgToCrop' => $filename, 'errorMessages' => $adapter->getMessages()));
     }
 
 }

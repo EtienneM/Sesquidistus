@@ -32,11 +32,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 ->appendFile('/js/jquery/jquery.min.js')
                 ->appendFile('/js/fix_ie/iepngfix_tilebg.js')
                 ->appendFile('/js/jquery/jquery-ui.min.js')
-                ->appendFile('/js/galerie.js')
                 ->appendFile('/js/jquery/jquery.dropmenu.js')
                 ->appendFile('/js/jquery/jquery.ba-resize.min.js')
                 ->appendFile('/js/jquery/hoverIE.js', 'text/javascript', array('conditional' => 'IE'))
-                ->appendFile('/js/flash.js')
+                ->appendFile('/js/layout.js')
                 ->appendFile('/js/jquery/jquery.jgrowl_minimized.js');
     }
 
