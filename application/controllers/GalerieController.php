@@ -18,13 +18,22 @@ class GalerieController extends Zend_Controller_Action {
             $albums = $albumMapper->fetchAll();
             $images = array();
             $iDefault = null;
+            $videoMapper = new Application_Model_VideoMapper();
             for ($i = 0; $i < count($albums); $i++) {
                 if ($albums[$i]->id == 1) {
                     $iDefault = $i;
                     continue;
                 }
-                $images[] = $imageMapper->findFirstImage($albums[$i]);
+                $res = $imageMapper->findFirstImage($albums[$i]);
+                // S'il n'y a pas de première image, on peut trouver du côté des vidéos
+                if (empty($res)) {
+                    $res = $videoMapper->findFirstImage($albums[$i]);
+                }
+                $images[] = $res;
             }
+            /*
+             * Ne pas afficher l'album par défaut (id=1)
+             */
             if (!is_null($iDefault)) {
                 $tmp = array();
                 for ($i = 0; $i < count($albums); $i++) {
@@ -43,6 +52,7 @@ class GalerieController extends Zend_Controller_Action {
             $this->view->titre = 'Album "'.$album->getNom().'"';
             $images = $album->getImages();
             $this->view->album = $album;
+            $this->view->videos = $album->getVideos();
         }
         $this->view->images = $images;
     }
@@ -85,7 +95,7 @@ class GalerieController extends Zend_Controller_Action {
      */
     public function soumettreAction() {
         $this->view->headScript()->appendFile('/js/fileuploader.js')
-                ->appendFile('/js/galerie.js');
+                ->appendFile('/js/soumettre.js');
         $this->view->headLink()->appendStylesheet('/css/fileuploader.css');
         $request = $this->getRequest();
         if (!is_null($uri = $request->getParam('lienVideo'))) {
@@ -102,15 +112,28 @@ class GalerieController extends Zend_Controller_Action {
             $this->_helper->flashMessenger('Vidéo ajoutée avec succès');
         }
     }
-    
+
     /*
      * Upload d'une photo
      */
+
     public function uploadAction() {
-        echo '{"success":true}';
-        Zend_Debug::dump($this->getRequest()->getParams());
-        
-        exit;
+        $request = $this->getRequest();
+        if ($request->isXmlHttpRequest()) {
+            $this->_helper->layout->disableLayout();
+        }
+        $directory = APPLICATION_PATH.'/../public/'.Application_Model_Image::_getImagesPath().'/1';
+        if (!is_dir($directory)) {
+            mkdir($directory);
+        }
+        //$broker = new Zend_Controller_Action_HelperBroker($this);
+        /* $uploader = Zend_Controller_Action_HelperBroker::getStaticHelper('fileupload');
+          $uploader->setActionController($this);
+          $res = $uploader->handleUpload($directory); */
+        $res = $this->_helper->fileupload($directory);
+
+        $this->getResponse()->setHeader('content-type', 'application/json', true);
+        echo htmlspecialchars(Zend_Json::encode($res), ENT_NOQUOTES);
     }
 
     /**

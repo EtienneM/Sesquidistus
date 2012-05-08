@@ -52,5 +52,5 @@
 .qq-upload-fail .qq-upload-failed-text {display:inline;}
 
 #dropbox {
-    height:75px;
+    min-height:75px;
 }

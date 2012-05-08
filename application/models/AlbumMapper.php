@@ -36,9 +36,17 @@ class Application_Model_AlbumMapper extends My_Model_Mapper {
             $image->setAlbum($album);
             $images[] = $image;
         }
+        $videoRows = $row->findDependentRowset('Application_Model_DbTable_Video');
+        $videos = array();
+        foreach ($videoRows as $videoRow) {
+            $video = new Application_Model_Video($videoRow->toArray());
+            $video->setAlbum($album);
+            $videos[] = $video;
+        }
         $album->setId($row->id)
                 ->setNom($row->nom)
-                ->setImages($images);
+                ->setImages($images)
+                ->setVideos($videos);
     }
 
     public function fetchAll() {

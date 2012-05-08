@@ -61,7 +61,7 @@ class Application_Model_ImageMapper extends My_Model_Mapper {
                 ->limit(1);
         
         $row = $table->fetchRow($select);
-        if (is_null($row)) return new Application_Model_Image();
+        if (is_null($row)) return null;
         $entry = new Application_Model_Image($row->toArray());
         $entry->setAlbum($album);
         return $entry;

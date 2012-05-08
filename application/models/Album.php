@@ -5,6 +5,7 @@ class Application_Model_Album extends My_Model {
     protected $_nom;
     protected $_date;
     protected $_images;
+    protected $_videos;
 
     public function getMiniPath() {
         return Application_Model_Image::_getImagesMiniPath().$this->getId().'/';
@@ -46,6 +47,15 @@ class Application_Model_Album extends My_Model {
 
     public function setImages(array $images) {
         $this->_images = $images;
+        return $this;
+    }
+
+    public function getVideos() {
+        return $this->_videos;
+    }
+
+    public function setVideos(array $videos) {
+        $this->_videos = $videos;
         return $this;
     }
 

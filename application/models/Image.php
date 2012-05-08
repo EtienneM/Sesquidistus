@@ -7,8 +7,13 @@ class Application_Model_Image extends My_Model {
     protected $_width;
     protected $_description;
     protected $_slideshow = false;
-    protected $_id_album;
+    protected $_id_album = 1;
     protected $_album;
+    /**
+     * Vrai si cette image ne correspond pas à un champs de la base mais à une image de vidéo
+     * @var bool 
+     */
+    protected $_isVideo; 
 
     /**
      * 
@@ -74,6 +79,9 @@ class Application_Model_Image extends My_Model {
         if ($this->getSlideshow()) {
             throw new BadMethodCallException("Bandeau n'a pas de mini-image");
         }
+        if ($this->isVideo()) {
+            return $this->getNom();
+        }
         return ($this->getNom() == '') ? '/images/gallery/small_noImage.gif' : $this->getAlbum()->getMiniPath().'/'.$this->getNom();
     }
 
@@ -134,6 +142,16 @@ class Application_Model_Image extends My_Model {
         $this->_slideshow = (bool) $slideshow;
         return $this;
     }
+
+    public function isVideo() {
+        return $this->_isVideo;
+    }
+
+    public function setIsVideo($isVideo) {
+        $this->_isVideo = (bool) $isVideo;
+        return $this;
+    }
+
 
 }
 

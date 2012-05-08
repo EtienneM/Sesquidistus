@@ -1,11 +1,30 @@
+table.container {
+    margin-left:auto; 
+    margin-right:auto;
+}
+
 .albumBox {
 	height: 155px;
 	width : 155px;
 	text-align: center;
 	vertical-align:10%; 
+    padding-top: 6px;
 }
 
 div.imgGal a:hover{
 	font-weight:bold;
 	color:red;
+}
+
+td.video {
+    cursor: pointer;
+}
+
+div.bouton6 {
+    background-color:#DDD; 
+    cursor:auto; 
+    padding:6px; 
+    color:#333; 
+    margin-top:6px;
+    max-width: 680px;
 }
