@@ -7,7 +7,7 @@
  */
 class My_Helper_Fileupload_Form extends My_Helper_Fileupload_Abstract {
 
-    public function getName() {
+    public function getFileName() {
         return $_FILES['qqfile']['name'];
     }
 

@@ -5,9 +5,9 @@
  *
  * @author emichon
  */
-class My_Helper_Fileupload_Xhr extends My_Helper_Fileupload_Abstract {
+class My_Helper_FileuploadXhr extends My_Helper_FileuploadAbstract {
 
-    public function getName() {
+    public function getFileName() {
         return $this->getRequest()->getParam('qqfile');
     }
 

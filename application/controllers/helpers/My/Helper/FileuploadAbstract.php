@@ -5,7 +5,7 @@
  *
  * @author emichon
  */
-abstract class My_Helper_Fileupload_Abstract extends Zend_Controller_Action_Helper_Abstract {
+abstract class My_Helper_FileuploadAbstract extends Zend_Controller_Action_Helper_Abstract {
     protected $_allowedExtensions;
     protected $_sizeLimit;
     protected $_file;
@@ -21,7 +21,7 @@ abstract class My_Helper_Fileupload_Abstract extends Zend_Controller_Action_Help
     /**
      * @return string Name of the file 
      */
-    abstract public function getName();
+    abstract public function getFileName();
 
     /**
      * @return int Size of the file in bytes 

@@ -126,12 +126,7 @@ class GalerieController extends Zend_Controller_Action {
         if (!is_dir($directory)) {
             mkdir($directory);
         }
-        //$broker = new Zend_Controller_Action_HelperBroker($this);
-        /* $uploader = Zend_Controller_Action_HelperBroker::getStaticHelper('fileupload');
-          $uploader->setActionController($this);
-          $res = $uploader->handleUpload($directory); */
         $res = $this->_helper->fileupload($directory);
-
         $this->getResponse()->setHeader('content-type', 'application/json', true);
         echo htmlspecialchars(Zend_Json::encode($res), ENT_NOQUOTES);
     }

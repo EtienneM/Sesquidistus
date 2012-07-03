@@ -6,7 +6,7 @@
  * @author emichon
  */
 class My_Helper_Fileupload extends Zend_Controller_Action_Helper_Abstract {
-    protected $_allowedExtensions = array('image/jpeg');
+    protected $_allowedExtensions = array('jpeg', 'jpg');
     protected $_sizeLimit = 5242880; // Max = 5Mo
     protected $_file;
     
@@ -19,9 +19,9 @@ class My_Helper_Fileupload extends Zend_Controller_Action_Helper_Abstract {
         $this->_checkServerSettings();
         $request = $this->getRequest();
         if (!is_null($request->getParam('qqfile'))) {
-            $this->_file = Zend_Controller_Action_HelperBroker::getStaticHelper('Fileupload_Xhr');
+            $this->_file = Zend_Controller_Action_HelperBroker::getStaticHelper('FileuploadXhr');
         } elseif (isset($_FILES['qqfile'])) {
-            $this->_file = $this->getActionController()->getHelper('My_Helper_Fileupload_Form');
+            $this->_file = $this->getActionController()->getHelper('My_Helper_FileuploadForm');
         } else {
             $this->_file = false;
         }
@@ -70,9 +70,9 @@ class My_Helper_Fileupload extends Zend_Controller_Action_Helper_Abstract {
             return array('error' => 'File is too large');
         }
 
-        $pathinfo = pathinfo($this->_file->getName());
+        $pathinfo = pathinfo($this->_file->getFileName());
         $filename = $pathinfo['filename'];
-//$filename = md5(uniqid());
+        //$filename = md5(uniqid());
         $ext = $pathinfo['extension'];
 
         if ($this->_allowedExtensions && !in_array(strtolower($ext), $this->_allowedExtensions)) {
@@ -82,12 +82,12 @@ class My_Helper_Fileupload extends Zend_Controller_Action_Helper_Abstract {
 
         if (!$replaceOldFile) {
             // don't overwrite previous files that were uploaded
-            while (file_exists($uploadDirectory.$filename.'.'.$ext)) {
+            while (file_exists($uploadDirectory.'/'.$filename.'.'.$ext)) {
                 $filename .= rand(10, 99);
             }
         }
 
-        if ($this->_file->save($uploadDirectory.$filename.'.'.$ext)) {
+        if ($this->_file->save($uploadDirectory.'/'.$filename.'.'.$ext)) {
             return array('success' => true);
         } else {
             return array('error' => 'Could not save uploaded file.'.
@@ -96,7 +96,7 @@ class My_Helper_Fileupload extends Zend_Controller_Action_Helper_Abstract {
     }
     
     public function direct($uploadDirectory, $replaceOldFile = false) {
-        $this->handleUpload($uploadDirectory, $replaceOldFile);
+        return $this->handleUpload($uploadDirectory, $replaceOldFile);
     }
 
 }
