@@ -63,7 +63,7 @@
                 <?php $nbJoursMois = $this->displayedMonth->get(Zend_Date::MONTH_DAYS); ?>
                 <tbody>
                     <?php
-                    $jourCourant = $this->displayedMonth;
+                    $jourCourant = new Zend_Date($this->displayedMonth);
                     $currentEvent = 0; // Current index in the $this->evenements array
                     for ($i = 0; $i < $nbJoursMois; $i++):
                         // Si jourCourant est lundi
@@ -101,7 +101,7 @@
                             }
                             ?>
                             <td 
-                                title="<?php echo $this->displayedMonth->get(Zend_Date::DAY.'/'.Zend_Date::MONTH.'/'.Zend_Date::YEAR) ?>" 
+                                title="<?= $this->displayedMonth->get(Zend_Date::DAY.'/'.Zend_Date::MONTH.'/'.Zend_Date::YEAR) ?>" 
                                 class="calendar defaultCalendar <?= (is_null($events)) ? '' : "selected" ?>">
                                     <?php if (is_null($events)): ?>
                                     <div class="day">
