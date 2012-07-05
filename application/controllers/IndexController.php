@@ -26,7 +26,9 @@ class IndexController extends Zend_Controller_Action {
     }
 
     public function contactAction() {
-        
+        $contactMapper = new Application_Model_ContactMapper();
+        $contacts = $contactMapper->fetchAll();
+        $this->view->contact = $contacts[0];
     }
 
     public function aproposAction() {

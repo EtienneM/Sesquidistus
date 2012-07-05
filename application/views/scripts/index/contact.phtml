@@ -1,8 +1,12 @@
+<?php $contact = $this->contact ?>
 <div class="totalBox"> 
     <div class="box" style="margin-bottom:20px">
         <div class="titreNews">Comment nous contacter&nbsp;?</div>
-        <p><strong>Alban Foulonneau</strong></p>
-        <p><strong><span style="color: #0000ff;">alban.foulonneau@uha.fr</span></strong></p>
-        <p>Tél&nbsp;: 06 09 01 14 78</p>
+        <p><strong><?= $contact->prenom ?> <?= $contact->nom ?></strong></p>
+        <p><strong><span style="color: #0000ff;"><?= $contact->email ?></span></strong></p>
+        <?php $tel = $contact->telephone; ?>
+        <?php if (!empty($tel)): ?>
+            <p>Tél&nbsp;: <?= $contact->telephone ?></p>
+        <?php endif; ?>
     </div>
 </div>
