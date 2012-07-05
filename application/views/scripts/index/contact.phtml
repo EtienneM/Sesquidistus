@@ -1,12 +1,45 @@
 <?php $contact = $this->contact ?>
 <div class="totalBox"> 
-    <div class="box" style="margin-bottom:20px">
-        <div class="titreNews">Comment nous contacter&nbsp;?</div>
-        <p><strong><?= $contact->prenom ?> <?= $contact->nom ?></strong></p>
-        <p><strong><span style="color: #0000ff;"><?= $contact->email ?></span></strong></p>
-        <?php $tel = $contact->telephone; ?>
-        <?php if (!empty($tel)): ?>
-            <p>Tél&nbsp;: <?= $contact->telephone ?></p>
+    <?php if ($this->modifier): ?>
+        <form id="frmContact" method="POST" action="<?= $this->url(array('controller' => 'index', 'action' => 'contact', 'modifier' => true)) ?>">
         <?php endif; ?>
-    </div>
+        <div class="box" style="margin-bottom:20px">
+            <div class="titreNews">
+                Comment nous contacter&nbsp;?
+                <?php if ($this->isAdmin() && !$this->modifier): ?>
+                    <a href="<?= $this->url(array('controller' => 'index', 'action' => 'contact', 'modifier' => true)); ?>">
+                        <img class="editContact" src="/images/edit.png">
+                    </a>
+                <?php endif; ?>
+            </div>
+            <p>
+                <?php if ($this->modifier): ?>
+                    Prénom&nbsp;: <input type="text" value="<?= $contact->prenom ?>" class="required" maxlength="50" id="firstName" name="firstName" /><br/>
+                    Nom&nbsp;: <input type="text" value="<?= $contact->nom ?>" class="" maxlength="50" id="lastName" name="lastName" />
+                <?php else: ?>
+                    <strong><?= $contact->prenom ?> <?= $contact->nom ?></strong>
+                <?php endif; ?>
+            </p>
+            <p>
+                <span style="color: #0000ff;">
+                    <?php if ($this->modifier): ?>
+                        E-mail&nbsp;: <input type="email" value="<?= $contact->email ?>" class="required email" maxlength="100" id="email" name="email" />
+                    <?php else: ?>
+                        <strong><?= $contact->email ?></strong>
+                    <?php endif; ?>
+                </span>
+            </p>
+            <?php $tel = $contact->telephone; ?>
+            <?php if ($this->modifier): ?>
+                Tél.&nbsp;: <input type="tel" value="<?= $contact->telephone ?>" class="" maxlength="20" id="phone" name="phone" />
+            <?php else: ?>
+                <?php if (!empty($tel)): ?>
+                    <p>Tél&nbsp;: <?= $contact->telephone ?></p>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
+        <?php if ($this->modifier): ?>
+            <input type="submit" value="Valider le contenu" class="bouton1" style="float: right;" />
+        </form>
+    <?php endif; ?>
 </div>
