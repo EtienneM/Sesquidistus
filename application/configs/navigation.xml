@@ -31,11 +31,11 @@
             <controller>evenements</controller>
             <action>index</action>
         </evenement>
-        <kym>
+        <!--kym>
             <label>KYM '12</label>
             <controller>evenement</controller>
             <action>index</action>
-        </kym>
+        </kym-->
         <contact>
             <label>Contact</label>
             <controller>index</controller>
