@@ -7,12 +7,12 @@
  * les trois paramètres de la classe.
  */
 abstract class My_Controller_Action_CustomContent extends Zend_Controller_Action {
-    protected $_titre = '';
+    protected $_title = '';
     protected $_styleSheets = array();
     protected $_sections = array();
 
     public function init() {
-        $this->view->headTitle()->append($this->_titre);
+        $this->view->headTitle()->append($this->_title);
         foreach($this->_styleSheets as $stylesheet) {
             $this->view->headLink()->appendStylesheet($stylesheet);
         }

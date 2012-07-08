@@ -3,9 +3,9 @@
 class ClubController extends My_Controller_Action_CustomContent {
 
     public function init() {
+        $this->_title = 'Le club';
+        $this->_styleSheets = array('/css/club/club.css');
         parent::init();
-        $this->view->headLink()->appendStylesheet('/css/club/club.css');
-        $this->view->headTitle()->append('Le club');
     }
 
     public function indexAction() {

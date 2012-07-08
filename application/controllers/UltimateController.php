@@ -3,9 +3,9 @@
 class UltimateController extends My_Controller_Action_CustomContent {
 
     public function init() {
+        $this->_title = "L'utlimate";
+        $this->_styleSheets = array('/css/club/club.css');
         parent::init();
-        $this->view->headTitle()->append("L'utlimate");
-        $this->view->headLink()->appendStylesheet('/css/club/club.css');
     }
 
     public function indexAction() {
@@ -42,7 +42,7 @@ class UltimateController extends My_Controller_Action_CustomContent {
         }
         $this->_redirect('/ultimate/index/id/'.$id);
     }
-    
+
     public function ajouterAction() {
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);
@@ -57,7 +57,7 @@ class UltimateController extends My_Controller_Action_CustomContent {
         }
         $this->_redirect('/ultimate/index/id/'.$id);
     }
-    
+
     public function supprimerAction() {
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);

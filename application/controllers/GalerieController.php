@@ -136,6 +136,7 @@ class GalerieController extends Zend_Controller_Action {
      * @throws Zend_Exception 
      */
     public function bandeauAction() {
+        $this->view->headTitle()->append('Modifier le bandeau');
         $this->view->headScript()->appendFile('/js/jquery/jquery.jcrop.min.js')
                 ->appendFile('/js/jquery/jquery.validate.min.js')
                 ->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js')

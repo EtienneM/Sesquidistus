@@ -26,6 +26,7 @@ class IndexController extends Zend_Controller_Action {
     }
 
     public function contactAction() {
+        $this->view->headTitle()->append('Contact');
         $this->view->headScript()->appendFile('/js/jquery/jquery.validate.min.js')
                 ->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js')
                 ->appendFile('/js/contact.js');
