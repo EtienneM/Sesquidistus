@@ -122,7 +122,7 @@ class GalerieController extends Zend_Controller_Action {
      */
     public function uploadAction() {
         /*
-         * TODO Création miniature + ajout dans la DB
+         * TODO Création miniature + ajout dans la DB + Helper création répertoire existe ?
          */
         $request = $this->getRequest();
         if ($request->isXmlHttpRequest()) {
