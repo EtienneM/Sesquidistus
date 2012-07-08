@@ -4,7 +4,8 @@
  */
 
 /**
- * Description of VideoID
+ * Filter an URI to test wether or not it comes from a supported video provider
+ * (i.e. youtube or dailymotion).
  *
  * @author emichon
  */

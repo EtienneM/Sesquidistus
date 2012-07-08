@@ -76,14 +76,14 @@
                         <td id="<?= $element->id; ?>" title="<?= $element->nom; ?>">
                             <div class="bouton4 albumBox">
                                 <div style="height: 120px;">
-                                    <a href="<?= $href; ?>">
+                                    <a href="<?= $href; ?>" class="<?php if ($this->isAlbum) {echo 'photo';} ?>">
                                         <img src="<?= $this->images[$i]->getNomWithMiniPath(); ?>" 
-                                             alt="<?= $element->nom; ?>" />
+                                             alt="<?php if ($this->isAlbum) {echo 'Image ';} ?><?= $element->nom; ?>" />
                                     </a>
                                 </div>
                                 <div style="padding-top: 15px;">
                                     <span class="spnNom">
-                                        <a href="<?= $href; ?>">
+                                        <a href="<?= $href; ?>" class="<?php if ($this->isAlbum) {echo 'photo';} ?>">
                                             <?= $this->shortText($element->nom, 17); ?>
                                         </a>
                                         <?php if ($this->isAdmin() && $this->adminAlbum): ?>

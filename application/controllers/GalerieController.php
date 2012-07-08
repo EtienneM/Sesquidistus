@@ -15,6 +15,7 @@ class GalerieController extends Zend_Controller_Action {
         $albumMapper = new Application_Model_AlbumMapper();
         $imageMapper = new Application_Model_ImageMapper();
         if (empty($idAlbum)) { // Afficher la liste des albums
+            $this->view->isAlbum = false; // True if we display an album
             $albums = $albumMapper->fetchAll();
             $images = array();
             $iDefault = null;
@@ -47,6 +48,7 @@ class GalerieController extends Zend_Controller_Action {
             $this->view->titre = 'Galerie photos & vidéos';
             $this->view->albums = $albums;
         } else { // Afficher un album
+            $this->view->isAlbum = true; // True if we display an album
             $album = new Application_Model_Album();
             $albumMapper->find($idAlbum, $album);
             $this->view->titre = 'Album "'.$album->getNom().'"';
@@ -97,6 +99,8 @@ class GalerieController extends Zend_Controller_Action {
         $this->view->headScript()->appendFile('/js/fileuploader.js')
                 ->appendFile('/js/soumettre.js');
         $this->view->headLink()->appendStylesheet('/css/fileuploader.css');
+        $albumMapper = new Application_Model_AlbumMapper();
+        $this->view->albums = $albumMapper->fetchAll();
         $request = $this->getRequest();
         if (!is_null($uri = $request->getParam('lienVideo'))) {
             $videoMapper = new Application_Model_VideoMapper();
@@ -116,13 +120,18 @@ class GalerieController extends Zend_Controller_Action {
     /*
      * Upload d'une photo
      */
-
     public function uploadAction() {
+        /*
+         * TODO Création miniature + ajout dans la DB
+         */
         $request = $this->getRequest();
         if ($request->isXmlHttpRequest()) {
             $this->_helper->layout->disableLayout();
         }
-        $directory = APPLICATION_PATH.'/../public/'.Application_Model_Image::_getImagesPath().'/1';
+        $albumMapper = new Application_Model_AlbumMapper();
+        $album = new Application_Model_Album();
+        $albumMapper->find($this->getRequest()->getParam('sltAlbum'), $album);
+        $directory = APPLICATION_PATH.'/../public/'.$album->getPath();
         if (!is_dir($directory)) {
             mkdir($directory);
         }

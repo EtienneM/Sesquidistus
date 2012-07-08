@@ -1,15 +1,26 @@
 <div class="totalBox">
+    <p>
+        <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index')); ?>" class="bouton1">
+            Retour aux albums
+        </a>
+    </p>
     <div class="box">
         <div class="titreNews">Soumettre une/des images</div>
-        <form action="?categorie=member_galerie" method="post" enctype="multipart/form-data">
+        <form action="<?= $this->url(array('controller' => 'galerie', 'action' => 'upload')); ?>" method="post" enctype="multipart/form-data" id="frmPhoto">
+            <label for="sltAlbum">Album&nbsp;:</label>
+            <select id="sltAlbum" name="sltAlbum">
+                <option value="" selected="selected">Sélectionnez un album</option>
+                <option value="">------------------</option>
+                <?php foreach ($this->albums as $album): ?>
+                    <option value="<?= $album->id ?>"><?= $album->nom ?></option>
+                <?php endforeach; ?>
+            </select>
             <?php /* <p>
               Veuillez sélectionner votre image : <input type="file" name="mon_image" /> <br />
               Entrez une description (facultatif) : <input type="text" name="ma_description" />
               </p> */ ?>
-            <div id="dropbox">
-                <input type="hidden" id="urlUpload" value="<?= $this->url(array('controller' => 'galerie', 'action' => 'upload')) ?>" />
-            </div>
-            <input type="submit" class="bouton1"value="Envoyer" style="float: right; position: relative; bottom: 25px;"/>
+            <div id="dropbox" style="display: none;"></div>
+            <?php //<input type="submit" class="bouton1"value="Envoyer" style="float: right;"/> ?>
         </form>
         <div style="position: absolute; top: 0px; right: 0px;">
             <a target="_blank" href="/doc/doc_galerie/doc_galerie.html#submit_photo">

@@ -52,5 +52,10 @@
 .qq-upload-fail .qq-upload-failed-text {display:inline;}
 
 #dropbox {
+    margin-top: 10px;
     min-height:75px;
+}
+
+.qq-upload-album {
+    margin-right: 7px;
 }
