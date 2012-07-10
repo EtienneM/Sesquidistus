@@ -120,6 +120,7 @@ class GalerieController extends Zend_Controller_Action {
     /*
      * Upload d'une photo
      */
+
     public function uploadAction() {
         /*
          * TODO Création miniature + ajout dans la DB
@@ -136,8 +137,9 @@ class GalerieController extends Zend_Controller_Action {
             mkdir($directory);
         }
         $res = $this->_helper->fileupload($directory);
+        // If upload is a success...
         if (isset($res['success']) && $res['success']) {
-            // If upload is a success, add to DB
+            // ... add to DB and...
             $imageMapper = new Application_Model_ImageMapper();
             $image = new Application_Model_Image(array(
                         'nom' => $res['name'],
@@ -146,6 +148,25 @@ class GalerieController extends Zend_Controller_Action {
                         'id_album' => $album->getId(),
                     ));
             $imageMapper->save($image);
+            // ... create the thumbnail
+            $thumbnailSrc = imagecreatefromjpeg($directory.'/'.$res['name']);
+            $imageSize = getimagesize($directory.'/'.$res['name']);
+            // on teste si notre image est de type paysage ou portrait
+            $ratio = 120;
+            if ($imageSize[0] > $imageSize[1]) {
+                $height = round($imageSize[0] / $imageSize[1] * $ratio);
+                $width = $ratio;
+            } else {
+                $height = $ratio;
+                $width = round($imageSize[0] / $imageSize[1] * $ratio);
+            }
+            $thumbnail = imagecreatetruecolor($width, $height);
+            imagecopyresampled($thumbnail, $thumbnailSrc, 0, 0, 0, 0, $width, $height, $imageSize[0], $imageSize[1]);
+            $thumbnailDirectory = APPLICATION_PATH.'/../public/'.$album->getMiniPath();
+            if (!is_dir($thumbnailDirectory)) {
+                mkdir($thumbnailDirectory);
+            }
+            imagejpeg($thumbnail, $thumbnailDirectory.'/'.$res['name']);
             $this->_helper->flashMessenger('Image ajoutée avec succès');
         }
         $this->getResponse()->setHeader('content-type', 'application/json', true);
