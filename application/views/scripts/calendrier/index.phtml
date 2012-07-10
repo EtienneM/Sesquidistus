@@ -101,11 +101,11 @@
                             }
                             ?>
                             <td 
-                                title="<?= $this->displayedMonth->get(Zend_Date::DAY.'/'.Zend_Date::MONTH.'/'.Zend_Date::YEAR) ?>" 
+                                title="<?= $jourCourant->get(Zend_Date::DAY.'/'.Zend_Date::MONTH.'/'.Zend_Date::YEAR) ?>" 
                                 class="calendar defaultCalendar <?= (is_null($events)) ? '' : "selected" ?>">
                                     <?php if (is_null($events)): ?>
                                     <div class="day">
-                                        <?= $this->displayedMonth->get(Zend_Date::DAY) ?>
+                                        <?= $jourCourant->get(Zend_Date::DAY) ?>
                                     </div>
                                 <?php else: ?>
                                     <table>
@@ -116,7 +116,7 @@
                                                         style="background-color: <?= $this->escape($event->type->color); ?>; border-color: <?= $this->escape($event->type->color); ?>;"
                                                         id="Event<?= $this->escape($event->id); ?>">
                                                         <div class="divNomEvent"><?= $this->escape($event->titre); ?></div>
-                                                        <div><?= $this->displayedMonth->get(Zend_Date::DAY); ?></div>
+                                                        <div><?= $jourCourant->get(Zend_Date::DAY); ?></div>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
