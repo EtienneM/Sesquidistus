@@ -122,7 +122,7 @@ class GalerieController extends Zend_Controller_Action {
      */
     public function uploadAction() {
         /*
-         * TODO Création miniature + ajout dans la DB + Helper création répertoire existe ?
+         * TODO Création miniature + ajout dans la DB
          */
         $request = $this->getRequest();
         if ($request->isXmlHttpRequest()) {
@@ -136,6 +136,18 @@ class GalerieController extends Zend_Controller_Action {
             mkdir($directory);
         }
         $res = $this->_helper->fileupload($directory);
+        if (isset($res['success']) && $res['success']) {
+            // If upload is a success, add to DB
+            $imageMapper = new Application_Model_ImageMapper();
+            $image = new Application_Model_Image(array(
+                        'nom' => $res['name'],
+                        'height' => $res['height'],
+                        'width' => $res['width'],
+                        'id_album' => $album->getId(),
+                    ));
+            $imageMapper->save($image);
+            $this->_helper->flashMessenger('Image ajoutée avec succès');
+        }
         $this->getResponse()->setHeader('content-type', 'application/json', true);
         echo htmlspecialchars(Zend_Json::encode($res), ENT_NOQUOTES);
     }

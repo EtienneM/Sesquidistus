@@ -88,7 +88,13 @@ class My_Helper_Fileupload extends Zend_Controller_Action_Helper_Abstract {
         }
 
         if ($this->_file->save($uploadDirectory.'/'.$filename.'.'.$ext)) {
-            return array('success' => true);
+            return array(
+                'success' => true, 
+                'name' => $filename.'.'.$ext,
+                // TODO :
+                'width' => 0,
+                'height' => 0,
+            );
         } else {
             return array('error' => 'Could not save uploaded file.'.
                 'The upload was cancelled, or server error encountered');
