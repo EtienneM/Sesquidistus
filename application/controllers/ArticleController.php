@@ -39,6 +39,7 @@ class ArticleController extends Zend_Controller_Action {
                     ));
             $articleMapper->save($article);
             $this->_helper->flashMessenger('Article ajouté avec succès');
+            return $this->_helper->redirector('index');
         }
         
         $this->view->article = $article;

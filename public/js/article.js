@@ -44,6 +44,7 @@ $(document).ready(function() {
                     }
                 }
             });
+            $('input#txtEvent').focus();
         }
     });
     
