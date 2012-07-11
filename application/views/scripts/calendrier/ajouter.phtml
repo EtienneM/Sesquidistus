@@ -133,20 +133,24 @@
                   </div> */ ?>
                 <div id="datepicker">
                     <span id="errorDatepicker" class="error" style="display:none">Sélectionner au moins une date</span>
-                    <?php $displayedMonth = new Zend_Date(); ?>
+                    <?php
+                    $displayedMonth = new Zend_Date();
+                    $displayedMonth->setDay(1);
+                    ?>
                     <?php for ($month = 0; $month < 3; $month++): ?>
                         <div class="calendar" style="left:<?= 40 + $month * 230 ?>px">
                             <table>
                                 <thead>
                                     <tr class="calendar">
                                         <?php
-                                        $jours = array("Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di");
+                                        $jours = array('Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di');
                                         $nbJours = count($jours);
                                         for ($i = 0; $i < $nbJours; $i++):
-                                            if ($i >= $nbJours - 2)
+                                            if ($i >= $nbJours - 2) {
                                                 $color = 'color:#d72c2c;';
-                                            else
+                                            } else {
                                                 $color = '';
+                                            }
                                             ?>
                                             <td style="text-align:center; font-weight:bold; <?= $color ?>"><?= $jours[$i] ?></td>
                                         <?php endfor; ?>

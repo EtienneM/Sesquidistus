@@ -95,6 +95,11 @@ div.calendar td.weekendDay {
     color:#d72c2c;
 }
 
+div.calendar td.day {
+    font-weight: bold;
+    text-align: center;
+}
+
 td.calendar{
     line-height:13px; 
     border-style:solid;

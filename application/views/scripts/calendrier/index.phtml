@@ -54,7 +54,7 @@
                         <?php $nbJours = count($jours) ?>
                         <?php for ($i = 0; $i < $nbJours; $i++): ?>
                             <?php $class = ($i >= $nbJours - 2) ? 'weekendDay' : '' ?>
-                            <td class="<?= $class ?>">
+                            <td class="day <?= $class ?>">
                                 <?php echo $jours[$i] ?>
                             </td>
                         <?php endfor ?>
