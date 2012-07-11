@@ -1,16 +1,16 @@
 <?php
 
 class Application_Model_LieuUltimate extends My_Model {
-    protected $_numero;
+    protected $_id;
     protected $_nom;
     protected $_adresse;
 
-    public function getNumero() {
-        return $this->_numero;
+    public function getId() {
+        return $this->_id;
     }
 
-    public function setNumero($numero) {
-        $this->_numero = $numero;
+    public function setId($id) {
+        $this->_id = $id;
         return $this;
     }
 

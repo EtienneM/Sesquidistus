@@ -9,7 +9,7 @@
         <form id="formLieu" method="POST" action="./modules/club/action_lieu.php">
             <select id="listeLieu" name="id_lieu">
                 <?php foreach ($this->lieux as $lieu): ?>
-                    <option value="<?= $lieu->numero; ?>"><?= $lieu->nom ?></option>;
+                    <option value="<?= $lieu->id; ?>"><?= $lieu->nom ?></option>;
                 <?php endforeach; ?>
             </select>
             <a href="<?= $this->url(array('controller' => 'lieu', 'action' => 'modifier')) ?>" class="bouton1 modifier" id="boutonModif" title="Modifier le lieu d'entrainement">#</a>

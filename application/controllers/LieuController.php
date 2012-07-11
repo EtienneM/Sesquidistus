@@ -24,7 +24,7 @@ class LieuController extends Zend_Controller_Action {
         if (!empty($adresse) && !empty($nom)) {
             if (empty($id)) $id = null;
             $lieu->setOptions(array(
-                'numero' => $id,
+                'id' => $id,
                 'nom' => $nom,
                 'adresse' => $adresse,
             ));
@@ -39,7 +39,7 @@ class LieuController extends Zend_Controller_Action {
         $request = $this->getRequest();
         $lieuMapper = new Application_Model_LieuUltimateMapper();
         if (!is_null($id = $request->getParam('idLieu'))) {
-            $lieuMapper->getDbTable()->delete(array('numero = ?' => $id));
+            $lieuMapper->getDbTable()->delete(array('id = ?' => $id));
             $this->_helper->flashMessenger('Lieu supprimé avec succès');
         }
         $this->getResponse()->setRedirect('/club/index/id/5');

@@ -1,10 +1,10 @@
 <?php foreach ($this->lieux as $lieu): ?>
-    <div class="box map" id="map<?= $lieu->numero; ?>">
+    <div class="box map" id="map<?= $lieu->id; ?>">
         <div class="titreNews"><?= $this->escape($lieu->nom); ?></div>
-        <div id="map_canvas<?= $lieu->numero; ?>" class="canvas"></div>
+        <div id="map_canvas<?= $lieu->id; ?>" class="canvas"></div>
         <script type="text/javascript">
             $(document).ready(function() {
-                $('#map_canvas<?= $lieu->numero; ?>').gmap3({
+                $('#map_canvas<?= $lieu->id; ?>').gmap3({
                     action: 'addMarker',
                     address: "<?= $this->escape($lieu->adresse); ?>",
                     map:{

@@ -52,7 +52,7 @@
                         <div id="divListeLieu" style="display:inline">
                             <select id="id_lieuEvent" style="font-size:12px" name="id_lieuEvent">
                                 <?php foreach ($this->lieux as $lieu): ?>
-                                    <option value="<?= $lieu->numero ?>"><?= $lieu->nom; ?></option>
+                                    <option value="<?= $lieu->id ?>"><?= $lieu->nom; ?></option>
                                 <?php endforeach; ?>
                                 <option value="0" selected="selected">Autre...</option>
                             </select>

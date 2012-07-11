@@ -15,11 +15,11 @@ class Application_Model_LieuUltimateMapper extends My_Model_Mapper {
             'adresse' => $lieu->getAdresse(),
         );
 
-        if (null === ($id = $lieu->getNumero())) {
-            unset($data['numero']);
+        if (null === ($id = $lieu->getId())) {
+            unset($data['id']);
             $this->getDbTable()->insert($data);
         } else {
-            $this->getDbTable()->update($data, array('numero = ?' => $id));
+            $this->getDbTable()->update($data, array('id = ?' => $id));
         }
     }
 

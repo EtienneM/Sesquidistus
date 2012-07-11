@@ -26,7 +26,7 @@
                                 } else {
                                     echo $this->escape($this->nextTraining->lieu->nom);
                                     ?>
-                                    <a title="Google maps" href="<?= $this->url(array('controller' => 'club', 'id' => 5)) ?>/#map<?= $this->nextTraining->lieu->numero ?>">
+                                    <a title="Google maps" href="<?= $this->url(array('controller' => 'club', 'id' => 5)) ?>/#map<?= $this->nextTraining->lieu->id ?>">
                                         <img src="/images/loupe.png"/>
                                     </a>
                                     <?php
