@@ -64,7 +64,6 @@
                 <tbody>
                     <?php
                     $jourCourant = new Zend_Date($this->displayedMonth);
-                    $currentEvent = 0; // Current index in the $this->evenements array
                     for ($i = 0; $i < $nbJoursMois; $i++):
                         // Si jourCourant est lundi
                         if (ucwords($jourCourant->get(Zend_Date::WEEKDAY)) == $jours[0]):
@@ -86,16 +85,8 @@
                             endif
                             ?>
                             <?php
-                            // TODO Utiliser un helper ici ?
-                            if ($currentEvent < count($this->evenements) && $jourCourant->equals($this->evenements[$currentEvent]->date)) {
-                                $events = array();
-                                $events[] = $this->evenements[$currentEvent];
-                                $currentEvent++;
-                                // Peut avoir plusieurs évènements en un jour
-                                while ($currentEvent < count($this->evenements) && $jourCourant->equals($this->evenements[$currentEvent]->date)) {
-                                    $events[] = $this->evenements[$currentEvent];
-                                    $currentEvent++;
-                                }
+                            if (isset($this->evenements[$jourCourant->getIso()])) {
+                                $events = $this->evenements[$jourCourant->getIso()];
                             } else {
                                 $events = null;
                             }
@@ -179,50 +170,53 @@
             Récapitulatif des évènements du mois de <?= $this->escape($this->displayedMonth->get(Zend_Date::MONTH_NAME)) ?> <?= $this->escape($this->displayedMonth->get(Zend_Date::YEAR)) ?>
         </h4>
         <div id="boiteRecap" class="box2">
-<?php foreach ($this->evenements as $evenement): ?>
-                <div class="printInfo" id="recapEvent<?= $this->escape($evenement->id) ?>">
+            <?php foreach ($this->evenements as $events): ?>
+            <?php foreach ($events as $event): ?>
+                <div class="printInfo" id="recapEvent<?= $this->escape($event->id) ?>">
                     <span class="dateMiniTab">
-                        <?= $this->escape(ucfirst($evenement->date->get(Zend_Date::WEEKDAY))) ?> 
-    <?= $this->escape($evenement->date->get(Zend_Date::DATE_LONG)) ?>
+                        <?= $this->escape(ucfirst($event->date->get(Zend_Date::WEEKDAY))) ?> 
+                        <?= $this->escape($event->date->get(Zend_Date::DATE_LONG)) ?>
                     </span>
-                    <table style="border-color:<?= $this->escape($evenement->type->color) ?>">
+                    <table style="border-color:<?= $this->escape($event->type->color) ?>">
                         <tr>
                             <td class="print">Nom</td>
-                            <td><?= $this->escape($evenement->titre) ?></td>
+                            <td><?= $this->escape($event->titre) ?></td>
                         </tr>
                         <tr>
                             <td class="print">Type</td>
-                            <td><?= $this->escape($evenement->type->nom) ?></td>
+                            <td><?= $this->escape($event->type->nom) ?></td>
                         </tr>
                         <tr>
                             <td class="print">Lieu</td>
-                            <?php if (is_string($evenement->lieu)): ?>
-                                <td><?= $this->escape($evenement->lieu) ?></td>
+                            <?php if (is_string($event->lieu)): ?>
+                                <td><?= $this->escape($event->lieu) ?></td>
                             <?php else: ?>
-                                <td><?= $this->escape($evenement->lieu->nom) ?></td>
+                                <td><?= $this->escape($event->lieu->nom) ?></td>
                         <?php endif; ?>
                         </tr>
-    <?php if ($evenement->horaire_debut != ''): ?>
+                        <?php if ($event->horaire_debut != ''): ?>
                             <tr>
                                 <td class="print">Début</td>
-                                <td><?= $this->escape($evenement->horaire_debut) ?></td>
+                                <td><?= $this->escape($event->horaire_debut) ?></td>
                             </tr>
                         <?php endif; ?>
-    <?php if ($evenement->horaire_fin != ''): ?>
+                        <?php if ($event->horaire_fin != ''): ?>
                             <tr>
                                 <td class="print">Fin</td>
-                                <td><?= $this->escape($evenement->horaire_fin) ?></td>
+                                <td><?= $this->escape($event->horaire_fin) ?></td>
                             </tr>
                         <?php endif; ?>
-    <?php if ($evenement->description != ''): ?>
+                        <?php if ($event->description != ''): ?>
                             <tr>
                                 <td class="print">Commentaire</td>
-                                <td><?= $this->escape($evenement->description); ?></td>
+                                <td><?= $this->escape($event->description); ?></td>
                             </tr>
-    <?php endif; ?>
+                        <?php endif; ?>
                     </table>
                 </div>
-<?php endforeach ?>
+            <?php $event->date->addDay(1); ?>
+            <?php endforeach ?>
+            <?php endforeach ?>
         </div>
     </div>
     <?php

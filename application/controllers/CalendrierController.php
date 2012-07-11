@@ -39,11 +39,20 @@ class CalendrierController extends Zend_Controller_Action {
 
 
         $eventMapper = new Application_Model_EvenementMapper();
-        $events = $eventMapper->findByMonth(new Zend_Date($displayedMonth));
+        $tmpEvents = $eventMapper->findByMonth(new Zend_Date($displayedMonth));
         $legend = array();
-        foreach ($events as $event) {
+        $events = array();
+        foreach ($tmpEvents as $event) {
             if (!isset($legend[$event->type->numero])) {
                 $legend[$event->type->numero] = $event->type;
+            }
+            $currentEventDate = new Zend_Date($event->date);
+            for ($i = 0; $i < $event->getDuree(); $i++) {
+                if (!isset($events[$currentEventDate->getIso()])) {
+                    $events[$currentEventDate->getIso()] = array();
+                }
+                $events[$currentEventDate->getIso()][] = $event;
+                $currentEventDate->addDay(1);
             }
         }
 
