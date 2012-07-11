@@ -34,7 +34,7 @@ class ArticleController extends Zend_Controller_Action {
                         'titre' => $titre,
                         'contenu' => $request->getParam('contenu'),
                         'id_event' => $request->getParam('idEvent'),
-                        'date_article' => new Zend_Date(),
+                        'date' => new Zend_Date(),
                         'id_member' => Zend_Auth::getInstance()->getIdentity()->id,
                     ));
             $articleMapper->save($article);

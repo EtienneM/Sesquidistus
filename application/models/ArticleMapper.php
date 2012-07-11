@@ -13,7 +13,7 @@ class Application_Model_ArticleMapper extends My_Model_Mapper {
         $data = array(
             'titre' => $article->getTitre(),
             'contenu' => $article->getContenu(),
-            'date_article' => $article->getDate_article()->get(Zend_Date::ISO_8601),
+            'date' => $article->getDate()->get(Zend_Date::ISO_8601),
             'id_event' => $article->getId_event(),
             'id_member' => $article->getId_member(),
         );
@@ -34,7 +34,7 @@ class Application_Model_ArticleMapper extends My_Model_Mapper {
         $article->setId($row->id)
                 ->setTitre($row->titre)
                 ->setContenu($row->contenu)
-                ->setDate_article($row->date_article);
+                ->setDate($row->date);
         $eventRow = $row->findParentRow('Application_Model_DbTable_Evenement');
         if (!empty($eventRow)) {
             $event = new Application_Model_Evenement($row->findParentRow('Application_Model_DbTable_Evenement')->toArray());
@@ -43,14 +43,14 @@ class Application_Model_ArticleMapper extends My_Model_Mapper {
     }
 
     public function fetchAll() {
-        $resultSet = $this->getDbTable()->fetchAll(null, 'date_article DESC');
+        $resultSet = $this->getDbTable()->fetchAll(null, 'date DESC');
         $entries = array();
         foreach ($resultSet as $row) {
             $entry = new Application_Model_Article();
             $entry->setId($row->id)
                     ->setTitre($row->titre)
                     ->setContenu($row->contenu)
-                    ->setDate_article($row->date_article);
+                    ->setDate($row->date);
             $entries[] = $entry;
         }
         return $entries;
@@ -68,7 +68,7 @@ class Application_Model_ArticleMapper extends My_Model_Mapper {
      */
     public function findByEvent($idEvent = null, $page = 1, Zend_Paginator &$paginator = null) {
         $table = $this->getDbTable();
-        $select = $table->select()->order('article.date_article DESC');
+        $select = $table->select()->order('article.date DESC');
         if (!is_null($idEvent)) {
             $select->where('article.id_event = ?', $idEvent);
         }
@@ -81,7 +81,7 @@ class Application_Model_ArticleMapper extends My_Model_Mapper {
             $entry->setId($row->id)
                     ->setTitre($row->titre)
                     ->setContenu($row->contenu)
-                    ->setDate_article($row->date_article);
+                    ->setDate($row->date);
             $authorRow = $row->findParentRow('Application_Model_DbTable_User');
             if (!empty($authorRow)) {
                 $author = new Application_Model_User($row->findParentRow('Application_Model_DbTable_User')->toArray());

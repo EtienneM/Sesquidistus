@@ -4,7 +4,7 @@ class Application_Model_Article extends My_Model {
     protected $_id;
     protected $_titre;
     protected $_contenu;
-    protected $_date_article;
+    protected $_date;
     protected $_id_event;
     protected $_event;
     protected $_id_member; // Correspond à une colonne de la BDD
@@ -37,13 +37,13 @@ class Application_Model_Article extends My_Model {
         return $this->_contenu;
     }
 
-    public function setDate_article($dateArticle) {
-        $this->_date_article = new Zend_Date($dateArticle);
+    public function setDate($date) {
+        $this->_date = new Zend_Date($date);
         return $this;
     }
 
-    public function getDate_article() {
-        return $this->_date_article;
+    public function getDate() {
+        return $this->_date;
     }
 
     public function getId_event() {
