@@ -1,16 +1,16 @@
 <?php
 
 class Application_Model_TypeEvent extends My_Model {
-    protected $_numero;
+    protected $_id;
     protected $_nom;
     protected $_color;
 
-    public function getNumero() {
-        return $this->_numero;
+    public function getId() {
+        return $this->_id;
     }
 
-    public function setNumero($numero) {
-        $this->_numero = (int) $numero;
+    public function setId($id) {
+        $this->_id = (int) $id;
         return $this;
     }
 

@@ -15,11 +15,11 @@ class Application_Model_TypeEventMapper extends My_Model_Mapper {
             'color' => $typeEvent->getColor(),
         );
 
-        if (null === ($id = $typeEvent->getNumero())) {
-            unset($data['numero']);
+        if (null === ($id = $typeEvent->getId())) {
+            unset($data['id']);
             $this->getDbTable()->insert($data);
         } else {
-            $this->getDbTable()->update($data, array('numero = ?' => $id));
+            $this->getDbTable()->update($data, array('id = ?' => $id));
         }
     }
 
@@ -29,7 +29,7 @@ class Application_Model_TypeEventMapper extends My_Model_Mapper {
             return;
         }
         $row = $result->current();
-        $typeEvent->setNumero($row->numero)
+        $typeEvent->setId($row->id)
                 ->setColor($row->color)
                 ->setNom($row->nom);
     }
@@ -39,7 +39,7 @@ class Application_Model_TypeEventMapper extends My_Model_Mapper {
         $entries = array();
         foreach ($resultSet as $row) {
             $entry = new Application_Model_TypeEvent();
-            $entry->setNumero($row->numero)
+            $entry->setId($row->id)
                     ->setColor($row->color)
                     ->setNom($row->nom);
             $entries[] = $entry;

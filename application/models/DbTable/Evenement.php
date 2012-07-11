@@ -8,7 +8,7 @@ class Application_Model_DbTable_Evenement extends Zend_Db_Table_Abstract {
         'TypeEvenement' => array(
             'columns' => 'type',
             'refTableClass' => 'Application_Model_DbTable_TypeEvent',
-            'refColumns' => 'numero',
+            'refColumns' => 'id',
         ),
         'LieuUltimate' => array(
             'columns' => 'id_lieu',

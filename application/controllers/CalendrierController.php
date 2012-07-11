@@ -43,8 +43,8 @@ class CalendrierController extends Zend_Controller_Action {
         $legend = array();
         $events = array();
         foreach ($tmpEvents as $event) {
-            if (!isset($legend[$event->type->numero])) {
-                $legend[$event->type->numero] = $event->type;
+            if (!isset($legend[$event->type->id])) {
+                $legend[$event->type->id] = $event->type;
             }
             $currentEventDate = new Zend_Date($event->date);
             for ($i = 0; $i < $event->getDuree(); $i++) {

@@ -153,7 +153,7 @@
         <div class="titreNews">Légende :</div>
         <?php $margin = 0 ?>
 <?php foreach ($this->legend as $l): ?>
-            <div id="lgd<?= $this->escape($l->numero) ?>" class="lgdElement" style="margin-left:<?= $margin ?>px;">
+            <div id="lgd<?= $this->escape($l->id) ?>" class="lgdElement" style="margin-left:<?= $margin ?>px;">
                 <img src="/images/headerWTransparent.png" style="background-color:<?= $this->escape($l->color) ?>;"/>
                 <span><?= $this->escape($l->nom) ?></span>
             </div>
