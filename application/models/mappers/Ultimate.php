@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_UltimateMapper extends My_Model_Mapper {
+class Application_Model_Mapper_Ultimate extends My_Model_Mapper {
     public function getDbTable() {
         if (null === $this->_dbTable) {
             $this->setDbTable('Application_Model_DbTable_Ultimate');

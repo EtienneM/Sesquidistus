@@ -17,7 +17,7 @@ class ClubController extends My_Controller_Action_CustomContent {
         }
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);
-        $clubMapper = new Application_Model_ClubMapper();
+        $clubMapper = new Application_Model_Mapper_Club();
 
         $this->view->sections = $clubMapper->fetchAll();
         // Recherche de la section courante
@@ -30,7 +30,7 @@ class ClubController extends My_Controller_Action_CustomContent {
 
         if ($id == 3) {
             $this->view->headLink()->appendStylesheet('/css/membres/trombi.css');
-            $profilMapper = new Application_Model_ProfilMapper();
+            $profilMapper = new Application_Model_Mapper_Profil();
             $everybody = array();
             $profils = $profilMapper->findAncien(false);
             if (count($profils) > 0) {
@@ -55,7 +55,7 @@ class ClubController extends My_Controller_Action_CustomContent {
                     ->appendFile('/js/jquery/jquery.validate.min.js')
                     ->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js')
                     ->appendFile('/js/lieux_admin.js');
-            $lieuxMapper = new Application_Model_LieuUltimateMapper();
+            $lieuxMapper = new Application_Model_Mapper_LieuUltimate();
             $this->view->lieux = $lieuxMapper->fetchAll();
         }
     }
@@ -63,7 +63,7 @@ class ClubController extends My_Controller_Action_CustomContent {
     public function modifierAction() {
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);
-        $clubMapper = new Application_Model_ClubMapper();
+        $clubMapper = new Application_Model_Mapper_Club();
         // Enregistrement du nouveau contenu s'il est présent
         if (!is_null($content = $request->getParam('content')) && !is_null($title = $request->getParam('title'))) {
             $club = new Application_Model_Club(array(
@@ -79,7 +79,7 @@ class ClubController extends My_Controller_Action_CustomContent {
     public function ajouterAction() {
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);
-        $clubMapper = new Application_Model_ClubMapper();
+        $clubMapper = new Application_Model_Mapper_Club();
         // Enregistrement du nouveau contenu s'il est présent
         if (!is_null($title = $request->getParam('addTitle'))) {
             $club = new Application_Model_Club(array(
@@ -94,7 +94,7 @@ class ClubController extends My_Controller_Action_CustomContent {
     public function supprimerAction() {
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);
-        $clubMapper = new Application_Model_ClubMapper();
+        $clubMapper = new Application_Model_Mapper_Club();
         if (!is_null($idDelCat = $request->getParam('delCat'))) {
             $clubMapper->getDbTable()->delete(array('id = ?' => $idDelCat));
             $this->_helper->flashMessenger('Catégorie supprimée avec succès');

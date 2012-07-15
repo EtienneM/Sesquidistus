@@ -1,21 +1,23 @@
 <?php
 
-class Application_Model_LieuUltimateMapper extends My_Model_Mapper {
+class Application_Model_Mapper_Contact extends My_Model_Mapper {
 
     public function getDbTable() {
         if (null === $this->_dbTable) {
-            $this->setDbTable('Application_Model_DbTable_LieuUltimate');
+            $this->setDbTable('Application_Model_DbTable_Contact');
         }
         return $this->_dbTable;
     }
 
-    public function save(Application_Model_LieuUltimate $lieu) {
+    public function save(Application_Model_Contact $contact) {
         $data = array(
-            'nom' => $lieu->getNom(),
-            'adresse' => $lieu->getAdresse(),
+            'prenom' => $contact->getPrenom(),
+            'nom' => $contact->getNom(),
+            'telephone' => $contact->getTelephone(),
+            'email' => $contact->getEmail(),
         );
 
-        if (null === ($id = $lieu->getId())) {
+        if (null === ($id = $contact->getId())) {
             unset($data['id']);
             $this->getDbTable()->insert($data);
         } else {
@@ -23,20 +25,20 @@ class Application_Model_LieuUltimateMapper extends My_Model_Mapper {
         }
     }
 
-    public function find($id, Application_Model_LieuUltimate $evenement) {
+    public function find($id, Application_Model_Contact $contact) {
         $result = $this->getDbTable()->find($id);
         if (0 == count($result)) {
             return;
         }
         $row = $result->current();
-        $evenement->setOptions($row->toArray());
+        $contact->setOptions($row->toArray());
     }
 
     public function fetchAll() {
         $resultSet = $this->getDbTable()->fetchAll();
         $entries = array();
         foreach ($resultSet as $row) {
-            $entries[] = new Application_Model_LieuUltimate($row->toArray());
+            $entries[] = new Application_Model_Contact($row->toArray());
         }
         return $entries;
     }

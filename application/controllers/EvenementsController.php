@@ -10,8 +10,8 @@ class EvenementsController extends Zend_Controller_Action {
     public function indexAction() {
         $this->view->headScript()->appendFile('/js/evenements.js');
         $type = $this->getRequest()->getParam('type', 5);
-        $evenementMapper = new Application_Model_EvenementMapper();
-        $articleMapper = new Application_Model_ArticleMapper();
+        $evenementMapper = new Application_Model_Mapper_Evenement();
+        $articleMapper = new Application_Model_Mapper_Article();
         // Depuis 2010 car c'est la date de création du site...
         $yearBegin = '2010';
         // ... jusqu'à cette année
@@ -45,7 +45,7 @@ class EvenementsController extends Zend_Controller_Action {
             $this->_helper->layout->disableLayout();
         }
         $begining = $request->getParam('term');
-        $evenementMapper = new Application_Model_EvenementMapper();
+        $evenementMapper = new Application_Model_Mapper_Evenement();
         $events = $evenementMapper->findByWord($begining);
         $results = array();
         foreach ($events as $event) {

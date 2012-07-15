@@ -28,7 +28,7 @@ class AuthController extends Zend_Controller_Action {
             $auth = Zend_Auth::getInstance();
             $result = $auth->authenticate($adapter);
             if ($result->isValid()) {
-                $userMapper = new Application_Model_UserMapper();
+                $userMapper = new Application_Model_Mapper_User();
                 $user = $userMapper->findByLogin($result->getIdentity());
                 $auth->getStorage()->write($user);
                 $this->getResponse()->setRedirect('/');

@@ -18,7 +18,7 @@ class ArticleController extends Zend_Controller_Action {
                 ->appendFile('/js/article.js');
         $this->view->headLink()->appendStylesheet('/css/article.css');
 
-        $articleMapper = new Application_Model_ArticleMapper();
+        $articleMapper = new Application_Model_Mapper_Article();
         $article = new Application_Model_Article();
         $request = $this->getRequest();
         $titre = $request->getParam('titre');
@@ -47,7 +47,7 @@ class ArticleController extends Zend_Controller_Action {
     
     public function supprimerAction() {
         $request = $this->getRequest();
-        $articleMapper = new Application_Model_ArticleMapper();
+        $articleMapper = new Application_Model_Mapper_Article();
         if (!is_null($id = $request->getParam('id'))) {
             $articleMapper->getDbTable()->delete(array('id = ?' => $id));
             $this->_helper->flashMessenger('Article supprimé avec succès');

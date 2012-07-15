@@ -17,7 +17,7 @@ class UltimateController extends My_Controller_Action_CustomContent {
         }
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);
-        $ultimateMapper = new Application_Model_UltimateMapper();
+        $ultimateMapper = new Application_Model_Mapper_Ultimate();
         $this->view->sections = $ultimateMapper->fetchAll();
         foreach ($this->view->sections as $section) {
             if ($id == $section->id) {
@@ -30,7 +30,7 @@ class UltimateController extends My_Controller_Action_CustomContent {
     public function modifierAction() {
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);
-        $ultimateMapper = new Application_Model_UltimateMapper();
+        $ultimateMapper = new Application_Model_Mapper_Ultimate();
         // Enregistrement du nouveau contenu s'il est présent
         if (!is_null($content = $request->getParam('content')) && !is_null($title = $request->getParam('title'))) {
             $ultimate = new Application_Model_Ultimate(array(
@@ -46,7 +46,7 @@ class UltimateController extends My_Controller_Action_CustomContent {
     public function ajouterAction() {
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);
-        $ultimateMapper = new Application_Model_UltimateMapper();
+        $ultimateMapper = new Application_Model_Mapper_Ultimate();
         // Enregistrement du nouveau contenu s'il est présent
         if (!is_null($title = $request->getParam('addTitle'))) {
             $ultimate = new Application_Model_Ultimate(array(
@@ -61,7 +61,7 @@ class UltimateController extends My_Controller_Action_CustomContent {
     public function supprimerAction() {
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);
-        $ultimateMapper = new Application_Model_UltimateMapper();
+        $ultimateMapper = new Application_Model_Mapper_Ultimate();
         if (!is_null($idDelCat = $request->getParam('delCat'))) {
             $ultimateMapper->getDbTable()->delete(array('id = ?' => $idDelCat));
             $this->_helper->flashMessenger('Catégorie supprimée avec succès');

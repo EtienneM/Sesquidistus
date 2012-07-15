@@ -12,14 +12,14 @@ class GalerieController extends Zend_Controller_Action {
         $request = $this->getRequest();
         $idAlbum = $request->getParam('id');
         $this->view->adminAlbum = $request->getParam('admin', false);
-        $albumMapper = new Application_Model_AlbumMapper();
-        $imageMapper = new Application_Model_ImageMapper();
+        $albumMapper = new Application_Model_Mapper_Album();
+        $imageMapper = new Application_Model_Mapper_Image();
         if (empty($idAlbum)) { // Afficher la liste des albums
             $this->view->isAlbum = false; // True if we display an album
             $albums = $albumMapper->fetchAll();
             $images = array();
             $iDefault = null;
-            $videoMapper = new Application_Model_VideoMapper();
+            $videoMapper = new Application_Model_Mapper_Video();
             for ($i = 0; $i < count($albums); $i++) {
                 if ($albums[$i]->id == 1) {
                     $iDefault = $i;
@@ -61,7 +61,7 @@ class GalerieController extends Zend_Controller_Action {
 
     public function ajouterAction() {
         $request = $this->getRequest();
-        $albumMapper = new Application_Model_AlbumMapper();
+        $albumMapper = new Application_Model_Mapper_Album();
         // Enregistrement du nouvel album
         if (!is_null($nom = $request->getParam('nom'))) {
             $album = new Application_Model_Album(array(
@@ -77,7 +77,7 @@ class GalerieController extends Zend_Controller_Action {
 
     public function supprimerAction() {
         $request = $this->getRequest();
-        $albumMapper = new Application_Model_AlbumMapper();
+        $albumMapper = new Application_Model_Mapper_Album();
         if (!is_null($ids = $request->getParam('del'))) {
             foreach ($ids as $id) {
                 $album = new Application_Model_Album();
@@ -99,11 +99,11 @@ class GalerieController extends Zend_Controller_Action {
         $this->view->headScript()->appendFile('/js/fileuploader.js')
                 ->appendFile('/js/soumettre.js');
         $this->view->headLink()->appendStylesheet('/css/fileuploader.css');
-        $albumMapper = new Application_Model_AlbumMapper();
+        $albumMapper = new Application_Model_Mapper_Album();
         $this->view->albums = $albumMapper->fetchAll();
         $request = $this->getRequest();
         if (!is_null($uri = $request->getParam('lienVideo'))) {
-            $videoMapper = new Application_Model_VideoMapper();
+            $videoMapper = new Application_Model_Mapper_Video();
             $getId = new My_Filter_VideoID();
             $res = $getId->filter($uri);
             $video = new Application_Model_Video(array(
@@ -129,7 +129,7 @@ class GalerieController extends Zend_Controller_Action {
         if ($request->isXmlHttpRequest()) {
             $this->_helper->layout->disableLayout();
         }
-        $albumMapper = new Application_Model_AlbumMapper();
+        $albumMapper = new Application_Model_Mapper_Album();
         $album = new Application_Model_Album();
         $albumMapper->find($this->getRequest()->getParam('sltAlbum'), $album);
         $directory = APPLICATION_PATH.'/../public/'.$album->getPath();
@@ -140,7 +140,7 @@ class GalerieController extends Zend_Controller_Action {
         // If upload is a success...
         if (isset($res['success']) && $res['success']) {
             // ... add to DB and...
-            $imageMapper = new Application_Model_ImageMapper();
+            $imageMapper = new Application_Model_Mapper_Image();
             $image = new Application_Model_Image(array(
                         'nom' => $res['name'],
                         'height' => $res['height'],
@@ -185,7 +185,7 @@ class GalerieController extends Zend_Controller_Action {
                 ->appendFile('/js/bandeau_admin.js');
         $this->view->headLink()->appendStylesheet('/css/galerie/jquery.jcrop.min.css')
                 ->appendStylesheet('/css/galerie/bandeau.css');
-        $imageMapper = new Application_Model_ImageMapper();
+        $imageMapper = new Application_Model_Mapper_Image();
         $request = $this->getRequest();
         $errorMessages = $request->getParam('errorMessages', array());
         // Une image vient d'être uploadée et doit être rognée
@@ -230,7 +230,7 @@ class GalerieController extends Zend_Controller_Action {
      */
     public function supprimerbandeauAction() {
         $request = $this->getRequest();
-        $imageMapper = new Application_Model_ImageMapper();
+        $imageMapper = new Application_Model_Mapper_Image();
         if (!is_null($id = $request->getParam('id'))) {
             $image = new Application_Model_Image();
             $imageMapper->find($id, $image);

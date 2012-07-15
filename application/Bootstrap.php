@@ -84,7 +84,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $this->bootstrap(array('layout', 'db'));
         $layout = $this->getResource('layout');
         $view = $layout->getView();
-        $imageMapper = new Application_Model_ImageMapper();
+        $imageMapper = new Application_Model_Mapper_Image();
         $view->imagesBandeau = array();
         foreach ($imageMapper->fetchBandeau() as $image) {
             $view->imagesBandeau[] = $image->getNomWithPath();

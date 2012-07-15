@@ -10,7 +10,7 @@ class IndexController extends Zend_Controller_Action {
         $this->view->headLink()->appendStylesheet('/css/pagination.css')
                 ->appendStylesheet('/css/article.css');
         $this->view->headScript()->appendFile('/js/index_admin.js');
-        $article = new Application_Model_ArticleMapper();
+        $article = new Application_Model_Mapper_Article();
         $idEvent = $this->getRequest()->getParam('id_event');
         $page = $this->getRequest()->getParam('page', 1);
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('index/_controls.phtml');
@@ -19,7 +19,7 @@ class IndexController extends Zend_Controller_Action {
         $this->view->articles = $articles;
         $this->view->paginator = $paginator;
 
-        $evenementMapper = new Application_Model_EvenementMapper();
+        $evenementMapper = new Application_Model_Mapper_Evenement();
         $this->view->nextTraining = $evenementMapper->findNext(1);
         $this->view->nextTournoi = $evenementMapper->findNext(array(4, 5));
         $this->view->video = array();
@@ -31,7 +31,7 @@ class IndexController extends Zend_Controller_Action {
                 ->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js')
                 ->appendFile('/js/contact.js');
         $this->view->headLink()->appendStylesheet('/css/contact.css');
-        $contactMapper = new Application_Model_ContactMapper();
+        $contactMapper = new Application_Model_Mapper_Contact();
         $contacts = $contactMapper->fetchAll();
         $this->view->contact = $contacts[0];
         $request = $this->getRequest();

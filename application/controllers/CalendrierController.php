@@ -38,7 +38,7 @@ class CalendrierController extends Zend_Controller_Action {
         }
 
 
-        $eventMapper = new Application_Model_EvenementMapper();
+        $eventMapper = new Application_Model_Mapper_Evenement();
         $tmpEvents = $eventMapper->findByMonth(new Zend_Date($displayedMonth));
         $legend = array();
         $events = array();
@@ -104,7 +104,7 @@ class CalendrierController extends Zend_Controller_Action {
             $nom = $request->getParam('nomEvent');
             $dates = explode(',', $request->getParam('hdnDates'));
             if (!empty($nom) && !empty($dates)) {
-                $evenementMapper = new Application_Model_EvenementMapper();
+                $evenementMapper = new Application_Model_Mapper_Evenement();
                 if (!$request->getParam('boolHoraire')) {
                     $horaireDebut = $request->getParam('debutEventHeure').'h'.$request->getParam('debutEventMinute');
                     $horaireFin = $request->getParam('finEventHeure').'h'.$request->getParam('finEventMinute');
@@ -136,9 +136,9 @@ class CalendrierController extends Zend_Controller_Action {
             }
         }
 
-        $typeEventMapper = new Application_Model_TypeEventMapper();
+        $typeEventMapper = new Application_Model_Mapper_TypeEvent();
         $this->view->types = $typeEventMapper->fetchAll();
-        $lieuMapper = new Application_Model_LieuUltimateMapper();
+        $lieuMapper = new Application_Model_Mapper_LieuUltimate();
         $this->view->lieux = $lieuMapper->fetchAll();
     }
 

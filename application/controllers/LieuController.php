@@ -17,7 +17,7 @@ class LieuController extends Zend_Controller_Action {
             $this->_helper->layout->disableLayout();
         }
         $id = $request->getParam('idLieu');
-        $lieuMapper = new Application_Model_LieuUltimateMapper();
+        $lieuMapper = new Application_Model_Mapper_LieuUltimate();
         $nom = $request->getParam('nom');
         $adresse = $request->getParam('adresse');
         $lieu = new Application_Model_LieuUltimate();
@@ -37,7 +37,7 @@ class LieuController extends Zend_Controller_Action {
     
     public function supprimerAction() {
         $request = $this->getRequest();
-        $lieuMapper = new Application_Model_LieuUltimateMapper();
+        $lieuMapper = new Application_Model_Mapper_LieuUltimate();
         if (!is_null($id = $request->getParam('idLieu'))) {
             $lieuMapper->getDbTable()->delete(array('id = ?' => $id));
             $this->_helper->flashMessenger('Lieu supprimé avec succès');

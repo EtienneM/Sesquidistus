@@ -27,10 +27,10 @@ class UserController extends Zend_Controller_Action {
                 $profil = new Application_Model_Profil($values);
                 $user = Zend_Auth::getInstance()->getIdentity();
                 $profil->id = $user->profil->id;
-                $mapper = new Application_Model_ProfilMapper();
+                $mapper = new Application_Model_Mapper_Profil();
                 $mapper->save($profil);
                 // MàJ des infos de l'utilisateur stockées dans la session
-                $userMapper = new Application_Model_UserMapper();
+                $userMapper = new Application_Model_Mapper_User();
                 Zend_Auth::getInstance()->getStorage()->write($userMapper->findByLogin($user->login));
                 $this->_helper->FlashMessenger('Modification effetuée');
             }
@@ -56,7 +56,7 @@ class UserController extends Zend_Controller_Action {
             $values = $form->getValues();
             $user->setPasswd(Application_Model_User::hashPasswd($values['new_pwd']));
             Zend_Debug::dump($user);
-            $userMapper = new Application_Model_UserMapper();
+            $userMapper = new Application_Model_Mapper_User();
             $userMapper->save($user);
         }
         $this->getResponse()->setRedirect('editProfil');
@@ -64,7 +64,7 @@ class UserController extends Zend_Controller_Action {
 
     public function listAction() {
         $this->view->headLink()->appendStylesheet('/css/membres/trombi.css');
-        $profilMapper = new Application_Model_ProfilMapper();
+        $profilMapper = new Application_Model_Mapper_Profil();
         $everybody = array();
         $profils = $profilMapper->findAncien(false);
         if (count($profils) > 0) {
@@ -85,7 +85,7 @@ class UserController extends Zend_Controller_Action {
     
     public function viewAction() {
         $this->view->headLink()->appendStylesheet('/css/membres/profil.css');
-        $userMapper = new Application_Model_UserMapper();
+        $userMapper = new Application_Model_Mapper_User();
         $user = new Application_Model_User();
         $userMapper->find($this->getRequest()->getParam('user'), $user);
         if (is_null($user->id)) {

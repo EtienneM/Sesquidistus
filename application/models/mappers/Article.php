@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_ArticleMapper extends My_Model_Mapper {
+class Application_Model_Mapper_Article extends My_Model_Mapper {
 
     public function getDbTable() {
         if (null === $this->_dbTable) {
