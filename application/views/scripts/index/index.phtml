@@ -120,10 +120,10 @@
                     <?= $this->escape($article->titre) ?>
                     <?php if ($this->isAdmin()): ?>
                         <a href="<?= $this->url(array('controller' => 'article', 'action' => 'ecrire', 'id' => $article->id)); ?>">
-                            <img class="editArticle" src="/images/edit.png">
+                            <img class="editArticle" src="/images/edit.png" alt="Modifier" title="Modifier">
                         </a>
                         <a href="<?= $this->url(array('controller' => 'article', 'action' => 'supprimer', 'id' => $article->id)); ?>" class="supprimer">
-                            <img class="editArticle" src="/images/del.png">
+                            <img class="editArticle" src="/images/del.png" alt="Supprimer" title="Supprimer">
                         </a>
                     <?php endif; ?>
                 </div>

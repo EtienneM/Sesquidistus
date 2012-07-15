@@ -7,6 +7,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         //Zend_Controller_Action_HelperBroker::addPath(APPLICATION_PATH.'/controllers/helpers/My/Helper/Fileupload', 'My_Helper_Fileupload');
     }
 
+    /**
+     * Initialize a cache for the Zend_Locale class called by Zend_Date.
+     * This is mandatory for the OVH website 
+     */
+    protected function _initCache() {
+        $cacheDir = APPLICATION_PATH.'/../data/cache/';
+        $aFrontendConf = array('lifetime' => 345600, 'automatic_seralization' => true);
+        $aBackendConf = array('cache_dir' => $cacheDir);
+        $oCache = Zend_Cache::factory('Core', 'File', $aFrontendConf, $aBackendConf);
+        $oCache->setOption('automatic_serialization', true);
+        Zend_Locale::setCache($oCache);
+    }
+
     protected function _initMeta() {
         $this->bootstrap('view');
         $view = $this->getResource('view');
@@ -77,7 +90,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             $view->imagesBandeau[] = $image->getNomWithPath();
         }
     }
-    
+
     protected function _initFooter() {
         $this->bootstrap('view');
         $view = $this->getResource('view');

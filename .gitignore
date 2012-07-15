@@ -11,10 +11,10 @@ todo
 /backup_tables.php
 /docs/README.txt
 /nbproject
-/data/session/*
 /public/images/avatar/
 /public/js/tinymce/
 /public/images/bandeau/
 /public/js/jquery/tapmodo-Jcrop-25f2e18/
 /public/js/valums-file-uploader-b3b20b1/
 /public/images/gallery/photos/
+/data/cache
