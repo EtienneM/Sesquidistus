@@ -1,5 +1,11 @@
-<?php if ($this->isRole(Application_Model_Acl::ROLE_MEMBRE) || $this->isAdmin()): ?>
-    <p>
+<p>
+    <?php if ($this->albums === null): ?>
+    <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index'), null, true) ?>"
+       class="bouton1">
+        Retour aux albums
+    </a>
+    <?php endif; ?>
+    <?php if ($this->isRole(Application_Model_Acl::ROLE_MEMBRE) || $this->isAdmin()): ?>
         <?php if ($this->albums !== null): ?>
             <?php if ($this->isAdmin() && $this->adminAlbum): ?>
                 <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'supprimer'), null, true) ?>" 
@@ -37,10 +43,6 @@
         <?php endif; ?>
 
     <?php else: ?>
-        <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index'), null, true) ?>"
-           class="bouton1">
-            Retour aux albums
-        </a>
         <?php if ($this->isAdmin()): ?>
             <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'administration', 'id' => $this->album->id)) ?>" 
                style="float: right"
@@ -49,8 +51,8 @@
             </a>
         <?php endif; ?>
     <?php endif; ?>
-    </p>
 <?php endif; ?>
+</p>
 
 <div class="totalBox">
     <div class="box">
@@ -76,44 +78,58 @@
                         <td id="<?= $element->id; ?>" title="<?= $element->nom; ?>">
                             <div class="bouton4 albumBox">
                                 <div style="height: 120px;">
-                                    <a href="<?= $href; ?>" class="<?php if ($this->isAlbum) {echo 'photo';} ?>">
+                                    <a href="<?= $href; ?>" class="<?php
+                    if ($this->isAlbum) {
+                        echo 'photo';
+                    }
+                    ?>">
                                         <img src="<?= $this->images[$i]->getNomWithMiniPath(); ?>" 
-                                             alt="<?php if ($this->isAlbum) {echo 'Image ';} ?><?= $element->nom; ?>" />
+                                             alt="<?php
+                                         if ($this->isAlbum) {
+                                             echo 'Image ';
+                                         }
+                                         ?><?= $element->nom; ?>" />
                                     </a>
                                 </div>
                                 <div style="padding-top: 15px;">
                                     <span class="spnNom">
-                                        <a href="<?= $href; ?>" class="<?php if ($this->isAlbum) {echo 'photo';} ?>">
-                                            <?= $this->shortText($element->nom, 17); ?>
+                                        <a href="<?= $href; ?>" class="<?php
+                                         if ($this->isAlbum) {
+                                             echo 'photo';
+                                         }
+                        ?>">
+    <?= $this->shortText($element->nom, 17); ?>
                                         </a>
-                                        <?php if ($this->isAdmin() && $this->adminAlbum): ?>
+                        <?php if ($this->isAdmin() && $this->adminAlbum): ?>
                                             <input type="checkbox" value="<?= $element->id; ?>" name="del[]">
-                                        <?php endif; ?>
+                    <?php endif; ?>
                                     </span>
                                 </div>
                             </div>
                         </td>
-                        <?php if ($i % $nbColonne == ($nbColonne - 1)): ?>
+                    <?php if ($i % $nbColonne == ($nbColonne - 1)): ?>
                         </tr>
                     <?php endif; ?>
                 <?php endfor; ?>
             </table>
-            <?php if (isset($this->videos)): ?>
+                    <?php if (isset($this->videos)): ?>
                 <table id="albumVideosContainer" class="container">
-                    <?php $nbColonne = 4; ?>
-                    <?php for ($i = 0; $i < count($this->videos); $i++): ?>
-                        <?php if ($i % $nbColonne == 0): ?>
+    <?php $nbColonne = 4; ?>
+                                <?php for ($i = 0; $i < count($this->videos); $i++): ?>
+                                    <?php if ($i % $nbColonne == 0): ?>
                             <tr>
-                            <?php endif; ?>
-                            <?php $video = $this->videos[$i]; ?>
+                                    <?php endif; ?>
+                                        <?php $video = $this->videos[$i]; ?>
                             <td id="<?= $video->id; ?>" title="<?= $video->titre; ?>" class="video">
                                 <div class="videoEmbeddedCode" title="<?= $video->titre; ?>" style="display:none;">
                                     <?= $video->getEmbeddedCode(); ?>
-                                    <?php $description = $video->getDescription(); if (!empty($description)): ?>
-                                    <div class="bouton6">
-                                        <?= $description; ?>
-                                    </div>
-                                    <?php endif; ?>
+        <?php $description = $video->getDescription();
+        if (!empty($description)):
+            ?>
+                                        <div class="bouton6">
+            <?= $description; ?>
+                                        </div>
+        <?php endif; ?>
                                 </div>
                                 <div class="bouton4 albumBox">
                                     <div style="height: 120px;">
@@ -122,23 +138,23 @@
                                     </div>
                                     <div style="padding-top: 15px;">
                                         <span class="spnNom">
-                                            <?= $this->shortText($video->titre, 17); ?>
-                                            <?php if ($this->isAdmin() && $this->adminAlbum): ?>
+                            <?= $this->shortText($video->titre, 17); ?>
+                            <?php if ($this->isAdmin() && $this->adminAlbum): ?>
                                                 <input type="checkbox" value="<?= $video->id; ?>" name="delVideo[]">
-                                            <?php endif; ?>
+                        <?php endif; ?>
                                         </span>
                                     </div>
                                 </div>
                             </td>
-                            <?php if ($i % $nbColonne == ($nbColonne - 1)): ?>
+                <?php if ($i % $nbColonne == ($nbColonne - 1)): ?>
                             </tr>
-                        <?php endif; ?>
-                    <?php endfor; ?>
-                </table>
-            <?php endif; ?>
-            <?php if ($this->isAdmin() && $this->adminAlbum): ?>
-            </form>
         <?php endif; ?>
+    <?php endfor; ?>
+                </table>
+<?php endif; ?>
+<?php if ($this->isAdmin() && $this->adminAlbum): ?>
+            </form>
+<?php endif; ?>
     </div>
 </div>
 
