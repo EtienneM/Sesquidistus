@@ -16,7 +16,7 @@
                         <td style="color:#555">Date&nbsp;:</td>
                         <td><?= $this->escape($this->nextTraining->date->get('dd/MM/YYYY')) ?></td>
                     </tr>
-                    <?php if (!empty($this->nextTraining->lieu)): ?>
+                    <?php if ($this->nextTraining->lieu !== ''): ?>
                         <tr>
                             <td style="color:#555">Lieu&nbsp;:</td>
                             <td>
@@ -35,13 +35,13 @@
                             </td>
                         </tr>
                     <?php endif; ?>
-                    <?php if (!empty($this->nextTraining->horaire_debut)): ?>
+                    <?php if ($this->nextTraining->horaire_debut !== ''): ?>
                         <tr>
                             <td style="color:#555">Début&nbsp;:</td>
                             <td><?php echo $this->escape($this->nextTraining->horaire_debut) ?></td>
                         </tr>
                     <?php endif; ?>
-                    <?php if (!empty($this->nextTraining->horaire_fin)): ?>
+                    <?php if ($this->nextTraining->horaire_fin !== ''): ?>
                         <tr>
                             <td style="color:#555">Fin&nbsp;:</td>
                             <td><?php echo $this->escape($this->nextTraining->horaire_fin) ?></td>
