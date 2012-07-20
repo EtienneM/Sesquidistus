@@ -106,8 +106,10 @@ class CalendrierController extends Zend_Controller_Action {
             if (!empty($nom) && !empty($dates)) {
                 $evenementMapper = new Application_Model_Mapper_Evenement();
                 if (!$request->getParam('boolHoraire')) {
-                    $horaireDebut = $request->getParam('debutEventHeure').'h'.$request->getParam('debutEventMinute');
-                    $horaireFin = $request->getParam('finEventHeure').'h'.$request->getParam('finEventMinute');
+                    $minuteDebut = ($request->getParam('debutEventMinute') == 0)?'00':$request->getParam('debutEventMinute');
+                    $horaireDebut = $request->getParam('debutEventHeure').'h'.$minuteDebut;
+                    $minuteFin = ($request->getParam('finEventMinute') == 0)?'00':$request->getParam('finEventMinute');
+                    $horaireFin = $request->getParam('finEventHeure').'h'.$minuteFin;
                 } else {
                     $horaireDebut = null;
                     $horaireFin = null;
