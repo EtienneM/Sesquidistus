@@ -29,6 +29,11 @@
                                 <img style="cursor:pointer" id="ico<?= $evenement->id; ?>" src="/images/page.png" alt="Articles" title="Accéder aux articles liés à cet évènement" />
                             </a>
                             <?php endif; ?>
+                            <?php if ($this->isAdmin()): ?>
+                            <a href="<?= $this->url(array('controller' => 'calendrier', 'action' => 'modifier', 'type' => null, 'id_event' => $evenement->id)); ?>">
+                                <img style="cursor:pointer" id="icoModif<?= $evenement->id; ?>" src="/images/page2.png" alt="Modifier" title="Modifier l'évènement" />
+                            </a>
+                            <?php endif; ?>
                             <?php /* TODO mais ne semble pas terrible sur le précédent site...
                             <span>
                                 <img style="cursor:pointer" id="icoPhoto<?= $evenement->id; ?>" src="/images/image.png" alt="Images" title="Images de l'évènement" />

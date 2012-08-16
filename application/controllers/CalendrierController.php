@@ -88,7 +88,7 @@ class CalendrierController extends Zend_Controller_Action {
                         $action, $controller, $module, $params);
     }
 
-    public function ajouterAction() {
+    public function editerAction() {
         $this->view->headLink()->appendStylesheet('/css/calendrier/calendrier_ajout.css');
         $this->view->headScript()->appendFile('/js/jquery/jquery.validate.min.js');
         $this->view->headScript()->appendFile('/js/jquery/jquery.validate.additional-methods.min.js');
