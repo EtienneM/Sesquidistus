@@ -122,9 +122,6 @@ class GalerieController extends Zend_Controller_Action {
      */
 
     public function uploadAction() {
-        /*
-         * TODO Création miniature + ajout dans la DB
-         */
         $request = $this->getRequest();
         if ($request->isXmlHttpRequest()) {
             $this->_helper->layout->disableLayout();
