@@ -83,17 +83,28 @@ class Application_Model_Profil extends My_Model {
     }
 
     /**
-     *
+     * Get the content of the avatar field of the DB
+     * 
      * @return string
      */
     public function getAvatar() {
         return $this->_avatar;
     }
 
+    /**
+     * Get the path to the avatar
+     * 
+     * @return string
+     */
     public function getAvatarPath() {
         return ($this->getAvatar() == '') ? '/images/membres/no_avatar.png' : self::_getAvatarPath().$this->getAvatar();
     }
     
+    /**
+     * Get the path to the thumbnail of the avatar
+     * 
+     * @return string
+     */
     public function getAvatarMiniPath() {
         return ($this->getAvatar() == '') ? '/images/membres/mini_no_avatar.png' : self::_getAvatarMiniPath().$this->getAvatar();
     }
@@ -112,6 +123,11 @@ class Application_Model_Profil extends My_Model {
         return $this->_question;
     }
 
+    /**
+     *
+     * @param string $question
+     * @return \Application_Model_Profil 
+     */
     public function setQuestion($question) {
         $this->_question = (string) $question;
         return $this;
@@ -121,6 +137,11 @@ class Application_Model_Profil extends My_Model {
         return $this->_reponse;
     }
 
+    /**
+     *
+     * @param string $reponse
+     * @return \Application_Model_Profil 
+     */
     public function setReponse($reponse) {
         $this->_reponse = (string) $reponse;
         return $this;
@@ -130,6 +151,11 @@ class Application_Model_Profil extends My_Model {
         return $this->_ancien;
     }
 
+    /**
+     *
+     * @param bool $ancien
+     * @return \Application_Model_Profil 
+     */
     public function setAncien($ancien) {
         $this->_ancien = (bool) $ancien;
         return $this;

@@ -35,7 +35,6 @@ class UserController extends Zend_Controller_Action {
                 $this->_helper->FlashMessenger('Modification effetuée');
             }
             $this->view->profilForm = $profilForm;
-            return;
         }
         $user = Zend_Auth::getInstance()->getIdentity();
         $profilForm->setDefault('login', $user->login);
