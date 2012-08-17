@@ -6,7 +6,7 @@ table#profil {
 {
     text-align:center;
     width:120px; 
-    height:140px; 
+    max-height:140px; 
     padding:8px; 
     cursor:pointer;
 }
