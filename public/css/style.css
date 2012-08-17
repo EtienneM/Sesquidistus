@@ -50,6 +50,8 @@ img.avatar {
     position:absolute; 
     left:480px; 
     top:11px;
+    max-height: 25px;
+    max-width: 25px;
 }
 
 span.userLogin {

@@ -5,7 +5,7 @@ table#profil {
 #avatar
 {
     text-align:center;
-    width:120px; 
+    max-width:120px; 
     max-height:140px; 
     padding:8px; 
     cursor:pointer;

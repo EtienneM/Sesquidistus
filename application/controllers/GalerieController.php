@@ -117,10 +117,9 @@ class GalerieController extends Zend_Controller_Action {
         }
     }
 
-    /*
+    /**
      * Upload d'une photo
      */
-
     public function uploadAction() {
         $request = $this->getRequest();
         if ($request->isXmlHttpRequest()) {
@@ -146,24 +145,8 @@ class GalerieController extends Zend_Controller_Action {
                     ));
             $imageMapper->save($image);
             // ... create the thumbnail
-            $thumbnailSrc = imagecreatefromjpeg($directory.'/'.$res['name']);
-            $imageSize = getimagesize($directory.'/'.$res['name']);
-            // on teste si notre image est de type paysage ou portrait
-            $ratio = 120;
-            if ($imageSize[0] > $imageSize[1]) {
-                $height = round($imageSize[0] / $imageSize[1] * $ratio);
-                $width = $ratio;
-            } else {
-                $height = $ratio;
-                $width = round($imageSize[0] / $imageSize[1] * $ratio);
-            }
-            $thumbnail = imagecreatetruecolor($width, $height);
-            imagecopyresampled($thumbnail, $thumbnailSrc, 0, 0, 0, 0, $width, $height, $imageSize[0], $imageSize[1]);
-            $thumbnailDirectory = APPLICATION_PATH.'/../public/'.$album->getMiniPath();
-            if (!is_dir($thumbnailDirectory)) {
-                mkdir($thumbnailDirectory);
-            }
-            imagejpeg($thumbnail, $thumbnailDirectory.'/'.$res['name']);
+            $createThumbnail = new My_Controller_Action_CreateThumbnail($directory.'/'.$res['name'], APPLICATION_PATH.'/../public/'.$album->getMiniPath(), 120);
+            $createThumbnail->create();
             $this->_helper->flashMessenger('Image ajoutée avec succès');
         }
         $this->getResponse()->setHeader('content-type', 'application/json', true);

@@ -55,7 +55,7 @@ class UserController extends Zend_Controller_Action {
         if (empty($avatar)) {
             $profilMapper = new Application_Model_Mapper_Profil();
             $filterAccent = new My_Filter_Accent();
-            $user->profil->avatar = $filterAccent->filter($user->login).'.jpg';
+            $user->profil->avatar = $filterAccent->filter($user->login) . '.jpg';
             $storage->write($user);
             $profilMapper->save($user->profil);
         }
@@ -63,17 +63,22 @@ class UserController extends Zend_Controller_Action {
         $adapter->addValidator(new Zend_Validate_File_Count(1))
                 ->addValidator(new Zend_Validate_File_Size(array('min' => 0, 'max' => 5242880)))// Max size = 5 Mo
                 ->addValidator(new Zend_Validate_File_IsImage('image/jpeg'));
+        $avatarDirectory = APPLICATION_PATH . '/../public/' . Application_Model_Profil::_getAvatarPath();
         $adapter->addFilter(new Zend_Filter_File_Rename(array(
-                    'target' => APPLICATION_PATH . '/../public/' . Application_Model_Profil::_getAvatarPath() . $user->profil->avatar,
+                    'target' => $avatarDirectory . '/' . $user->profil->avatar,
                     'overwrite' => true,
                 )));
+        if (!is_dir($avatarDirectory)) {
+            mkdir($avatarDirectory);
+        }
         $adapter->receive('avatarUpload');
         /*
          * Create thumbnail
          */
-        
-        
-        //$this->_forward('bandeau', 'galerie', null, array('imgToCrop' => $filename, 'errorMessages' => $adapter->getMessages()));
+        $createThumbnail = new My_Controller_Action_CreateThumbnail($avatarDirectory . '/' . $user->profil->avatar, 
+                APPLICATION_PATH . '/../public/' . Application_Model_Profil::_getAvatarMiniPath(), 25);
+        $createThumbnail->create();
+
         $this->getResponse()->setRedirect('editProfil');
     }
 
