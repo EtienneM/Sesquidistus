@@ -16,6 +16,7 @@ class Application_Model_Mapper_Profil extends My_Model_Mapper {
             'numero' => $profil->getNumero(),
             'mail' => $profil->getMail(),
             'adhesion' => $profil->getAdhesion()->get(Zend_Date::ISO_8601),
+            'avatar' => $profil->getAvatar(),
             'question' => $profil->getQuestion(),
             'reponse' => $profil->getReponse(),
             'ancien' => $profil->getAncien(),

@@ -16,7 +16,7 @@ class Application_Model_Profil extends My_Model {
      * 
      * @return string 
      */
-    protected static function _getAvatarPath() {
+    public static function _getAvatarPath() {
         return "/images/avatar/";
     }
 
@@ -24,7 +24,7 @@ class Application_Model_Profil extends My_Model {
      * 
      * @return string 
      */
-    protected static function _getAvatarMiniPath() {
+    public static function _getAvatarMiniPath() {
         return "/images/avatar/mini/";
     }
 

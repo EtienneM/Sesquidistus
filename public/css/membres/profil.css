@@ -44,3 +44,19 @@ div.help {
 input.error {
     display:block;
 }
+
+img#preview {
+    display:none; 
+    max-width: 160px; 
+    max-height: 120px; 
+    border: none;
+}
+
+img#preview_ie {
+    FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)
+}
+
+div#dialogUploadAvatar {
+    display:none;
+}
+

@@ -47,14 +47,42 @@ class UserController extends Zend_Controller_Action {
         $this->view->pwdForm = new Application_Form_Password();
     }
 
+    public function editavatarAction() {
+        $this->_helper->viewRenderer->setNoRender();
+        $storage = Zend_Auth::getInstance()->getStorage();
+        $user = $storage->read();
+        $avatar = $user->profil->avatar;
+        if (empty($avatar)) {
+            $profilMapper = new Application_Model_Mapper_Profil();
+            $filterAccent = new My_Filter_Accent();
+            $user->profil->avatar = $filterAccent->filter($user->login).'.jpg';
+            $storage->write($user);
+            $profilMapper->save($user->profil);
+        }
+        $adapter = new Zend_File_Transfer_Adapter_Http();
+        $adapter->addValidator(new Zend_Validate_File_Count(1))
+                ->addValidator(new Zend_Validate_File_Size(array('min' => 0, 'max' => 5242880)))// Max size = 5 Mo
+                ->addValidator(new Zend_Validate_File_IsImage('image/jpeg'));
+        $adapter->addFilter(new Zend_Filter_File_Rename(array(
+                    'target' => APPLICATION_PATH . '/../public/' . Application_Model_Profil::_getAvatarPath() . $user->profil->avatar,
+                    'overwrite' => true,
+                )));
+        $adapter->receive('avatarUpload');
+        /*
+         * Create thumbnail
+         */
+        
+        
+        //$this->_forward('bandeau', 'galerie', null, array('imgToCrop' => $filename, 'errorMessages' => $adapter->getMessages()));
+        $this->getResponse()->setRedirect('editProfil');
+    }
+
     public function editpwdAction() {
         $form = new Application_Form_Password($this->getRequest()->getPost());
         if ($form->isValid($this->getRequest()->getPost())) {
-            Zend_Debug::dump('valide');
             $user = Zend_Auth::getInstance()->getIdentity();
             $values = $form->getValues();
             $user->setPasswd(Application_Model_User::hashPasswd($values['new_pwd']));
-            Zend_Debug::dump($user);
             $userMapper = new Application_Model_Mapper_User();
             $userMapper->save($user);
         }
@@ -81,7 +109,7 @@ class UserController extends Zend_Controller_Action {
         }
         $this->view->everybody = $everybody;
     }
-    
+
     public function viewAction() {
         $this->view->headLink()->appendStylesheet('/css/membres/profil.css');
         $userMapper = new Application_Model_Mapper_User();
