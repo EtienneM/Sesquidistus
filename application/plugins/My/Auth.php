@@ -79,11 +79,7 @@ class My_Auth extends Zend_Controller_Plugin_Abstract {
 
         $resource = $controllerLevel;
         if (!$this->_acl->has($resource)) {
-            // TODO Comment géré ces exception avec le ErrorHandler ?CF. ErrorController.
-            //$request->setControllerName('error');
-            //throw new Exception('Aucun accès à cette ressource. '.$resource.'::'.$role);
             throw new Exception_NoResource('Aucun accès à cette ressource.');
-            return;
         }
 
         if (!$this->_acl->isAllowed($role, $resource, $privelege)) {

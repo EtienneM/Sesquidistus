@@ -97,8 +97,10 @@ class Application_Model_Video extends My_Model {
             case 'youtube':
                 return 'http://img.youtube.com/vi/'.$this->getId_site().'/1.jpg';
                 break;
+            // TODO Ajouter le support de dailymotion et vimeo
             case 'dailymotion':
-                // TODO 
+                return 'WIP';
+            case 'vimeo':
                 return 'WIP';
             default:
                 break;

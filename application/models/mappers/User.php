@@ -48,7 +48,6 @@ class Application_Model_Mapper_User extends My_Model_Mapper {
         $user = new Application_Model_User();
         $select = $this->getDbTable()->select()->where('login = ?', $login);
         $result = $this->getDbTable()->fetchAll($select);
-        // TODO Est-ce qu'il y a un moyen "Zend" de faire le assert ?
         assert($result->count() == 1);
         $row = $result->current();
         $profil = new Application_Model_Profil($row->findDependentRowset('Application_Model_DbTable_Profil')->current()->toArray());
