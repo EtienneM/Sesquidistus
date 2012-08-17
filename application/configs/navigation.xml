@@ -10,6 +10,12 @@
             <label>Calendrier</label>
             <controller>calendrier</controller>
             <action>index</action>
+            <pages>
+                <editer>
+                    <controller>calendrier</controller>
+                    <action>editer</action>
+                </editer>
+            </pages>
         </calendrier>
         <club>
             <label>Le club</label>
@@ -25,6 +31,16 @@
             <label>Galeries</label>
             <controller>galerie</controller>
             <action>index</action>
+            <pages>
+                <bandeau>
+                    <controller>galerie</controller>
+                    <action>bandeau</action>
+                </bandeau>
+                <soumettre>
+                    <controller>galerie</controller>
+                    <action>soumettre</action>
+                </soumettre>
+            </pages>
         </galerie>
         <evenement>
             <label>Nos évènements</label>
