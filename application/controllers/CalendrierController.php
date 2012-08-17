@@ -96,15 +96,25 @@ class CalendrierController extends Zend_Controller_Action {
         $this->view->headScript()->appendFile('/js/calendrier_ajout.js');
 
         $request = $this->getRequest();
+        $evenementMapper = new Application_Model_Mapper_Evenement();
+        $evenement = new Application_Model_Evenement();
+        $id=$request->getParam('id_event');
+        
+        // S'il s'agit d'une modification 
+        if (!empty($id)) {
+            $evenementMapper->find($id, $evenement);
+        }
+        $this->view->evenement = $evenement;
+        
         // Si le formulaire a été soumis
         if (count($request->getPost()) > 0) {
             /*
              * Validation
              */
+            $id = $request->getParam('hdnId');
             $nom = $request->getParam('nomEvent');
             $dates = explode(',', $request->getParam('hdnDates'));
             if (!empty($nom) && !empty($dates)) {
-                $evenementMapper = new Application_Model_Mapper_Evenement();
                 if (!$request->getParam('boolHoraire')) {
                     $minuteDebut = ($request->getParam('debutEventMinute') == 0)?'00':$request->getParam('debutEventMinute');
                     $horaireDebut = $request->getParam('debutEventHeure').'h'.$minuteDebut;
@@ -119,7 +129,12 @@ class CalendrierController extends Zend_Controller_Action {
                     if (empty($date)) {
                         continue;
                     }
-                    $evenement = new Application_Model_Evenement(array(
+                    $idNewEvenement = null;
+                    if (!empty($id) && $evenement->getDate()->compareDate($date, Zend_Date::DAY . '/' . Zend_Date::MONTH_SHORT . '/' . Zend_Date::YEAR) === 0) {
+                        $idNewEvenement = $id;
+                    }
+                    $newEvenement = new Application_Model_Evenement(array(
+                                'id' => $idNewEvenement,
                                 'type' => $request->getParam('typeEvent', 1),
                                 'date' => $date,
                                 'titre' => $nom,
@@ -130,14 +145,14 @@ class CalendrierController extends Zend_Controller_Action {
                                 'horaire_fin' => $horaireFin,
                                 'description' => $request->getParam('commentaireEvent'),
                             ));
-                    $evenementMapper->save($evenement);
+                    $evenementMapper->save($newEvenement);
                 }
                 $this->_helper->flashMessenger("Evènement correctement ajouté");
             } else {
                 $this->_helper->flashMessenger("Le nom et les dates de l'évènement doivent être renseignés");
             }
         }
-
+        
         $typeEventMapper = new Application_Model_Mapper_TypeEvent();
         $this->view->types = $typeEventMapper->fetchAll();
         $lieuMapper = new Application_Model_Mapper_LieuUltimate();

@@ -1,9 +1,19 @@
-<?= $this->partial('calendrier/_menuAdmin.phtml', array('action' => 'editer')); ?>
+<?php if ($this->evenement->id === null): ?>
+    <?= $this->partial('calendrier/_menuAdmin.phtml', array('action' => 'editer')); ?>
+<?php endif; ?>
 
 <div class="totalBox">
     <div  class="box" style="background-color:#EEE">
-        <div class="titreNews">Ajout d'un évènement</div>
-        <form id="formAjout" style="display:inline" method="POST" action="<?= $this->url(array('controller' => 'calendrier', 'action' => 'ajouter')); ?>">
+        <div class="titreNews">
+            <?php if ($this->evenement->id === null): ?>
+                Ajout  
+            <?php else: ?>
+                Modification 
+            <?php endif; ?>
+            d'un évènement
+        </div>
+        <form id="formAjout" style="display:inline" method="POST" action="<?= $this->url(array('controller' => 'calendrier', 'action' => 'editer')); ?>">
+            <input type="hidden" id="hdnId" name="hdnId" value="<?= $this->evenement->getId(); ?>"/>
             <div id="globCalendar">
                 <div style="text-align:left">
                     <div style="float:right">
@@ -21,7 +31,13 @@
                         <div id="divListeEvent" style="display:inline">
                             <select id="listeEvent" style="font-size:12px" name="typeEvent">
                                 <?php foreach ($this->types as $type): ?>
-                                    <option value="<?= $type->id ?>"><?= $type->nom; ?></option>
+                                    <?php
+                                    $selected = "";
+                                    if ($this->evenement->getType() == $type->id) {
+                                        $selected = 'selected="selected"';
+                                    }
+                                    ?>
+                                    <option <?= $selected; ?> value="<?= $type->id ?>"><?= $type->nom; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -39,7 +55,7 @@
                     ?>
                     <div class="bouton2 dataForm">
                         <span style="font-size:12px;  padding:0 10px 0 3px">Nom</span>
-                        <input class="inputStyle required" id="textevenement" name="nomEvent" maxlength="35" type="text"/>
+                        <input class="inputStyle required" id="textevenement" name="nomEvent" maxlength="35" type="text" value="<?= $this->evenement->getTitre(); ?>" />
                     </div>
 
                     <?php
@@ -50,14 +66,27 @@
                     <div id="listeLieu" class="bouton2 dataForm">
                         <span id="spanListeLieu" style="font-size:12px; padding:0 11px 0 3px">Lieu</span>
                         <div id="divListeLieu" style="display:inline">
+                            <?php $id_lieu = $this->evenement->getId_lieu(); ?>
                             <select id="id_lieuEvent" style="font-size:12px" name="id_lieuEvent">
                                 <?php foreach ($this->lieux as $lieu): ?>
-                                    <option value="<?= $lieu->id ?>"><?= $lieu->nom; ?></option>
+                                    <?php
+                                    $selected = "";
+                                    if ($id_lieu == $lieu->id) {
+                                        $selected = 'selected="selected"';
+                                    }
+                                    ?>
+                                    <option <?= $selected; ?> value="<?= $lieu->id ?>"><?= $lieu->nom; ?></option>
                                 <?php endforeach; ?>
-                                <option value="0" selected="selected">Autre...</option>
+                                <?php
+                                $selected = "";
+                                if (empty($id_lieu)) {
+                                    $selected = 'selected="selected"';
+                                }
+                                ?>
+                                <option value="0" <?= $selected; ?>>Autre...</option>
                             </select>
                         </div>
-                        <input id="text_lieuEvent" class="inputStyle" style="margin-left:50px" type="text" maxlength="35" name="text_lieuEvent" />
+                        <input id="text_lieuEvent" class="inputStyle" style="margin-left:50px" type="text" maxlength="35" name="text_lieuEvent" value="<?= $this->evenement->getLieu(); ?>" />
                     </div>
 
                     <?php
@@ -70,43 +99,94 @@
                         <div style="display:inline">
                             <select style="font-size:12px" id="duree_event" name="duree_event">
                                 <?php for ($i = 1; $i <= 7; $i++): ?>
-                                    <option value="<?= $i; ?>"><?= $i; ?></option>
+                                    <?php
+                                    $selected = "";
+                                    if ($this->evenement->getDuree() == $i) {
+                                        $selected = 'selected="selected"';
+                                    }
+                                    ?>
+                                    <option <?= $selected ?> value="<?= $i; ?>"><?= $i; ?></option>
                                 <?php endfor; ?>
                             </select>
                         </div>
                     </div>
 
+                    <?php
+                    $heureDebut = 0;
+                    $minuteDebut = 0;
+                    $heureFin = 0;
+                    $minuteFin = 0;
+                    $horaire_debut = $this->evenement->getHoraire_debut();
+                    $horaire_fin = $this->evenement->getHoraire_fin();
+                    if (!empty($horaire_debut)) {
+                        list($heureDebut, $minuteDebut) = explode('h', $horaire_debut);
+                    }
+                    if (!empty($horaire_fin)) {
+                        list($heureFin, $minuteFin) = explode('h', $horaire_fin);
+                    }
+                    ?>
                     <div class="bouton2 dataForm2">
                         <span style="font-size:12px;  padding:0 0 0 3px">Début</span>
                         <div style="display:inline">
                             <select style="font-size:12px" class="horaire" id="horaireDebutHeure" name="debutEventHeure">
                                 <?php for ($i = 0; $i < 24; $i++): ?>
-                                    <option value="<?= $i; ?>"><?= $i; ?></option>
+                                    <?php
+                                    $selected = "";
+                                    if ($heureDebut == $i) {
+                                        $selected = 'selected="selected"';
+                                    }
+                                    ?>
+                                    <option <?= $selected; ?> value="<?= $i; ?>"><?= $i; ?></option>
                                 <?php endfor; ?>
                             </select>
                         </div>
                         <div style="display:inline">
                             <select style="font-size:12px" class="horaire" id="horaireDebutMinute" name="debutEventMinute">
                                 <?php for ($i = 0; $i < 60; $i = $i + 5): ?>
-                                    <option value="<?= $i; ?>"><?= $i; ?></option>
+                                    <?php
+                                    $selected = "";
+                                    if ($minuteDebut == $i) {
+                                        $selected = 'selected="selected"';
+                                    }
+                                    ?>
+                                    <option <?= $selected; ?> value="<?= $i; ?>"><?= $i; ?></option>
                                 <?php endfor; ?>
                             </select>
                         </div>
-                        <input type="checkbox" id="checkHoraire" name="boolHoraire" value="true" checked="checked" title="Ne pas définir d'horaire" />
+                        <?php
+                        $checked = "";
+                        if ($heureDebut == 0 && $minuteDebut == 0 && $heureFin == 0 && $minuteFin == 0) {
+                            $checked = 'checked="checked"';
+                        }
+                        ?>
+                        <input type="checkbox" id="checkHoraire" name="boolHoraire" value="true" 
+                               <?= $checked ?> title="Ne pas définir d'horaire" />
                     </div>
                     <div class="bouton2 dataForm2">
                         <span style="font-size:12px; padding:0 19px 0 3px">Fin</span>
                         <div style="display:inline">
                             <select style="font-size:12px" class="horaire" id="horaireFinHeure" name="finEventHeure">
                                 <?php for ($i = 0; $i < 24; $i++): ?>
-                                    <option value="<?= $i; ?>"><?= $i; ?></option>
+                                    <?php
+                                    $selected = "";
+                                    if ($heureFin == $i) {
+                                        $selected = 'selected="selected"';
+                                    }
+                                    ?>
+                                    <option <?= $selected; ?> value="<?= $i; ?>"><?= $i; ?></option>
                                 <?php endfor; ?>
                             </select>
                         </div>
                         <div style="display:inline">
                             <select style="font-size:12px" class="horaire" id="horaireFinMinute" name="finEventMinute">
                                 <?php for ($i = 0; $i < 60; $i = $i + 5): ?>
-                                    <option value="<?= $i; ?>"><?= $i; ?></option>
+                                    <?php
+                                    $selected = "";
+                                    if ($minuteFin == $i) {
+                                        $selected = 'selected="selected"';
+                                    }
+                                    ?>
+                                    <option <?= $selected; ?> value="<?= $i; ?>"><?= $i; ?></option>
                                 <?php endfor; ?>
                             </select>
                         </div>
@@ -181,8 +261,8 @@
                                             endif
                                             ?>
                                             <td 
-                                                title="<?= $jourCourant->get(Zend_Date::DAY.'/'.Zend_Date::MONTH_SHORT.'/'.Zend_Date::YEAR); ?>"
-                                                class="calendar defaultCalendar">
+                                                title="<?= $jourCourant->get(Zend_Date::DAY . '/' . Zend_Date::MONTH_SHORT . '/' . Zend_Date::YEAR); ?>"
+                                                class="calendar defaultCalendar <?= (!is_null($this->evenement->getDate()) && $jourCourant->compareDate($this->evenement->getDate()) === 0)?'selected':''; ?>">
                                                 <div class="day">
                                                     <?= $jourCourant->get(Zend_Date::DAY) ?>
                                                 </div>
@@ -214,7 +294,7 @@
                                     ?>
                                 </tbody>
                             </table>
-                            <span class="spanEcrireDate"><?= $displayedMonth->get(Zend_Date::MONTH_NAME.' '.Zend_Date::YEAR); ?></span>
+                            <span class="spanEcrireDate"><?= $displayedMonth->get(Zend_Date::MONTH_NAME . ' ' . Zend_Date::YEAR); ?></span>
                         </div>
                         <?php $displayedMonth->addMonth(1); ?>
                     <?php endfor; ?>
@@ -230,7 +310,9 @@
                         <div class="totalBox">
                             <div class="box">
                                 <div class="titreNews">Commentaire (facultatif)</div>
-                                <textarea style="font-size:12px;" id="CommentaireEvent" name="commentaireEvent" tabindex="4" cols="35" rows="8"></textarea>
+                                <textarea style="font-size:12px;" id="CommentaireEvent" 
+                                          name="commentaireEvent" tabindex="4" 
+                                          cols="35" rows="8"><?= $this->evenement->getDescription(); ?></textarea>
                             </div>
                         </div>
                     </div>

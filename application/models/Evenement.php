@@ -17,7 +17,7 @@ class Application_Model_Evenement extends My_Model {
     }
 
     public function setId($id) {
-        $this->_id = (int) $id;
+        $this->_id = $id;
         return $this;
     }
 
@@ -39,6 +39,10 @@ class Application_Model_Evenement extends My_Model {
         return $this;
     }
 
+    /**
+     *
+     * @return Zend_Date 
+     */
     public function getDate() {
         return $this->_date;
     }

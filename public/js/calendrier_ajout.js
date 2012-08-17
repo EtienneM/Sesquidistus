@@ -1,3 +1,7 @@
+function calendarSelectDate() {
+    
+}
+
 $(document).ready(function() {
     /*
      * Ne pas pouvoir supprimer un certain nombre de types d'évènement
@@ -43,10 +47,16 @@ $(document).ready(function() {
     /*
      * Clique sur une case du calendrier
      */
+    $('td.calendar').each(function() {
+        if ($(this).hasClass('selected')) {
+            $(this).attr('class', 'calendar').addClass('eventSelected').addClass("selected");
+            $('input#hdnDates').val($(this).attr('title')+','+$('input#hdnDates').val());
+        }
+    });
     $('td.calendar').click(function() {
         // Désélection
-        if($(this).hasClass("selected")) {
-            $(this).attr("class", "calendar").addClass("defaultCalendar");
+        if ($(this).hasClass('selected')) {
+            $(this).attr('class', 'calendar').addClass('defaultCalendar');
             var dates = $('input#hdnDates').val().split(',');
             $('input#hdnDates').val('');
             for (var i = 0; i < dates.length; i++) {
@@ -54,7 +64,7 @@ $(document).ready(function() {
                     $('input#hdnDates').val(dates[i]+','+$('input#hdnDates').val());
                 }
             }
-        } else { //Séléection d'une date
+        } else { //Sélection d'une date
             $('span#errorDatepicker').css('display', 'none');
             $(this).attr("class","calendar").addClass("eventSelected").addClass("selected");
             $('input#hdnDates').val($(this).attr('title')+','+$('input#hdnDates').val());
