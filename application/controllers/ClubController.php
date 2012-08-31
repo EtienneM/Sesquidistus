@@ -28,6 +28,7 @@ class ClubController extends My_Controller_Action_CustomContent {
             }
         }
 
+        // Si on affiche le trombinoscope
         if ($id == 3) {
             $this->view->headLink()->appendStylesheet('/css/membres/trombi.css');
             $profilMapper = new Application_Model_Mapper_Profil();
@@ -47,7 +48,7 @@ class ClubController extends My_Controller_Action_CustomContent {
                 $everybody["Sesqui d'hier"][] = $profil;
             }
             $this->view->everybody = $everybody;
-        } else if ($id == 5) {
+        } else if ($id == 5) { // Si on affiche les lieux d'entraînement
             $this->view->headScript()
                     ->appendFile('http://maps.google.com/maps/api/js?sensor=false')
                     ->appendFile('/js/jquery/gmap3.min.js')

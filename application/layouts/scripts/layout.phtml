@@ -1,4 +1,4 @@
-<?php echo $this->doctype()."\n" ?>
+<?php echo $this->doctype() . "\n" ?>
 <html xmlns="http://www.w3.org/1999/xhtml"
 <?php if ($this->doctype()->isRdfa()): ?>
           xmlns:og="http://opengraphprotocol.org/schema/"
@@ -6,19 +6,19 @@
       <?php endif ?>
       >
     <head>
-        <?= $this->headMeta()."\n" ?>
-        <?= $this->headTitle()."\n" ?>
-        <?= $this->headScript()."\n" ?>
-        <?php if (Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->hasMessages()): ?>
+        <?= $this->headMeta() . "\n" ?>
+        <?= $this->headTitle() . "\n" ?>
+        <?= $this->headScript() . "\n" ?>
+        <?php if (count($this->flashMessages) > 0): ?>
             <script type="text/javascript">
                 $(document).ready(function() {
-    <?php foreach (Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getCurrentMessages() as $message): ?>
+            <?php foreach ($this->flashMessages as $message): ?>
                 displayFlash("<?= $this->escape($message) ?>");
-    <?php endforeach; ?>
-        });
+            <?php endforeach; ?>
+                });
             </script>
         <?php endif; ?>
-        <?= $this->headLink()."\n" ?>
+        <?= $this->headLink() . "\n" ?>
     </head>
     <body>
         <!-- Header : Bandeau logo -->
@@ -64,7 +64,7 @@
         <script type="text/javascript">
 <?php
 for ($i = 0; $i < count($this->imagesBandeau); $i++) {
-    $this->imagesBandeau[$i] = "'".$this->imagesBandeau[$i]."'";
+    $this->imagesBandeau[$i] = "'" . $this->imagesBandeau[$i] . "'";
 }
 ?>
     $(document).ready(function() {
@@ -74,7 +74,7 @@ for ($i = 0; $i < count($this->imagesBandeau); $i++) {
 
 
         <div id="globalBox">
-            <?php echo $this->layout()->content."\n"; ?>
+            <?php echo $this->layout()->content . "\n"; ?>
         </div>
 
 
@@ -84,7 +84,7 @@ for ($i = 0; $i < count($this->imagesBandeau); $i++) {
             <div id="bandeau2" class="bandeau">
                 <img src="/images/minilogo2B.png" alt="Logo Sesquidistus"/>
                 <span id="copyright">
-                    Copyright ©<?php echo $this->escape($this->fromYear.' - '.$this->nowYear) ?> Sesquidistus
+                    Copyright ©<?php echo $this->escape($this->fromYear . ' - ' . $this->nowYear) ?> Sesquidistus
                 </span>
                 <div>
                     <a class="white" href="<?php echo $this->url(array('controller' => 'index', 'action' => 'apropos')) ?>">&Agrave; propos du site</a> | 

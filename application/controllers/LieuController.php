@@ -29,7 +29,8 @@ class LieuController extends Zend_Controller_Action {
                 'adresse' => $adresse,
             ));
             $lieuMapper->save($lieu);
-            $this->getResponse()->setRedirect('/club/index/id/5');
+            $this->_helper->flashMessenger('Modification du lieu réussi');
+            $this->_redirect('/club/index/id/5');
         }
         $lieuMapper->find($id, $lieu);
         $this->view->lieu = $lieu;
@@ -42,7 +43,7 @@ class LieuController extends Zend_Controller_Action {
             $lieuMapper->getDbTable()->delete(array('id = ?' => $id));
             $this->_helper->flashMessenger('Lieu supprimé avec succès');
         }
-        $this->getResponse()->setRedirect('/club/index/id/5');
+        $this->_redirect('/club/index/id/5');
     }
 }
 

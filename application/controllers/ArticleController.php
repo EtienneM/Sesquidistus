@@ -6,10 +6,6 @@ class ArticleController extends Zend_Controller_Action {
         $this->view->headTitle()->append('Articles');
     }
 
-    public function indexAction() {
-        return $this->_redirect('/');
-    }
-
     public function ecrireAction() {
         $this->view->headScript()->appendFile('/js/tinymce/jquery.tinymce.js')
                 ->appendFile('/js/jquery/jquery-ui.min.js')
@@ -39,7 +35,7 @@ class ArticleController extends Zend_Controller_Action {
                     ));
             $articleMapper->save($article);
             $this->_helper->flashMessenger('Article ajouté avec succès');
-            return $this->_helper->redirector('index');
+            $this->_redirect('/');
         }
         
         $this->view->article = $article;
@@ -52,7 +48,7 @@ class ArticleController extends Zend_Controller_Action {
             $articleMapper->getDbTable()->delete(array('id = ?' => $id));
             $this->_helper->flashMessenger('Article supprimé avec succès');
         }
-        $this->getResponse()->setRedirect('/');
+        $this->_redirect('/');
     }
 
 }

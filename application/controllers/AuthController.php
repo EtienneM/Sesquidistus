@@ -8,7 +8,7 @@ class AuthController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        return $this->_forward('login');
+        return $this->_redirect('/auth/login');
     }
 
     public function loginAction() {

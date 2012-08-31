@@ -32,7 +32,7 @@ class UserController extends Zend_Controller_Action {
                 // MàJ des infos de l'utilisateur stockées dans la session
                 $userMapper = new Application_Model_Mapper_User();
                 Zend_Auth::getInstance()->getStorage()->write($userMapper->findByLogin($user->login));
-                $this->_helper->FlashMessenger('Modification effetuée');
+                $this->view->flashMessages = array_merge(array('Modification effetuée'), $this->view->flashMessages);
             }
             $this->view->profilForm = $profilForm;
         }
@@ -79,7 +79,8 @@ class UserController extends Zend_Controller_Action {
                 APPLICATION_PATH . '/../public/' . Application_Model_Profil::_getAvatarMiniPath(), 25);
         $createThumbnail->create();
 
-        $this->getResponse()->setRedirect('editProfil');
+        $this->_helper->flashMessenger('Photo de profil ajouté');
+        $this->_redirect('/user/editProfil');
     }
 
     public function editpwdAction() {
@@ -90,6 +91,7 @@ class UserController extends Zend_Controller_Action {
             $user->setPasswd(Application_Model_User::hashPasswd($values['new_pwd']));
             $userMapper = new Application_Model_Mapper_User();
             $userMapper->save($user);
+            $this->_helper->flashMessenger('Mot de passe modifié');
         }
         $this->getResponse()->setRedirect('editProfil');
     }

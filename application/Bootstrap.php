@@ -3,7 +3,7 @@
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     protected function _initHelper() {
-        Zend_Controller_Action_HelperBroker::addPath(APPLICATION_PATH.'/controllers/helpers/My/Helper/', 'My_Helper');
+        Zend_Controller_Action_HelperBroker::addPath(APPLICATION_PATH . '/controllers/helpers/My/Helper/', 'My_Helper');
     }
 
     /**
@@ -11,7 +11,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
      * This is mandatory for the OVH website 
      */
     protected function _initCache() {
-        $cacheDir = APPLICATION_PATH.'/../data/cache/';
+        $cacheDir = APPLICATION_PATH . '/../data/cache/';
         $aFrontendConf = array('lifetime' => 345600, 'automatic_seralization' => true);
         $aBackendConf = array('cache_dir' => $cacheDir);
         $oCache = Zend_Cache::factory('Core', 'File', $aFrontendConf, $aBackendConf);
@@ -74,9 +74,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $this->bootstrap('layout');
         $layout = $this->getResource('layout');
         $view = $layout->getView();
-        $config = new Zend_Config_Xml(APPLICATION_PATH.'/configs/navigation.xml', 'nav');
+        $config = new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav');
         $navigation = new Zend_Navigation($config);
         $view->navigation($navigation);
+    }
+
+    protected function _initFlashMessenger() {
+        $this->bootstrap(array('layout', 'view'));
+        $layout = $this->getResource('layout');
+        $view = $layout->getView();
+        $messages = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getMessages();
+        $currentMessages = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getCurrentMessages();
+        $view->flashMessages = array_merge($messages, $currentMessages);
+        Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->clearCurrentMessages();
     }
 
     protected function _initBandeau() {

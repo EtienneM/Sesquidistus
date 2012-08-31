@@ -50,7 +50,6 @@ class IndexController extends Zend_Controller_Action {
                             'email' => $email,
                         ));
                 $contactMapper->save($contact);
-                //$this->getRequest()->clearParams();
                 $this->_helper->flashMessenger('Modification du contact réussi');
                 $this->_redirect('/index/contact');
             } else {

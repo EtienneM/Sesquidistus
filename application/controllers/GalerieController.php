@@ -70,7 +70,7 @@ class GalerieController extends Zend_Controller_Action {
             $albumMapper->save($album);
             mkdir(APPLICATION_PATH.'/../public/'.$album->getMiniPath(), $recursive = true);
             mkdir(APPLICATION_PATH.'/../public/'.$album->getPath(), $recursive = true);
-            $this->_helper->flashMessenger('Album ajoutée avec succès');
+            $this->_helper->flashMessenger('Album ajouté avec succès');
         }
         $this->_redirect($this->_helper->url('index', 'galerie', null, array('admin' => true)));
     }
@@ -87,7 +87,7 @@ class GalerieController extends Zend_Controller_Action {
                 $this->_helper->rmDir(APPLICATION_PATH.'/../public/'.$album->getPath());
                 $albumMapper->getDbTable()->delete(array('id = ?' => $id));
             }
-            $this->_helper->flashMessenger('Albums supprimés avec succès');
+            $this->_helper->flashMessenger('Album(s) supprimé(s) avec succès');
         }
         $this->_redirect($this->_helper->url('index', 'galerie', null, array('admin' => true)));
     }
@@ -113,7 +113,7 @@ class GalerieController extends Zend_Controller_Action {
                         'description' => $res['description'],
                     ));
             $videoMapper->save($video);
-            $this->_helper->flashMessenger('Vidéo ajoutée avec succès');
+            $this->view->flashMessages = array_merge(array('Vidéo ajoutée avec succès'), $this->view->flashMessages);
         }
     }
 

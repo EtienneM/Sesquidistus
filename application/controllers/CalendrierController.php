@@ -151,6 +151,7 @@ class CalendrierController extends Zend_Controller_Action {
             } else {
                 $this->_helper->flashMessenger("Le nom et les dates de l'évènement doivent être renseignés");
             }
+            $this->_redirect('/calendrier/index/');
         }
         
         $typeEventMapper = new Application_Model_Mapper_TypeEvent();
