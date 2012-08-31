@@ -22,12 +22,14 @@ class UserController extends Zend_Controller_Action {
         if (count($this->getRequest()->getPost()) > 0) {
             // ...  et qu'il est correct
             if ($profilForm->isValid($this->getRequest()->getPost())) {
+                $user = Zend_Auth::getInstance()->getIdentity();
+                
                 $values = $profilForm->getValues();
                 $values['adhesion'] = new Zend_Date($values['adhesion'], Zend_Date::YEAR);
-                $profil = new Application_Model_Profil($values);
-                $user = Zend_Auth::getInstance()->getIdentity();
-                $profil->id = $user->profil->id;
                 $mapper = new Application_Model_Mapper_Profil();
+                $profil = new Application_Model_Profil();
+                $mapper->find($user->profil->id, $profil);
+                $profil->setOptions($values);
                 $mapper->save($profil);
                 // MàJ des infos de l'utilisateur stockées dans la session
                 $userMapper = new Application_Model_Mapper_User();
