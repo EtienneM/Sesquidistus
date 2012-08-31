@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script pour passer le contenu de la preprod à la prod 
-# Ce script doit être appelé depuis le serveur.
+# Ce script doit être appelé depuis le serveur, depuis n'importe quel répertoire.
 
 if [ $# -ne 0 ]; then
 	echo "Usage: $0"
@@ -11,7 +11,7 @@ cd $HOME
 rm preprod/data/cache/*
 
 #--------- Backup ---------
-rm -r prod_bak
+rm -R prod_bak
 cp -R prod prod_bak
 
 echo "========== Synchronisation ========"
