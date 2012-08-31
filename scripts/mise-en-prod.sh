@@ -16,6 +16,6 @@ cp -R prod prod_bak
 echo "Le backup prod_bak a été créé."
 
 echo "========== Synchronisation ========"
-rsync -rltDzn --stats preprod/ prod
+rsync -rltDz --stats preprod/ prod
 echo "========== Fin synchronisation ========"
 cp index_prod.php prod/public/index.php
