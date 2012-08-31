@@ -128,6 +128,10 @@ class UserController extends Zend_Controller_Action {
         }
         $this->view->member = $user;
     }
+    
+    public function createAction() {
+        
+    }
 
 }
 

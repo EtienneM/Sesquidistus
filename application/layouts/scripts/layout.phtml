@@ -41,7 +41,7 @@
                     </span>
                 <?php else: ?>
                     <span id="statutLog">
-                        <a class="white" href="">Créer un compte</a>
+                        <a class="white" href="<?= $this->url(array('controller' => 'user', 'action' => 'create')); ?>">Créer un compte</a>
                         | 
                         <a class="white" href="<?= $this->url(array('controller' => 'auth', 'action' => 'login')); ?>">S'identifier</a>
                     </span>
