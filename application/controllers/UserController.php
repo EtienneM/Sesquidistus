@@ -162,5 +162,26 @@ class UserController extends Zend_Controller_Action {
         }
     }
 
+    public function checkloginAction() {
+        $request = $this->getRequest();
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        if (!$request->isXmlHttpRequest()) {
+            return;
+        }
+        $this->getResponse()->setHeader('content-type', 'application/json', true);
+        $login = $request->getParam('login');
+        if (empty($login)) {
+            echo Zend_Json::encode(array(false));
+        }
+        $userMapper = new Application_Model_Mapper_User();
+        if (is_null($userMapper->findByLogin($login))) {
+            $results = true;
+        } else {
+            $results = 'Cet identifiant existe déjà. En choisir un autre.';
+        }
+        echo Zend_Json::encode($results);
+    }
+
 }
 

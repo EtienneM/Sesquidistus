@@ -5,7 +5,7 @@
             <table id="profil">
                 <tr class="style1">
                     <th>Identifiant</th>
-                    <td><input id="login" type="text" class="required" name="login" maxlength="25" /><em>*</em></td>
+                    <td><input id="login" type="text" class="required" name="login" maxlength="25" remote="<?= $this->url(array('controller' => 'user', 'action' => 'checkLogin')) ?>" /><em>*</em></td>
                 </tr>
                 <tr class="style2">
                     <th>Mot de passe</th>

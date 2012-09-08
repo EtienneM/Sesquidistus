@@ -49,7 +49,10 @@ class Application_Model_Mapper_User extends My_Model_Mapper {
         $user = new Application_Model_User();
         $select = $this->getDbTable()->select()->where('login = ?', $login);
         $result = $this->getDbTable()->fetchAll($select);
-        assert($result->count() == 1);
+        assert($result->count() <= 1);
+        if ($result->count() < 1) {
+            return null;
+        }
         $row = $result->current();
         $profil = new Application_Model_Profil($row->findDependentRowset('Application_Model_DbTable_Profil')->current()->toArray());
         $user->setId($row->id)
