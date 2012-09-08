@@ -157,7 +157,7 @@ class UserController extends Zend_Controller_Action {
                     ));
             $mapperProfil->save($profil);
             $this->_helper->flashMessenger('Compte créé avec succès');
-            $this->_redirect('/user');
+            $this->_redirect('/auth/login');
         }
     }
 
