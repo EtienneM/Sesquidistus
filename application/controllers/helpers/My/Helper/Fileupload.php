@@ -73,7 +73,7 @@ class My_Helper_Fileupload extends Zend_Controller_Action_Helper_Abstract {
         $pathinfo = pathinfo($this->_file->getFileName());
         $filename = $pathinfo['filename'];
         //$filename = md5(uniqid());
-        $ext = $pathinfo['extension'];
+        $ext = @$pathinfo['extension'];
 
         if ($this->_allowedExtensions && !in_array(strtolower($ext), $this->_allowedExtensions)) {
             $these = implode(', ', $this->_allowedExtensions);
