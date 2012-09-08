@@ -27,6 +27,7 @@
                     <th>Joueur depuis</th>
                     <td>
                         <select id="adhesion" name="adhesion">
+                            <option selected="selected" value="">Sélectionnez une année&nbsp;:</option>
                             <?php for ($i = 1995; $i <= date('Y'); $i++): ?>
                                 <option label="<?= $i ?>" value="<?= $i ?>"><?= $i ?></option>
                             <?php endfor; ?>

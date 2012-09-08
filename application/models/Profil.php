@@ -10,7 +10,7 @@ class Application_Model_Profil extends My_Model {
     protected $_avatar;
     protected $_question;
     protected $_reponse;
-    protected $_ancien;
+    protected $_ancien = 0;
 
     /**
      * 
@@ -60,7 +60,9 @@ class Application_Model_Profil extends My_Model {
     }
 
     public function setNumero($numero) {
-        $this->_numero = (int) $numero;
+        if (!is_null($numero)) {
+            $this->_numero = (int) $numero;
+        }
         return $this;
     }
 
@@ -69,7 +71,9 @@ class Application_Model_Profil extends My_Model {
     }
 
     public function setMail($mail) {
-        $this->_mail = (string) $mail;
+        if (!empty($mail)) {
+            $this->_mail = (string) $mail;
+        }
         return $this;
     }
 
@@ -78,7 +82,9 @@ class Application_Model_Profil extends My_Model {
     }
 
     public function setAdhesion($adhesion) {
-        $this->_adhesion = new Zend_Date($adhesion);
+        if (!empty($adhesion)) {
+            $this->_adhesion = new Zend_Date($adhesion);
+        }
         return $this;
     }
 
@@ -99,7 +105,7 @@ class Application_Model_Profil extends My_Model {
     public function getAvatarPath() {
         return ($this->getAvatar() == '') ? '/images/membres/no_avatar.png' : self::_getAvatarPath().$this->getAvatar();
     }
-    
+
     /**
      * Get the path to the thumbnail of the avatar
      * 
@@ -157,7 +163,9 @@ class Application_Model_Profil extends My_Model {
      * @return \Application_Model_Profil 
      */
     public function setAncien($ancien) {
-        $this->_ancien = (bool) $ancien;
+        if (!empty($ancien)) {
+            $this->_ancien = (bool) $ancien;
+        }
         return $this;
     }
 

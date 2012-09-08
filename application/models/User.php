@@ -7,7 +7,8 @@ class Application_Model_User extends My_Model implements Zend_Acl_Role_Interface
     protected $_profil;
     // Par défaut, les droits sont à -1. Sinon, c'est à null et il y a confusion 
     // avec la valeur 0 des membres.
-    protected $_admin = -1;
+    // 8/9/2012 : remise à 0 de la valeur par défautde _admin
+    protected $_admin = 0;
     // N'est pas un champ de la BDD. Ce déduit du champ admin.
     protected $_aclRoleId;
 

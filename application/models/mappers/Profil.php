@@ -12,6 +12,7 @@ class Application_Model_Mapper_Profil extends My_Model_Mapper {
     public function save(Application_Model_Profil $profil) {
         // TODO Faire une fonction My_Model->toArray pour éviter la ligne suivante...
         $data = array(
+            'id_membre' => $profil->getId_membre(),
             'prenom' => $profil->getPrenom(),
             'numero' => $profil->getNumero(),
             'mail' => $profil->getMail(),
@@ -24,7 +25,8 @@ class Application_Model_Mapper_Profil extends My_Model_Mapper {
 
         if (null === ($id = $profil->getId())) {
             unset($data['id']);
-            $this->getDbTable()->insert($data);
+            $id = $this->getDbTable()->insert($data);
+            $profil->setId($id);
         } else {
             $this->getDbTable()->update($data, array('id = ?' => $id));
         }

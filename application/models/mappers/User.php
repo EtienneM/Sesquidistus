@@ -19,7 +19,8 @@ class Application_Model_Mapper_User extends My_Model_Mapper {
         if (null === ($id = $user->getId())) {
             unset($data['id']);
             unset($data['profil']);
-            $this->getDbTable()->insert($data);
+            $id = $this->getDbTable()->insert($data);
+            $user->setId($id);
         } else {
             $this->getDbTable()->update($data, array('id = ?' => $id));
         }
@@ -58,6 +59,6 @@ class Application_Model_Mapper_User extends My_Model_Mapper {
                 ->setProfil($profil);
         return $user;
     }
-    
+
 }
 

@@ -23,7 +23,7 @@ class UserController extends Zend_Controller_Action {
             // ...  et qu'il est correct
             if ($profilForm->isValid($this->getRequest()->getPost())) {
                 $user = Zend_Auth::getInstance()->getIdentity();
-                
+
                 $values = $profilForm->getValues();
                 $values['adhesion'] = new Zend_Date($values['adhesion'], Zend_Date::YEAR);
                 $mapper = new Application_Model_Mapper_Profil();
@@ -57,7 +57,7 @@ class UserController extends Zend_Controller_Action {
         if (empty($avatar)) {
             $profilMapper = new Application_Model_Mapper_Profil();
             $filterAccent = new My_Filter_Accent();
-            $user->profil->avatar = $filterAccent->filter($user->login) . '.jpg';
+            $user->profil->avatar = $filterAccent->filter($user->login).'.jpg';
             $storage->write($user);
             $profilMapper->save($user->profil);
         }
@@ -65,9 +65,9 @@ class UserController extends Zend_Controller_Action {
         $adapter->addValidator(new Zend_Validate_File_Count(1))
                 ->addValidator(new Zend_Validate_File_Size(array('min' => 0, 'max' => 5242880)))// Max size = 5 Mo
                 ->addValidator(new Zend_Validate_File_IsImage('image/jpeg'));
-        $avatarDirectory = APPLICATION_PATH . '/../public/' . Application_Model_Profil::_getAvatarPath();
+        $avatarDirectory = APPLICATION_PATH.'/../public/'.Application_Model_Profil::_getAvatarPath();
         $adapter->addFilter(new Zend_Filter_File_Rename(array(
-                    'target' => $avatarDirectory . '/' . $user->profil->avatar,
+                    'target' => $avatarDirectory.'/'.$user->profil->avatar,
                     'overwrite' => true,
                 )));
         if (!is_dir($avatarDirectory)) {
@@ -77,8 +77,8 @@ class UserController extends Zend_Controller_Action {
         /*
          * Create thumbnail
          */
-        $createThumbnail = new My_Controller_Action_CreateThumbnail($avatarDirectory . '/' . $user->profil->avatar, 
-                APPLICATION_PATH . '/../public/' . Application_Model_Profil::_getAvatarMiniPath(), 25);
+        $createThumbnail = new My_Controller_Action_CreateThumbnail($avatarDirectory.'/'.$user->profil->avatar,
+                        APPLICATION_PATH.'/../public/'.Application_Model_Profil::_getAvatarMiniPath(), 25);
         $createThumbnail->create();
 
         $this->_helper->flashMessenger('Photo de profil ajouté');
@@ -130,13 +130,35 @@ class UserController extends Zend_Controller_Action {
         }
         $this->view->member = $user;
     }
-    
+
     public function createAction() {
         $this->view->headLink()->appendStylesheet('/css/membres/profil.css');
         $this->view->headScript()->appendFile('/js/jquery/jquery.validate.min.js');
         $this->view->headScript()->appendFile('/js/jquery/jquery.validate.additional-methods.min.js');
         $this->view->headScript()->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js');
         $this->view->headScript()->appendFile('/js/user-create.js');
+
+        // Si le formulaire a été validé par l'utilisateur...
+        $request = $this->getRequest();
+        if (count($request->getPost()) > 0) {
+            $mapperUser = new Application_Model_Mapper_User();
+            $mapperProfil = new Application_Model_Mapper_Profil();
+            $user = new Application_Model_User(array(
+                        'login' => $request->getParam('login'),
+                        'passwd' => Application_Model_User::hashPasswd($request->getParam('passwd')),
+                    ));
+            $mapperUser->save($user);
+            $profil = new Application_Model_Profil(array(
+                        'id_membre' => $user->getId(),
+                        'prenom' => $request->getParam('prenom'),
+                        'numero' => ($request->getParam('numero') === '') ? null : $request->getParam('numero'),
+                        'mail' => $request->getParam('mail'),
+                        'adhesion' => $request->getParam('adhesion'),
+                    ));
+            $mapperProfil->save($profil);
+            $this->_helper->flashMessenger('Compte créé avec succès');
+            $this->_redirect('/user');
+        }
     }
 
 }
