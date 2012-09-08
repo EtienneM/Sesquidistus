@@ -16,12 +16,15 @@ class Application_Model_Mapper_Profil extends My_Model_Mapper {
             'prenom' => $profil->getPrenom(),
             'numero' => $profil->getNumero(),
             'mail' => $profil->getMail(),
-            'adhesion' => $profil->getAdhesion()->get(Zend_Date::ISO_8601),
             'avatar' => $profil->getAvatar(),
             'question' => $profil->getQuestion(),
             'reponse' => $profil->getReponse(),
             'ancien' => $profil->getAncien(),
         );
+        $adhesion = $profil->getAdhesion();
+        if (!empty($adhesion)) {
+            $data['adhesion'] = $profil->getAdhesion()->get(Zend_Date::ISO_8601);
+        }
 
         if (null === ($id = $profil->getId())) {
             unset($data['id']);
@@ -31,7 +34,7 @@ class Application_Model_Mapper_Profil extends My_Model_Mapper {
             $this->getDbTable()->update($data, array('id = ?' => $id));
         }
     }
-    
+
     public function find($id, Application_Model_Profil $profil) {
         $result = $this->getDbTable()->find($id);
         if (0 == count($result)) {
@@ -40,14 +43,14 @@ class Application_Model_Mapper_Profil extends My_Model_Mapper {
         $row = $result->current();
         $profil->setOptions($row->toArray());
     }
-    
+
     /**
      * Trouve tous les anciens (ou non ancien) de la base de données
      * 
      * @param boolean $ancien
      * @return Array
      */
-    public function findAncien($ancien=true) {
+    public function findAncien($ancien = true) {
         $table = $this->getDbTable();
         $select = $table->select()
                 ->where('ancien = ?', $ancien)

@@ -154,7 +154,7 @@ class UserController extends Zend_Controller_Action {
                         'prenom' => $request->getParam('prenom'),
                         'numero' => ($request->getParam('numero') === '') ? null : $request->getParam('numero'),
                         'mail' => $request->getParam('mail'),
-                        'adhesion' => $request->getParam('adhesion'),
+                        'adhesion' => new Zend_Date($request->getParam('adhesion'), Zend_Date::YEAR),
                     ));
             $mapperProfil->save($profil);
             $this->_helper->flashMessenger('Compte créé avec succès');
