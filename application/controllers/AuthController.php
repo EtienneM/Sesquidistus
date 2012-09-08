@@ -20,19 +20,17 @@ class AuthController extends Zend_Controller_Action {
                             'membre',
                             'login',
                             'passwd'
-                    //'MD5(CONCAT(?, password_salt))'
             );
 
-            $adapter->setIdentity($loginForm->getValue('login'));
-            $adapter->setCredential(Application_Model_User::hashPasswd($loginForm->getValue('passwd')));
+            $adapter->setIdentity($loginForm->getValue('login'))
+                    ->setCredential(Application_Model_User::hashPasswd($loginForm->getValue('passwd')));
             $auth = Zend_Auth::getInstance();
             $result = $auth->authenticate($adapter);
             if ($result->isValid()) {
                 $userMapper = new Application_Model_Mapper_User();
                 $user = $userMapper->findByLogin($result->getIdentity());
                 $auth->getStorage()->write($user);
-                $this->getResponse()->setRedirect('/');
-                return;
+                $this->_redirect('/');
             } else {
                 $loginForm->setErrorMessages(array('Identifiant/mot de passe non reconnu'));
             }
@@ -41,8 +39,7 @@ class AuthController extends Zend_Controller_Action {
     }
 
     public function logoutAction() {
-        $auth = Zend_Auth::getInstance();
-        $auth->clearIdentity();
+        Zend_Auth::getInstance()->clearIdentity();
         $this->_redirect('/');
     }
 
