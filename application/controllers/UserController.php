@@ -132,7 +132,11 @@ class UserController extends Zend_Controller_Action {
     }
     
     public function createAction() {
-        
+        $this->view->headLink()->appendStylesheet('/css/membres/profil.css');
+        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.min.js');
+        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.additional-methods.min.js');
+        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js');
+        $this->view->headScript()->appendFile('/js/user-create.js');
     }
 
 }
