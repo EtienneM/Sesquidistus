@@ -146,6 +146,7 @@ class UserController extends Zend_Controller_Action {
             $user = new Application_Model_User(array(
                         'login' => $request->getParam('login'),
                         'passwd' => Application_Model_User::hashPasswd($request->getParam('passwd')),
+                        'admin' => 0,
                     ));
             $mapperUser->save($user);
             $profil = new Application_Model_Profil(array(
