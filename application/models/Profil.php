@@ -103,7 +103,8 @@ class Application_Model_Profil extends My_Model {
      * @return string
      */
     public function getAvatarPath() {
-        return ($this->getAvatar() == '') ? '/images/membres/no_avatar.png' : self::_getAvatarPath().$this->getAvatar();
+        $avatar = $this->getAvatar();
+        return (empty($avatar)) ? '/images/membres/no_avatar.png' : self::_getAvatarPath().$avatar;
     }
 
     /**
@@ -112,7 +113,8 @@ class Application_Model_Profil extends My_Model {
      * @return string
      */
     public function getAvatarMiniPath() {
-        return ($this->getAvatar() == '') ? '/images/membres/mini_no_avatar.png' : self::_getAvatarMiniPath().$this->getAvatar();
+        $avatar = $this->getAvatar();
+        return (empty($avatar)) ? '/images/membres/mini_no_avatar.jpg' : self::_getAvatarMiniPath().$avatar;
     }
 
     /**
