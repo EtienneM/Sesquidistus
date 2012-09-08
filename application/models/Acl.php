@@ -13,6 +13,10 @@ class Application_Model_Acl extends Zend_Acl {
 
     protected static $_instance = null;
 
+    protected function __clone() {
+        
+    }
+
     public static function getInstance() {
         if (null === self::$_instance) {
             self::$_instance = new self();
