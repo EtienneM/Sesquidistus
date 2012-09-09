@@ -113,15 +113,27 @@ class UserController extends Zend_Controller_Action {
 
     public function editpwdAction() {
         $form = new Application_Form_Password($this->getRequest()->getPost());
+        $id = $this->getRequest()->getParam('id');
         if ($form->isValid($this->getRequest()->getPost())) {
-            $user = Zend_Auth::getInstance()->getIdentity();
+            if (Zend_Auth::getInstance()->getIdentity()->getRoleId() == Application_Model_Acl::ROLE_ADMIN && !empty($id)) {
+                $userMapper = new Application_Model_Mapper_User();
+                $user = new Application_Model_User();
+                $userMapper->find($id, $user);
+            } else {
+                $user = Zend_Auth::getInstance()->getIdentity();
+            }
             $values = $form->getValues();
             $user->setPasswd(Application_Model_User::hashPasswd($values['new_pwd']));
             $userMapper = new Application_Model_Mapper_User();
             $userMapper->save($user);
             $this->_helper->flashMessenger('Mot de passe modifié');
         }
-        $this->getResponse()->setRedirect('editProfil');
+        if (!empty($id)) {
+            $param = "/id/$id";
+        } else {
+            $param = '';
+        }
+        $this->_redirect('/user/editProfil'.$param);
     }
 
     public function listAction() {
