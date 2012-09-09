@@ -101,6 +101,11 @@ class Application_Model_Mapper_Evenement extends My_Model_Mapper {
         return $entries;
     }
 
+    /**
+     *
+     * @param array|int $typeEvent
+     * @return null|\Application_Model_Evenement 
+     */
     public function findNext($typeEvent) {
         $table = $this->getDbTable();
         $select = $table->select()

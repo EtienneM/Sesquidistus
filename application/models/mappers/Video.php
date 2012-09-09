@@ -52,5 +52,20 @@ class Application_Model_Mapper_Video extends My_Model_Mapper {
         $entry->setAlbum($album)->setIsVideo(true)->setNom($video->getImage());
         return $entry;
     }
+    
+    /**
+     *
+     * @return null|\Application_Model_Video 
+     */
+    public function findLastVideo() {
+        $table = $this->getDbTable();
+        $select = $table->select()
+                ->order('id DESC')
+                ->limit(1);
+        $row = $table->fetchRow($select);
+        if (is_null($row)) return null;
+        $entry = new Application_Model_Video($row->toArray());
+        return $entry;
+    }
 
 }

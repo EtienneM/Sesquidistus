@@ -88,26 +88,37 @@
                             <td><?= $this->escape($this->nextTournoi->horaire_fin) ?></td>
                         </tr>
                     <?php endif ?>
-                    <?php // Script chelou...   ?>
                 </table>
                 </p>
             </div>
         </div>
     <?php endif ?>
-    <?php if (count($this->video) != 0): ?>
+    <?php if (!empty($this->video)): ?>
         <div id="newVideo" class="totalBox">
             <div class="box">
                 <div class="titreNews">Vidéo du moment</div>
-                <a href="">
+                <a href="#" class="video">
                     <div style="position:relative;">
-                        <img style="width:170px;" src="<?php echo 'image' ?>" alt="<?php echo 'titre' ?>" title="<?php echo 'titre' ?>" />
+                        <img style="width:170px;" src="<?= $this->video->getImage() ?>" alt="<?= $this->video->titre ?>" title="<?= $this->video->titre ?>" />
                     </div>
                     <div style="position:absolute; margin-top:-92px; margin-left:60px">
-                        <img style="width:50px;" src="/images/play.png" alt="<?php echo 'titre' ?>" title="<?php echo 'titre' ?>"/>
+                        <img style="width:50px;" src="/images/play.png" alt="<?= $this->video->titre ?>" title="<? $this->video->titre ?>"/>
+                    </div>
+                    <div class="videoEmbeddedCode" title="<?= $this->video->titre; ?>" style="display:none;">
+                        <?= $this->video->getEmbeddedCode(); ?>
+                        <?php
+                        $description = $this->video->getDescription();
+                        if (!empty($description)):
+                            ?>
+                            <div class="cartouche">
+                                <?= $description; ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </a>
             </div>
         </div>
+        <div id="dialogVideo" style="display:none;"></div>
     <?php endif ?>
 </div>
 

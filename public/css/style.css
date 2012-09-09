@@ -300,6 +300,22 @@ div.titreNews{
     behavior: url(fix_ie/PIE.htc);
 }
 
+div.cartouche {
+    background-color:#DDD; 
+    cursor:auto; 
+    padding:6px; 
+    color:#333; 
+    margin-top:6px;
+    max-width: 680px;
+    background-image: url("../images/headerGreyTransparent.png");
+    background-repeat: repeat-x;
+    border: 0 none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #000000;
+    font-size: 11px;
+    margin-left: 4px;
+    position: relative;
+}
 
 .boutonPageCourante{
     background-image:url(../images/headerBlue.gif);

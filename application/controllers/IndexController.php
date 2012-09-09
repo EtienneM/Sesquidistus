@@ -9,7 +9,8 @@ class IndexController extends Zend_Controller_Action {
     public function indexAction() {
         $this->view->headLink()->appendStylesheet('/css/pagination.css')
                 ->appendStylesheet('/css/article.css');
-        $this->view->headScript()->appendFile('/js/index_admin.js');
+        $this->view->headScript()->appendFile('/js/index_admin.js')
+                ->appendFile('/js/index.js');
         $article = new Application_Model_Mapper_Article();
         $idEvent = $this->getRequest()->getParam('id_event');
         $page = $this->getRequest()->getParam('page', 1);
@@ -22,7 +23,8 @@ class IndexController extends Zend_Controller_Action {
         $evenementMapper = new Application_Model_Mapper_Evenement();
         $this->view->nextTraining = $evenementMapper->findNext(1);
         $this->view->nextTournoi = $evenementMapper->findNext(array(4, 5));
-        $this->view->video = array();
+        $videoMapper = new Application_Model_Mapper_Video();
+        $this->view->video = $videoMapper->findLastVideo();
     }
 
     public function contactAction() {
