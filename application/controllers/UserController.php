@@ -12,10 +12,10 @@ class UserController extends Zend_Controller_Action {
 
     public function editprofilAction() {
         $this->view->headLink()->appendStylesheet('/css/membres/profil.css');
-        $this->view->headScript()->appendFile('/js/profil.js');
-        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.min.js');
-        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.additional-methods.min.js');
-        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js');
+        $this->view->headScript()->appendFile('/js/profil.js')
+                ->appendFile('/js/jquery/jquery.validate.min.js')
+                ->appendFile('/js/jquery/jquery.validate.additional-methods.min.js')
+                ->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js');
 
         $id = $this->getRequest()->getParam('id');
         if (Zend_Auth::getInstance()->getIdentity()->getRoleId() == Application_Model_Acl::ROLE_ADMIN && !empty($id)) {
@@ -159,6 +159,10 @@ class UserController extends Zend_Controller_Action {
 
     public function viewAction() {
         $this->view->headLink()->appendStylesheet('/css/membres/profil.css');
+        $this->view->headScript()->appendFile('/js/profil.js')
+                ->appendFile('/js/jquery/jquery.validate.min.js')
+                ->appendFile('/js/jquery/jquery.validate.additional-methods.min.js')
+                ->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js');
         $userMapper = new Application_Model_Mapper_User();
         $user = new Application_Model_User();
         $userMapper->find($this->getRequest()->getParam('id'), $user);
@@ -200,6 +204,22 @@ class UserController extends Zend_Controller_Action {
             $mapperProfil->save($profil);
             $this->_helper->flashMessenger('Compte créé avec succès');
             $this->_redirect('/auth/login');
+        }
+    }
+
+    public function supprimerAction() {
+        $request = $this->getRequest();
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        if (!$request->isXmlHttpRequest()) {
+            return;
+        }
+        if (!is_null($id = $request->getParam('id'))) {
+            $userMapper = new Application_Model_Mapper_User();
+            $user = new Application_Model_User();
+            $userMapper->find($id, $user);
+            $userMapper->delete($user);
+            $this->_helper->flashMessenger('Membre supprimé avec succès');
         }
     }
 

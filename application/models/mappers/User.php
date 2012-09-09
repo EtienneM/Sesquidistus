@@ -26,6 +26,28 @@ class Application_Model_Mapper_User extends My_Model_Mapper {
         }
     }
 
+    /**
+     * Supprime l'utilisateur donné en paramètre. Cette méthode supprime :
+     *  - le profil,
+     *  - le membre,
+     *  - les avatars.
+     * @param Application_Model_User $user 
+     */
+    public function delete(Application_Model_User $user) {
+        if (null === ($id = $user->getId())) {
+            throw new Exception('Impossible de supprimer cet utilisateur');
+        }
+        $profilMapper = new Application_Model_Mapper_Profil();
+        $profilMapper->getDbTable()->delete(array('id_membre = ?' => $id));
+        $avatar = $user->getProfil()->getAvatar();
+        if (!empty($avatar)) {
+            unlink(APPLICATION_PATH.'/../public/'.$user->getProfil()->getAvatarPath());
+            unlink(APPLICATION_PATH.'/../public/'.$user->getProfil()->getAvatarMiniPath());
+        }
+        $user->getProfil()->_getAvatarMiniPath();
+        $this->getDbTable()->delete(array('id = ?' => $id));
+    }
+
     public function find($id, Application_Model_User $user) {
         $result = $this->getDbTable()->find($id);
         if (0 == count($result)) {

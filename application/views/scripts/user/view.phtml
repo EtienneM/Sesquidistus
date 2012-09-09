@@ -1,6 +1,13 @@
 <div class="totalBox">
     <div class="box">
-        <div class="titreNews">Feuille profil membre</div>
+        <div class="titreNews">
+            Feuille profil membre
+            <?php if ($this->isAdmin()): ?>
+                <a href="<?= $this->url(array('controller' => 'user', 'action' => 'supprimer', 'id' => $this->member->id)); ?>" class="supprimer">
+                    <img class="editUser" src="/images/del.png" alt="Supprimer" title="Supprimer"/>
+                </a>
+            <?php endif; ?>
+        </div>
         <fieldset>
             <legend>Profil :</legend>
             <table id="profil">
@@ -12,9 +19,10 @@
                 </tr>
                 <tr class="style1">
                     <th>Login&nbsp;:</th>
-                    <td><?= $this->escape($this->member->login); ?></td>
+                    <td id="login"><?= $this->escape($this->member->login); ?></td>
                     <th>Membre depuis&nbsp;:</th>
-                    <td><?= $this->escape($this->member->profil->adhesion->get(Zend_Date::YEAR)); ?></td>
+                    <?php $adhesion = $this->member->profil->adhesion; ?>
+                    <td><?= $this->escape((!empty($adhesion))?$this->member->profil->adhesion->get(Zend_Date::YEAR):''); ?></td>
                 </tr>
                 <tr class="style2">
                     <?php /* TODO On affiche l'e-mail ? C'est une page public. 
@@ -41,3 +49,5 @@
         </fieldset>
     </div>
 </div>
+
+<div id="dialog" style="display:none;"></div>

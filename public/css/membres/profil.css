@@ -60,3 +60,8 @@ div#dialogUploadAvatar {
     display:none;
 }
 
+img.editUser {
+    float: right;
+    height: 15px;
+}
+
