@@ -43,9 +43,7 @@ $(document).ready(function() {
             draggable: false,
             buttons: {
                 'Confirmer': function() { 
-                    $.get($('a#boutonSuppr').attr('href'), {idLieu: $('select#listeLieu').val()}, function() {
-                        location.reload(true);
-                    });
+                    window.location.href = $('a#boutonSuppr').attr('href')+'/idLieu/'+$('select#listeLieu').val();
                 },
                 'Annuler': function() { 
                     $('div#dialog').dialog('close');
