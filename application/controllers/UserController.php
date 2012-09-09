@@ -55,7 +55,7 @@ class UserController extends Zend_Controller_Action {
         $profilForm->setDefault('login', $user->login);
         $profilForm->setDefault('prenom', $user->profil->prenom);
         $profilForm->setDefault('mail', $user->profil->mail);
-        $profilForm->setDefault('adhesion', $user->profil->adhesion->get('YYYY'));
+        $profilForm->setDefault('adhesion', (!empty($user->profil->adhesion))?$user->profil->adhesion->get('YYYY'):'');
         $profilForm->setDefault('numero', $user->profil->numero);
         $this->view->profilForm = $profilForm;
 
