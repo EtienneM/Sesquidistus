@@ -16,29 +16,42 @@ class UserController extends Zend_Controller_Action {
         $this->view->headScript()->appendFile('/js/jquery/jquery.validate.min.js');
         $this->view->headScript()->appendFile('/js/jquery/jquery.validate.additional-methods.min.js');
         $this->view->headScript()->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js');
-        $profilForm = new Application_Form_Profil($this->getRequest()->getPost());
 
+        $id = $this->getRequest()->getParam('id');
+        if (Zend_Auth::getInstance()->getIdentity()->getRoleId() == Application_Model_Acl::ROLE_ADMIN && !empty($id)) {
+            $userMapper = new Application_Model_Mapper_User();
+            $user = new Application_Model_User();
+            $userMapper->find($id, $user);
+        } else {
+            $user = Zend_Auth::getInstance()->getIdentity();
+        }
+
+        $profilForm = new Application_Form_Profil($this->getRequest()->getPost());
         // Si le formulaire a été validé par l'utilisateur...
         if (count($this->getRequest()->getPost()) > 0) {
             // ...  et qu'il est correct
             if ($profilForm->isValid($this->getRequest()->getPost())) {
-                $user = Zend_Auth::getInstance()->getIdentity();
-
                 $values = $profilForm->getValues();
                 $values['adhesion'] = new Zend_Date($values['adhesion'], Zend_Date::YEAR);
-                $mapper = new Application_Model_Mapper_Profil();
+                $profilMapper = new Application_Model_Mapper_Profil();
                 $profil = new Application_Model_Profil();
-                $mapper->find($user->profil->id, $profil);
+                $profilMapper->find($user->profil->id, $profil);
                 $profil->setOptions($values);
-                $mapper->save($profil);
-                // MàJ des infos de l'utilisateur stockées dans la session
-                $userMapper = new Application_Model_Mapper_User();
-                Zend_Auth::getInstance()->getStorage()->write($userMapper->findByLogin($user->login));
+                $profilMapper->save($profil);
+                $user->setOptions($values);
+                $user->getProfil()->setOptions($values);
+                // MàJ des infos de l'utilisateur stockées dans la session si la 
+                // modification concerne l'utilisateur actuellement connecté
+                if (Zend_Auth::getInstance()->getIdentity()->getRoleId() != Application_Model_Acl::ROLE_ADMIN || empty($id)) {
+                    $userMapper = new Application_Model_Mapper_User();
+                    Zend_Auth::getInstance()->getStorage()->write($userMapper->findByLogin($user->login));
+                }
                 $this->view->flashMessages = array_merge(array('Modification effetuée'), $this->view->flashMessages);
             }
             $this->view->profilForm = $profilForm;
         }
-        $user = Zend_Auth::getInstance()->getIdentity();
+
+        $this->view->userModif = $user;
         $profilForm->setDefault('login', $user->login);
         $profilForm->setDefault('prenom', $user->profil->prenom);
         $profilForm->setDefault('mail', $user->profil->mail);
@@ -51,14 +64,22 @@ class UserController extends Zend_Controller_Action {
 
     public function editavatarAction() {
         $this->_helper->viewRenderer->setNoRender();
-        $storage = Zend_Auth::getInstance()->getStorage();
-        $user = $storage->read();
+        $id = $this->getRequest()->getParam('id');
+        if (Zend_Auth::getInstance()->getIdentity()->getRoleId() == Application_Model_Acl::ROLE_ADMIN && !empty($id)) {
+            $userMapper = new Application_Model_Mapper_User();
+            $user = new Application_Model_User();
+            $userMapper->find($id, $user);
+        } else {
+            $user = Zend_Auth::getInstance()->getIdentity();
+        }
         $avatar = $user->profil->avatar;
         if (empty($avatar)) {
             $profilMapper = new Application_Model_Mapper_Profil();
             $filterAccent = new My_Filter_Accent();
             $user->profil->avatar = $filterAccent->filter($user->login).'.jpg';
-            $storage->write($user);
+            if (Zend_Auth::getInstance()->getIdentity()->getRoleId() != Application_Model_Acl::ROLE_ADMIN || empty($id)) {
+                Zend_Auth::getInstance()->getStorage()->write($user);
+            }
             $profilMapper->save($user->profil);
         }
         $adapter = new Zend_File_Transfer_Adapter_Http();
@@ -82,7 +103,12 @@ class UserController extends Zend_Controller_Action {
         $createThumbnail->create();
 
         $this->_helper->flashMessenger('Photo de profil ajouté');
-        $this->_redirect('/user/editProfil');
+        if (!empty($id)) {
+            $param = "/id/$id";
+        } else {
+            $param = '';
+        }
+        $this->_redirect('/user/editProfil'.$param);
     }
 
     public function editpwdAction() {

@@ -22,10 +22,10 @@ class Application_Form_Profil extends Zend_Form {
         $this->addElement(
                 'text', 'mail', array(
             'label' => 'E-mail :',
-            'required' => true,
+            'required' => false,
             'filters' => array('StringTrim'),
             'validators' => array('EmailAddress'),
-            'class' => 'required email',
+            'class' => 'email',
         ));
         $year = array();
         // Les années de 1995 à cette année

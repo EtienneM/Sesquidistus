@@ -27,6 +27,16 @@
                     <th>Numéro</th>
                     <td><?= $this->escape($this->member->profil->numero); ?></td>
                 </tr>
+                <?php if ($this->isAdmin()): ?>
+                    <tr>
+                        <td colspan="4"></td>
+                        <td>
+                            <a href="<?= $this->url(array('controller' => 'user', 'action' => 'editProfil')); ?>" class="bouton1">
+                                Modifier
+                            </a>
+                        </td>
+                    </tr>
+                <?php endif; ?>
             </table>
         </fieldset>
     </div>
