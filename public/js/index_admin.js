@@ -1,6 +1,6 @@
 $(document).ready(function() {
     /*
-     * Suppression d'une catégorie
+     * Suppression d'un article
      */
     $('a.supprimer').click( function() {
         var link = $(this);
@@ -11,9 +11,7 @@ $(document).ready(function() {
             draggable: false,
             buttons:{
                 'Confirmer': function() { 
-                    $.get($(link).attr('href'), function() {
-                        location.reload(true);
-                    });
+                    window.location.href = $(link).attr('href');
                 },
                 'Annuler': function() { 
                     $('div#dialog').dialog('close');
