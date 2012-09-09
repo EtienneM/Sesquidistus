@@ -174,7 +174,7 @@ class GalerieController extends Zend_Controller_Action {
             if (empty($errorMessages)) {
                 $this->view->imgToCrop = Application_Model_Image::_getBandeauUploadedPath().$img;
             }
-        } // Une imgae vient d'être rognée
+        } // Une image vient d'être rognée
         else if (!is_null($imgCrop = $request->getParam('imgCrop'))) {
             $destWidth = 900;
             $destHeight = 200;
@@ -200,6 +200,7 @@ class GalerieController extends Zend_Controller_Action {
             $jpeg_quality = 90;
             imagejpeg($dst_r, APPLICATION_PATH.'/../public/'.$image->getNomWithPath(), $jpeg_quality);
             unlink(APPLICATION_PATH.'/../public/'.Application_Model_Image::_getBandeauUploadedPath().$image->getNom());
+            $this->_helper->flashMessenger('Image ajoutée au bandeau');
         }
         $this->view->errorMessages = $errorMessages;
         $this->view->images = $imageMapper->fetchBandeau();
@@ -232,10 +233,14 @@ class GalerieController extends Zend_Controller_Action {
         $file = $adapter->getFileInfo('imgSrc');
         $filterAccent = new My_Filter_Accent();
         $filename = $filterAccent->filter($file['imgSrc']['name']);
+        $bandeauUploadedAbsolutePath = APPLICATION_PATH.'/../public/'.Application_Model_Image::_getBandeauUploadedPath();
         $adapter->addFilter(new Zend_Filter_File_Rename(array(
-                    'target' => APPLICATION_PATH.'/../public/'.Application_Model_Image::_getBandeauUploadedPath().$filename,
+                    'target' => $bandeauUploadedAbsolutePath.$filename,
                     'overwrite' => true,
                 )));
+        if (!file_exists($bandeauUploadedAbsolutePath)) {
+            mkdir($bandeauUploadedAbsolutePath);
+        }
         $adapter->receive('imgSrc');
         $this->_forward('bandeau', 'galerie', null, array('imgToCrop' => $filename, 'errorMessages' => $adapter->getMessages()));
     }
