@@ -92,5 +92,12 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
         return $entries;
     }
 
+    /**
+     *
+     * @param int $idEvent 
+     */
+    public function deleteByEvent($idEvent) {
+        $this->getDbTable()->delete(array('id_event = ?' => $idEvent));
+    }
 }
 

@@ -108,6 +108,10 @@
                                                         id="Event<?= $this->escape($event->id); ?>">
                                                         <div class="divNomEvent"><?= $this->escape($event->titre); ?></div>
                                                         <div><?= $jourCourant->get(Zend_Date::DAY); ?></div>
+                                                        <?php if ($this->isAdmin()): ?>
+                                                        <a href="<?= $this->url(array('controller'=>'calendrier','action' => 'editer', 'id_event'=>$event->id), null, true) ?>" id="modifEvent<?= $this->escape($event->id); ?>" style="display: none;"></a>
+                                                        <a href="<?= $this->url(array('controller'=>'calendrier','action' => 'supprimer', 'id_event'=>$event->id), null, true) ?>" id="supprEvent<?= $this->escape($event->id); ?>" style="display: none;"></a>
+                                                        <?php endif; ?>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -234,4 +238,4 @@
     ?>
 </div>
 
-
+<div id="dialog" style="display:none"></div>

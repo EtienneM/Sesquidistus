@@ -23,9 +23,9 @@ printPartOfPage(divPrint);
             draggable: false,
             closeText: 'x',
             buttons:{
-                "ok": function() { 
+                'Ok': function() { 
                     $(this).dialog("close"); 
-                } 
+                }
             }
         });
     });

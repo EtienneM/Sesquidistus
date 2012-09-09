@@ -29,6 +29,20 @@ class Application_Model_Mapper_Evenement extends My_Model_Mapper {
             $this->getDbTable()->update($data, array('id = ?' => $id));
         }
     }
+    
+    /**
+     * Supprime un événement et tout les articles associés.
+     * 
+     * @param Application_Model_Evenement $event 
+     */
+    public function delete(Application_Model_Evenement $event) {
+        if (null === ($id = $event->getId())) {
+            throw new Exception('Impossible de supprimer cet utilisateur');
+        }
+        $articleMapper = new Application_Model_Mapper_Article();
+        $articleMapper->deleteByEvent($id);
+        $this->getDbTable()->delete(array('id = ?' => $id));
+    }
 
     public function find($id, Application_Model_Evenement $evenement) {
         $result = $this->getDbTable()->find($id);

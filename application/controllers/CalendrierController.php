@@ -17,7 +17,12 @@ class CalendrierController extends Zend_Controller_Action {
           Zend_Debug::dump($e->findApplication_Model_DbTable_Evenement()); */
         $this->mergeQueryString();
         $this->view->headLink()->appendStylesheet('/css/calendrier/calendrier_consultation.css');
-        $this->view->headScript()->appendFile('/js/calendrier.js');
+        if (Zend_Auth::getInstance()->getIdentity()->getRoleId() == Application_Model_Acl::ROLE_ADMIN) {
+            $this->view->headScript()->appendFile('/js/calendrier_admin.js');
+        } else {
+            $this->view->headScript()->appendFile('/js/calendrier.js');
+        }
+
 
         $mois = $this->getRequest()->getParam('mois');
         $annee = $this->getRequest()->getParam('annee');
@@ -98,14 +103,14 @@ class CalendrierController extends Zend_Controller_Action {
         $request = $this->getRequest();
         $evenementMapper = new Application_Model_Mapper_Evenement();
         $evenement = new Application_Model_Evenement();
-        $id=$request->getParam('id_event');
-        
+        $id = $request->getParam('id_event');
+
         // S'il s'agit d'une modification 
         if (!empty($id)) {
             $evenementMapper->find($id, $evenement);
         }
         $this->view->evenement = $evenement;
-        
+
         // Si le formulaire a été soumis
         if (count($request->getPost()) > 0) {
             /*
@@ -116,9 +121,9 @@ class CalendrierController extends Zend_Controller_Action {
             $dates = explode(',', $request->getParam('hdnDates'));
             if (!empty($nom) && !empty($dates)) {
                 if (!$request->getParam('boolHoraire')) {
-                    $minuteDebut = ($request->getParam('debutEventMinute') == 0)?'00':$request->getParam('debutEventMinute');
+                    $minuteDebut = ($request->getParam('debutEventMinute') == 0) ? '00' : $request->getParam('debutEventMinute');
                     $horaireDebut = $request->getParam('debutEventHeure').'h'.$minuteDebut;
-                    $minuteFin = ($request->getParam('finEventMinute') == 0)?'00':$request->getParam('finEventMinute');
+                    $minuteFin = ($request->getParam('finEventMinute') == 0) ? '00' : $request->getParam('finEventMinute');
                     $horaireFin = $request->getParam('finEventHeure').'h'.$minuteFin;
                 } else {
                     $horaireDebut = null;
@@ -130,7 +135,7 @@ class CalendrierController extends Zend_Controller_Action {
                         continue;
                     }
                     $idNewEvenement = null;
-                    if (!empty($id) && $evenement->getDate()->compareDate($date, Zend_Date::DAY . '/' . Zend_Date::MONTH_SHORT . '/' . Zend_Date::YEAR) === 0) {
+                    if (!empty($id) && $evenement->getDate()->compareDate($date, Zend_Date::DAY.'/'.Zend_Date::MONTH_SHORT.'/'.Zend_Date::YEAR) === 0) {
                         $idNewEvenement = $id;
                     }
                     $newEvenement = new Application_Model_Evenement(array(
@@ -147,18 +152,28 @@ class CalendrierController extends Zend_Controller_Action {
                             ));
                     $evenementMapper->save($newEvenement);
                 }
-                $this->_helper->flashMessenger("Evènement correctement ajouté");
+                $this->_helper->flashMessenger('Evènement correctement ajouté');
             } else {
                 $this->_helper->flashMessenger("Le nom et les dates de l'évènement doivent être renseignés");
             }
             $this->_redirect('/calendrier/index/');
         }
-        
+
         $typeEventMapper = new Application_Model_Mapper_TypeEvent();
         $this->view->types = $typeEventMapper->fetchAll();
         $lieuMapper = new Application_Model_Mapper_LieuUltimate();
         $this->view->lieux = $lieuMapper->fetchAll();
     }
 
+    public function supprimerAction() {
+        if (!is_null($id = $this->getRequest()->getParam('id_event'))) {
+            $eventMapper = new Application_Model_Mapper_Evenement();
+            $evenement = new Application_Model_Evenement();
+            $eventMapper->find($id, $evenement);
+            $eventMapper->delete($evenement);
+            $this->_helper->flashMessenger('Evènement supprimé');
+        }
+        $this->_redirect('/calendrier');
+    }
 }
 
