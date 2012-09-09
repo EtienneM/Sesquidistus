@@ -8,7 +8,7 @@ if [ $# -ne 1 ]; then
 fi
 USERNAME=$1
 
-cd $HOME/Site/Sesquidistus/reference
+cd $HOME/Site/Sesquidistus/reference/Sesquidistus
 git pull
 
 echo "========== Synchronisation ========"
