@@ -8,10 +8,8 @@ if [ $# -ne 1 ]; then
 fi
 USERNAME=$1
 
-TMP=`mktemp -d`
-cd $TMP
-git clone git://github.com/EtienneM/Sesquidistus.git
-cd Sesquidistus
+cd $HOME/Site/Sesquidistus/reference
+git pull
 
 echo "========== Synchronisation ========"
 # -v: verbeux
@@ -27,8 +25,6 @@ echo "========== Synchronisation ========"
 # --filter: N'inclue pas les fichiers du répertoire .git
 rsync -e ssh -rltDz --filter "- .git" ./ ${USERNAME}@ftp.frisbee-strasbourg.net:/homez.63/${USERNAME}/preprod --stats
 echo "========== Fin synchronisation ========"
-
-rm -fr $TMP
 
 # Suppression répertoire cache et session
 # Création du répertoire cache
