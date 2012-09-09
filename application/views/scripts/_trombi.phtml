@@ -11,7 +11,7 @@
             <?php endif; ?>
             <td>
                 <div class="bouton4">
-                    <a class="black" href="<?= $this->url(array('action' => 'view', 'user' => $member->id_membre)); ?>">
+                    <a class="black" href="<?= $this->url(array('controller' => 'user', 'action' => 'view', 'id' => $member->id_membre)); ?>">
                         <img src="<?= $member->avatarPath; ?>" 
                              title="<?= $this->escape($member->prenom); ?>" alt="<?= $this->escape($member->prenom); ?>" />
                              <?= $this->escape($member->prenom); ?>

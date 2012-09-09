@@ -123,7 +123,7 @@ class UserController extends Zend_Controller_Action {
         $this->view->headLink()->appendStylesheet('/css/membres/profil.css');
         $userMapper = new Application_Model_Mapper_User();
         $user = new Application_Model_User();
-        $userMapper->find($this->getRequest()->getParam('user'), $user);
+        $userMapper->find($this->getRequest()->getParam('id'), $user);
         if (is_null($user->id)) {
             throw new Zend_Controller_Action_Exception("L'utilisateur donné en 
                 paramètre n'existe pas dans la base de données", 404);
