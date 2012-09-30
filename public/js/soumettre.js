@@ -35,5 +35,14 @@ $(window).load(function() {
             $('#dropbox').hide();
         }
     });
+    
+    var listAlbumVideo = $('#sltAlbumVideo');
+    listAlbumVideo.change(function() {
+        if (listAlbumVideo.val() !== '') {
+            $('#urlVideo').show();
+        } else {
+            $('#urlVideo').hide();
+        }
+    });
 });
 

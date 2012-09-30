@@ -15,12 +15,7 @@
                     <option value="<?= $album->id ?>"><?= $album->nom ?></option>
                 <?php endforeach; ?>
             </select>
-            <?php /* <p>
-              Veuillez sélectionner votre image : <input type="file" name="mon_image" /> <br />
-              Entrez une description (facultatif) : <input type="text" name="ma_description" />
-              </p> */ ?>
             <div id="dropbox" style="display: none;"></div>
-            <?php //<input type="submit" class="bouton1"value="Envoyer" style="float: right;"/> ?>
         </form>
         <div style="position: absolute; top: 0px; right: 0px;">
             <a target="_blank" href="/doc/doc_galerie/doc_galerie.html#submit_photo">
@@ -33,9 +28,18 @@
         <div class="titreNews">Soumettre une vidéo</div>
         <form action="<?= $this->url(array('controller' => 'galerie', 'action' => 'soumettre')) ?>" 
               method="post" enctype="multipart/form-data" id="frmAddVideo">
+            <label for="sltAlbumVideo">Album&nbsp;:</label>
+            <select id="sltAlbumVideo" name="sltAlbumVideo">
+                <option value="" selected="selected">Sélectionnez un album</option>
+                <option value="">------------------</option>
+                <?php foreach ($this->albums as $album): ?>
+                    <option value="<?= $album->id ?>"><?= $album->nom ?></option>
+                <?php endforeach; ?>
+            </select>
             <span style="font-style:italic">Uniquement les vidéos Youtube et Dailymotion</span>
-            <p>
-                Entrez l'adresse url de la vidéo : <input type="text" name="lienVideo" />
+            <p id="urlVideo" style="display: none;">
+                <label for="lienVideo">Entrez l'adresse url de la vidéo&nbsp;:</label>
+                <input type="text" id="lienVideo" name="lienVideo" />
                 <input type="submit" class="bouton1" value="Envoyer" style="float: right;"/>
             </p>
         </form>

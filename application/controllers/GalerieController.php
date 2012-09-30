@@ -102,7 +102,10 @@ class GalerieController extends Zend_Controller_Action {
         $albumMapper = new Application_Model_Mapper_Album();
         $this->view->albums = $albumMapper->fetchAll();
         $request = $this->getRequest();
-        if (!is_null($uri = $request->getParam('lienVideo'))) {
+        if (!is_null($uri = $request->getParam('lienVideo'))
+                && !is_null($id_album = $request->getParam('sltAlbumVideo'))) {
+            $album = new Application_Model_Album();
+            $albumMapper->find($id_album, $album);
             $videoMapper = new Application_Model_Mapper_Video();
             $getId = new My_Filter_VideoID();
             $res = $getId->filter($uri);
@@ -111,6 +114,7 @@ class GalerieController extends Zend_Controller_Action {
                         'id_site' => $res['id'],
                         'titre' => $res['title'],
                         'description' => $res['description'],
+                        'id_album' => $album->getId(),
                     ));
             $videoMapper->save($video);
             $this->view->flashMessages = array_merge(array('Vidéo ajoutée avec succès'), $this->view->flashMessages);

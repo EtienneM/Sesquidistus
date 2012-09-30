@@ -15,6 +15,7 @@ class Application_Model_Mapper_Video extends My_Model_Mapper {
             'id_site' => $video->getId_site(),
             'titre' => $video->getTitre(),
             'description' => $video->getDescription(),
+            'id_album' => $video->getId_album(),
         );
 
         if (null === ($id = $video->getId())) {
