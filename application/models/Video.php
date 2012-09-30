@@ -8,6 +8,8 @@ class Application_Model_Video extends My_Model {
     protected $_description;
     protected $_id_album = 1;
     protected $_album;
+    private $_image;
+    private $_embedded;
 
     public function getId() {
         return $this->_id;
@@ -68,9 +70,12 @@ class Application_Model_Video extends My_Model {
      * @return string 
      */
     public function getEmbeddedCode() {
+        if (!empty($this->_embedded)) {
+            return $this->_embedded;
+        }
         switch($this->getType()) {
             case 'youtube':
-                return '<object class="video" width="700" height="500">
+                $this->_embedded = '<object class="video" width="700" height="500">
                     <param name="movie" value="http://www.youtube.com/v/'.$this->getId_site().'&hl=fr_FR&feature=player_embedded&version=3?border=1&color1=0xb1b1b1&color2=0xcfcfcf&fs=1&hd=1&iv_load_policy=3&feature=player_embedded"></param>
                     <param name="allowFullScreen" value="true"></param>
                     <param name="allowScriptAccess" value="always"></param>
@@ -78,14 +83,21 @@ class Application_Model_Video extends My_Model {
                 </object>';
                 break;
             case 'dailymotion':
-                return '<object class="video" width="700" height="500">
+                $this->_embedded = '<object class="video" width="700" height="500">
                     <param name="movie" value="http://www.dailymotion.com/swf/video/'.$this->getId_site().'?background=493D27&foreground=E8D9AC&highlight=FFFFF0"></param><param name="allowFullScreen" value="true"></param>
                     <param name="allowScriptAccess" value="always"></param>
                     <embed class="video" type="application/x-shockwave-flash" src="http://www.dailymotion.com/swf/video/'.$this->getId_site().'?background=493D27&foreground=E8D9AC&highlight=FFFFF0" width="700" height="500" allowfullscreen="true" allowscriptaccess="always"></embed>
                 </object>';
+            case 'vimeo':
+                $this->_embedded = '<div class="video_element_viewer">
+                    <iframe src="http://player.vimeo.com/video/'.$this->getId_site().'?title=0&byline=0&portrait=0&color=ff9933" width="650" height="272" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                </div>
+                    ';
+                break;
             default:
                 break;
         }
+        return $this->_embedded;
     }
 
     /**
@@ -93,18 +105,23 @@ class Application_Model_Video extends My_Model {
      * @return string
      */
     public function getImage() {
+        if (!empty($this->_image)) {
+            return $this->_image;
+        }
         switch($this->getType()) {
             case 'youtube':
-                return 'http://img.youtube.com/vi/'.$this->getId_site().'/1.jpg';
+                $this->_image = 'http://img.youtube.com/vi/'.$this->getId_site().'/1.jpg';
                 break;
-            // TODO Ajouter le support de dailymotion et vimeo
             case 'dailymotion':
-                return 'WIP';
+                $this->_image = 'http://www.dailymotion.com/thumbnail/120x90/video/'.$this->getId_site();
             case 'vimeo':
-                return 'WIP';
+                $hash = unserialize(file_get_contents('http://vimeo.com/api/v2/video/'.$this->getId_site().'.php'));
+                $this->_embedded = '';
+                $this->_image = $hash[0]['thumbnail_small'];
             default:
                 break;
         }
+        return $this->_image;
     }
 
     /**

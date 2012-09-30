@@ -12,6 +12,7 @@
 class My_Filter_VideoID implements Zend_Filter_Interface {
     protected static $_youtube = 'youtube';
     protected static $_dailymotion = 'dailymotion';
+    protected static $_vimeo = 'vimeo';
 
     /**
      * Get information about a video from different provider.
@@ -27,10 +28,14 @@ class My_Filter_VideoID implements Zend_Filter_Interface {
             $type = self::$_youtube;
         } else if (preg_match("/\bdailymotion\b/i", $uri)) {
             $type = self::$_dailymotion;
+        } else if (preg_match("/\bvimeo\b/i", $uri)) {
+            $type = self::$_vimeo;
         } else {
             throw new Zend_Uri_Exception("L'uri donnée ne provient pas de youtube ni de dailymotion");
         }
         $id = null;
+        $title = null;
+        $description = null;
         switch($type) {
             case self::$_youtube:
                 if (preg_match('/http:\/\/youtu.be/', $uri)) {
@@ -49,6 +54,16 @@ class My_Filter_VideoID implements Zend_Filter_Interface {
                 break;
             case self::$_dailymotion:
                 $id = strtok(basename($uri), '_');
+                break;
+            case self::$_vimeo:
+                $result = preg_match('/(\d+)/', $uri, $matches);
+                if ($result == 0) {
+                    throw new Exception('Erreur lors de la récupération de l\'identifiant de la vidéo Viméo');
+                }
+                $id = $matches[0];
+                $hash = unserialize(file_get_contents('http://vimeo.com/api/v2/video/'.$id.'.php'));
+                $title = $hash[0]['title'];
+                $description = $hash[0]['description'];
                 break;
             default:
                 break;
