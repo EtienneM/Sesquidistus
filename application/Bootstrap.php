@@ -62,6 +62,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                     'href' => '/images/favicon.ico',
                     'type' => 'image/x-icon',
                         ), 'PREPEND')
+                ->headLink(array(
+                    'rel' => 'alternate',
+                    'type' => 'application/rss+xml',
+                    'title' => 'Flux de syndication RSS',
+                    'href' => '/feeds',
+                ))
                 ->appendStylesheet('/css/style.css')
                 ->appendStylesheet('/css/jquery.jgrowl.css')
                 ->appendStylesheet('/css/dropmenu_apple.css')

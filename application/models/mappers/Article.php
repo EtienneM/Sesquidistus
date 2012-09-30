@@ -42,8 +42,8 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
         }
     }
 
-    public function fetchAll() {
-        $resultSet = $this->getDbTable()->fetchAll(null, 'date DESC');
+    public function fetchAll($limit = null) {
+        $resultSet = $this->getDbTable()->fetchAll(null, array('date DESC', 'id DESC'), $limit);
         $entries = array();
         foreach ($resultSet as $row) {
             $entry = new Application_Model_Article();

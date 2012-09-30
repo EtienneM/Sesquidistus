@@ -48,7 +48,8 @@ class Application_Model_Acl extends Zend_Acl {
                 ->addResource('evenements')
                 ->addResource('auth')
                 ->addResource('user')
-                ->addResource('article');
+                ->addResource('article')
+                ->addResource('feeds');
 
         $this->allow(self::ROLE_VISITEUR, array('index'), array('index', 'contact', 'apropos', 'mentions'))
                 ->allow(self::ROLE_VISITEUR, array('calendrier'), array('index'))
@@ -59,6 +60,7 @@ class Application_Model_Acl extends Zend_Acl {
                 ->allow(self::ROLE_VISITEUR, array('user'), array('list', 'view', 'create', 'checkLogin'))
                 ->allow(self::ROLE_VISITEUR, array('auth'), array('login', 'forget'))
                 ->allow(self::ROLE_VISITEUR, array('article'), array('index'))
+                ->allow(self::ROLE_VISITEUR, array('feeds'), array('index'))
                 ->allow(self::ROLE_MEMBRE, array('user'), array('index', 'editProfil', 'editPwd', 'editAvatar'))
                 ->allow(self::ROLE_MEMBRE, array('auth'), array('logout'))
                 ->allow(self::ROLE_MEMBRE, array('galerie'), array('soumettre'));

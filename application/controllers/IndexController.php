@@ -11,12 +11,19 @@ class IndexController extends Zend_Controller_Action {
                 ->appendStylesheet('/css/article.css');
         $this->view->headScript()->appendFile('/js/index_admin.js')
                 ->appendFile('/js/index.js');
-        $article = new Application_Model_Mapper_Article();
+        $articleMapper = new Application_Model_Mapper_Article();
         $idEvent = $this->getRequest()->getParam('id_event');
         $page = $this->getRequest()->getParam('page', 1);
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('index/_controls.phtml');
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
-        $articles = $article->findByEvent($idEvent, $page, $paginator);
+        $paginator = null;
+        if (!is_null($id = $this->getRequest()->getParam('id_article'))) {
+            $article = new Application_Model_Article();
+            $articleMapper->find($id, $article);
+            $articles = array($article);
+        } else {
+            $articles = $articleMapper->findByEvent($idEvent, $page, $paginator);
+        }
         $this->view->articles = $articles;
         $this->view->paginator = $paginator;
 
