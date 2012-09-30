@@ -88,6 +88,7 @@ class Application_Model_Video extends My_Model {
                     <param name="allowScriptAccess" value="always"></param>
                     <embed class="video" type="application/x-shockwave-flash" src="http://www.dailymotion.com/swf/video/'.$this->getId_site().'?background=493D27&foreground=E8D9AC&highlight=FFFFF0" width="700" height="500" allowfullscreen="true" allowscriptaccess="always"></embed>
                 </object>';
+                break;
             case 'vimeo':
                 $this->_embedded = '<div class="video_element_viewer">
                     <iframe src="http://player.vimeo.com/video/'.$this->getId_site().'?title=0&byline=0&portrait=0&color=ff9933" width="650" height="272" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
@@ -114,6 +115,7 @@ class Application_Model_Video extends My_Model {
                 break;
             case 'dailymotion':
                 $this->_image = 'http://www.dailymotion.com/thumbnail/120x90/video/'.$this->getId_site();
+                break;
             case 'vimeo':
                 $hash = unserialize(file_get_contents('http://vimeo.com/api/v2/video/'.$this->getId_site().'.php'));
                 $this->_embedded = '';

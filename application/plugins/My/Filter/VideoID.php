@@ -54,6 +54,11 @@ class My_Filter_VideoID implements Zend_Filter_Interface {
                 break;
             case self::$_dailymotion:
                 $id = strtok(basename($uri), '_');
+                $url_video = 'http://www.dailymotion.com/video/'.$id;
+                $xml = simplexml_load_file('http://www.dailymotion.com/services/oembed?url='.$url_video.'&format=xml');
+                $tags = get_meta_tags('http://www.dailymotion.com/video/'.$id);
+                $title = $xml->title;
+                $description = $tags['description'];
                 break;
             case self::$_vimeo:
                 $result = preg_match('/(\d+)/', $uri, $matches);
