@@ -49,7 +49,8 @@ class Application_Model_Acl extends Zend_Acl {
                 ->addResource('auth')
                 ->addResource('user')
                 ->addResource('article')
-                ->addResource('feeds');
+                ->addResource('feeds')
+                ->addResource('type-event');
 
         $this->allow(self::ROLE_VISITEUR, array('index'), array('index', 'contact', 'apropos', 'mentions'))
                 ->allow(self::ROLE_VISITEUR, array('calendrier'), array('index'))

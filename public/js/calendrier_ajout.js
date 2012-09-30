@@ -1,7 +1,3 @@
-function calendarSelectDate() {
-    
-}
-
 $(document).ready(function() {
     /*
      * Ne pas pouvoir supprimer un certain nombre de types d'évènement
@@ -9,13 +5,53 @@ $(document).ready(function() {
     $('select#listeEvent').bind('change click keypress', function(){
         // If the selection has changed
         if( $(this).data('selection') != $('option:selected', this).val() ) {
-            if ($.inArray($('option:selected', this).val(), ['1', '4', '5']) != -1) {
+            if ($.inArray($('option:selected', this).val(), ['1', '4', '5', '11']) != -1) {
                 $('#supprType').css('display', 'none');
             } else {
                 $('#supprType').css('display', 'inline');
             }
         }
     }).click();// Trigger the click event to initialize corectly 
+    
+    $('#supprType').click(function() {
+        var link = $(this);
+        $('div#dialog').html('<p>Souhaitez-vous vraiment supprimer le type d\'évènement "'+$('#listeEvent option:selected').text()+'"</p>').dialog({
+            width: 400,
+            title: "Supprimer un type d'évènement",
+            modal: true,
+            draggable: false,
+            buttons:{
+                'Confirmer': function() { 
+                    window.location.href = $(link).attr('href')+'/id/'+$('#listeEvent option:selected').val();
+                },
+                'Annuler': function() {
+                    $('div#dialog').dialog('close');
+                }																
+            }
+        });
+        return false;
+    });
+    
+    $('#addType').click(function() {
+        //$('#idType_event').val($('#listeEvent option:selected').val());
+        var div = $('#divFormActionType');
+        div.css('display', 'block').detach();
+        $('div#dialog').append(div).dialog({
+            width: 400,
+            title: "Ajouter un type d'évènement",
+            modal: true,
+            draggable: false,
+            buttons: {
+                'Confirmer': function() {
+                    $('#formActionType').submit();
+                },
+                'Annuler': function() {
+                    $('div#dialog').dialog('close');
+                }																
+            }
+        });
+        return false;
+    });
     
     /*
      * Active le choix du lieu dans liste déroulante ou champs de texte

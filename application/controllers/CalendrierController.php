@@ -95,10 +95,10 @@ class CalendrierController extends Zend_Controller_Action {
 
     public function editerAction() {
         $this->view->headLink()->appendStylesheet('/css/calendrier/calendrier_ajout.css');
-        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.min.js');
-        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.additional-methods.min.js');
-        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js');
-        $this->view->headScript()->appendFile('/js/calendrier_ajout.js');
+        $this->view->headScript()->appendFile('/js/jquery/jquery.validate.min.js')
+                ->appendFile('/js/jquery/jquery.validate.additional-methods.min.js')
+                ->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js')
+                ->appendFile('/js/calendrier_ajout.js');
 
         $request = $this->getRequest();
         $evenementMapper = new Application_Model_Mapper_Evenement();

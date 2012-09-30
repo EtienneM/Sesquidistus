@@ -46,6 +46,18 @@ class Application_Model_Mapper_TypeEvent extends My_Model_Mapper {
         }
         return $entries;
     }
+    
+    /**
+     * Supprime un type d'événement.
+     * 
+     * @param Application_Model_TypeEvent $typeEvent
+     */
+    public function delete(Application_Model_TypeEvent $typeEvent) {
+        if (null === ($id = $typeEvent->getId())) {
+            throw new Exception('Impossible de supprimer cet utilisateur');
+        }
+        $this->getDbTable()->delete(array('id = ?' => $id));
+    }
 
 }
 
