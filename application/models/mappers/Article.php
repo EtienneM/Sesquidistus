@@ -68,7 +68,7 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
      */
     public function findByEvent($idEvent = null, $page = 1, Zend_Paginator &$paginator = null) {
         $table = $this->getDbTable();
-        $select = $table->select()->order('article.date DESC');
+        $select = $table->select()->order('article.date DESC')->order('article.id DESC');
         if (!is_null($idEvent)) {
             $select->where('article.id_event = ?', $idEvent);
         }
