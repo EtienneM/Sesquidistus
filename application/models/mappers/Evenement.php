@@ -29,7 +29,7 @@ class Application_Model_Mapper_Evenement extends My_Model_Mapper {
             $this->getDbTable()->update($data, array('id = ?' => $id));
         }
     }
-    
+
     /**
      * Supprime un événement et tout les articles associés.
      * 
@@ -108,7 +108,10 @@ class Application_Model_Mapper_Evenement extends My_Model_Mapper {
             if ($row['id_lieu'] == 0) {
                 $entry->setLieu($row->lieu);
             } else {
-                $entry->setLieu(new Application_Model_LieuUltimate($row->findParentRow('Application_Model_DbTable_LieuUltimate')->toArray()));
+                $lieuUltimate = $row->findParentRow('Application_Model_DbTable_LieuUltimate');
+                if (!is_null($lieuUltimate)) {
+                    $entry->setLieu(new Application_Model_LieuUltimate($lieuUltimate->toArray()));
+                }
             }
             $entries[] = $entry;
         }
@@ -131,9 +134,10 @@ class Application_Model_Mapper_Evenement extends My_Model_Mapper {
         } else {
             $select->where('type = ?', $typeEvent);
         }
-        
+
         $row = $table->fetchRow($select);
-        if (is_null($row)) return null;
+        if (is_null($row))
+            return null;
         $type = new Application_Model_TypeEvent($row->findParentRow('Application_Model_DbTable_TypeEvent')->toArray());
         $entry = new Application_Model_Evenement($row->toArray());
         $entry->setType($type);
@@ -144,7 +148,7 @@ class Application_Model_Mapper_Evenement extends My_Model_Mapper {
         }
         return $entry;
     }
-    
+
     public function findByWord($begining) {
         $table = $this->getDbTable();
         $begining = '%'.$begining.'%';
