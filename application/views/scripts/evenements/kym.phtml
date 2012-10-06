@@ -16,7 +16,7 @@
         <div class="box" style="min-height:150px;">
             <div class="titreNews">Photos & vidéos</div>
             <div style="position:relative;">
-                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'kym')) ?>">
+                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index', 'kym' => true)) ?>">
                     <img style="width:170px;" src="<?= $this->album->getFirstImage()->getNomWithMiniPath() ?>" alt="Photos & vidéos du KYM" title="Photos & vidéos du KYM" />
                 </a>
             </div>

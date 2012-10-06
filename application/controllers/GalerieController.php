@@ -14,7 +14,17 @@ class GalerieController extends Zend_Controller_Action {
         $this->view->adminAlbum = $request->getParam('admin', false);
         $albumMapper = new Application_Model_Mapper_Album();
         $imageMapper = new Application_Model_Mapper_Image();
-        if (empty($idAlbum)) { // Afficher la liste des albums
+        if (!is_null($request->getParam('kym'))) { // Affiche les albums qui concerne le KYM
+            $this->view->isAlbum = false; // True if we display an album
+            $albums = $albumMapper->fetchAll();
+            $this->view->titre = 'Galerie photos & vidéos du Keep Your Mustache';
+            $albums = $albumMapper->findKym();
+            $images = array();
+            foreach ($albums as $album) {
+                $images[] = $album->getFirstImage();
+            }
+            $this->view->albums = $albums;
+        } else if (empty($idAlbum)) { // Afficher la liste des albums
             $this->view->isAlbum = false; // True if we display an album
             $albums = $albumMapper->fetchAll();
             $images = array();

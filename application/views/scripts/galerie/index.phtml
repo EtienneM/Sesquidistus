@@ -28,13 +28,13 @@
             </form>
         <?php else: ?>
             <a id="lnkSubmit"
-               href="<?= $this->url(array('controller' => 'galerie', 'action' => 'soumettre')) ?>" 
+               href="<?= $this->url(array('controller' => 'galerie', 'action' => 'soumettre'), null, true) ?>" 
                class="bouton1">
                 Soumettre une image
             </a>
             <?php if ($this->isAdmin()): ?>
                 <a id="lnkAdmin" 
-                   href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index', 'admin' => true)) ?>" 
+                   href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index', 'admin' => true), null, true) ?>" 
                    class="bouton1"
                    style="float: right">
                     Administration des albums
@@ -44,7 +44,7 @@
 
     <?php else: ?>
         <?php if ($this->isAdmin()): ?>
-            <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'administration', 'id' => $this->album->id)) ?>" 
+            <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'administration', 'id' => $this->album->id), null, true) ?>" 
                style="float: right"
                class="bouton1">
                 Administrer cet album
@@ -72,7 +72,7 @@
                             $href = $this->images[$i]->getNomWithPath();
                         } else {
                             $element = $this->albums[$i];
-                            $href = $this->url(array('controller' => 'galerie', 'action' => 'index', 'id' => $element->id));
+                            $href = $this->url(array('controller' => 'galerie', 'action' => 'index', 'id' => $element->id), null, true);
                         }
                         ?>
                         <td id="<?= $element->id; ?>" title="<?= $element->nom; ?>">
