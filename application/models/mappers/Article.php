@@ -115,11 +115,52 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
     }
 
     /**
+     * Get the articles concerning the KYM.
+     * 
+     * @param int $page
+     * @param Zend_Paginator $paginator
+     * @return \Application_Model_Article 
+     */
+    public function findKym($page = 1, Zend_Paginator &$paginator = null) {
+        $dbAdapter = Zend_Db_Table::getDefaultAdapter();
+        $select = $dbAdapter->select()->from(array('a' => 'article'), array('id', 'titre', 'contenu', 'date', 'id_member'))
+                        ->join(array('e' => 'evenement'), 'a.id_event = e.id', array())
+                        ->order('a.date DESC')->order('a.id DESC');
+        foreach (Application_Model_Evenement::$KYM_OCCURENCES as $occurence) {
+            $select->orWhere('a.titre LIKE ?', "%$occurence%")
+                    ->orWhere('e.titre LIKE ?', "%$occurence%");
+        }
+
+        $paginator = Zend_Paginator::factory($select);
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage(5);
+        $entries = array();
+        $userMapper = new Application_Model_Mapper_User();
+        $user = new Application_Model_User();
+        foreach ($paginator as $row) {
+            $article = new Application_Model_Article();
+            $article->setId($row['id'])
+                    ->setTitre($row['titre'])
+                    ->setContenu($row['contenu'])
+                    ->setDate($row['date']);
+            $userMapper->find($row['id_member'], $user);
+            $user_id = $user->getId();
+            if (!empty($user_id)) {
+                $article->setAuthor($user);
+                $user = new Application_Model_User();
+            }
+            $entries[] = $article;
+        }
+        return $entries;
+    }
+
+    /**
      *
      * @param int $idEvent 
      */
     public function deleteByEvent($idEvent) {
         $this->getDbTable()->delete(array('id_event = ?' => $idEvent));
     }
+
 }
 

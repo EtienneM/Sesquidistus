@@ -1,0 +1,27 @@
+<?php $article = $this->article; ?>
+<article class="totalBox">
+    <div class="box">
+        <div class="titreNews">
+            <?= $this->escape($article->titre) ?>
+            <?php if ($this->isAdmin()): ?>
+                <a href="<?= $this->url(array('controller' => 'article', 'action' => 'ecrire', 'id' => $article->id)); ?>">
+                    <img class="editArticle" src="/images/edit.png" alt="Modifier" title="Modifier"/>
+                </a>
+                <a href="<?= $this->url(array('controller' => 'article', 'action' => 'supprimer', 'id' => $article->id)); ?>" class="supprimer">
+                    <img class="editArticle" src="/images/del.png" alt="Supprimer" title="Supprimer"/>
+                </a>
+            <?php endif; ?>
+        </div>
+        <div><?php echo $article->contenu ?></div>
+        <div style="margin-top:30px">
+            <?php
+            if ($article->author !== null) {
+                $author = 'par '.$article->author->login;
+            } else {
+                $author = '';
+            }
+            ?>
+            <span class="note">Article créé <?= $author ?> le <?php echo $this->escape($article->date->get('dd/MM/YYYY')) ?></span>
+        </div>
+    </div>
+</article>

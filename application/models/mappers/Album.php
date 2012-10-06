@@ -61,5 +61,23 @@ class Application_Model_Mapper_Album extends My_Model_Mapper {
         return $entries;
     }
 
+    /**
+     *
+     * @return \Application_Model_Album 
+     */
+    public function findKym() {
+        $table = $this->getDbTable();
+        $select = $table->select();
+        foreach (Application_Model_Evenement::$KYM_OCCURENCES as $occurence) {
+            $select->orWhere('nom LIKE ?', "%$occurence%");
+        }
+
+        $entries = array();
+        foreach ($table->fetchAll($select) as $row) {
+            $entries[] = new Application_Model_Album($row->toArray());
+        }
+        return $entries;
+    }
+
 }
 
