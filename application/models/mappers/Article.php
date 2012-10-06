@@ -115,6 +115,43 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
     }
 
     /**
+     * Get the articles concerning the KYM.
+     * 
+     * @param int $page
+     * @param Zend_Paginator $paginator
+     * @return \Application_Model_Article 
+     */
+    public function findKym($page = 1, Zend_Paginator &$paginator = null) {
+        $table = $this->getDbTable();
+        $select = $table->select()//->join('evenement', 'article.id_event = evenement.id')
+                ->order('article.date DESC')->order('article.id DESC');
+        $kymOccurences = array('KYM', 'Keep Your Moustache', 'Keep Your Mustache');
+        foreach ($kymOccurences as $occurence) {
+            $select->orWhere('article.titre LIKE ?', "%$occurence%");
+                //->orWhere('evenement.titre LIKE ?', "%$occurence%");
+        }
+        
+        $paginator = Zend_Paginator::factory($select);
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage(5);
+        $entries = array();
+        foreach ($paginator as $row) {
+            $entry = new Application_Model_Article();
+            $entry->setId($row->id)
+                    ->setTitre($row->titre)
+                    ->setContenu($row->contenu)
+                    ->setDate($row->date);
+            $authorRow = $row->findParentRow('Application_Model_DbTable_User');
+            if (!empty($authorRow)) {
+                $author = new Application_Model_User($row->findParentRow('Application_Model_DbTable_User')->toArray());
+                $entry->setAuthor($author);
+            }
+            $entries[] = $entry;
+        }
+        return $entries;
+    }
+
+    /**
      *
      * @param int $idEvent 
      */

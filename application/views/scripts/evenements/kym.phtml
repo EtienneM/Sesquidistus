@@ -1,4 +1,16 @@
 <div id="globalMini">
+    <div id="dates" class="totalBox">
+        <div class="box" style="min-height:150px;">
+            <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette4.gif" />
+            <div class="titreNews">Dates du KYM '13</div>
+            <div style="text-align:left;"> 
+                <div style="margin-bottom:10px; font-size:11px; text-align: justify;">
+                    Le prochain Keep Your Moustache aura lieu au mois de juin 2013. 
+                    Les dates arriveront prochainement!!
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="galerie" class="totalBox">
         <div class="box" style="min-height:150px;">
             <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette3_mini.gif" />
@@ -11,7 +23,20 @@
 </div>
 
 <div id="globalNews">
+    <?php if(count($this->articles) > 0): ?>
     <?php foreach ($this->articles as $article): ?>
         <?= $this->partial('article/_article.phtml', array('article' => $article)); ?>
     <?php endforeach; ?>
+    <?php else: ?>
+    <div class="totalBox">
+        <div class="box">
+            <div class="titreNews">Aucun article à propos du KYM...</div>
+            <div>
+                Aucun article à propos du Keep Your Moustache pour le moment. 
+                Mais il y en aura probablement bientôt des nouveaux.
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+    <?= $this->paginator; ?>
 </div>

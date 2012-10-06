@@ -14,7 +14,7 @@ class IndexController extends Zend_Controller_Action {
         $articleMapper = new Application_Model_Mapper_Article();
         $idEvent = $this->getRequest()->getParam('id_event');
         $page = $this->getRequest()->getParam('page', 1);
-        Zend_View_Helper_PaginationControl::setDefaultViewPartial('index/_controls.phtml');
+        Zend_View_Helper_PaginationControl::setDefaultViewPartial('_controls.phtml');
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
         $paginator = null;
         if (!is_null($id = $this->getRequest()->getParam('id_article'))) {
