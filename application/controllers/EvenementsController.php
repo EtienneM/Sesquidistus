@@ -61,7 +61,8 @@ class EvenementsController extends Zend_Controller_Action {
     public function kymAction() {
         $this->view->headTitle()->append('Keep Your Moustache');
         $this->view->headLink()->appendStylesheet('/css/pagination.css')
-                ->appendStylesheet('/css/article.css');
+                ->appendStylesheet('/css/article.css')
+                ->appendStylesheet('/css/facebook.css');
         $page = $this->getRequest()->getParam('page', 1);
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('_controls.phtml');
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
