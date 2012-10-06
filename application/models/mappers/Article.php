@@ -125,10 +125,8 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
         $dbAdapter = Zend_Db_Table::getDefaultAdapter();
         $select = $dbAdapter->select()->from(array('a' => 'article'), array('id', 'titre', 'contenu', 'date', 'id_member'))
                         ->join(array('e' => 'evenement'), 'a.id_event = e.id', array())
-                        //->join(array('u' => 'membre'), 'a.id_member = u.id', array('login'))
                         ->order('a.date DESC')->order('a.id DESC');
-        $kymOccurences = array('KYM', 'Keep Your Moustache', 'Keep Your Mustache');
-        foreach ($kymOccurences as $occurence) {
+        foreach (Application_Model_Evenement::KYM_OCCURENCES as $occurence) {
             $select->orWhere('a.titre LIKE ?', "%$occurence%")
                     ->orWhere('e.titre LIKE ?', "%$occurence%");
         }
