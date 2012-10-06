@@ -57,7 +57,7 @@ class EvenementsController extends Zend_Controller_Action {
         $this->getResponse()->setHeader('content-type', 'application/json', true);
         echo Zend_Json::encode($results);
     }
-
+    
     public function kymAction() {
         $this->view->headTitle()->append('Keep Your Moustache');
         $this->view->headLink()->appendStylesheet('/css/pagination.css')

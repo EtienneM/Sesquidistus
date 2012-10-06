@@ -60,19 +60,21 @@ class Application_Model_Mapper_Album extends My_Model_Mapper {
         }
         return $entries;
     }
-    
+
     /**
      *
      * @return \Application_Model_Album 
      */
     public function findKym() {
-        $resultSet = $this->getDbTable()->fetchAll(null, 'date DESC');
+        $table = $this->getDbTable();
+        $select = $table->select();
+        foreach (Application_Model_Evenement::$KYM_OCCURENCES as $occurence) {
+            $select->orWhere('nom LIKE ?', "%$occurence%");
+        }
+
         $entries = array();
-        foreach ($resultSet as $row) {
-            $entry = new Application_Model_Album();
-            $entry->setId($row->id)
-                    ->setNom($row->nom);
-            $entries[] = $entry;
+        foreach ($table->fetchAll($select) as $row) {
+            $entries[] = new Application_Model_Album($row->toArray());
         }
         return $entries;
     }

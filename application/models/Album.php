@@ -111,10 +111,10 @@ class Application_Model_Album extends My_Model {
 
     /**
      *
-     * @param Zend_Date $date 
+     * @param Zend_Date | string $date 
      * @return \Application_Model_Album 
      */
-    public function setDate(Zend_Date $date) {
+    public function setDate($date) {
         $this->_date = new Zend_Date($date);
         return $this;
     }
