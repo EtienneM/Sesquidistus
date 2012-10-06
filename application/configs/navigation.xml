@@ -46,6 +46,7 @@
             <label>KYM</label>
             <controller>evenements</controller>
             <action>kym</action>
+            <title>Keep Your Moustache</title>
         </kym>
         <evenement>
             <label>Nos évènements</label>
