@@ -57,7 +57,7 @@ class Application_Model_Acl extends Zend_Acl {
                 ->allow(self::ROLE_VISITEUR, array('club'), array('index'))
                 ->allow(self::ROLE_VISITEUR, array('ultimate'), array('index'))
                 ->allow(self::ROLE_VISITEUR, array('galerie'), array('index'))
-                ->allow(self::ROLE_VISITEUR, array('evenements'), array('index'))
+                ->allow(self::ROLE_VISITEUR, array('evenements'), array('index', 'kym'))
                 ->allow(self::ROLE_VISITEUR, array('user'), array('list', 'view', 'create', 'checkLogin'))
                 ->allow(self::ROLE_VISITEUR, array('auth'), array('login', 'forget'))
                 ->allow(self::ROLE_VISITEUR, array('article'), array('index'))

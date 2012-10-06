@@ -42,16 +42,16 @@
                 </soumettre>
             </pages>
         </galerie>
+        <kym>
+            <label>KYM</label>
+            <controller>evenements</controller>
+            <action>kym</action>
+        </kym>
         <evenement>
             <label>Nos évènements</label>
             <controller>evenements</controller>
             <action>index</action>
         </evenement>
-        <!--kym>
-            <label>KYM '12</label>
-            <controller>evenement</controller>
-            <action>index</action>
-        </kym-->
         <contact>
             <label>Contact</label>
             <controller>index</controller>
