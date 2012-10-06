@@ -63,7 +63,7 @@ class Application_Model_Evenement extends My_Model {
     /**
      * What string to look for in order to identify the KYM event 
      */
-    const KYM_OCCURENCES = array('KYM', 'Keep Your Moustache', 'Keep Your Mustache');
+    public static $KYM_OCCURENCES = array('KYM', 'Keep Your Moustache', 'Keep Your Mustache');
 
     /**
      *

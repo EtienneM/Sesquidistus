@@ -126,7 +126,7 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
         $select = $dbAdapter->select()->from(array('a' => 'article'), array('id', 'titre', 'contenu', 'date', 'id_member'))
                         ->join(array('e' => 'evenement'), 'a.id_event = e.id', array())
                         ->order('a.date DESC')->order('a.id DESC');
-        foreach (Application_Model_Evenement::KYM_OCCURENCES as $occurence) {
+        foreach (Application_Model_Evenement::$KYM_OCCURENCES as $occurence) {
             $select->orWhere('a.titre LIKE ?', "%$occurence%")
                     ->orWhere('e.titre LIKE ?', "%$occurence%");
         }
