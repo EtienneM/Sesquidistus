@@ -30,7 +30,7 @@ class GalerieController extends Zend_Controller_Action {
                 if (empty($res)) {
                     $res = $videoMapper->findFirstImage($albums[$i]);
                 }
-                $images[] = $res;
+                $images[] = $albums[$i]->getFirstImage();
             }
             /*
              * Ne pas afficher l'album par défaut (id=1)

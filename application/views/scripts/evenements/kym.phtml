@@ -11,32 +11,35 @@
             </div>
         </div>
     </div>
+    <?php if (!empty($this->album)): ?>
     <div id="galerie" class="totalBox">
         <div class="box" style="min-height:150px;">
-            <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette3_mini.gif" />
             <div class="titreNews">Photos & vidéos</div>
-            <div style="text-align:left;"> 
-                <div style="color:#bc0101; margin-bottom:10px; font-size:11px">Blabla</div>
+            <div style="position:relative;">
+                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'kym')) ?>">
+                    <img style="width:170px;" src="<?= $this->album->getFirstImage()->getNomWithMiniPath() ?>" alt="Photos & vidéos du KYM" title="Photos & vidéos du KYM" />
+                </a>
             </div>
         </div>
     </div>
+    <?php endif; ?>
 </div>
 
 <div id="globalNews">
-    <?php if(count($this->articles) > 0): ?>
-    <?php foreach ($this->articles as $article): ?>
-        <?= $this->partial('article/_article.phtml', array('article' => $article)); ?>
-    <?php endforeach; ?>
+    <?php if (count($this->articles) > 0): ?>
+        <?php foreach ($this->articles as $article): ?>
+            <?= $this->partial('article/_article.phtml', array('article' => $article)); ?>
+        <?php endforeach; ?>
     <?php else: ?>
-    <div class="totalBox">
-        <div class="box">
-            <div class="titreNews">Aucun article à propos du KYM...</div>
-            <div style="text-align: justify;">
-                Aucun article à propos du Keep Your Moustache pour le moment. 
-                Mais il y en aura probablement bientôt des nouveaux.
+        <div class="totalBox">
+            <div class="box">
+                <div class="titreNews">Aucun article à propos du KYM...</div>
+                <div style="text-align: justify;">
+                    Aucun article à propos du Keep Your Moustache pour le moment. 
+                    Mais il y en aura probablement bientôt des nouveaux.
+                </div>
             </div>
         </div>
-    </div>
     <?php endif; ?>
     <?= $this->paginator; ?>
 </div>

@@ -60,6 +60,22 @@ class Application_Model_Mapper_Album extends My_Model_Mapper {
         }
         return $entries;
     }
+    
+    /**
+     *
+     * @return \Application_Model_Album 
+     */
+    public function findKym() {
+        $resultSet = $this->getDbTable()->fetchAll(null, 'date DESC');
+        $entries = array();
+        foreach ($resultSet as $row) {
+            $entry = new Application_Model_Album();
+            $entry->setId($row->id)
+                    ->setNom($row->nom);
+            $entries[] = $entry;
+        }
+        return $entries;
+    }
 
 }
 
