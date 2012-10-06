@@ -2,6 +2,10 @@
 
 class Application_Model_Mapper_Article extends My_Model_Mapper {
 
+    /**
+     *
+     * @return Application_Model_DbTable_Article 
+     */
     public function getDbTable() {
         if (null === $this->_dbTable) {
             $this->setDbTable('Application_Model_DbTable_Article');
@@ -9,22 +13,35 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
         return $this->_dbTable;
     }
 
+    /**
+     *
+     * @param Application_Model_Article $article 
+     */
     public function save(Application_Model_Article $article) {
+        $article->setUpdate(new Zend_Date());
         $data = array(
             'titre' => $article->getTitre(),
             'contenu' => $article->getContenu(),
             'date' => $article->getDate()->get(Zend_Date::ISO_8601),
             'id_event' => $article->getId_event(),
             'id_member' => $article->getId_member(),
+            'update' => $article->getUpdate()->get(Zend_Date::ISO_8601),
         );
         if (null === ($id = $article->getId())) {
             unset($data['id']);
             $this->getDbTable()->insert($data);
         } else {
+            unset($data['date']);
             $this->getDbTable()->update($data, array('id = ?' => $id));
         }
     }
 
+    /**
+     *
+     * @param int $id
+     * @param Application_Model_Article $article
+     * @return null 
+     */
     public function find($id, Application_Model_Article $article) {
         $result = $this->getDbTable()->find($id);
         if (0 == count($result)) {
@@ -42,6 +59,11 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
         }
     }
 
+    /**
+     *
+     * @param type $limit
+     * @return \Application_Model_Article 
+     */
     public function fetchAll($limit = null) {
         $resultSet = $this->getDbTable()->fetchAll(null, array('date DESC', 'id DESC'), $limit);
         $entries = array();
