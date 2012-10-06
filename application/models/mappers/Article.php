@@ -122,31 +122,36 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
      * @return \Application_Model_Article 
      */
     public function findKym($page = 1, Zend_Paginator &$paginator = null) {
-        $table = $this->getDbTable();
-        $select = $table->select()//->join('evenement', 'article.id_event = evenement.id')
-                ->order('article.date DESC')->order('article.id DESC');
+        $dbAdapter = Zend_Db_Table::getDefaultAdapter();
+        $select = $dbAdapter->select()->from(array('a' => 'article'), array('id', 'titre', 'contenu', 'date', 'id_member'))
+                        ->join(array('e' => 'evenement'), 'a.id_event = e.id', array())
+                        //->join(array('u' => 'membre'), 'a.id_member = u.id', array('login'))
+                        ->order('a.date DESC')->order('a.id DESC');
         $kymOccurences = array('KYM', 'Keep Your Moustache', 'Keep Your Mustache');
         foreach ($kymOccurences as $occurence) {
-            $select->orWhere('article.titre LIKE ?', "%$occurence%");
-                //->orWhere('evenement.titre LIKE ?', "%$occurence%");
+            $select->orWhere('a.titre LIKE ?', "%$occurence%")
+                    ->orWhere('e.titre LIKE ?', "%$occurence%");
         }
-        
+
         $paginator = Zend_Paginator::factory($select);
         $paginator->setCurrentPageNumber($page);
         $paginator->setItemCountPerPage(5);
         $entries = array();
+        $userMapper = new Application_Model_Mapper_User();
+        $user = new Application_Model_User();
         foreach ($paginator as $row) {
-            $entry = new Application_Model_Article();
-            $entry->setId($row->id)
-                    ->setTitre($row->titre)
-                    ->setContenu($row->contenu)
-                    ->setDate($row->date);
-            $authorRow = $row->findParentRow('Application_Model_DbTable_User');
-            if (!empty($authorRow)) {
-                $author = new Application_Model_User($row->findParentRow('Application_Model_DbTable_User')->toArray());
-                $entry->setAuthor($author);
+            $article = new Application_Model_Article();
+            $article->setId($row['id'])
+                    ->setTitre($row['titre'])
+                    ->setContenu($row['contenu'])
+                    ->setDate($row['date']);
+            $userMapper->find($row['id_member'], $user);
+            $user_id = $user->getId();
+            if (!empty($user_id)) {
+                $article->setAuthor($user);
+                $user = new Application_Model_User();
             }
-            $entries[] = $entry;
+            $entries[] = $article;
         }
         return $entries;
     }
@@ -158,5 +163,6 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
     public function deleteByEvent($idEvent) {
         $this->getDbTable()->delete(array('id_event = ?' => $idEvent));
     }
+
 }
 
