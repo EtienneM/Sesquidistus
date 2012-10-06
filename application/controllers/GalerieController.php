@@ -8,6 +8,7 @@ class GalerieController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
+        $this->view->headLink()->appendStylesheet('/css/facebook.css');
         $this->view->headScript()->appendFile('/js/galerie.js');
         $request = $this->getRequest();
         $idAlbum = $request->getParam('id');

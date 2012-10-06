@@ -22,7 +22,7 @@
             }
             ?>
             <span class="note" style="text-align: left;">Article créé <?= $author ?> le <?php echo $this->escape($article->date->get('dd/MM/YYYY')) ?></span>
-            <div class="fb_button">
+            <div class="fb_button" style="float:right;">
                 <a  target="_blank"
                     href="https://www.facebook.com/share.php?u=<?= $_SERVER['HTTP_HOST'] . $this->url(array('controller' => 'index', 'action' => 'index', 'id_article' => $article->id)) ?>">
                     <i class="thumb"></i>
