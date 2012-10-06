@@ -1,5 +1,5 @@
 <?php $article = $this->article; ?>
-<div class="totalBox">
+<article class="totalBox">
     <div class="box">
         <div class="titreNews">
             <?= $this->escape($article->titre) ?>
@@ -24,4 +24,4 @@
             <span class="note">Article créé <?= $author ?> le <?php echo $this->escape($article->date->get('dd/MM/YYYY')) ?></span>
         </div>
     </div>
-</div>
+</article>
