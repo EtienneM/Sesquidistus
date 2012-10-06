@@ -165,9 +165,7 @@ class Application_Model_Profil extends My_Model {
      * @return \Application_Model_Profil 
      */
     public function setAncien($ancien) {
-        if (!empty($ancien)) {
-            $this->_ancien = (bool) $ancien;
-        }
+        $this->_ancien = (bool) $ancien;
         return $this;
     }
 
