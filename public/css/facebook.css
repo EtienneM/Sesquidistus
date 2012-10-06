@@ -1,0 +1,49 @@
+/* 
+    Document   : facebook.css
+    Created on : 6 oct. 2012, 18:37:04
+    Author     : emichon
+    Description:
+        Stylesheet for the facebook Like button
+*/
+
+.fb_button {
+    text-align: center; 
+    float: right;
+    font-family: "arial", sans-serif;
+    direction: ltr;
+    display: inline-block;
+    background: none repeat scroll 0 0 #ECEEF5;
+    border: 1px solid #CAD4E7;
+    border-radius: 3px;
+    color: #3B5998;
+    cursor: pointer;
+    padding: 2px 6px 4px;
+    white-space: nowrap;
+    font-size: 11px;
+}
+
+.fb_button:hover {
+    border-color: #9DACCE;
+}
+
+.fb_button button {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    font: inherit;
+    margin: -1px;
+    padding: 0;
+}
+
+.fb_button .thumb {
+    background-position: 0 -45px;
+    background-image: url("/images/social/fb_thumb.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 14px;
+    width: 14px;
+    margin-right: 3px;
+    position: relative;
+    top: 3px;
+    cursor: pointer;
+}
