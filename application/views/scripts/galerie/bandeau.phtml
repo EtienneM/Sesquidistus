@@ -3,7 +3,7 @@
         <div class="box">
             <h2 class="titreNews">Mise en forme de l'image</h2>
             <form method="POST" action="<?= $this->url(array('controller' => 'galerie', 'action' => 'bandeau')) ?>">
-                <img src="<?= $this->imgToCrop; ?>" id="crop" name="crop" />
+                <img src="<?= $this->imgToCrop; ?>" id="crop" name="crop" alt="Image à rogner" />
                 <input type="hidden" id="x1" name="x1" />
                 <input type="hidden" id="y1" name="y1" />
                 <input type="hidden" id="width" name="width" />
@@ -18,7 +18,7 @@
         <ul>
             <?php foreach ($this->images as $image): ?>
                 <li class="lstImages">
-                    <img src="<?= $image->getNomWithPath(); ?>" />
+                    <img src="<?= $image->getNomWithPath(); ?>" alt="Image du bandeau" />
                     <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'supprimerBandeau', 'id' => $image->getId())); ?>"
                        class="bouton1">
                         Supprimer

@@ -7,7 +7,7 @@
     <?php if (!empty($this->nextTraining)): ?>
         <div id="nextTraining" class="totalBox">
             <div class="box" style="min-height:150px;">
-                <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette3_mini.gif" />
+                <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette3_mini.gif" alt="Ultimateur" />
                 <h2 class="titreNews">Prochain entraînement</h2>
                 <p style="text-align:left;"> 
                 <div style="color:#bc0101; margin-bottom:10px; font-size:11px"><?= $this->escape($this->nextTraining->titre); ?></div>
@@ -27,7 +27,7 @@
                                     echo $this->escape($this->nextTraining->lieu->nom);
                                     ?>
                                     <a title="Google maps" href="<?= $this->url(array('controller' => 'club', 'id' => 5)) ?>/#map<?= $this->nextTraining->lieu->id ?>">
-                                        <img src="/images/loupe.png"/>
+                                        <img src="/images/loupe.png" alt="Voir" />
                                     </a>
                                     <?php
                                 }
@@ -55,7 +55,7 @@
     <?php if (!empty($this->nextTournoi)): ?>
         <div id="nextTournoi" class="totalBox">	
             <div class="box" style="min-height:150px;">
-                <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette4.gif" />
+                <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette4.gif" alt="Ultimate sky" />
                 <h2 class="titreNews">Prochain tournoi</h2>
                 <p style="text-align:left;"> 
                 <div style="color:#bc0101; margin-bottom:10px; font-size:11px;"><?= $this->escape($this->nextTournoi->titre) ?> </div>

@@ -8,7 +8,7 @@
                 Comment nous contacter&nbsp;?
                 <?php if ($this->isAdmin() && !$this->modifier): ?>
                     <a href="<?= $this->url(array('controller' => 'index', 'action' => 'contact', 'modifier' => true)); ?>">
-                        <img class="editContact" src="/images/edit.png">
+                        <img class="editContact" src="/images/edit.png" alt="Editer"/>
                     </a>
                 <?php endif; ?>
             </h1>
