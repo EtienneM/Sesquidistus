@@ -3,7 +3,7 @@ div#selectDate {
     margin-top:15px;
 }
 
-div#globCalendar{
+#globCalendar{
     position:relative;
     background-repeat: no-repeat;
     width:750px;
@@ -193,10 +193,11 @@ span#spanEcrireDate{
     font-weight:bold;
 }
 
-div#legende {
+#legende {
     height:70px;
+    margin-top: 20px;
 }
-div#legende > div.box {
+#legende > div.box {
     float:right;
 }
 div.lgdElement {
