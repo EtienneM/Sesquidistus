@@ -33,7 +33,7 @@ $(document).ready(function() {
                     $('form#frmUploadAvatar').submit();
                 },
                 'Annuler': function() { 
-                    $('div#dialog').dialog('close');
+                    $('div#dialogUploadAvatar').dialog('close');
                 }																
             }
         });

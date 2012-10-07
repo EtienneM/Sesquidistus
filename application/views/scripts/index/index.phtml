@@ -98,8 +98,8 @@
             <div class="box">
                 <div class="titreNews">Vidéo du moment</div>
                 <a href="#" class="video">
-                    <div style="position:relative;">
-                        <img style="width:170px;" src="<?= $this->video->getImage() ?>" alt="<?= $this->video->titre ?>" title="<?= $this->video->titre ?>" />
+                    <div style="position:relative; width:170px; max-height: 150px; min-height: 120px;">
+                        <img style="" src="<?= $this->video->getImage() ?>" alt="<?= $this->video->titre ?>" title="<?= $this->video->titre ?>" />
                     </div>
                     <div style="position:absolute; margin-top:-92px; margin-left:60px">
                         <img style="width:50px;" src="/images/play.png" alt="<?= $this->video->titre ?>" title="<? $this->video->titre ?>"/>

@@ -55,7 +55,7 @@ class UserController extends Zend_Controller_Action {
         $profilForm->setDefault('login', $user->login);
         $profilForm->setDefault('prenom', $user->profil->prenom);
         $profilForm->setDefault('mail', $user->profil->mail);
-        $profilForm->setDefault('adhesion', (!empty($user->profil->adhesion))?$user->profil->adhesion->get('YYYY'):'');
+        $profilForm->setDefault('adhesion', (!empty($user->profil->adhesion)) ? $user->profil->adhesion->get('YYYY') : '');
         $profilForm->setDefault('numero', $user->profil->numero);
         $this->view->profilForm = $profilForm;
 
@@ -96,10 +96,16 @@ class UserController extends Zend_Controller_Action {
         }
         $adapter->receive('avatarUpload');
         /*
-         * Create thumbnail
+         * Shorten the original image
+         */
+        $shortenImage = new My_Controller_Action_CreateThumbnail($avatarDirectory.'/'.$user->profil->avatar,
+                        $avatarDirectory, 120, 140);
+        $shortenImage->create();
+        /*
+         * Create mini thumbnail
          */
         $createThumbnail = new My_Controller_Action_CreateThumbnail($avatarDirectory.'/'.$user->profil->avatar,
-                        APPLICATION_PATH.'/../public/'.Application_Model_Profil::_getAvatarMiniPath(), 25);
+                        APPLICATION_PATH.'/../public/'.Application_Model_Profil::_getAvatarMiniPath(), 25, 25);
         $createThumbnail->create();
 
         $this->_helper->flashMessenger('Photo de profil ajouté');
