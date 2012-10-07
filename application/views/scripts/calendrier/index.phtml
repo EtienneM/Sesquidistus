@@ -14,7 +14,7 @@
 </div>
 
 
-<div id="globCalendar">
+<section id="globCalendar">
     <div id="nextPrevMonth">
         <?php
         $previousMonth = new Zend_Date($this->displayedMonth);
@@ -148,11 +148,11 @@
             </table>
         </div>
     </div>
-</div>
+</section>
 
 
 <?php // Génération de la légende dont les types d'évènements existe le mois affiché.   ?>
-<div class="totalBox" id="legende">
+<aside class="totalBox" id="legende">
     <div class="box">
         <h3 class="titreNews">Légende :</h3>
         <?php $margin = 0 ?>
@@ -164,11 +164,11 @@
             <?php $margin = 10; ?>
 <?php endforeach; ?>
     </div>
-</div>
+</aside>
 
 
 <?php // Génération du récapitulatif    ?>
-<div id="globalRecap">
+<section id="globalRecap">
     <div id="accordionCal">
         <h4 class="header titreSaison">
             Récapitulatif des évènements du mois de <?= $this->escape($this->displayedMonth->get(Zend_Date::MONTH_NAME)) ?> <?= $this->escape($this->displayedMonth->get(Zend_Date::YEAR)) ?>
@@ -236,6 +236,6 @@
       <input type="hidden" name="date2" value="<?php echo 'date2' ?>"/>
       </form> */
     ?>
-</div>
+</section>
 
 <div id="dialog" style="display:none"></div>

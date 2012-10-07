@@ -5,7 +5,7 @@
         </div>
     <?php endif; ?>
     <?php if (!empty($this->nextTraining)): ?>
-        <div id="nextTraining" class="totalBox">
+        <aside id="nextTraining" class="totalBox">
             <div class="box" style="min-height:150px;">
                 <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette3_mini.gif" alt="Ultimateur" />
                 <h2 class="titreNews">Prochain entraînement</h2>
@@ -50,10 +50,10 @@
                 </table>
                 </p>
             </div>
-        </div>
+        </aside>
     <?php endif; ?>
     <?php if (!empty($this->nextTournoi)): ?>
-        <div id="nextTournoi" class="totalBox">	
+        <aside id="nextTournoi" class="totalBox">	
             <div class="box" style="min-height:150px;">
                 <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette4.gif" alt="Ultimate sky" />
                 <h2 class="titreNews">Prochain tournoi</h2>
@@ -91,10 +91,10 @@
                 </table>
                 </p>
             </div>
-        </div>
+        </aside>
     <?php endif ?>
     <?php if (!empty($this->video)): ?>
-        <div id="newVideo" class="totalBox">
+        <aside id="newVideo" class="totalBox">
             <div class="box">
                 <h2 class="titreNews">Vidéo du moment</h2>
                 <a href="#" class="video">
@@ -117,10 +117,10 @@
                     </div>
                 </a>
             </div>
-        </div>
+        </aside>
         <div id="dialogVideo" style="display:none;"></div>
     <?php endif ?>
-    <div class="totalBox">
+    <aside class="totalBox">
         <div class="box">
             <h2 class="titreNews">Retrouvez-nous</h2>
             <div style="text-align: center;">
@@ -132,15 +132,15 @@
                 </a>
             </div>
         </div>
-    </div>
+    </aside>
 </div>
 
-<div id="globalNews">
+<section id="globalNews">
     <!-- Pour chaque actualité -->
     <?php foreach ($this->articles as $article): ?>
         <?= $this->partial('article/_article.phtml', array('article' => $article)); ?>
     <?php endforeach ?>
     <?= $this->paginator; ?>
-</div>
+</section>
 
 <div id="dialog" style="display: none;"></div>

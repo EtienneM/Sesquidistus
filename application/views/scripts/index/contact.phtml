@@ -1,5 +1,5 @@
 <?php $contact = $this->contact ?>
-<div class="totalBox"> 
+<section class="totalBox"> 
     <?php if ($this->modifier): ?>
         <form id="frmContact" method="POST" action="<?= $this->url(array('controller' => 'index', 'action' => 'contact', 'modifier' => true)) ?>">
         <?php endif; ?>
@@ -42,4 +42,4 @@
             <input type="submit" value="Valider le contenu" class="bouton1" style="float: right;" />
         </form>
     <?php endif; ?>
-</div>
+</section>

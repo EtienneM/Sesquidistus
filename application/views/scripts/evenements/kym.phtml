@@ -1,5 +1,5 @@
 <div id="globalMini">
-    <div id="dates" class="totalBox">
+    <aside id="dates" class="totalBox">
         <div class="box" style="min-height:150px;">
             <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette4.gif" alt="Dive" />
             <h2 class="titreNews">Dates du KYM '13</h2>
@@ -10,9 +10,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </aside>
     <?php if (!empty($this->album)): ?>
-    <div id="galerie" class="totalBox">
+    <aside id="galerie" class="totalBox">
         <div class="box" style="min-height:150px;">
             <h2 class="titreNews">Photos & vidéos</h2>
             <div style="position:relative;">
@@ -21,11 +21,11 @@
                 </a>
             </div>
         </div>
-    </div>
+    </aside>
     <?php endif; ?>
 </div>
 
-<div id="globalNews">
+<section id="globalNews">
     <?php if (count($this->articles) > 0): ?>
         <?php foreach ($this->articles as $article): ?>
             <?= $this->partial('article/_article.phtml', array('article' => $article)); ?>
@@ -42,4 +42,4 @@
         </div>
     <?php endif; ?>
     <?= $this->paginator; ?>
-</div>
+</section>
