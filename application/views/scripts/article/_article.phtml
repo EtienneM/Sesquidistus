@@ -1,8 +1,8 @@
 <?php $article = $this->article; ?>
-<article class="totalBox">
+<article class="totalBox" itemscope itemtype="http://schema.org/NewsArticle">
     <div class="box">
         <h2 class="titreNews">
-            <?= $this->escape($article->titre) ?>
+            <span itemprop="name"><?= $this->escape($article->titre) ?></span>
             <?php if ($this->isAdmin()): ?>
                 <a href="<?= $this->url(array('controller' => 'article', 'action' => 'ecrire', 'id' => $article->id)); ?>">
                     <img class="editArticle" src="/images/edit.png" alt="Modifier" title="Modifier"/>
@@ -12,16 +12,19 @@
                 </a>
             <?php endif; ?>
         </h2>
-        <div><?php echo $article->contenu ?></div>
+        <div itemprop="text" itemprop="articleBody"><?php echo $article->contenu ?></div>
         <div style="margin-top:30px; margin-bottom: 7px;">
             <?php
             if ($article->author !== null) {
-                $author = 'par '.$article->author->login;
+                $author = 'par <span itemprop="name" itemprop="author">'.$article->author->login.'</span>';
             } else {
                 $author = '';
             }
             ?>
-            <span class="note" style="text-align: left;">Article créé <?= $author ?> le <?php echo $this->escape($article->date->get('dd/MM/YYYY')) ?></span>
+            <span class="note" style="text-align: left;" itemscope itemtype="http://schema.org/Person">
+                Article créé <?= $author ?> le <?= $this->escape($article->date->get('dd/MM/YYYY')) ?>
+                <meta itemprop="dateCreated" content="<?= $this->escape($article->date->get(Zend_Date::ISO_8601)) ?>" />
+            </span>
             <div class="fb_button" style="float:right;">
                 <a  target="_blank"
                     href="https://www.facebook.com/share.php?u=<?= $_SERVER['HTTP_HOST'] . $this->url(array('controller' => 'index', 'action' => 'index', 'id_article' => $article->id)) ?>">

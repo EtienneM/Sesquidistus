@@ -3,7 +3,7 @@
     <?php if ($this->modifier): ?>
         <form id="frmContact" method="POST" action="<?= $this->url(array('controller' => 'index', 'action' => 'contact', 'modifier' => true)) ?>">
         <?php endif; ?>
-        <div class="box" style="margin-bottom:20px">
+            <div class="box" style="margin-bottom:20px" itemscope itemtype="http://schema.org/Person">
             <h1 class="titreNews">
                 Comment nous contacter&nbsp;?
                 <?php if ($this->isAdmin() && !$this->modifier): ?>
@@ -17,7 +17,7 @@
                     Prénom&nbsp;: <input type="text" value="<?= $contact->prenom ?>" class="required" maxlength="50" id="firstName" name="firstName" /><br/>
                     Nom&nbsp;: <input type="text" value="<?= $contact->nom ?>" class="" maxlength="50" id="lastName" name="lastName" />
                 <?php else: ?>
-                    <strong><?= $contact->prenom ?> <?= $contact->nom ?></strong>
+                    <strong itemprop="name"><?= $contact->prenom ?> <?= $contact->nom ?></strong>
                 <?php endif; ?>
             </p>
             <p>
@@ -25,7 +25,7 @@
                     <?php if ($this->modifier): ?>
                         E-mail&nbsp;: <input type="email" value="<?= $contact->email ?>" class="required email" maxlength="100" id="email" name="email" />
                     <?php else: ?>
-                        <strong><?= $contact->email ?></strong>
+                        <strong itemprop="email"><?= $contact->email ?></strong>
                     <?php endif; ?>
                 </span>
             </p>
@@ -34,7 +34,7 @@
                 Tél.&nbsp;: <input type="tel" value="<?= $contact->telephone ?>" class="" maxlength="20" id="phone" name="phone" />
             <?php else: ?>
                 <?php if (!empty($tel)): ?>
-                    <p>Tél&nbsp;: <?= $contact->telephone ?></p>
+                <p>Tél&nbsp;: <span itemprop="telephone"><?= $contact->telephone ?></span></p>
                 <?php endif; ?>
             <?php endif; ?>
         </div>

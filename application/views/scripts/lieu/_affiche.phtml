@@ -1,19 +1,19 @@
 <?php foreach ($this->lieux as $lieu): ?>
-    <div class="box map" id="map<?= $lieu->id; ?>">
+    <div class="box map" id="map<?= $lieu->id; ?>" itemscope itemtype="http://schema.org/Place">
         <h2 class="titreNews"><?= $this->escape($lieu->nom); ?></h2>
-        <div id="map_canvas<?= $lieu->id; ?>" class="canvas"></div>
+        <div id="map_canvas<?= $lieu->id; ?>" class="canvas" itemprop="map"></div>
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#map_canvas<?= $lieu->id; ?>').gmap3({
                     action: 'addMarker',
                     address: "<?= $this->escape($lieu->adresse); ?>",
-                    map:{
+                    map: {
                         center: true,
                         zoom: 14
                     }
                 });
             });
         </script>
-        <p><?= $this->escape($lieu->adresse); ?></p>
+        <p itemprop="address"><?= $this->escape($lieu->adresse); ?></p>
     </div>
 <?php endforeach; ?>

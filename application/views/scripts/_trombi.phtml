@@ -1,6 +1,6 @@
 <?php foreach ($this->everybody as $key => $members) : ?>
     <?= $key; ?><hr/>
-    <table>
+    <table itemscope itemtype="http://schema.org/Person">
         <?php $i = 0; ?>
         <?php foreach ($members as $member): ?>
             <?php if ($i % $this->nbPerLine == 0): ?>
@@ -12,9 +12,9 @@
             <td>
                 <div class="bouton4">
                     <a class="black" href="<?= $this->url(array('controller' => 'user', 'action' => 'view', 'id' => $member->id_membre)); ?>">
-                        <img src="<?= $member->avatarPath; ?>"
+                        <img src="<?= $member->avatarPath; ?>" itemprop="image"
                              title="<?= $this->escape($member->prenom); ?>" alt="<?= $this->escape($member->prenom); ?>" />
-                             <?= $this->escape($member->prenom); ?>
+                        <span itemprop="name"><?= $this->escape($member->prenom); ?></span>
                     </a>
                 </div>
             </td>
