@@ -9,21 +9,21 @@ body {
     padding:0;
 }
 
-div#bandeau1 {
+header#bandeau1 {
     height:40px;
 }
-div#bandeau1 > div {
+header#bandeau1 > div {
     position:relative; 
     color:white; 
     width:800px; 
     margin:0 auto 0 auto;
 }
-div#bandeau1 img#sucLogo {
+header#bandeau1 img#sucLogo {
     position:absolute; 
     left:0px; 
     top:0px;
 }
-div#bandeau1 img#sesquiLogo {
+header#bandeau1 img#sesquiLogo {
     position:absolute; 
     left:78px; 
     top:2px;
@@ -71,10 +71,10 @@ span#copyright {
     font-size:10px;
 }
 
-div.bandeau{
+.bandeau {
     position:relative;
     width:100%;
-    background-image:url(/images/header.gif);
+    background-image:url("/images/header.gif");
     background-color:black;
     background-repeat: repeat-x;
 }
@@ -85,7 +85,7 @@ div#globalBox{
     margin:30px auto 100px auto;
 }
 
-div#barreMenu {
+nav#barreMenu {
     position:relative;
     width:944px;
     height:45px;
@@ -135,7 +135,7 @@ a.menu:hover{
 }
 
 
-div#globalNews{
+section#globalNews {
     position:relative;
     width:590px;
     min-height:500px;
@@ -146,12 +146,13 @@ div#globalMini{
     width:190px;
 }
 
-div.titreNews{
+.titreNews{
     position:relative;
     text-align:left;
     font-weight:bold;
     font-size:12px;
     margin-bottom:20px;
+    margin-top: 0px;
 }
 
 .bouton1{
@@ -329,7 +330,7 @@ div#bandeauInteraction{
     margin:30px 0px 13px 0px;
 }
 
-.totalBox{
+.totalBox {
     position:relative;
     margin-bottom:20px;
 }
@@ -358,9 +359,9 @@ div.commentBox{
     behavior: url(fix_ie/PIE.htc);
 }
 
-div.box{
+.box {
     position:relative;
-    background-image:url(../images/headerW.gif);
+    background-image:url("../images/headerW.gif");
     background-repeat:repeat-x;
     background-color:white;
     padding:5px 10px 10px 10px;

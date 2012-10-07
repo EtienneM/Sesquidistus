@@ -1,5 +1,5 @@
 <div id="Menu" class="box">
-    <div class="titreNews">Sections</div>
+    <h3 class="titreNews">Sections</h3>
     <?php foreach ($this->sections as $section): ?>
         <a href="<?= $this->url(array('controller' => $this->controller, 'action' => 'index', 'id' => $section->id)) ?>">
             <?php $class = ($section->id == $this->id) ? 'bouton6' : 'bouton2' ?>

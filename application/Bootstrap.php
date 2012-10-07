@@ -25,6 +25,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $view->doctype('XHTML1_RDFA');
         $view->headMeta()
                 ->appendName('keywords', 'Ultimate, Frisbee, Strasbourg, SUC, Sesquidistus')
+                ->appendName('description', 'Informations sur les entraînements et les tournois du club d\'Ultimate frisbee de Strasbourg : Les Sesquidistus')
+                ->appendName('robots', 'index,follow')
                 ->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
                 ->appendHttpEquiv('Content-Language', 'fr-FR')
                 ->appendProperty('og:title', 'Sesquidistus')

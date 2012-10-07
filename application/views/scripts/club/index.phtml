@@ -1,13 +1,15 @@
 <div id="globalContent">
     <!-- div du menu -->
+    <nav>
     <?=
     $this->partial('_sidebar.phtml', array('sections' => $this->sections,
         'id' => $this->club->id,
         'controller' => $this->controller))
     ?>
+    </nav>
     <!-- div du contenu de la page -->
-    <div class="box" id="news">
-        <div class="titreNews"><span><?= $this->escape($this->club->titre); ?></span></div>
+    <section class="box" id="news">
+        <h1 class="titreNews"><?= $this->escape($this->club->titre); ?></h1>
         <?php if ($this->club->id == 3): //Section l'équipe => Trombinoscope ?>
             <?= $this->partial('_trombi.phtml', array('everybody' => $this->everybody, 'nbPerLine' => 4)); ?>
         <?php else: ?>
@@ -28,7 +30,7 @@
                 } ?>
             <?php endif; ?>
         <?php endif; ?>
-    </div>
+    </section>
     <?php if ($this->club->id != 3 && $this->isAdmin()): ?>
         <div id="modifContent">
             <input class="bouton1" type="button" value="Modifier le contenu" />

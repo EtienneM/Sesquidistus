@@ -22,7 +22,7 @@
     </head>
     <body>
         <!-- Header : Bandeau logo -->
-        <div id="bandeau1" class="bandeau">
+        <header id="bandeau1" class="bandeau">
             <div>
                 <a href="http://www.sucstrasbourg.com/"><img src="/images/suc_logo.png" title="SUC Strasbourg" alt="SUC Strasbourg" id="sucLogo" /></a>
                 <a href="<?= $this->baseUrl('/'); ?>"><img src="/images/minilogo.png" alt="Sesquidistus" id="sesquiLogo"/></a>
@@ -47,11 +47,11 @@
                     </span>
                 <?php endif; ?>
             </div>
-        </div>
+        </header>
         <!-- Menu style apple -->
-        <div id="barreMenu">
+        <nav id="barreMenu">
             <?= $this->navigation()->menu()->setPartial('_nav.phtml'); ?>
-        </div>
+        </nav>
 
         <!-- Bandeau défilant de photos -->
         <div id="bandeauDefilant">
@@ -79,7 +79,7 @@ for ($i = 0; $i < count($this->imagesBandeau); $i++) {
 
 
         <!-- Footer -->
-        <div id="footerPage">
+        <footer id="footerPage">
             <img src="/images/silhouette.png" alt="Frisbee dive" id="footerDive" />
             <div id="bandeau2" class="bandeau">
                 <img src="/images/minilogo2B.png" alt="Logo Sesquidistus"/>
@@ -91,7 +91,7 @@ for ($i = 0; $i < count($this->imagesBandeau); $i++) {
                     <a class="white" href="<?php echo $this->url(array('controller' => 'index', 'action' => 'mentions')) ?>">Mentions légales</a>
                 </div>
             </div>
-        </div>
+        </footer>
     </body>
 </html>
 

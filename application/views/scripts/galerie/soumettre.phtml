@@ -5,7 +5,7 @@
         </a>
     </p>
     <div class="box">
-        <div class="titreNews">Soumettre une/des images</div>
+        <h2 class="titreNews">Soumettre une/des images</h2>
         <form action="<?= $this->url(array('controller' => 'galerie', 'action' => 'upload')); ?>" method="post" enctype="multipart/form-data" id="frmPhoto">
             <label for="sltAlbum">Album&nbsp;:</label>
             <select id="sltAlbum" name="sltAlbum">
@@ -25,7 +25,7 @@
     </div>
     <br />
     <div class="box">
-        <div class="titreNews">Soumettre une vidéo</div>
+        <h2 class="titreNews">Soumettre une vidéo</h2>
         <form action="<?= $this->url(array('controller' => 'galerie', 'action' => 'soumettre')) ?>" 
               method="post" enctype="multipart/form-data" id="frmAddVideo">
             <label for="sltAlbumVideo">Album&nbsp;:</label>

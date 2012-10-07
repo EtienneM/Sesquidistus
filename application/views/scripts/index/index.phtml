@@ -5,10 +5,10 @@
         </div>
     <?php endif; ?>
     <?php if (!empty($this->nextTraining)): ?>
-        <div id="nextTraining" class="totalBox">
+        <aside id="nextTraining" class="totalBox">
             <div class="box" style="min-height:150px;">
-                <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette3_mini.gif" />
-                <div class="titreNews">Prochain entraînement</div>
+                <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette3_mini.gif" alt="Ultimateur" />
+                <h2 class="titreNews">Prochain entraînement</h2>
                 <p style="text-align:left;"> 
                 <div style="color:#bc0101; margin-bottom:10px; font-size:11px"><?= $this->escape($this->nextTraining->titre); ?></div>
                 <table>
@@ -27,7 +27,7 @@
                                     echo $this->escape($this->nextTraining->lieu->nom);
                                     ?>
                                     <a title="Google maps" href="<?= $this->url(array('controller' => 'club', 'id' => 5)) ?>/#map<?= $this->nextTraining->lieu->id ?>">
-                                        <img src="/images/loupe.png"/>
+                                        <img src="/images/loupe.png" alt="Voir" />
                                     </a>
                                     <?php
                                 }
@@ -50,13 +50,13 @@
                 </table>
                 </p>
             </div>
-        </div>
+        </aside>
     <?php endif; ?>
     <?php if (!empty($this->nextTournoi)): ?>
-        <div id="nextTournoi" class="totalBox">	
+        <aside id="nextTournoi" class="totalBox">	
             <div class="box" style="min-height:150px;">
-                <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette4.gif" />
-                <div class="titreNews">Prochain tournoi</div>
+                <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette4.gif" alt="Ultimate sky" />
+                <h2 class="titreNews">Prochain tournoi</h2>
                 <p style="text-align:left;"> 
                 <div style="color:#bc0101; margin-bottom:10px; font-size:11px;"><?= $this->escape($this->nextTournoi->titre) ?> </div>
                 <table style="font-size:11px">
@@ -91,12 +91,12 @@
                 </table>
                 </p>
             </div>
-        </div>
+        </aside>
     <?php endif ?>
     <?php if (!empty($this->video)): ?>
-        <div id="newVideo" class="totalBox">
+        <aside id="newVideo" class="totalBox">
             <div class="box">
-                <div class="titreNews">Vidéo du moment</div>
+                <h2 class="titreNews">Vidéo du moment</h2>
                 <a href="#" class="video">
                     <div style="position:relative; width:170px; max-height: 150px; min-height: 120px;">
                         <img style="max-width:170px; max-height: 150px;" src="<?= $this->video->getImage() ?>" alt="<?= $this->video->titre ?>" title="<?= $this->video->titre ?>" />
@@ -117,12 +117,12 @@
                     </div>
                 </a>
             </div>
-        </div>
+        </aside>
         <div id="dialogVideo" style="display:none;"></div>
     <?php endif ?>
-    <div class="totalBox">
+    <aside class="totalBox">
         <div class="box">
-            <div class="titreNews">Retrouvez-nous</div>
+            <h2 class="titreNews">Retrouvez-nous</h2>
             <div style="text-align: center;">
                 <a href="https://www.facebook.com/pages/Sesquidistus-Strasbourg-France/265227373552209">
                     <img src="/images/social/facebook-32.png" style="height: 30px;" alt="Facebook" title="Facebook" />
@@ -132,15 +132,15 @@
                 </a>
             </div>
         </div>
-    </div>
+    </aside>
 </div>
 
-<div id="globalNews">
+<section id="globalNews">
     <!-- Pour chaque actualité -->
     <?php foreach ($this->articles as $article): ?>
         <?= $this->partial('article/_article.phtml', array('article' => $article)); ?>
     <?php endforeach ?>
     <?= $this->paginator; ?>
-</div>
+</section>
 
 <div id="dialog" style="display: none;"></div>

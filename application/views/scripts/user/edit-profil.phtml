@@ -1,7 +1,7 @@
 <div class="totalBox">
     <!-- Div édition du profil -->
     <div class="box">
-        <div class="titreNews">Mon profil</div>
+        <h2 class="titreNews">Mon profil</h2>
         <fieldset>
             <legend>&Eacute;dition du profil&nbsp;: </legend>
             <?php $this->profilForm->setAction($this->url()); ?>
@@ -67,7 +67,7 @@
 
     <!-- Div du changement de mot de passe -->
     <div class="box">
-        <div class="titreNews">Mot de passe</div>
+        <h2 class="titreNews">Mot de passe</h2>
         <fieldset>
             <legend>Changement du mot de passe&nbsp;:</legend>
             <form method="<?= $this->pwdForm->getMethod(); ?>" action="<?= $this->pwdForm->getAction(); ?>" id="editPwd">

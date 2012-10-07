@@ -4,14 +4,14 @@
 
 <div class="totalBox">
     <div  class="box" style="background-color:#EEE">
-        <div class="titreNews">
+        <h1 class="titreNews">
             <?php if ($this->evenement->id === null): ?>
                 Ajout  
             <?php else: ?>
                 Modification 
             <?php endif; ?>
             d'un évènement
-        </div>
+        </h1>
         <form id="formAjout" style="display:inline" method="POST" action="<?= $this->url(array('controller' => 'calendrier', 'action' => 'editer')); ?>">
             <input type="hidden" id="hdnId" name="hdnId" value="<?= $this->evenement->getId(); ?>"/>
             <div id="globCalendar">
@@ -310,7 +310,7 @@
                     <div style="margin-left:0px; width:300px">
                         <div class="totalBox">
                             <div class="box">
-                                <div class="titreNews">Commentaire (facultatif)</div>
+                                <h3 class="titreNews">Commentaire (facultatif)</h3>
                                 <textarea style="font-size:12px;" id="CommentaireEvent" 
                                           name="commentaireEvent" tabindex="4" 
                                           cols="35" rows="8"><?= $this->evenement->getDescription(); ?></textarea>
