@@ -56,7 +56,7 @@
 
 <div class="totalBox">
     <div class="box">
-        <div class="titreNews">
+        <h1 class="titreNews">
             <?= $this->titre; ?>
             <?php if ($this->isAlbum): ?>
                 <div class="fb_button" style="float: right;">
@@ -71,7 +71,7 @@
                     </a>
                 </div>
             <?php endif; ?>
-        </div>
+        </h1>
         <?php if ($this->isAdmin() && $this->adminAlbum): ?>
             <form method="POST" id="frmSupprimer">
             <?php endif; ?>

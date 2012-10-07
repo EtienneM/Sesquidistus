@@ -8,7 +8,7 @@
     ?>
     <!-- div du contenu de la page -->
     <div class="box" id="news">
-        <div class="titreNews"><span><?= $this->escape($this->ultimate->titre); ?></span></div>
+        <h1 class="titreNews"><?= $this->escape($this->ultimate->titre); ?></h1>
         <div class="contenuNews">
             <div><?= $this->ultimate->contenu ?></div>
             <?php if ($this->isAdmin()): ?>

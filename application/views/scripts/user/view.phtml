@@ -1,13 +1,13 @@
 <div class="totalBox">
     <div class="box">
-        <div class="titreNews">
+        <h1 class="titreNews">
             Feuille profil membre
             <?php if ($this->isAdmin()): ?>
                 <a href="<?= $this->url(array('controller' => 'user', 'action' => 'supprimer', 'id' => $this->member->id)); ?>" class="supprimer">
                     <img class="editUser" src="/images/del.png" alt="Supprimer" title="Supprimer"/>
                 </a>
             <?php endif; ?>
-        </div>
+        </h1>
         <fieldset>
             <legend>Profil :</legend>
             <table id="profil">

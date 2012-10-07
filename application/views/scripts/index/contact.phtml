@@ -4,14 +4,14 @@
         <form id="frmContact" method="POST" action="<?= $this->url(array('controller' => 'index', 'action' => 'contact', 'modifier' => true)) ?>">
         <?php endif; ?>
         <div class="box" style="margin-bottom:20px">
-            <div class="titreNews">
+            <h1 class="titreNews">
                 Comment nous contacter&nbsp;?
                 <?php if ($this->isAdmin() && !$this->modifier): ?>
                     <a href="<?= $this->url(array('controller' => 'index', 'action' => 'contact', 'modifier' => true)); ?>">
                         <img class="editContact" src="/images/edit.png">
                     </a>
                 <?php endif; ?>
-            </div>
+            </h1>
             <p>
                 <?php if ($this->modifier): ?>
                     Prénom&nbsp;: <input type="text" value="<?= $contact->prenom ?>" class="required" maxlength="50" id="firstName" name="firstName" /><br/>

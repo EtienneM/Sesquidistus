@@ -7,7 +7,7 @@
     ?>
     <!-- div du contenu de la page -->
     <div class="box" id="news">
-        <div class="titreNews"><span><?= $this->escape($this->club->titre); ?></span></div>
+        <h1 class="titreNews"><?= $this->escape($this->club->titre); ?></h1>
         <?php if ($this->club->id == 3): //Section l'équipe => Trombinoscope ?>
             <?= $this->partial('_trombi.phtml', array('everybody' => $this->everybody, 'nbPerLine' => 4)); ?>
         <?php else: ?>

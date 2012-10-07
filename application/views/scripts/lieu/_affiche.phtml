@@ -1,6 +1,6 @@
 <?php foreach ($this->lieux as $lieu): ?>
     <div class="box map" id="map<?= $lieu->id; ?>">
-        <div class="titreNews"><?= $this->escape($lieu->nom); ?></div>
+        <h2 class="titreNews"><?= $this->escape($lieu->nom); ?></h2>
         <div id="map_canvas<?= $lieu->id; ?>" class="canvas"></div>
         <script type="text/javascript">
             $(document).ready(function() {
