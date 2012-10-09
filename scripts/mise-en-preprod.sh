@@ -8,8 +8,15 @@ if [ $# -ne 1 ]; then
 fi
 USERNAME=$1
 
-cd $HOME/Site/Sesquidistus/reference/Sesquidistus
-git pull
+REFERENCE="$HOME/Site/Sesquidistus/reference/Sesquidistus"
+if [ ! -d $REFERENCE ]; then
+	mkdir -p $REFERENCE
+	cd $REFERENCE && cd ..
+	git clone git@github.com:EtienneM/Sesquidistus.git
+else
+	cd $REFERENCE
+	git pull
+fi
 
 echo "========== Synchronisation ========"
 # -v: verbeux
