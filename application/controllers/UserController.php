@@ -148,17 +148,17 @@ class UserController extends Zend_Controller_Action {
         $everybody = array();
         $profils = $profilMapper->findAncien(false);
         if (count($profils) > 0) {
-            $everybody["Sesqui d'aujourd'hui"] = array();
+            $everybody["Sesquis d'aujourd'hui"] = array();
         }
         foreach ($profils as $profil) {
-            $everybody["Sesqui d'aujourd'hui"][] = $profil;
+            $everybody["Sesquis d'aujourd'hui"][] = $profil;
         }
         $profils = $profilMapper->findAncien();
         if (count($profils) > 0) {
-            $everybody["Sesqui d'hier"] = array();
+            $everybody["Sesquis d'hier"] = array();
         }
         foreach ($profils as $profil) {
-            $everybody["Sesqui d'hier"][] = $profil;
+            $everybody["Sesquis d'hier"][] = $profil;
         }
         $this->view->everybody = $everybody;
     }
