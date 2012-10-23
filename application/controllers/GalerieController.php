@@ -65,6 +65,8 @@ class GalerieController extends Zend_Controller_Action {
             $this->view->titre = 'Album "'.$album->getNom().'"';
             $images = $album->getImages();
             $this->view->album = $album;
+            $albums = $albumMapper->fetchAll();
+            $this->view->albums = $albums;
             $this->view->videos = $album->getVideos();
         }
         $this->view->images = $images;

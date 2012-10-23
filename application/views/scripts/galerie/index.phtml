@@ -1,12 +1,12 @@
 <nav>
-    <?php if ($this->albums === null): ?>
+    <?php if ($this->isAlbum): ?>
         <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index'), null, true) ?>"
            class="bouton1">
             Retour aux albums
         </a>
     <?php endif; ?>
     <?php if ($this->isRole(Application_Model_Acl::ROLE_MEMBRE) || $this->isAdmin()): ?>
-        <?php if ($this->albums !== null): ?>
+        <?php if (!$this->isAlbum): ?>
             <?php if ($this->isAdmin() && $this->adminAlbum): ?>
                 <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'supprimer'), null, true) ?>" 
                    id="lnkSupprimer"
@@ -44,7 +44,7 @@
 
     <?php else: ?>
         <?php if ($this->isAdmin()): ?>
-            <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'administration', 'id' => $this->album->id), null, true) ?>" 
+            <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index', 'id' => $this->album->id, 'admin' => true), null, true) ?>" 
                style="float: right"
                class="bouton1">
                 Administrer cet album
@@ -53,6 +53,25 @@
     <?php endif; ?>
 <?php endif; ?>
 </nav>
+
+<?php if ($this->isAlbum): ?>
+<div style="margin-top:20px;">
+    <div class="box">
+        <h1 class="titreNews">Action pour les photos/vidéos sélectionné&nbsp;:</h1>
+        <a id="lnkDeleteElements" class="bouton1" href="<?= $this->url(array('controller'=>'galerie', 'action'=>''), null, true); ?>" title="Suppression d'éléments">Supprimer</a>
+        <a id="lnkMove" class="bouton1" href="javascript:return false;">Déplacer</a>
+        <div style="display: none; margin-top: 10px;" id="actions">
+            Vers l'album&nbsp;:
+            <select>
+                <?php foreach ($this->albums as $a): ?>
+                    <option value="<?= $a->id ?>"><?= $a->nom ?></option>
+                <?php endforeach; ?>
+            </select>
+            <a id="lnkValidMove" href="<?= $this->url(array('controller'=>'galerie', 'action'=>'move'), null, true); ?>" class="bouton1">Valider</a>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
 
 <section class="totalBox">
     <div class="box">
@@ -82,7 +101,7 @@
                         <tr>
                         <?php endif; ?>
                         <?php
-                        if ($this->albums === null) {
+                        if ($this->isAlbum) {
                             $element = $this->images[$i];
                             $href = $this->images[$i]->getNomWithPath();
                         } else {

@@ -53,4 +53,41 @@ $(document).ready(function() {
             }
         });
     });
+    
+    /*
+     * Suppression de photos et vidéos 
+     */
+    $('a#lnkDeleteElements').click(function() {
+        var lnk = $(this);
+        $('div#dialog').html('<p>Etes vous sûr de vouloir supprimer ces photos/vidéos&nbsp;?</p>')
+        .dialog({
+            height: 'auto',
+            width: 'auto',
+            position: 'center',
+            modal: true,
+            title: $(this).attr('title'),
+            draggable: false,
+            buttons: {
+                'Supprimer': function() {
+                    $(lnk);
+                },
+                'Annuler': function() { 
+                    $('div#dialog').dialog('close');
+                }																
+            }
+        });
+        return false;
+    });
+    
+    /*
+     * Déplacement de photos/vidéos
+     */
+    $('a#lnkMove').click(function() {
+        $('div#actions').show(200);
+        return false;
+    });
+    
+    $('a#lnkValidMove').click(function() {
+        return false;
+    });
 });
