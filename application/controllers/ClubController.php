@@ -70,7 +70,8 @@ class ClubController extends My_Controller_Action_CustomContent {
             $club = new Application_Model_Club(array(
                         'id' => $id,
                         'titre' => $title,
-                        'contenu' => $content));
+                        'contenu' => $content,
+            ));
             $clubMapper->save($club);
             $this->_helper->flashMessenger('Modification du contenu réussi');
         }

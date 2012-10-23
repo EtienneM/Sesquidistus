@@ -18,6 +18,7 @@ class Application_Model_Mapper_Ultimate extends My_Model_Mapper {
             unset($data['id']);
             $this->getDbTable()->insert($data);
         } else {
+            unset($data['titre']);
             $this->getDbTable()->update($data, array('id = ?' => $id));
         }
     }
