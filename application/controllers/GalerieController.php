@@ -159,8 +159,9 @@ class GalerieController extends Zend_Controller_Action {
     public function deplacerAction() {
         $request = $this->getRequest();
         $idAlbum = $request->getParam('idAlbum');
-        $this->_helper->layout->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(true);
+        //For debugging purpose when commenting the redirect instruction
+        //$this->_helper->layout->disableLayout();
+        //$this->_helper->viewRenderer->setNoRender(true);
         if (empty($idAlbum)) {
             $this->_helper->flashMessenger('Impossible de supprimer les éléments sélectionnés. Veuillez contacter le webmaster.');
             $this->_redirect($this->_helper->url('index', 'galerie', null, array()));
