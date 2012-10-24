@@ -62,7 +62,7 @@
         <a id="lnkMove" class="bouton1" href="javascript:return false;">Déplacer</a>
         <div style="display: none; margin-top: 10px;" id="actions">
             Vers l'album&nbsp;:
-            <select>
+            <select id="sltAlbumDestination">
                 <?php foreach ($this->albums as $a): ?>
                     <option value="<?= $a->id ?>"><?= $a->nom ?></option>
                 <?php endforeach; ?>
@@ -95,6 +95,7 @@
             <form method="POST" id="frmModifier">
             <?php if ($this->isAlbum): ?>
                 <input type="hidden" name="idAlbum" value="<?= $this->album->id ?>" />
+                <input type="hidden" name="albumDestination" id="albumDestination" />
             <?php endif; ?>
             <?php endif; ?>
             <table id="albumContainer" class="container">

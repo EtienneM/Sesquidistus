@@ -88,6 +88,8 @@ $(document).ready(function() {
     });
     
     $('a#lnkValidMove').click(function() {
+        $('#albumDestination').val($('#sltAlbumDestination').val());
+        $('form#frmModifier').attr('action', $(this).attr('href')).submit();
         return false;
     });
 });

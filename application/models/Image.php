@@ -130,6 +130,7 @@ class Application_Model_Image extends My_Model {
     }
 
     public function setAlbum(Application_Model_Album $album) {
+        $this->_id_album = $album->id;
         $this->_album = $album;
         return $this;
     }

@@ -122,8 +122,10 @@ class GalerieController extends Zend_Controller_Action {
         $albumMapper = new Application_Model_Mapper_Album();
         $album = new Application_Model_Album();
         $albumMapper->find($idAlbum, $album);
-        if (!is_null($idsImages = $request->getParam('elements', array()))
-                || !is_null($idsVideos = $request->getParam('videos', array()))) {
+        $idsImages = $request->getParam('elements', array());
+        $idsVideos = $request->getParam('videos', array());
+        if (!empty($idsImages)
+                || !empty($idsVideos)) {
             $imageMapper = new Application_Model_Mapper_Image();
             $videoMapper = new Application_Model_Mapper_Video();
             foreach ($idsImages as $id) {
@@ -150,8 +152,70 @@ class GalerieController extends Zend_Controller_Action {
         }
         $this->_redirect($this->_helper->url('index', 'galerie', null, array('id' => $idAlbum, 'admin' => true)));
     }
-    
-    
+
+    /**
+     * Déplacer des vidéos ou des photos dans un nouvel album 
+     */
+    public function deplacerAction() {
+        $request = $this->getRequest();
+        $idAlbum = $request->getParam('idAlbum');
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        if (empty($idAlbum)) {
+            $this->_helper->flashMessenger('Impossible de supprimer les éléments sélectionnés. Veuillez contacter le webmaster.');
+            $this->_redirect($this->_helper->url('index', 'galerie', null, array()));
+        }
+        $albumMapper = new Application_Model_Mapper_Album();
+        $albumSrc = new Application_Model_Album();
+        $albumMapper->find($idAlbum, $albumSrc);
+        $destination = $request->getParam('albumDestination');
+        $idsImages = $request->getParam('elements', array());
+        $idsVideos = $request->getParam('videos', array());
+        if ((!empty($idsImages) || !empty($idsVideos)) && !empty($destination)) {
+            $albumDestination = new Application_Model_Album();
+            $directory = APPLICATION_PATH . '/../public/' . $albumDestination->getPath();
+            if (!is_dir($directory)) {
+                mkdir($directory);
+            }
+            $albumMapper->find($destination, $albumDestination);
+            $imageMapper = new Application_Model_Mapper_Image();
+            foreach ($idsImages as $id) {
+                $image = new Application_Model_Image();
+                $imageMapper->find($id, $image);
+                $image->setAlbum($albumSrc);
+                // Déplacement des fichiers
+                $nom = $image->getNom();
+                if (!empty($nom)) {
+                    $src = APPLICATION_PATH . '/../public/' . $image->getNomWithPath();
+                    $srcMini = APPLICATION_PATH . '/../public/' . $image->getNomWithMiniPath();
+                    $image->setAlbum($albumDestination);
+                    if (file_exists($src)) {
+                        rename($src, APPLICATION_PATH . '/../public/' . $image->getNomWithPath());
+                    }
+                    if (file_exists($srcMini)) {
+                        rename($srcMini, APPLICATION_PATH . '/../public/' . $image->getNomWithMiniPath());
+                    }
+                } else {
+                    $image->setAlbum($albumDestination);
+                }
+                $imageMapper->save($image);
+            }
+            if (!empty($idsImages)) {
+                $this->_helper->flashMessenger('Image(s) déplacée(s) avec succès');
+            }
+            $videoMapper = new Application_Model_Mapper_Video();
+            foreach ($idsVideos as $id) {
+                $video = new Application_Model_Video();
+                $videoMapper->find($id, $video);
+                $video->setAlbum($albumDestination);
+                $videoMapper->save($video);
+            }
+            if (!empty($idsVideos)) {
+                $this->_helper->flashMessenger('Vidéo(s) déplacée(s) avec succès');
+            }
+        }
+        $this->_redirect($this->_helper->url('index', 'galerie', null, array('id' => $idAlbum, 'admin' => true)));
+    }
 
     /**
      * Soumettre une vidéo ou des photos
