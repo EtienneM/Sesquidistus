@@ -28,7 +28,7 @@ $(document).ready(function() {
             draggable: false,
             buttons: {
                 'Supprimer': function() {
-                    $('form#frmSupprimer').attr('action', $(lnk).attr('href')).submit();
+                    $('form#frmModifier').attr('action', $(lnk).attr('href')).submit();
                 },
                 'Annuler': function() { 
                     $('div#dialog').dialog('close');
@@ -69,7 +69,7 @@ $(document).ready(function() {
             draggable: false,
             buttons: {
                 'Supprimer': function() {
-                    $(lnk);
+                    $('form#frmModifier').attr('action', $(lnk).attr('href')).submit();
                 },
                 'Annuler': function() { 
                     $('div#dialog').dialog('close');

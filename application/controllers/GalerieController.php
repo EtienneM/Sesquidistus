@@ -62,7 +62,7 @@ class GalerieController extends Zend_Controller_Action {
             $this->view->isAlbum = true; // True if we display an album
             $album = new Application_Model_Album();
             $albumMapper->find($idAlbum, $album);
-            $this->view->titre = 'Album "'.$album->getNom().'"';
+            $this->view->titre = 'Album "' . $album->getNom() . '"';
             $images = $album->getImages();
             $this->view->album = $album;
             $albums = $albumMapper->fetchAll();
@@ -81,29 +81,77 @@ class GalerieController extends Zend_Controller_Action {
                         'nom' => $nom,
                         'date' => new Zend_Date()));
             $albumMapper->save($album);
-            mkdir(APPLICATION_PATH.'/../public/'.$album->getMiniPath(), $recursive = true);
-            mkdir(APPLICATION_PATH.'/../public/'.$album->getPath(), $recursive = true);
+            mkdir(APPLICATION_PATH . '/../public/' . $album->getMiniPath(), $recursive = true);
+            mkdir(APPLICATION_PATH . '/../public/' . $album->getPath(), $recursive = true);
             $this->_helper->flashMessenger('Album ajouté avec succès');
         }
         $this->_redirect($this->_helper->url('index', 'galerie', null, array('admin' => true)));
     }
 
-    public function supprimerAction() {
+    /**
+     * Suppression d'un album. 
+     */
+    public function supprimeralbumAction() {
         $request = $this->getRequest();
         $albumMapper = new Application_Model_Mapper_Album();
-        if (!is_null($ids = $request->getParam('del'))) {
+        if (!is_null($ids = $request->getParam('elements'))) {
             foreach ($ids as $id) {
                 $album = new Application_Model_Album();
                 $albumMapper->find($id, $album);
                 // Suppression des photos
-                $this->_helper->rmDir(APPLICATION_PATH.'/../public/'.$album->getMiniPath());
-                $this->_helper->rmDir(APPLICATION_PATH.'/../public/'.$album->getPath());
+                $this->_helper->rmDir(APPLICATION_PATH . '/../public/' . $album->getMiniPath());
+                $this->_helper->rmDir(APPLICATION_PATH . '/../public/' . $album->getPath());
+                // TODO: Suppression des photos et vidéos de la BDD
                 $albumMapper->getDbTable()->delete(array('id = ?' => $id));
             }
             $this->_helper->flashMessenger('Album(s) supprimé(s) avec succès');
         }
         $this->_redirect($this->_helper->url('index', 'galerie', null, array('admin' => true)));
     }
+
+    /**
+     * Suppression d'images et/ou de vidéos. 
+     */
+    public function supprimerelementsAction() {
+        $request = $this->getRequest();
+        $idAlbum = $request->getParam('idAlbum');
+        if (empty($idAlbum)) {
+            $this->_helper->flashMessenger('Impossible de supprimer les éléments sélectionnés. Veuillez contacter le webmaster.');
+            $this->_redirect($this->_helper->url('index', 'galerie', null, array()));
+        }
+        $albumMapper = new Application_Model_Mapper_Album();
+        $album = new Application_Model_Album();
+        $albumMapper->find($idAlbum, $album);
+        if (!is_null($idsImages = $request->getParam('elements', array()))
+                || !is_null($idsVideos = $request->getParam('videos', array()))) {
+            $imageMapper = new Application_Model_Mapper_Image();
+            $videoMapper = new Application_Model_Mapper_Video();
+            foreach ($idsImages as $id) {
+                $image = new Application_Model_Image();
+                $imageMapper->find($id, $image);
+                $image->setAlbum($album);
+                // Suppression des photos
+                $nom = $image->getNom();
+                if (!empty($nom)) {
+                    unlink(APPLICATION_PATH . '/../public/' . $image->getNomWithPath());
+                    unlink(APPLICATION_PATH . '/../public/' . $image->getNomWithMiniPath());
+                }
+                $imageMapper->getDbTable()->delete(array('id = ?' => $id));
+            }
+            if (!empty($idsImages)) {
+                $this->_helper->flashMessenger('Image(s) supprimée(s) avec succès');
+            }
+            foreach ($idsVideos as $id) {
+                $videoMapper->getDbTable()->delete(array('id = ?' => $id));
+            }
+            if (!empty($idsVideos)) {
+                $this->_helper->flashMessenger('Vidéo(s) supprimée(s) avec succès');
+            }
+        }
+        $this->_redirect($this->_helper->url('index', 'galerie', null, array('id' => $idAlbum, 'admin' => true)));
+    }
+    
+    
 
     /**
      * Soumettre une vidéo ou des photos
@@ -145,7 +193,7 @@ class GalerieController extends Zend_Controller_Action {
         $albumMapper = new Application_Model_Mapper_Album();
         $album = new Application_Model_Album();
         $albumMapper->find($this->getRequest()->getParam('sltAlbum'), $album);
-        $directory = APPLICATION_PATH.'/../public/'.$album->getPath();
+        $directory = APPLICATION_PATH . '/../public/' . $album->getPath();
         if (!is_dir($directory)) {
             mkdir($directory);
         }
@@ -162,7 +210,7 @@ class GalerieController extends Zend_Controller_Action {
                     ));
             $imageMapper->save($image);
             // ... create the thumbnail
-            $createThumbnail = new My_Controller_Action_CreateThumbnail($directory.'/'.$res['name'], APPLICATION_PATH.'/../public/'.$album->getMiniPath(), 120);
+            $createThumbnail = new My_Controller_Action_CreateThumbnail($directory . '/' . $res['name'], APPLICATION_PATH . '/../public/' . $album->getMiniPath(), 120);
             $createThumbnail->create();
             $this->_helper->flashMessenger('Image ajoutée avec succès');
         }
@@ -189,7 +237,7 @@ class GalerieController extends Zend_Controller_Action {
         if (!is_null($img = $request->getParam('imgToCrop'))) {
             // S'il n'y a pas eu d'erreurs
             if (empty($errorMessages)) {
-                $this->view->imgToCrop = Application_Model_Image::_getBandeauUploadedPath().$img;
+                $this->view->imgToCrop = Application_Model_Image::_getBandeauUploadedPath() . $img;
             }
         } // Une image vient d'être rognée
         else if (!is_null($imgCrop = $request->getParam('imgCrop'))) {
@@ -209,14 +257,14 @@ class GalerieController extends Zend_Controller_Action {
                     ));
             $imageMapper->save($image);
             // Sauvegarde de l'image rogné
-            $img_r = imagecreatefromjpeg(APPLICATION_PATH.'/../public/'.$imgCrop);
+            $img_r = imagecreatefromjpeg(APPLICATION_PATH . '/../public/' . $imgCrop);
             $dst_r = ImageCreateTrueColor($destWidth, $destHeight);
             $x1 = $request->getParam('x1');
             $y1 = $request->getParam('y1');
             imagecopyresampled($dst_r, $img_r, 0, 0, $x1, $y1, $destWidth, $destHeight, $width, $height);
             $jpeg_quality = 90;
-            imagejpeg($dst_r, APPLICATION_PATH.'/../public/'.$image->getNomWithPath(), $jpeg_quality);
-            unlink(APPLICATION_PATH.'/../public/'.Application_Model_Image::_getBandeauUploadedPath().$image->getNom());
+            imagejpeg($dst_r, APPLICATION_PATH . '/../public/' . $image->getNomWithPath(), $jpeg_quality);
+            unlink(APPLICATION_PATH . '/../public/' . Application_Model_Image::_getBandeauUploadedPath() . $image->getNom());
             $this->_helper->flashMessenger('Image ajoutée au bandeau');
         }
         $this->view->errorMessages = $errorMessages;
@@ -232,7 +280,7 @@ class GalerieController extends Zend_Controller_Action {
         if (!is_null($id = $request->getParam('id'))) {
             $image = new Application_Model_Image();
             $imageMapper->find($id, $image);
-            unlink(APPLICATION_PATH.'/../public/'.$image->getNomWithPath());
+            unlink(APPLICATION_PATH . '/../public/' . $image->getNomWithPath());
             $imageMapper->getDbTable()->delete(array('id = ?' => $id));
             $this->_helper->flashMessenger('Image supprimée avec succès');
         }
@@ -250,9 +298,9 @@ class GalerieController extends Zend_Controller_Action {
         $file = $adapter->getFileInfo('imgSrc');
         $filterAccent = new My_Filter_Accent();
         $filename = $filterAccent->filter($file['imgSrc']['name']);
-        $bandeauUploadedAbsolutePath = APPLICATION_PATH.'/../public/'.Application_Model_Image::_getBandeauUploadedPath();
+        $bandeauUploadedAbsolutePath = APPLICATION_PATH . '/../public/' . Application_Model_Image::_getBandeauUploadedPath();
         $adapter->addFilter(new Zend_Filter_File_Rename(array(
-                    'target' => $bandeauUploadedAbsolutePath.$filename,
+                    'target' => $bandeauUploadedAbsolutePath . $filename,
                     'overwrite' => true,
                 )));
         if (!file_exists($bandeauUploadedAbsolutePath)) {

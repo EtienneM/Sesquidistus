@@ -8,7 +8,7 @@
     <?php if ($this->isRole(Application_Model_Acl::ROLE_MEMBRE) || $this->isAdmin()): ?>
         <?php if (!$this->isAlbum): ?>
             <?php if ($this->isAdmin() && $this->adminAlbum): ?>
-                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'supprimer'), null, true) ?>" 
+                <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'supprimeralbum'), null, true) ?>" 
                    id="lnkSupprimer"
                    class="bouton1">
                     Supprimer album(s)
@@ -54,11 +54,11 @@
 <?php endif; ?>
 </nav>
 
-<?php if ($this->isAlbum): ?>
+<?php if ($this->isAdmin() && $this->adminAlbum && $this->isAlbum): ?>
 <div style="margin-top:20px;">
     <div class="box">
         <h1 class="titreNews">Action pour les photos/vidéos sélectionné&nbsp;:</h1>
-        <a id="lnkDeleteElements" class="bouton1" href="<?= $this->url(array('controller'=>'galerie', 'action'=>''), null, true); ?>" title="Suppression d'éléments">Supprimer</a>
+        <a id="lnkDeleteElements" class="bouton1" href="<?= $this->url(array('controller'=>'galerie', 'action'=>'supprimerelements'), null, true); ?>" title="Suppression d'éléments">Supprimer</a>
         <a id="lnkMove" class="bouton1" href="javascript:return false;">Déplacer</a>
         <div style="display: none; margin-top: 10px;" id="actions">
             Vers l'album&nbsp;:
@@ -67,7 +67,7 @@
                     <option value="<?= $a->id ?>"><?= $a->nom ?></option>
                 <?php endforeach; ?>
             </select>
-            <a id="lnkValidMove" href="<?= $this->url(array('controller'=>'galerie', 'action'=>'move'), null, true); ?>" class="bouton1">Valider</a>
+            <a id="lnkValidMove" href="<?= $this->url(array('controller'=>'galerie', 'action'=>'deplacer'), null, true); ?>" class="bouton1">Valider</a>
         </div>
     </div>
 </div>
@@ -92,7 +92,10 @@
             <?php endif; ?>
         </h1>
         <?php if ($this->isAdmin() && $this->adminAlbum): ?>
-            <form method="POST" id="frmSupprimer">
+            <form method="POST" id="frmModifier">
+            <?php if ($this->isAlbum): ?>
+                <input type="hidden" name="idAlbum" value="<?= $this->album->id ?>" />
+            <?php endif; ?>
             <?php endif; ?>
             <table id="albumContainer" class="container">
                 <?php $nbColonne = 4; ?>
@@ -136,7 +139,7 @@
                                                <?= $this->shortText($element->nom, 17); ?>
                                         </a>
                                         <?php if ($this->isAdmin() && $this->adminAlbum): ?>
-                                            <input type="checkbox" value="<?= $element->id; ?>" name="del[]">
+                                            <input type="checkbox" value="<?= $element->id; ?>" name="elements[]">
                                         <?php endif; ?>
                                     </span>
                                 </div>
@@ -177,7 +180,7 @@
                                         <span class="spnNom">
                                             <?= $this->shortText($video->titre, 17); ?>
                                             <?php if ($this->isAdmin() && $this->adminAlbum): ?>
-                                                <input type="checkbox" value="<?= $video->id; ?>" name="delVideo[]">
+                                                <input type="checkbox" value="<?= $video->id; ?>" name="videos[]">
                                             <?php endif; ?>
                                         </span>
                                     </div>
