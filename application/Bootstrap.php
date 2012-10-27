@@ -12,6 +12,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
      */
     protected function _initCache() {
         $cacheDir = APPLICATION_PATH.'/../data/cache/';
+        if (!is_dir($cacheDir)) {
+            mkdir($cacheDir);
+        }
         $aFrontendConf = array(
             'lifetime' => 345600, // 3 jours
             'automatic_serialization' => true,
