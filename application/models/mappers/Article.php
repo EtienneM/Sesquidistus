@@ -57,6 +57,11 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
             $event = new Application_Model_Evenement($row->findParentRow('Application_Model_DbTable_Evenement')->toArray());
             $article->setEvent($event);
         }
+        $authorRow = $row->findParentRow('Application_Model_DbTable_User');
+        if (!empty($authorRow)) {
+            $author = new Application_Model_User($row->findParentRow('Application_Model_DbTable_User')->toArray());
+            $article->setAuthor($author);
+        }
     }
 
     /**
