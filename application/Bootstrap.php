@@ -3,7 +3,7 @@
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     protected function _initHelper() {
-        Zend_Controller_Action_HelperBroker::addPath(APPLICATION_PATH.'/controllers/helpers/My/Helper/', 'My_Helper');
+        Zend_Controller_Action_HelperBroker::addPath(APPLICATION_PATH . '/controllers/helpers/My/Helper/', 'My_Helper');
     }
 
     /**
@@ -11,7 +11,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
      * This is mandatory for the OVH website 
      */
     protected function _initCache() {
-        $cacheDir = APPLICATION_PATH.'/../data/cache/';
+        $cacheDir = APPLICATION_PATH . '/../data/cache/';
         if (!is_dir($cacheDir)) {
             mkdir($cacheDir);
         }
@@ -28,20 +28,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected function _initMeta() {
         $this->bootstrap('view');
         $view = $this->getResource('view');
-        $view->doctype('XHTML1_RDFA');
+        $view->doctype(Zend_View_Helper_Doctype::HTML5);
         $view->headMeta()
                 ->appendName('keywords', 'Ultimate, Frisbee, Strasbourg, SUC, Sesquidistus')
                 ->appendName('description', 'Informations sur les entraînements et les tournois du club d\'Ultimate frisbee de Strasbourg : Les Sesquidistus')
                 ->appendName('robots', 'index,follow')
-                ->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
-                ->appendHttpEquiv('Content-Language', 'fr-FR')
-                ->appendProperty('og:title', 'Sesquidistus')
+                ->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
+        if ($view->doctype()->isRdfa()) {
+            $view->appendProperty('og:title', 'Sesquidistus')
                 ->appendProperty('og:type', 'sport')
                 ->appendProperty('og:image', '/images/minilogo.png')
                 ->appendProperty('og:url', 'http://www.frisbee-strasbourg.net')
-                ->appendProperty('og:locale', 'fr_FR')
-        //->appendProperty('fb:admins', '1018024861')
-        ;
+                ->appendProperty('og:locale', 'fr_FR');
+                //->appendProperty('fb:admins', '1018024861')
+        }
         $view->headTitle('Sesquidistus')->setSeparator(' - ');
     }
 
@@ -88,7 +88,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $this->bootstrap('layout');
         $layout = $this->getResource('layout');
         $view = $layout->getView();
-        $config = new Zend_Config_Xml(APPLICATION_PATH.'/configs/navigation.xml', 'nav');
+        $config = new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav');
         $navigation = new Zend_Navigation($config);
         $view->navigation($navigation);
     }

@@ -162,10 +162,8 @@ div#globalMini{
     background-image:url(/images/headerW.gif);
     background-repeat:repeat-x;
     background-color:#dfdfdf;
-    -moz-border-radius: 5px; /*coins arrondis*/
     -webkit-border-radius: 5px; 
     border-radius: 5px;
-    -moz-box-shadow: 1px 1px 2px #000;  /*ombrage*/
     -webkit-box-shadow: 1px 1px 2px #000;
     box-shadow: 1px 1px 2px #000;
     color:black;
@@ -191,10 +189,8 @@ div#globalMini{
     background-image:url(/images/headerW.gif);
     background-repeat:repeat-x;
     background-color:#dfdfdf;
-    -moz-border-radius: 5px; /*coins arrondis*/
     -webkit-border-radius: 5px; 
     border-radius: 5px;
-    -moz-box-shadow: 1px 1px 2px #000;  /*ombrage*/
     -webkit-box-shadow: 1px 1px 2px #000;
     box-shadow: 1px 1px 2px #000;
     color:black;
@@ -209,10 +205,8 @@ div#globalMini{
     background-image:url(../images/degGal2.jpg);
     background-repeat:repeat-x;
     background-color:#e0e0e0;
-    -moz-border-radius: 5px; /*coins arrondis*/
     -webkit-border-radius: 5px; 
     border-radius: 5px;
-    -moz-box-shadow: 1px 1px 2px #000;  /*ombrage*/
     -webkit-box-shadow: 1px 1px 2px #000;
     box-shadow: 1px 1px 2px #000;
     border:0px;
@@ -226,7 +220,6 @@ div#globalMini{
     background-color:#d4d4d4;
     background-image:url(../images/degGal.jpg);
     opacity:1;
-    -moz-box-shadow: 1px 1px 5px #000;  /*ombrage*/
     -webkit-box-shadow: 1px 1px 5px #000;
     box-shadow: 1px 1px 5px #000;
 }
@@ -240,10 +233,8 @@ div#globalMini{
     background-image:url(../images/headerGreyTransparent.png);
     background-repeat:repeat-x;
     background-color:#c20101;
-    -moz-border-radius: 5px; /*coins arrondis*/
     -webkit-border-radius: 5px; 
     border-radius: 5px;
-    -moz-box-shadow: 1px 1px 2px #000;  /*ombrage*/
     -webkit-box-shadow: 1px 1px 2px #000;
     box-shadow: 1px 1px 2px #000;
     color:white;
@@ -266,10 +257,8 @@ div#globalMini{
     background-repeat:repeat-x;
     background-color:#377ad0;
     color:white;
-    -moz-border-radius: 5px; /*coins arrondis*/
     -webkit-border-radius: 5px; 
     border-radius: 5px;
-    -moz-box-shadow: 1px 1px 2px #000;  /*ombrage*/
     -webkit-box-shadow: 1px 1px 2px #000;
     box-shadow: 1px 1px 2px #000;
     font-weight:bold;
@@ -287,10 +276,8 @@ div#globalMini{
     background-image:url(../images/headerGreyTransparent.png);
     background-repeat:repeat-x;
     background-color:#114281;
-    -moz-border-radius: 5px; /*coins arrondis*/
     -webkit-border-radius: 5px; 
     border-radius: 5px;
-    -moz-box-shadow: 1px 1px 2px #000;  /*ombrage*/
     -webkit-box-shadow: 1px 1px 2px #000;
     box-shadow: 1px 1px 2px #000;
     color:white;
@@ -349,10 +336,8 @@ div.commentBox{
     background-image:url(../images/headerBlue.gif);
     background-repeat:repeat-x;
     background-color:#377ad0;
-    -moz-border-radius: 5px; /*coins arrondis*/
     -webkit-border-radius: 5px; 
     border-radius: 5px;
-    -moz-box-shadow: 1px 1px 4px #000;  /*ombrage*/
     -webkit-box-shadow: 1px 1px 4px #000;
     box-shadow: 1px 1px 4px #000;
     cursor:pointer;
@@ -366,10 +351,8 @@ div.commentBox{
     background-color:white;
     padding:5px 10px 10px 10px;
     text-align:left;
-    -moz-border-radius: 5px; /*coins arrondis*/
     -webkit-border-radius: 5px; 
     border-radius: 5px;
-    -moz-box-shadow: 1px 1px 4px #000;  /*ombrage*/
     -webkit-box-shadow: 1px 1px 4px #000;
     box-shadow: 1px 1px 4px #000;
     behavior: url(fix_ie/PIE.htc);
@@ -402,13 +385,13 @@ div#bandeauDefilant {
     width:900px;
     height:200px;
     margin:10px auto 10px auto;
-    -moz-box-shadow: 1px 1px 4px #000;  /*ombrage*/
     -webkit-box-shadow: 1px 1px 4px #000;
     box-shadow: 1px 1px 4px #000;
     border-style:solid;
     border-width:4px;
     border-color:white;
     behavior: url(fix_ie/PIE.htc);
+    z-index: 1; /* To be over the left and rigth ad */
 }
 
 div#bandeauDefilant a {

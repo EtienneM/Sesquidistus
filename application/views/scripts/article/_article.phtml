@@ -12,11 +12,11 @@
                 </a>
             <?php endif; ?>
         </h2>
-        <div itemprop="text" itemprop="articleBody"><?php echo $article->contenu ?></div>
+        <div itemprop="articleBody"><?php echo $article->contenu ?></div>
         <div style="margin-top:30px; margin-bottom: 7px;">
             <?php
             if ($article->author !== null) {
-                $author = 'par <span itemprop="name" itemprop="author">'.$article->author->login.'</span>';
+                $author = 'par <span itemprop="author">'.$article->author->login.'</span>';
             } else {
                 $author = '';
             }

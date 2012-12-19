@@ -1,12 +1,10 @@
 .ui-widget-overlay { position: absolute; background-color:black; opacity: 0.65; filter:Alpha(Opacity=65); top: 0; left: 0; width: 100%; height: 100%; }
-.ui-widget-shadow { margin: -5px 0 0 -5px; padding: 5px; background:black 50% 50% repeat-x; opacity: .20;filter:Alpha(Opacity=20); -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
+.ui-widget-shadow { margin: -5px 0 0 -5px; padding: 5px; background:black 50% 50% repeat-x; opacity: .20;filter:Alpha(Opacity=20); -webkit-border-radius: 5px; border-radius: 5px; }
 .ui-dialog {
  position: absolute; 
 background-color:white; padding: .2em; width: 300px; overflow: hidden;
--moz-border-radius: 5px; /*coins arrondis*/
 -webkit-border-radius: 5px; 
 border-radius: 5px;
--moz-box-shadow: 1px 1px 4px #000;  /*ombrage*/
 -webkit-box-shadow: 1px 1px 4px #000;
 box-shadow: 1px 1px 4px #000; 
  }
@@ -23,7 +21,6 @@ position: absolute; text-align:center; right: .3em; top: 5px;
 }
 .ui-dialog .ui-dialog-titlebar-close span { 
 background-color: black; margin:0px; padding:0px 3px 1px 3px; color:white; font-size:11px;
--moz-border-radius: 3px; /*coins arrondis*/
 -webkit-border-radius: 3px; 
 border-radius: 3px;
 }
@@ -34,13 +31,11 @@ border-radius: 3px;
 font-size:11px;
 padding:1px 3px;
 margin-left:10px;
-background-image: url(../images/headerBlue.gif);
+background-image: url(/images/headerBlue.gif);
 background-repeat: repeat-x;
 background-color: #377ad0;
--moz-border-radius: 5px; /*coins arrondis*/
 -webkit-border-radius: 5px; 
 border-radius: 5px;
--moz-box-shadow: 1px 1px 2px #000;  /*ombrage*/
 -webkit-box-shadow: 1px 1px 2px #000;
 box-shadow: 1px 1px 2px #000;
 color:white;
