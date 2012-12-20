@@ -8,7 +8,7 @@ if [ $# -ne 1 ]; then
 fi
 USERNAME=$1
 
-REFERENCE="$HOME/Site/Sesquidistus/reference/Sesquidistus"
+REFERENCE="$HOME/Sites/Sesquidistus/reference/Sesquidistus"
 if [ ! -d $REFERENCE ]; then
 	mkdir -p $REFERENCE
 	cd $REFERENCE && cd ..
