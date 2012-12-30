@@ -44,8 +44,8 @@
         </galerie>
         <kym>
             <label>KYM</label>
-            <controller>evenements</controller>
-            <action>kym</action>
+            <controller>kym</controller>
+            <action>index</action>
             <title>Keep Your Mustache</title>
         </kym>
         <evenement>

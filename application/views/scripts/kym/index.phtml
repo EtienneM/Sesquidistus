@@ -1,0 +1,83 @@
+<?php /*
+  <div id="globalMini">
+  <aside id="dates" class="totalBox">
+  <div class="box" style="min-height:150px;">
+  <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette4.gif" alt="Dive" />
+  <h2 class="titreNews">Dates du KYM '13</h2>
+  <div style="text-align:left;">
+  <div style="margin-bottom:10px; font-size:11px; text-align: justify;">
+  Le prochain Keep Your Moustache aura lieu au mois de juin 2013.
+  Les dates arriveront prochainement!!
+  </div>
+  </div>
+  </div>
+  </aside>
+  <?php if (!empty($this->album)): ?>
+  <aside id="galerie" class="totalBox">
+  <div class="box" style="min-height:150px;">
+  <h2 class="titreNews">Photos & vidéos</h2>
+  <div style="position:relative;">
+  <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index', 'kym' => true)) ?>">
+  <img style="width:170px;" src="<?= $this->album->getFirstImage()->getNomWithMiniPath() ?>" alt="Photos & vidéos du KYM" title="Photos & vidéos du KYM" />
+  </a>
+  </div>
+  </div>
+  </aside>
+  <?php endif; ?>
+  </div>
+ * 
+ */ ?>
+
+<div id="globalContent">
+    <!-- div du menu -->
+    <nav>
+        <?=
+        $this->partial('_sidebar.phtml', array('sections' => $this->sections,
+            'id' => $this->kym->id,
+            'controller' => $this->controller))
+        ?>
+    </nav>
+    <!-- div du contenu de la page -->
+    <?php 
+    $class = '';
+    if ($this->kym->id != 1){
+        $class = 'box';
+    } ?>
+    <section id="news" class="<?= $class ?>">
+        <?php if ($this->kym->id == 1): //Section Nouvelles ?>
+            <?php if (count($this->articles) > 0): ?>
+                <?php foreach ($this->articles as $article): ?>
+                    <?= $this->partial('article/_article.phtml', array('article' => $article)); ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="totalBox">
+                    <div class="box">
+                        <h2 class="titreNews">Aucun article à propos du KYM...</h2>
+                        <div style="text-align: justify;">
+                            Aucun article à propos du Keep Your Moustache pour le moment. 
+                            Mais il y en aura probablement bientôt des nouveaux.
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+        <?php else: ?>
+            <h1 class="titreNews"><?= $this->escape($this->kym->titre); ?></h1>
+            <div class="contenuNews">
+                <div><?= $this->kym->contenu ?></div>
+                <?php if ($this->isAdmin()): ?>
+                    <form method="POST" id="frmContent" action="<?= $this->url(array('controller' => 'kym', 'action' => 'modifier')); ?>">
+                        <textarea id="content" name="content"><?= $this->kym->contenu ?></textarea>
+                        <input type="hidden" id="title" name="title"/>
+                        <input type="submit" value="Valider le contenu" class="bouton1" />
+                    </form>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+        <?= $this->paginator; ?>
+    </section>
+    <?php if ($this->kym->id != 1 && $this->isAdmin()): ?>
+        <div id="modifContent">
+            <input class="bouton1" type="button" value="Modifier le contenu" />
+        </div>
+    <?php endif; ?>
+</div>
