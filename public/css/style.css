@@ -502,3 +502,37 @@ input.error {
 .error {
     color:red;
 }
+
+/*
+ * Pour les publicités à afficher à gauche et droite du contenu central
+ */
+#leftHeadBand {
+    position:absolute; 
+    float:left; 
+    top:125px; 
+    width: 200px; 
+    text-align:center;
+}
+
+#leftHeadBand img {
+    width: 150px; 
+    min-width: 150px; 
+    max-width: 250px; 
+    z-index: 0;
+}
+
+#rightHeadBand {
+    position: absolute; 
+    float:right; 
+    right: 0; 
+    top:125px; 
+    width: 200px; 
+    text-align:center;
+}
+
+#rightHeadBand img {
+    width: 150px; 
+    min-width: 150px; 
+    max-width: 250px; 
+    z-index: 0;
+}
