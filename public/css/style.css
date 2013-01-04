@@ -83,6 +83,7 @@ div#globalBox{
     position:relative;
     width:800px;
     margin:30px auto 100px auto;
+    z-index: 10;
 }
 
 nav#barreMenu {
@@ -506,33 +507,25 @@ input.error {
 /*
  * Pour les publicités à afficher à gauche et droite du contenu central
  */
-#leftHeadBand {
-    position:absolute; 
-    float:left; 
+#leftHeadBand, #rightHeadBand {
+    position:absolute;
+    z-index: 0;
     top:125px; 
     width: 200px; 
-    text-align:center;
+    text-align: center;
 }
 
-#leftHeadBand img {
-    width: 150px; 
-    min-width: 150px; 
-    max-width: 250px; 
-    z-index: 0;
+#leftHeadBand {
+    float:left; 
 }
 
 #rightHeadBand {
-    position: absolute; 
     float:right; 
     right: 0; 
-    top:125px; 
-    width: 200px; 
-    text-align:center;
 }
 
-#rightHeadBand img {
+#rightHeadBand img, #leftHeadBand img {
     width: 150px; 
     min-width: 150px; 
     max-width: 250px; 
-    z-index: 0;
 }
