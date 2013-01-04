@@ -13,6 +13,7 @@ if [ ! -d $REFERENCE ]; then
 	mkdir -p $REFERENCE
 	cd $REFERENCE && cd ..
 	git clone git@github.com:EtienneM/Sesquidistus.git
+	cd $REFERENCE
 else
 	cd $REFERENCE
 	git pull
