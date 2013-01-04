@@ -9,14 +9,14 @@ $(document).ready(function() {
         language : 'fr',
         content_css : '/css/article.css,/css/style.css',
             
-        plugins : 'table,fullscreen,preview,inlinepopups',
+        plugins : 'table,fullscreen,preview,inlinepopups,media',
         theme_advanced_toolbar_location : 'top',
         theme_advanced_toolbar_align : 'left',
         theme_advanced_statusbar_location : 'bottom',
         theme_advanced_resizing : true,
         theme_advanced_path : false,
         theme_advanced_buttons1 : 'bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,formatselect,fontselect,fontsizeselect',
-        theme_advanced_buttons2 : 'cut,copy,paste,|,bullist,numlist,|,outdent,indent,|,undo,redo,|,link,unlink,image,|,forecolor,backcolor',
+        theme_advanced_buttons2 : 'cut,copy,paste,|,bullist,numlist,|,outdent,indent,|,undo,redo,|,link,unlink,image,media,|,forecolor,backcolor',
         theme_advanced_buttons3 : 'tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,|,fullscreen,|preview',
         theme_advanced_buttons4 : ''
     }); 
