@@ -72,6 +72,12 @@
                     </form>
                 <?php endif; ?>
             </div>
+            <?php if ($this->kym->id == 2): // Infos pratiques ?>
+                <?= $this->partial('lieu/_affiche.phtml', array('lieux' => array($this->lieu))); ?>
+                <?php if ($this->isAdmin()){
+                    echo $this->partial('lieu/_action.phtml', array('lieux' => array($this->lieu)));
+                } ?>
+            <?php endif; ?>
         <?php endif; ?>
         <?= $this->paginator; ?>
     </section>

@@ -57,7 +57,7 @@ class ClubController extends My_Controller_Action_CustomContent {
                     ->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js')
                     ->appendFile('/js/lieux_admin.js');
             $lieuxMapper = new Application_Model_Mapper_LieuUltimate();
-            $this->view->lieux = $lieuxMapper->fetchAll();
+            $this->view->lieux = $lieuxMapper->fetchEntrainements();
         }
     }
 

@@ -40,6 +40,50 @@ class Application_Model_Mapper_LieuUltimate extends My_Model_Mapper {
         }
         return $entries;
     }
+    
+    /**
+     * Récupère tous les lieux d'entraînement
+     * 
+     * @return \Application_Model_LieuUltimate
+     */
+    public function fetchEntrainements() {
+        $table = $this->getDbTable();
+        $select = $table->select()
+                ->distinct()
+                ->from(array('e' => 'evenement'), array())
+                ->join(array('l'=>'lieu_ultimate'), 'e.id_lieu = l.id')
+                ->where('e.type = 1');
+        $entries = array();
+        foreach ($table->fetchAll($select) as $row) {
+            $entry = new Application_Model_LieuUltimate($row->toArray());
+            $entries[] = $entry;
+        }
+        return $entries;
+    }
+    
+    
+    /**
+     * Retourne le lieu du KYM le plus récent
+     * @return \Application_Model_LieuUltimate
+     */
+    public function fetchKYM() {
+        $table = $this->getDbTable();
+        $select = $table->select()
+                ->distinct()
+                ->from(array('e' => 'evenement'), array())
+                ->join(array('l'=>'lieu_ultimate'), 'e.id_lieu = l.id')
+                ->where('e.type = 5')
+                ->order('e.date DESC');
+        foreach (Application_Model_Evenement::$KYM_OCCURENCES as $occurence) {
+            $select->orWhere('e.titre LIKE ?', "%$occurence%");
+        }
+        $entries = array();
+        foreach ($table->fetchAll($select) as $row) {
+            $entry = new Application_Model_LieuUltimate($row->toArray());
+            $entries[] = $entry;
+        }
+        return $entries[0];
+    }
 
 }
 

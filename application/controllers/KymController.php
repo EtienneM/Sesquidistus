@@ -31,7 +31,7 @@ class KymController extends My_Controller_Action_CustomContent {
         }
 
         switch ($id) {
-            case 1:
+            case 1: // Nouvelles
                 $page = $request->getParam('page', 1);
                 Zend_View_Helper_PaginationControl::setDefaultViewPartial('_controls.phtml');
                 Zend_Paginator::setDefaultScrollingStyle('Sliding');
@@ -50,6 +50,14 @@ class KymController extends My_Controller_Action_CustomContent {
                         }
                     }
                 }
+                break;
+            case 2: // Infos pratiques
+                $this->view->headScript()
+                        ->appendFile('http://maps.google.com/maps/api/js?sensor=false')
+                        ->appendFile('/js/jquery/gmap3.min.js')
+                        ->appendFile('/js/lieux_admin.js');
+                $lieuxMapper = new Application_Model_Mapper_LieuUltimate();
+                $this->view->lieu = $lieuxMapper->fetchKYM();
                 break;
             default:
         }

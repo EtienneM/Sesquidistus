@@ -27,6 +27,9 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
             'id_member' => $article->getId_member(),
             'update' => $article->getUpdate()->get(Zend_Date::ISO_8601),
         );
+        if (empty($data['id_event'])) {
+            unset($data['id_event']);
+        }
         if (null === ($id = $article->getId())) {
             unset($data['id']);
             $this->getDbTable()->insert($data);

@@ -1,5 +1,5 @@
 <div id="accordionLieu">
-    <h4 class="header titreSaison">Gestion des lieux d'entraînement</h4>
+    <h4 class="header titreSaison">Gestion des lieux</h4>
     <div class="box2">
         <div style="float:right">
             <a href="/doc/doc_lieu_entrainement/doc_admin_lieu.html">
@@ -12,9 +12,9 @@
                     <option value="<?= $lieu->id; ?>"><?= $lieu->nom ?></option>;
                 <?php endforeach; ?>
             </select>
-            <a href="<?= $this->url(array('controller' => 'lieu', 'action' => 'modifier')) ?>" class="bouton1 modifier" id="boutonModif" title="Modifier le lieu d'entrainement">#</a>
+            <a href="<?= $this->url(array('controller' => 'lieu', 'action' => 'modifier')) ?>" class="bouton1 modifier" id="boutonModif" title="Modifier le lieu">#</a>
             <a href="<?= $this->url(array('controller' => 'lieu', 'action' => 'supprimer')) ?>" class="bouton1" id="boutonSuppr" title="Supprimer le lieu">X</a>
-            <a href="<?= $this->url(array('controller' => 'lieu', 'action' => 'modifier')) ?>" class="bouton1 modifier" id="boutonAdd" title="Ajouter un lieu d'entrainement">+</a>
+            <a href="<?= $this->url(array('controller' => 'lieu', 'action' => 'modifier')) ?>" class="bouton1 modifier" id="boutonAdd" title="Ajouter un lieu">+</a>
         </form>
     </div>
 </div>
