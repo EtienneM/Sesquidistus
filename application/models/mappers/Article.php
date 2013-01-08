@@ -129,7 +129,7 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
     public function findKym($page = 1, Zend_Paginator &$paginator = null) {
         $dbAdapter = Zend_Db_Table::getDefaultAdapter();
         $select = $dbAdapter->select()->from(array('a' => 'article'), array('id', 'titre', 'contenu', 'date', 'id_member'))
-                        ->join(array('e' => 'evenement'), 'a.id_event = e.id', array())
+                        ->joinLeft(array('e' => 'evenement'), 'a.id_event = e.id', array())
                         ->order('a.date DESC')->order('a.id DESC');
         foreach (Application_Model_Evenement::$KYM_OCCURENCES as $occurence) {
             $select->orWhere('a.titre LIKE ?', "%$occurence%")
