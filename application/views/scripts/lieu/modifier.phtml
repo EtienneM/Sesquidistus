@@ -1,11 +1,11 @@
 <form id="formModifLieu" method="post" action="<?= $this->url(array('controller' => 'lieu', 'action' => 'modifier')); ?>">
     <div class="bouton2 dataForm" style="margin:10px; width:90%">
-        <span style="font-size:12px;  padding:0 10px 0 3px">Nom:</span>
-        <br/><br/><input type="text" style="width:90%" name="nom" value="<?= $this->lieu->nom ?>" class="required" />
+        <span style="font-size:12px;  padding:0 10px 0 3px">Nom:</span><br/><br/>
+        <input type="text" style="width:90%" name="nom" value="<?= $this->lieu->nom ?>" class="required" />
     </div>
     <div class="bouton2 dataForm" style="margin:10px; width:90%">
-        <span style="font-size:12px;  padding:0 10px 0 3px">Adresse:</span>
-        <br/><br/><input type="text" style="width:90%" name="adresse" value="<?= $this->lieu->adresse ?>" class="required" />
+        <span style="font-size:12px;  padding:0 10px 0 3px">Adresse:</span><br/><br/>
+        <input type="text" style="width:90%" name="adresse" value="<?= $this->lieu->adresse ?>" class="required" />
     </div>
     <input type="hidden" name="idLieu" value="<?= $this->lieu->id ?>"/>
 </form>

@@ -6,7 +6,7 @@
                 <img src="/images/help.png" alt="help" title="aide en ligne" />
             </a>
         </div>
-        <form id="formLieu" method="POST" action="./modules/club/action_lieu.php">
+        <form id="formLieu" method="POST">
             <select id="listeLieu" name="id_lieu">
                 <?php foreach ($this->lieux as $lieu): ?>
                     <option value="<?= $lieu->id; ?>"><?= $lieu->nom ?></option>;

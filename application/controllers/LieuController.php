@@ -30,7 +30,7 @@ class LieuController extends Zend_Controller_Action {
             ));
             $lieuMapper->save($lieu);
             $this->_helper->flashMessenger('Modification du lieu réussi');
-            $this->_redirect('/club/index/id/5');
+            $this->_redirect('/');
         }
         $lieuMapper->find($id, $lieu);
         $this->view->lieu = $lieu;

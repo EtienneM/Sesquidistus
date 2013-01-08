@@ -8,8 +8,10 @@ $(document).ready(function() {
     $('div#dialog').html('<img src="/images/ajax-loader.gif" alt="Loading..." />');
     $('.modifier').click(function() {
         var data = {};
-        if ($(this).attr('id') == 'boutonModif') {
-            data = {idLieu: $('select#listeLieu').val()}
+        if ($(this).attr('id') === 'boutonModif') {
+            data = {
+                idLieu: $('select#listeLieu').val()
+            };
         }
         $('div#dialog').html('<img src="/images/ajax-loader.gif" alt="Loading..." />')
         .load($(this).attr('href'), data, function() {
@@ -21,7 +23,7 @@ $(document).ready(function() {
             modal: true,
             title: $(this).attr('title'),
             draggable: false,
-            buttons:{
+            buttons: {
                 'Confirmer': function() { 
                     $("#formModifLieu").submit();
                 },
