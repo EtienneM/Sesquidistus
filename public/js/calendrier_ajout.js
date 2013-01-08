@@ -4,8 +4,8 @@ $(document).ready(function() {
      */
     $('select#listeEvent').bind('change click keypress', function(){
         // If the selection has changed
-        if( $(this).data('selection') != $('option:selected', this).val() ) {
-            if ($.inArray($('option:selected', this).val(), ['1', '4', '5', '11']) != -1) {
+        if( $(this).data('selection') !== $('option:selected', this).val() ) {
+            if ($.inArray($('option:selected', this).val(), ['1', '4', '5', '11']) !== -1) {
                 $('#supprType').css('display', 'none');
             } else {
                 $('#supprType').css('display', 'inline');
@@ -58,8 +58,8 @@ $(document).ready(function() {
      */
     $('select#id_lieuEvent').bind('change click keypress', function(){
         // If the selection has changed
-        if( $(this).data('selection') != $('option:selected', this).val() ) {
-            if ($('option:selected', this).val() == 0) {
+        if( $(this).data('selection') !== $('option:selected', this).val() ) {
+            if ($('option:selected', this).val() === 0) {
                 $('input#text_lieuEvent').removeAttr('disabled');
             } else {
                 $('input#text_lieuEvent').attr('disabled', 'disabled');
@@ -81,6 +81,20 @@ $(document).ready(function() {
     }).change();
     
     /*
+     * Sélection manuel ou via le calendrier de la date
+     */
+    $('input[name="rdDate[]"]:radio').change(function(){
+        if ($('#rdCalendar').prop('checked')) {
+            $('#calendarDatepicker').css('display', 'block');
+            $('#inputDatepicker').css('display', 'none');
+        } else {
+            $('#calendarDatepicker').css('display', 'none');
+            $('#inputDatepicker').css('display', 'block');
+        }
+    });
+    $('#rdCalendar').change();
+    
+    /*
      * Clique sur une case du calendrier
      */
     $('td.calendar').each(function() {
@@ -96,7 +110,7 @@ $(document).ready(function() {
             var dates = $('input#hdnDates').val().split(',');
             $('input#hdnDates').val('');
             for (var i = 0; i < dates.length; i++) {
-                if (dates[i] != '' && dates[i] != $(this).attr('title')) {
+                if (dates[i] !== '' && dates[i] !== $(this).attr('title')) {
                     $('input#hdnDates').val(dates[i]+','+$('input#hdnDates').val());
                 }
             }
@@ -121,7 +135,13 @@ $(document).ready(function() {
      */
     $('form#formAjout').validate();
     $('form#formAjout').submit(function() {
-        if ($('input#hdnDates').val() == '') {
+        if ($('#rdCalendar').prop('checked')) {
+            $('input#txtDates').remove();
+        } else {
+            $('input#hdnDates').remove();
+            $('input#txtDates').prop('value', $('input#txtDates').prop('value')+',');
+        }
+        if ( ($('input#hdnDates').val() === '') && ($('input#txtDates').val() === '')) {
             $('span#errorDatepicker').css('display', 'inline');
             return false;
         }

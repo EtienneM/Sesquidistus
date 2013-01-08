@@ -118,7 +118,7 @@ class CalendrierController extends Zend_Controller_Action {
              */
             $id = $request->getParam('hdnId');
             $nom = $request->getParam('nomEvent');
-            $dates = explode(',', $request->getParam('hdnDates'));
+            $dates = explode(',', $request->getParam('hdnDates', $request->getParam('txtDates')));
             if (!empty($nom) && !empty($dates)) {
                 if (!$request->getParam('boolHoraire')) {
                     $minuteDebut = ($request->getParam('debutEventMinute') == 0) ? '00' : $request->getParam('debutEventMinute');

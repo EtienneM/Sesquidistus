@@ -201,18 +201,16 @@
                 ?>
                 <div style="text-align:left; margin:20px 0px 30px 0px">
                     <div style="font-size:12px; font-weight:bold; margin-left:4px">
-                        Sélectionnez la date de début de l'évènement à ajouter&nbsp;: <br />
-                        <span style="font-style:italic; font-size:11px; font-weight:normal">
-                            (Vous pouvez sélectionner plusieurs dates afin d'enregistrer plusieurs fois le même évènement à des dates différentes)
-                        </span>
+                        <p>Sélectionnez la date de début de l'évènement à ajouter&nbsp;:</p>
+                        <input type="radio" id="rdManuel" name="rdDate[]" /><label for="rdManuel">Sélection manuel</label><br />
+                        <input type="radio" id="rdCalendar" name="rdDate[]" checked="checked" /><label for="rdCalendar">Sélection calendrier</label>
                     </div>
                 </div>
-                <?php /*
-                  <div style="text-align:center">
-                  <span style="font-size:10px" id="prevDate" class="bouton1">&lt;&lt; Mois précédents</span>
-                  <span style="margin-left:70px; font-size:10px" id="nextDate" class="bouton1">Mois suivants &gt;&gt;</span>
-                  </div> */ ?>
-                <div id="datepicker">
+                <div id="calendarDatepicker">
+                    <p style="font-style:italic; font-size:11px; font-weight:normal">
+                            (Vous pouvez sélectionner plusieurs dates afin d'enregistrer plusieurs fois le même évènement à des dates différentes)
+                    </p>
+                    <div id="datepicker">
                     <span id="errorDatepicker" class="error" style="display:none">Sélectionner au moins une date</span>
                     <?php
                     $displayedMonth = new Zend_Date();
@@ -299,8 +297,17 @@
                         </div>
                         <?php $displayedMonth->addMonth(1); ?>
                     <?php endfor; ?>
+                    <input type="hidden" id="hdnDates" name="hdnDates" class="" />
+                    </div>
                 </div>
-                <input type="hidden" id="hdnDates" name="hdnDates" class="required" />
+                <div id="inputDatepicker">
+                    <p style="font-style:italic; font-size:11px; font-weight:normal">
+                        Entrez la date de l'évènement au format jj/mm/aaaa (p.ex. 01/10/2013)
+                    </p>
+                    <div class="calendar" style="margin-bottom: 20px; position: static;">
+                        <input type="text" id="txtDates" name="txtDates" class="date" />
+                    </div>
+                </div>
                 <?php
                 /*
                  * Commentaire
