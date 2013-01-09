@@ -1,4 +1,4 @@
-<?php foreach ($this->lieux as $lieu): ?>
+<?php if (!empty($this->lieux)) foreach ($this->lieux as $lieu): ?>
     <div class="box map" id="map<?= $lieu->id; ?>" itemscope itemtype="http://schema.org/Place">
         <h2 class="titreNews"><?= $this->escape($lieu->nom); ?></h2>
         <div id="map_canvas<?= $lieu->id; ?>" class="canvas" itemprop="map"></div>

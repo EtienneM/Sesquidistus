@@ -57,7 +57,12 @@ class KymController extends My_Controller_Action_CustomContent {
                         ->appendFile('/js/jquery/gmap3.min.js')
                         ->appendFile('/js/lieux_admin.js');
                 $lieuxMapper = new Application_Model_Mapper_LieuUltimate();
-                $this->view->lieu = $lieuxMapper->fetchKYM();
+                $lieu = $lieuxMapper->fetchKYM();
+                if (empty($lieu)) {
+                    $this->view->lieu = array();
+                } else {
+                    $this->view->lieu = array($lieu);
+                }
                 break;
             default:
         }

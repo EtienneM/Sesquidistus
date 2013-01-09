@@ -74,15 +74,23 @@ class Application_Model_Mapper_LieuUltimate extends My_Model_Mapper {
                 ->join(array('l'=>'lieu_ultimate'), 'e.id_lieu = l.id')
                 ->where('e.type = 5')
                 ->order('e.date DESC');
+        $where = '';
         foreach (Application_Model_Evenement::$KYM_OCCURENCES as $occurence) {
-            $select->orWhere('e.titre LIKE ?', "%$occurence%");
+            if (!empty($where)) {
+                $where .= ' OR ';
+            }
+            $where .= "e.titre LIKE '%$occurence%'";
         }
+        $select->where($where);
         $entries = array();
         foreach ($table->fetchAll($select) as $row) {
             $entry = new Application_Model_LieuUltimate($row->toArray());
             $entries[] = $entry;
         }
-        return $entries[0];
+        if (isset($entries[0])) {
+            return $entries[0];
+        }
+        return null;
     }
 
 }
