@@ -1,3 +1,4 @@
+<?php if (!isset($this->admin)) $this->admin = true; ?>
 <div id="Menu" class="box">
     <h3 class="titreNews">Sections</h3>
     <?php foreach ($this->sections as $section): ?>
@@ -8,7 +9,7 @@
             </div>
         </a>
     <?php endforeach; ?>
-    <?php if ($this->isAdmin()): ?>
+    <?php if ($this->admin && $this->isAdmin()): ?>
         <span class="bouton1 actionContent" id="ajoutCat" title="Ajouter une catégorie">+</span>
         <span class="bouton1 actionContent" id="supprCat" title="Supprimer une catégorie">-</span>
         <a class="doc" href="/doc/doc_club_ultimate/doc_admin_club_ultimate.html" target="_blank">

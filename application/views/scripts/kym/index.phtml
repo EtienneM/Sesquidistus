@@ -1,17 +1,4 @@
-<?php /*
-  <div id="globalMini">
-  <aside id="dates" class="totalBox">
-  <div class="box" style="min-height:150px;">
-  <img style="position:absolute; right:2px; bottom:1px" src="/images/silhouette4.gif" alt="Dive" />
-  <h2 class="titreNews">Dates du KYM '13</h2>
-  <div style="text-align:left;">
-  <div style="margin-bottom:10px; font-size:11px; text-align: justify;">
-  Le prochain Keep Your Moustache aura lieu au mois de juin 2013.
-  Les dates arriveront prochainement!!
-  </div>
-  </div>
-  </div>
-  </aside>
+  <?php /*
   <?php if (!empty($this->album)): ?>
   <aside id="galerie" class="totalBox">
   <div class="box" style="min-height:150px;">
@@ -27,16 +14,27 @@
   </div>
  * 
  */ ?>
-
 <div id="globalContent">
     <!-- div du menu -->
     <nav>
         <?=
         $this->partial('_sidebar.phtml', array('sections' => $this->sections,
             'id' => $this->kym->id,
-            'controller' => $this->controller))
+            'controller' => $this->controller,
+            'admin' => false))
         ?>
     </nav>
+    <aside class="totalBox">
+        <div id="blocComplementaire" class="box">
+            <h3 class="titreNews">Retrouvez le KYM</h3>
+            <a href="http://ffindr.com/fr/event/keep-your-mustache-13" alt="FFindr.com">
+                <img alt="Sur FFindr" src="/images/social/ffindr-flags.png" title="Sur FFindr" />
+            </a>
+            <a href="https://www.facebook.com/pages/Sesquidistus-Strasbourg-France/265227373552209" alt="Facebook.com">
+                <img src="/images/social/facebook-logo.jpg" alt="Sur Facebook" title="Sur Facebook" />
+            </a>
+        </div>
+    </aside>
     <!-- div du contenu de la page -->
     <?php 
     $class = '';
