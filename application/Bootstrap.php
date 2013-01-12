@@ -112,6 +112,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         foreach ($imageMapper->fetchBandeau() as $image) {
             $view->imagesBandeau[] = $image->getNomWithPath();
         }
+        $view->ad = '/images/anniversaire/bandeau.png';
     }
 
     protected function _initFooter() {

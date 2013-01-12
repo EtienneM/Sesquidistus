@@ -17,6 +17,7 @@ class KymController extends My_Controller_Action_CustomContent {
                 ->appendStylesheet('/css/facebook.css')
                 ->appendStylesheet('/css/club/club.css');
         $this->view->controller = 'kym';
+        $this->view->ad = '/images/anniversaire/bandeau-KYM.png';
 
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);
