@@ -30,7 +30,7 @@ class IndexController extends Zend_Controller_Action {
 
         $evenementMapper = new Application_Model_Mapper_Evenement();
         $this->view->nextTraining = $evenementMapper->findNext(1);
-        $this->view->nextTournoi = $evenementMapper->findNext(array(4, 5));
+        $this->view->nextTournoi = $evenementMapper->findNext(array(4, 5, 11));
         $videoMapper = new Application_Model_Mapper_Video();
         $this->view->video = $videoMapper->findLastVideo();
     }
