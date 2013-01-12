@@ -38,8 +38,16 @@ $(document).ready(function() {
         return false;
     });
     
-    $('td.video').click(function() {
-        $(this).children('div.videoEmbeddedCode').clone().dialog({
+    var clickable = 'td.video';
+    if ($('.chkAdminAlbum').size() !== 0) {
+        clickable = 'div.albumImg';
+    }
+    $(clickable).click(function() {
+        var jClickable = $(this);
+        if ($('.chkAdminAlbum').size() !== 0) {
+            jClickable = $(this).parents('td.video');
+        }
+        $(jClickable).children('div.videoEmbeddedCode').clone().dialog({
             height: 'auto',
             width: 'auto',
             position: 'center',
@@ -47,13 +55,13 @@ $(document).ready(function() {
             title: $(this).attr('title'),
             draggable: false,
             buttons: {
-                'Fermer': function() { 
+                'Fermer': function() {
                     $(this).dialog('destroy');
                 }																
             }
         });
     });
-    
+
     /*
      * Suppression de photos et vidéos 
      */
@@ -78,7 +86,7 @@ $(document).ready(function() {
         });
         return false;
     });
-    
+
     /*
      * Déplacement de photos/vidéos
      */
