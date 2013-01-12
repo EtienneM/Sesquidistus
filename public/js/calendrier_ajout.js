@@ -59,7 +59,7 @@ $(document).ready(function() {
     $('select#id_lieuEvent').bind('change click keypress', function(){
         // If the selection has changed
         if( $(this).data('selection') !== $('option:selected', this).val() ) {
-            if ($('option:selected', this).val() === 0) {
+            if ($('option:selected', this).val() === '0') {
                 $('input#text_lieuEvent').removeAttr('disabled');
             } else {
                 $('input#text_lieuEvent').attr('disabled', 'disabled');
