@@ -1,9 +1,9 @@
 $(document).ready(function() {
     // Créé l'accordéon du récapitulatif
     $("#accordionCal").accordion({
-        autoHeight: false, 
+    	heightStyle: 'content',
         collapsible: true, 
-        active:false
+        active: false,
     });
     // Définit l'évènement lors du click sur un évènement
     $('td.outSelected').click(function() {

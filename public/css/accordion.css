@@ -22,8 +22,8 @@
 .ui-state-disabled { cursor: default !important; }
 
 
-.ui-icon-plus {width: 16px; height: 16px; background-image: url(/images/ui-icons_white_256x240.png); background-position: -16px -128px; }
-.ui-icon-minus {width: 16px; height: 16px; background-image: url(/images/ui-icons_white_256x240.png); background-position: -48px -128px; }
+.ui-icon-triangle-1-e {width: 16px; height: 16px; background-image: url(/images/ui-icons_white_256x240.png); background-position: -16px -128px; }
+.ui-icon-triangle-1-s {width: 16px; height: 16px; background-image: url(/images/ui-icons_white_256x240.png); background-position: -48px -128px; }
 
 
 /* Interaction states

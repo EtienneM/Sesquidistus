@@ -1,8 +1,8 @@
 $(document).ready(function() {
     $('#accordionLieu').accordion({ 
-        autoHeight: false, 
+    	heightStyle: 'content',
         collapsible: true, 
-        active:false
+        active: false
     });
     
     $('div#dialog').html('<img src="/images/ajax-loader.gif" alt="Loading..." />');
@@ -14,23 +14,23 @@ $(document).ready(function() {
             };
         }
         $('div#dialog').html('<img src="/images/ajax-loader.gif" alt="Loading..." />')
-        .load($(this).attr('href'), data, function() {
-            $("#formModifLieu").validate();
-        }).dialog({
-            height: 'auto',
-            width: 'auto',
-            position: 'center',
-            modal: true,
-            title: $(this).attr('title'),
-            draggable: false,
-            buttons: {
-                'Confirmer': function() { 
-                    $("#formModifLieu").submit();
-                },
-                'Annuler': function() { 
-                    $('div#dialog').dialog('close');
-                }																
-            }
+        	.load($(this).attr('href'), data, function() {
+        		$("#formModifLieu").validate();
+        	}).dialog({
+	            height: 'auto',
+	            width: 'auto',
+	            position: 'center',
+	            modal: true,
+	            title: $(this).attr('title'),
+	            draggable: false,
+	            buttons: {
+	                'Confirmer': function() { 
+	                    $("#formModifLieu").submit();
+	                },
+	                'Annuler': function() { 
+	                    $('div#dialog').dialog('close');
+	                }																
+	            }
         });
         return false;
     });
