@@ -3,9 +3,9 @@ function readURL(input) {
         var reader = new FileReader();
         reader.onload = function (e) {
             $('img#preview').attr('src', e.target.result);
-        }
+        };
         reader.readAsDataURL(input.files[0]);
-        $('#preview').show()
+        $('#preview').show();
     }
 }
 
@@ -28,6 +28,7 @@ $(document).ready(function() {
             modal: true,
             title: $(this).attr('title'),
             draggable: true,
+            closeText: 'X',
             buttons: {
                 'Ok': function() {
                     $('form#frmUploadAvatar').submit();
@@ -49,6 +50,7 @@ $(document).ready(function() {
             title: "Supprimer un membre",
             modal: true,
             draggable: false,
+            closeText: 'X',
             buttons:{
                 'Confirmer': function() { 
                     $.get($(link).attr('href'), function() {

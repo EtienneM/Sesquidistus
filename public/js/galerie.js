@@ -4,6 +4,7 @@ $(document).ready(function() {
             width: 380,
             modal: true,
             title: $(this).text(),
+            closeText: 'X',
             buttons: {
                 'Ajouter': function() {
                     $('form#frmAjouter').submit();
@@ -26,6 +27,7 @@ $(document).ready(function() {
             modal: true,
             title: $(this).attr('title'),
             draggable: false,
+            closeText: 'X',
             buttons: {
                 'Supprimer': function() {
                     $('form#frmModifier').attr('action', $(lnk).attr('href')).submit();
@@ -54,6 +56,7 @@ $(document).ready(function() {
             modal: true,
             title: $(this).attr('title'),
             draggable: false,
+            closeText: 'X',
             buttons: {
                 'Fermer': function() {
                     $(this).dialog('destroy');
@@ -75,6 +78,7 @@ $(document).ready(function() {
             modal: true,
             title: $(this).attr('title'),
             draggable: false,
+            closeText: 'X',
             buttons: {
                 'Supprimer': function() {
                     $('form#frmModifier').attr('action', $(lnk).attr('href')).submit();

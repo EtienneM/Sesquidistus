@@ -75,7 +75,7 @@ $(document).ready(function() {
             title: "Ajout d'une catégorie",
             modal: true,
             draggable: false,
-            closeText: 'x',
+            closeText: 'X',
             buttons: {
                 "Valider": function() {
                     $('#formAjoutCat').submit();
@@ -92,7 +92,7 @@ $(document).ready(function() {
             title: "Supprimer une catégorie",
             modal: true,
             draggable: false,
-            closeText: 'x',
+            closeText: 'X',
             buttons: {
                 "Valider": function() {
                     $('#formSupprCat').submit();

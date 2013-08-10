@@ -23,6 +23,7 @@ $(document).ready(function() {
 	            modal: true,
 	            title: $(this).attr('title'),
 	            draggable: false,
+	            closeText: 'X',
 	            buttons: {
 	                'Confirmer': function() { 
 	                    $("#formModifLieu").submit();

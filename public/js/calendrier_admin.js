@@ -14,7 +14,7 @@ $(document).ready(function() {
             modal: true,
             title: "",
             draggable: false,
-            closeText: 'x',
+            closeText: 'X',
             buttons:{
                 'Ok': function() { 
                     $(this).dialog("close"); 
@@ -29,6 +29,7 @@ $(document).ready(function() {
                         title: "Supprimer un événement",
                         modal: true,
                         draggable: false,
+                        closeText: 'X',
                         buttons: {
                             'Confirmer': function() { 
                                 window.location.href = $('a#suppr'+id).attr('href');

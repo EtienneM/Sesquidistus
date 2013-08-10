@@ -26,6 +26,7 @@ $(document).ready(function() {
                 modal: true,
                 title: "Sélection d'un évènement",
                 draggable: false,
+                closeText: 'X',
                 buttons: {
                     'OK': function() { 
                         $('div#dialog').dialog('close');

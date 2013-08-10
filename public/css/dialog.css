@@ -1,4 +1,16 @@
-.ui-widget-overlay { position: absolute; background-color:black; opacity: 0.65; filter:Alpha(Opacity=65); top: 0; left: 0; width: 100%; height: 100%; }
+.ui-front {
+	z-index: 100;
+}
+.ui-widget-overlay { 
+	position: fixed; 
+	background-color:black; 
+	opacity: 0.65; 
+	filter:Alpha(Opacity=65); 
+	top: 0; 
+	left: 0; 
+	width: 100%; 
+	height: 100%; 
+}
 .ui-widget-shadow { margin: -5px 0 0 -5px; padding: 5px; background:black 50% 50% repeat-x; opacity: .20;filter:Alpha(Opacity=20); -webkit-border-radius: 5px; border-radius: 5px; }
 .ui-dialog {
  position: absolute; 
@@ -6,8 +18,9 @@ background-color:white; padding: .2em; width: 300px; overflow: hidden;
 -webkit-border-radius: 5px; 
 border-radius: 5px;
 -webkit-box-shadow: 1px 1px 4px #000;
-box-shadow: 1px 1px 4px #000; 
+box-shadow: 1px 1px 4px #000;
  }
+
 .ui-dialog .ui-dialog-titlebar { 
 padding: .5em 1em .3em; 
 position: relative; 
@@ -17,12 +30,13 @@ height:27px;
  }
 .ui-dialog .ui-dialog-title { float: left; font-weight:bold; margin: .1em 16px .2em 0; } 
 .ui-dialog .ui-dialog-titlebar-close { 
-position: absolute; text-align:center; right: .3em; top: 5px;
+	position: absolute; text-align:center; right: .3em; top: 5px;
 }
-.ui-dialog .ui-dialog-titlebar-close span { 
-background-color: black; margin:0px; padding:0px 3px 1px 3px; color:white; font-size:11px;
--webkit-border-radius: 3px; 
-border-radius: 3px;
+.ui-dialog .ui-dialog-titlebar-close { 
+	background-color: black; margin:0px; padding:0px 3px 1px 3px; color:white; font-size:11px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 }
 .ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
 .ui-dialog .ui-dialog-buttonpane { text-align: right; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }

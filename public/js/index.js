@@ -11,6 +11,7 @@ $(document).ready(function() {
             modal: true,
             title: $(this).attr('title'),
             draggable: false,
+            closeText: 'X',
             buttons: {
                 'Fermer': function() { 
                     $(this).dialog('destroy');

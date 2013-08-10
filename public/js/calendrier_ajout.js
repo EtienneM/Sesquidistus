@@ -20,6 +20,7 @@ $(document).ready(function() {
             title: "Supprimer un type d'évènement",
             modal: true,
             draggable: false,
+            closeText: 'X',
             buttons:{
                 'Confirmer': function() { 
                     window.location.href = $(link).attr('href')+'/id/'+$('#listeEvent option:selected').val();
@@ -41,6 +42,7 @@ $(document).ready(function() {
             title: "Ajouter un type d'évènement",
             modal: true,
             draggable: false,
+            closeText: 'X',
             buttons: {
                 'Confirmer': function() {
                     $('#formActionType').submit();

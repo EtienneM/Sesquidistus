@@ -10,7 +10,7 @@
         <form id="formLieu" method="POST">
             <select id="listeLieu" name="id_lieu">
                 <?php foreach ($this->lieux as $lieu): ?>
-                    <option value="<?= $lieu->id; ?>"><?= $lieu->nom ?></option>;
+                    <option value="<?= $lieu->id; ?>"><?= $lieu->nom ?></option>
                 <?php endforeach; ?>
             </select>
             <a href="<?= $this->url(array('controller' => 'lieu', 'action' => 'modifier')) ?>" class="bouton1 modifier" id="boutonModif" title="Modifier le lieu">#</a>
@@ -20,5 +20,5 @@
     </div>
 </div>
 
-<div id="dialog" style="display:none"></div>
+<div id="dialog" style="display:none;"></div>
 <?php endif; ?>

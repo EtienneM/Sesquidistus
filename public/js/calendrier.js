@@ -13,7 +13,7 @@ $(document).ready(function() {
             modal: true,
             title: "",
             draggable: false,
-            closeText: 'x',
+            closeText: 'X',
             buttons:{
                 'Ok': function() { 
                     $(this).dialog("close"); 
