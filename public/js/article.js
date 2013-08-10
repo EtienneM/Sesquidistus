@@ -1,24 +1,17 @@
 $(document).ready(function() {
     $('textarea#contenu').tinymce({
-        script_url: '/js/tinymce/tiny_mce.js',
-        theme : 'advanced',
-        skin : 'o2k7',
-        skin_variant : 'silver',
+        script_url: '/js/tinymce/tinymce.min.js',
+        theme : 'modern',
         width : '560',
         height : '475',
-        language : 'fr',
+        language : 'fr_FR',
         content_css : '/css/article.css,/css/style.css',
-            
-        plugins : 'table,fullscreen,preview,inlinepopups,media',
-        theme_advanced_toolbar_location : 'top',
-        theme_advanced_toolbar_align : 'left',
-        theme_advanced_statusbar_location : 'bottom',
-        theme_advanced_resizing : true,
-        theme_advanced_path : false,
-        theme_advanced_buttons1 : 'bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,formatselect,fontselect,fontsizeselect',
-        theme_advanced_buttons2 : 'cut,copy,paste,|,bullist,numlist,|,outdent,indent,|,undo,redo,|,link,unlink,image,media,|,forecolor,backcolor',
-        theme_advanced_buttons3 : 'tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,|,fullscreen,|preview',
-        theme_advanced_buttons4 : ''
+        plugins : 'table,fullscreen,image,link,media,textcolor,hr,charmap',
+        resize: false,
+        statusbar: false,
+        toolbar1: 'formatselect fontselect fontsizeselect',
+        toolbar2: 'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | cut copy paste | bullist numlist | outdent indent',
+        toolbar3: 'link unlink image media | forecolor backcolor | undo redo | hr removeformat | subscript superscript | charmap | fullscreen ',
     }); 
     
     $('form#frmEcrire').validate();

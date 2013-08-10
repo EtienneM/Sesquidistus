@@ -7,7 +7,7 @@ class ArticleController extends Zend_Controller_Action {
     }
 
     public function ecrireAction() {
-        $this->view->headScript()->appendFile('/js/tinymce/jquery.tinymce.js')
+        $this->view->headScript()->appendFile('/js/tinymce/jquery.tinymce.min.js')
                 ->appendFile('/js/jquery/jquery-ui.min.js')
                 ->appendFile('/js/jquery/jquery.validate.min.js')
                 ->appendFile('/js/jquery/jquery.validate.localization/messages_fr.js')

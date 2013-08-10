@@ -13,7 +13,7 @@ class UltimateController extends My_Controller_Action_CustomContent {
         if ($auth->hasIdentity()
                 && $auth->getIdentity()->getRoleId() == Application_Model_Acl::ROLE_ADMIN) {
             $this->view->headScript()->appendFile('/js/category.js')
-                    ->appendFile('/js/tinymce/jquery.tinymce.js');
+                    ->appendFile('/js/tinymce/jquery.tinymce.min.js');
         }
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);

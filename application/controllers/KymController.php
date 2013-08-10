@@ -11,7 +11,7 @@ class KymController extends My_Controller_Action_CustomContent {
     public function indexAction() {
         $this->view->headTitle()->append('Keep Your Moustache');
         $this->view->headScript()->appendFile('/js/category.js')
-                ->appendFile('/js/tinymce/jquery.tinymce.js');
+                ->appendFile('/js/tinymce/jquery.tinymce.min.js');
         $this->view->headLink()->appendStylesheet('/css/pagination.css')
                 ->appendStylesheet('/css/article.css')
                 ->appendStylesheet('/css/social.css')
