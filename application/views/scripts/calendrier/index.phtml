@@ -164,7 +164,13 @@
             <?php $margin = 10; ?>
 <?php endforeach; ?>
     </div>
+    <div id="export_ical">
+    	<a href="<?= $this->url(array('action' => 'ical')); ?>" target="_blank">
+			<img alt="Export iCal" src="/images/ical.gif">
+		</a>
+	</div>
 </aside>
+
 
 
 <?php // Génération du récapitulatif    ?>

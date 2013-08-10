@@ -1,5 +1,7 @@
 <?php
 
+require_once('iCalcreator.class.php');
+
 class CalendrierController extends Zend_Controller_Action {
 
     public function init() {
@@ -174,6 +176,82 @@ class CalendrierController extends Zend_Controller_Action {
             $this->_helper->flashMessenger('Evènement supprimé');
         }
         $this->_redirect('/calendrier');
+    }
+    
+    /**
+     * Export events from the month before today to in a year in the iCal format
+     * http://kigkonsult.se/iCalcreator/
+     */
+    function icalAction() {
+    	$this->_helper->layout()->disableLayout();
+    	$this->_helper->viewRenderer->setNoRender(true);
+
+    	$tz = 'Europe/Paris';
+    	$config = array(
+    			'unique_id' => $_SERVER['HTTP_HOST'],
+    			'TZID' => $tz,
+    			'LANGUAGE' => 'fr',
+    			'filename' => 'entrainements_tournoi.ics'
+    	);
+    	$v = new vcalendar($config);
+    	$v->setProperty('METHOD', 'PUBLISH');
+    	$v->setProperty('CALSCALE', 'GREGORIAN');
+    	$v->setProperty('X-WR-CALNAME', 'Entraînements et tournois des Sesquidistus');
+    	$v->setProperty('X-WR-CALDESC', 'Entraînements et tournois des Sesquidistus');
+    	$v->setProperty('X-WR-TIMEZONE', $tz);
+    	$xprops = array('X-LIC-LOCATION' => $tz);
+    	iCalUtilityFunctions::createTimezone( $v, $tz, $xprops );
+    	
+    	$eventMapper = new Application_Model_Mapper_Evenement();
+    	$fromDate = new Zend_Date();
+    	$events = $eventMapper->findBySeason($fromDate->subMonth(1));
+    	foreach ($events as $event) {
+    		$vevent = & $v->newComponent('vevent');
+    		$startDate = new Zend_Date($event->date);
+    		$duree = $event->getDuree();
+    		$endDate = new Zend_Date($startDate);
+    		$endDate->addDay($duree-1);
+    		$horaireDebut = $event->getHoraire_debut();
+    		if (isset($horaireDebut) && !empty($horaireDebut)) {
+    			$horaireDebut = split('h', $horaireDebut);
+    			$start = array(
+	    				'year' => $startDate->get(Zend_Date::YEAR), 
+	    				'month' => $startDate->get(Zend_Date::MONTH), 
+	    				'day' => $startDate->get(Zend_Date::DAY), 
+	    				'hour' => $horaireDebut[0], 'min' => $horaireDebut[1], 'sec' => 0);
+	    		$vevent->setProperty('DTSTART', $start);
+	    		$horaireFin = $event->getHoraire_fin();
+	    		$end = array(
+	    				'year' => $endDate->get(Zend_Date::YEAR),
+	    				'month' => $endDate->get(Zend_Date::MONTH),
+	    				'day' => $endDate->get(Zend_Date::DAY)
+	    		);
+	    		if (isset($horaireFin) && !empty($horaireFin)) {
+		    		$horaireFin = split('h', $horaireFin);
+		    		$end = array_merge($end, array('hour' => $horaireFin[0], 'min' => $horaireFin[1], 'sec' => 0));
+	    		} else {
+	    			$end = array_merge($end, array('hour' => 23, 'min' => 59, 'sec' => 0));
+	    		}
+	    		$vevent->setProperty('DTEND', $end);
+    		} else {
+    			$date = $startDate->get(Zend_Date::YEAR).$startDate->get(Zend_Date::MONTH).$startDate->get(Zend_Date::DAY);
+    			// For an all day event
+    			$vevent->setProperty('DTSTART', $date, array('VALUE' => 'DATE'));
+    			$endDate->addDay(1); // DTEND seems to be exclusive
+    			$date = $endDate->get(Zend_Date::YEAR).$endDate->get(Zend_Date::MONTH).$endDate->get(Zend_Date::DAY);
+    			$vevent->setProperty('DTEND', $date, array('VALUE' => 'DATE'));
+    		}
+    		$location = $event->getLieu();
+    		if (!is_string($location)) {
+    			$location = $location->getNom();
+    		}
+    		$vevent->setProperty('LOCATION', $location);
+    		$vevent->setProperty('SUMMARY', $event->getTitre());
+    		$vevent->setProperty('DESCRIPTION', $event->getDescription());
+    		$vevent->setProperty('STATUS', 'CONFIRMED');
+    	}
+    	
+    	$v->returnCalendar(false, true);
     }
 }
 
