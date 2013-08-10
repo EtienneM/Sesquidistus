@@ -1,47 +1,16 @@
-SetEnv PHP_VER 5_3
-SetEnv REGISTER_GLOBALS 0
-SetEnv ZEND_OPTIMIZER 1
-SetEnv MAGIC_QUOTES 0
-
-Options -Indexes
-
 RewriteEngine On
+# The following rule tells Apache that if the requested filename
+# exists, simply serve it.
 RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
-RewriteRule ^.*$ index.php [NC,L]
-
-# Enable Gzip on textual files.
-AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript
-
-###################
-# Browser caching : 
-# https://developers.google.com/speed/docs/best-practices/caching?hl=fr#LeverageBrowserCaching
-# http://code.garyjones.co.uk/htaccess-tweaks-improve-site-speed/
-###################
-
-# BEGIN Expire headers
-# Makes cached files stay cached for longer (304 Not modified) = fewer 200 responses.
-# Aim for at least 1 month for images, ideally a year (not longer - that'll break RFC specs)
-ExpiresActive On
-ExpiresDefault "access plus 1 seconds"
-ExpiresByType image/x-icon "access plus 1 year"
-ExpiresByType image/jpeg "access plus 1 year"
-ExpiresByType image/png "access plus 1 year"
-ExpiresByType image/gif "access plus 1 year"
-ExpiresByType application/x-shockwave-flash "access plus 1 year"
-ExpiresByType text/css "access plus 1 year"
-ExpiresByType text/javascript "access plus 1 year"
-ExpiresByType application/x-javascript "access plus 1 year"
-ExpiresByType text/html "access plus 60 seconds"
-ExpiresByType application/xhtml+xml "access plus 60 seconds"
-# END Expire headers
-
-# BEGIN Cache-Control Headers
-# Only using the private/public values here - not max-age (Expires headers cover the same thing, and are more widely supported)
-# Some versions of Firefox require that the Cache control: public header to be set in order for resources sent over SSL to be
-# cached on disk, even if the other caching headers are explicitly set.
-Header set Cache-Control "public"
-# END Cache-Control Headers
-
+# The following rewrites all other queries to index.php. The 
+# condition ensures that if you are using Apache aliases to do
+# mass virtual hosting, the base path will be prepended to 
+# allow proper resolution of the index.php file; it will work
+# in non-aliased environments as well, providing a safe, one-size 
+# fits all solution.
+RewriteCond %{REQUEST_URI}::$1 ^(/.+)(.+)::\2$
+RewriteRule ^(.*) - [E=BASE:%1]
+RewriteRule ^(.*)$ %{ENV:BASE}index.php [NC,L]

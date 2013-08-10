@@ -1,1 +1,0 @@
-/home/emichon/repositories/browserID-jQuery/Source/jquery.browserid-min.js
