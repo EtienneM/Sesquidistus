@@ -55,7 +55,7 @@
         </evenement>
         <contact>
             <label>Contact</label>
-            <controller>index</controller>
+            <controller>autre</controller>
             <action>contact</action>
         </contact>
     </nav>
