@@ -25,11 +25,20 @@
                 Article créé <?= $author ?> le <?= $this->escape($article->date->get('dd/MM/YYYY')) ?>
                 <meta itemprop="dateCreated" content="<?= $this->escape($article->date->get(Zend_Date::ISO_8601)) ?>" />
             </span>
-            <div class="fb_button" style="float:right;">
+            <div class="fb_button social_button">
                 <a  target="_blank"
                     href="https://www.facebook.com/share.php?u=<?= $_SERVER['HTTP_HOST'] . $this->url(array('controller' => 'index', 'action' => 'index', 'id_article' => $article->id)) ?>">
                     <i class="logo logo_fb"></i>
                     Partager
+                </a>
+            </div>
+            <div class="twitter_button social_button">
+            	<?php $twitter_link_args='via=Sesquidistus&source=tweetbutton' ?>
+            	<?php $twitter_link_args.= '&original_referer='.urlencode($_SERVER['HTTP_HOST'] . $this->url(array('controller' => 'index', 'action' => 'index', 'id_article' => $article->id))) ?>
+                <?php $twitter_link_args.= '&text='.urlencode($article->titre) ?>
+                <a  target="_blank"
+                    href="https://twitter.com/intent/tweet?<?= $twitter_link_args ?>">
+                    <img alt="Partager ce tutoriel sur Twitter" src="/images/social/ico-tweeter.png" width="65" height="20"/>
                 </a>
             </div>
         </div>

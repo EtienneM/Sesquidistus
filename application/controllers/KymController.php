@@ -14,7 +14,7 @@ class KymController extends My_Controller_Action_CustomContent {
                 ->appendFile('/js/tinymce/jquery.tinymce.js');
         $this->view->headLink()->appendStylesheet('/css/pagination.css')
                 ->appendStylesheet('/css/article.css')
-                ->appendStylesheet('/css/facebook.css')
+                ->appendStylesheet('/css/social.css')
                 ->appendStylesheet('/css/club/club.css');
         $this->view->controller = 'kym';
         $this->view->ad = '/images/anniversaire/bandeau-KYM.png';

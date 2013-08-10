@@ -9,7 +9,7 @@ class IndexController extends Zend_Controller_Action {
     public function indexAction() {
         $this->view->headLink()->appendStylesheet('/css/pagination.css')
                 ->appendStylesheet('/css/article.css')
-                ->appendStylesheet('/css/facebook.css');
+                ->appendStylesheet('/css/social.css');
         $this->view->headScript()->appendFile('/js/index_admin.js')
                 ->appendFile('/js/index.js');
         $articleMapper = new Application_Model_Mapper_Article();
