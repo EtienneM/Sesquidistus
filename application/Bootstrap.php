@@ -54,7 +54,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 ->appendFile('/js/jquery/jquery-migrate-1.2.1.js')
                 ->appendFile('/js/jquery/jquery-ui.min.js')
                 ->appendFile('/js/jquery/jquery.dropmenu.js')
-                ->appendFile('/js/jquery/jquery.ba-resize.min.js')
+                ->appendFile('/js/jquery/jquery.ba-resize.min.js', 'text/javascript', array('conditional' => 'IE')) // For the hoverIE script
                 ->appendFile('/js/jquery/hoverIE.js', 'text/javascript', array('conditional' => 'IE'))
                 ->appendFile('/js/layout.js')
                 ->appendFile('/js/jquery/jquery.jgrowl.min.js');

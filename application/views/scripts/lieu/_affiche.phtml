@@ -5,11 +5,13 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#map_canvas<?= $lieu->id; ?>').gmap3({
-                    action: 'addMarker',
-                    address: "<?= $this->escape($lieu->adresse); ?>",
+                    marker: {
+                    	address: "<?= $this->escape($lieu->adresse); ?>",                        
+                    },
                     map: {
-                        center: true,
-                        zoom: 14
+                        options: {
+	                        zoom: 14
+                        },
                     }
                 });
             });
