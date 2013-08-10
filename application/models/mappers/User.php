@@ -84,6 +84,39 @@ class Application_Model_Mapper_User extends My_Model_Mapper {
                 ->setProfil($profil);
         return $user;
     }
+    
+    /**
+     *
+     * @param string $email
+     * @return \Application_Model_User
+     */
+    public function findByEmail($email = null) {
+    	if ($email === null) {
+    		throw new Zend_Exception('Email must be set');
+    	}
+    	$profilMapper = new Application_Model_Mapper_Profil();
+    	$profil = $profilMapper->findByEmail($email);
+    	if ($profil === null) {
+    		return null;
+    	}
+    	
+    	$user = new Application_Model_User();
+//     	$profil = new Application_Model_Profil($row->findDependentRowset('Application_Model_DbTable_Profil')->current()->toArray());
+    	$select = $this->getDbTable()->select()->where('id = ?', $profil->id_membre);
+    	$result = $this->getDbTable()->fetchAll($select);
+    	assert($result->count() <= 1);
+    	if ($result->count() < 1) {
+    		return null;
+    	}
+    	$row = $result->current();
+    	
+    	$user->setId($row->id)
+    		->setLogin($row->login)
+    		->setPasswd($row->passwd)
+    		->setAdmin($row->admin)
+    		->setProfil($profil);
+    	return $user;
+    }
 
 }
 

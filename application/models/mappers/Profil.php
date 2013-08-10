@@ -61,6 +61,25 @@ class Application_Model_Mapper_Profil extends My_Model_Mapper {
         }
         return $entries;
     }
+    
+    /**
+     * Trouve tous les anciens (ou non ancien) de la base de données
+     *
+     * @param boolean $ancien
+     * @return Array
+     */
+    public function findByEmail($email = null) {
+    	if ($email === null) {
+    		throw new Zend_Exception('Email must be set');
+    	}
+    	$select = $this->getDbTable()->select()
+    		->where('mail = ?', $email);
+    	$result = $this->getDbTable()->fetchAll($select);
+    	if ($result->count() != 1) {
+    		return null;
+    	}
+    	return new Application_Model_Profil($result->current()->toArray());
+    }
 
 }
 
