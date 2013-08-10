@@ -51,13 +51,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         $view->headScript()
                 ->appendFile('/js/jquery/jquery.min.js')
-                ->appendFile('/js/fix_ie/iepngfix_tilebg.js')
+                ->appendFile('/js/jquery/jquery-migrate-1.2.1.js')
                 ->appendFile('/js/jquery/jquery-ui.min.js')
                 ->appendFile('/js/jquery/jquery.dropmenu.js')
                 ->appendFile('/js/jquery/jquery.ba-resize.min.js')
                 ->appendFile('/js/jquery/hoverIE.js', 'text/javascript', array('conditional' => 'IE'))
                 ->appendFile('/js/layout.js')
-                ->appendFile('/js/jquery/jquery.jgrowl_minimized.js');
+                ->appendFile('/js/jquery/jquery.jgrowl.min.js');
     }
 
     protected function _initLink() {
@@ -77,7 +77,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                     'href' => '/feeds',
                 ))
                 ->appendStylesheet('/css/style.css')
-                ->appendStylesheet('/css/jquery.jgrowl.css')
+                ->appendStylesheet('/css/jquery.jgrowl.min.css')
                 ->appendStylesheet('/css/dropmenu_apple.css')
                 ->appendStylesheet('/css/dialog.css')
                 ->appendStylesheet('/css/accordion.css')
