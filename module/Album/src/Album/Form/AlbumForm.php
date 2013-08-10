@@ -20,7 +20,7 @@ class AlbumForm extends Form {
 		));
 		$this->add(array(
 			'name' => 'date',
-			'type' => 'Text',
+			'type' => 'Date',
 			'options' => array(
 				'label' => 'Date',
 			),

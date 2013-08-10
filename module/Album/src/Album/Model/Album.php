@@ -18,6 +18,9 @@ class Album implements InputFilterAwareInterface {
 			$this->$value = (!empty($data[$value])) ? $data[$value] : null;;
 		}
 	}
+	public function getArrayCopy() {
+		return get_object_vars($this);
+	}
 
 	public function setInputFilter(InputFilterInterface $inputFilter) {
 		throw new \Exception("Not used");
@@ -53,6 +56,7 @@ class Album implements InputFilterAwareInterface {
 							),
 					),
 			)));
+			
 
 			$this->inputFilter = $inputFilter;
 		}
