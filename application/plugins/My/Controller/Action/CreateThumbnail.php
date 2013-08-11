@@ -47,7 +47,7 @@ class My_Controller_Action_CreateThumbnail {
         $this->imagePath = $imagePath;
         $this->thumbnailDirectory = $thumbnailDirectory;
         if (!is_dir($this->thumbnailDirectory)) {
-            mkdir($this->thumbnailDirectory);
+            mkdir($this->thumbnailDirectory, 0755, true);
         }
         $this->maxWidth = $maxWidth;
         $this->maxHeight = $maxHeight;

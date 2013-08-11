@@ -1,12 +1,12 @@
-$(window).load(function() {
+$(document).ready(function() {
     var listAlbum = $('#sltAlbum');
     var uploader = null;
     listAlbum.change(function() {
-        // If select element is an album
+        // If selected element is an album
         if (listAlbum.val() !== '') {
             if (uploader === null) {
                 uploader = new qq.FileUploader({
-                    debug: false,
+                    debug: true,
                     element: $('#dropbox')[0],
                     action: $('form#frmPhoto').attr('action'),
                     allowedExtensions: ['jpg', 'jpeg'],
@@ -23,6 +23,7 @@ $(window).load(function() {
                     fileTemplate: '<li>' +
                 '<span class="qq-upload-file"></span>' +
                 '<span class="qq-upload-album"></span>' +
+                '<span class="qq-progress-bar"></span>' +
                 '<span class="qq-upload-spinner"></span>' +
                 '<span class="qq-upload-size"></span>' +
                 '<a class="qq-upload-cancel" href="#">Annuler</a>' +

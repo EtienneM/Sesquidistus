@@ -260,7 +260,7 @@ class GalerieController extends Zend_Controller_Action {
         $albumMapper->find($this->getRequest()->getParam('sltAlbum'), $album);
         $directory = APPLICATION_PATH . '/../public/' . $album->getPath();
         if (!is_dir($directory)) {
-            mkdir($directory);
+            mkdir($directory, 0755, true);
         }
         $res = $this->_helper->fileupload($directory);
         // If upload is a success...

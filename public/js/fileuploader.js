@@ -55,11 +55,11 @@ qq.getUniqueId = (function(){
 //
 // Browsers and platforms detection
 
-qq.ie       = function(){ return navigator.userAgent.indexOf('MSIE') != -1; }
-qq.safari   = function(){ return navigator.vendor != undefined && navigator.vendor.indexOf("Apple") != -1; }
-qq.chrome   = function(){ return navigator.vendor != undefined && navigator.vendor.indexOf('Google') != -1; }
-qq.firefox  = function(){ return (navigator.userAgent.indexOf('Mozilla') != -1 && navigator.vendor != undefined && navigator.vendor == ''); }
-qq.windows  = function(){ return navigator.platform == "Win32"; }
+qq.ie       = function(){ return navigator.userAgent.indexOf('MSIE') != -1; };
+qq.safari   = function(){ return navigator.vendor != undefined && navigator.vendor.indexOf("Apple") != -1; };
+qq.chrome   = function(){ return navigator.vendor != undefined && navigator.vendor.indexOf('Google') != -1; };
+qq.firefox  = function(){ return (navigator.userAgent.indexOf('Mozilla') != -1 && navigator.vendor != undefined && navigator.vendor == ''); };
+qq.windows  = function(){ return navigator.platform == "Win32"; };
 
 //
 // Events
@@ -72,8 +72,8 @@ qq.attach = function(element, type, fn){
         element.attachEvent('on' + type, fn);
     }
     return function() {
-        qq.detach(element, type, fn)
-    }
+        qq.detach(element, type, fn);
+    };
 };
 qq.detach = function(element, type, fn){
     if (element.removeEventListener){
@@ -267,7 +267,6 @@ var qq = qq || {};
  * Creates upload button, validates upload, but doesn't create file list or dd.
  */
 qq.FileUploaderBasic = function(o){
-    var that = this;
     this._options = {
         // set to true to see the server response
         debug: false,
@@ -668,8 +667,8 @@ qq.extend(qq.FileUploader.prototype, {
      **/
     _find: function(parent, type){
         var element = qq.getByClass(parent, this._options.classes[type])[0];
-        if (!element){
-            throw new Error('element not found ' + type);
+        if (!element) {
+            throw new Error('Element not found ' + type);
         }
 
         return element;
@@ -727,7 +726,7 @@ qq.extend(qq.FileUploader.prototype, {
             });
         }
         this._attach(document, 'dragleave', function(e){
-            var relatedTarget = document.elementFromPoint(e.clientX, e.clientY);
+//            var relatedTarget = document.elementFromPoint(e.clientX, e.clientY);
             // only fire when leaving document out
             if (qq.FileUploader.prototype._leaving_document_out(e)) {
                 for (i=0; i < dropzones.length; i++){ dropzones[i].style.display = 'none'; }
@@ -786,14 +785,14 @@ qq.extend(qq.FileUploader.prototype, {
             qq.addClass(item, this._classes.success);
             if (this._classes.successIcon) {
                 this._find(item, 'finished').style.display = "inline-block";
-                qq.addClass(item, this._classes.successIcon)
+                qq.addClass(item, this._classes.successIcon);
             }
         } else {
             var errorReason = result.reason ? result.reason : "Unknown error";
             qq.addClass(item, this._classes.fail);
             if (this._classes.failIcon) {
                 this._find(item, 'finished').style.display = "inline-block";
-                qq.addClass(item, this._classes.failIcon)
+                qq.addClass(item, this._classes.failIcon);
             }
             item.title = errorReason;
         }
@@ -1318,7 +1317,7 @@ qq.extend(qq.UploadHandlerForm.prototype, {
         // form.setAttribute('method', 'post');
         // form.setAttribute('enctype', 'multipart/form-data');
         // Because in this case file won't be attached to request
-        var protocol = this._options.demoMode ? "GET" : "POST"
+        var protocol = this._options.demoMode ? "GET" : "POST";
         var form = qq.toElement('<form method="' + protocol + '" enctype="multipart/form-data"></form>');
 
         var queryString = qq.obj2url(params, this._options.action);
@@ -1359,7 +1358,7 @@ qq.UploadHandlerXhr.isSupported = function(){
 };
 
 // @inherits qq.UploadHandlerAbstract
-qq.extend(qq.UploadHandlerXhr.prototype, qq.UploadHandlerAbstract.prototype)
+qq.extend(qq.UploadHandlerXhr.prototype, qq.UploadHandlerAbstract.prototype);
 
 qq.extend(qq.UploadHandlerXhr.prototype, {
     /**
@@ -1397,8 +1396,8 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
         this._options.onUpload(id, this.getName(id), true);
 
         var file = this._files[id],
-            name = this.getName(id),
-            size = this.getSize(id);
+            name = this.getName(id);
+//            size = this.getSize(id);
 
         this._loaded[id] = 0;
 
