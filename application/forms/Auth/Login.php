@@ -16,8 +16,7 @@ class Application_Form_Auth_Login extends Zend_Form {
             'required' => true,
             'class' => 'txtBox1',
         ));
-        // $this->addElement('submit', 'submit', array(
-        $this->addElement('button', 'submit', array(
+        $this->addElement('submit', 'submit', array(
             'ignore' => true,
             'label' => 'Se connecter',
             'class' => 'bouton1',
