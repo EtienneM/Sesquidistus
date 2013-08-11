@@ -36,14 +36,14 @@
                         </a>
                     </span>
                     <span class="userInfo">
-                        <a class="white" href="http://forum.frisbee-strasbourg.net/">Forum</a>
-                        <a class="white" href="<?= $this->url(array('controller' => 'auth', 'action' => 'logout')) ?>">Déconnexion</a>
+                        <a class="white" href="http://forum.frisbee-strasbourg.net/"><?php echo $this->translate->_('forum'); ?></a>
+                        <a class="white" href="<?= $this->url(array('controller' => 'auth', 'action' => 'logout')) ?>"><?php echo $this->translate->_('deconnexion'); ?></a>
                     </span>
                 <?php else: ?>
                     <span id="statutLog">
-                        <a class="white" href="<?= $this->url(array('controller' => 'user', 'action' => 'create')); ?>">Créer un compte</a>
+                        <a class="white" href="<?= $this->url(array('controller' => 'user', 'action' => 'create')); ?>"><?php echo $this->translate->_('creer_compte'); ?></a>
                         | 
-                        <a class="white" href="<?= $this->url(array('controller' => 'auth', 'action' => 'login')); ?>">S'identifier</a>
+                        <a class="white" href="<?= $this->url(array('controller' => 'auth', 'action' => 'login')); ?>"><?php echo $this->translate->_('identifier'); ?></a>
                     </span>
                 <?php endif; ?>
             </div>
@@ -96,8 +96,8 @@ for ($i = 0; $i < count($this->imagesBandeau); $i++) {
                     Copyright ©<?php echo $this->escape($this->fromYear . ' - ' . $this->nowYear) ?> Sesquidistus
                 </span>
                 <div>
-                    <a class="white" href="<?php echo $this->url(array('controller' => 'autre', 'action' => 'apropos')) ?>">&Agrave; propos du site</a> | 
-                    <a class="white" href="<?php echo $this->url(array('controller' => 'autre', 'action' => 'mentions')) ?>">Mentions légales</a>
+                    <a class="white" href="<?php echo $this->url(array('controller' => 'autre', 'action' => 'apropos')) ?>"><?php echo $this->translate->_('a_propos'); ?></a> | 
+                    <a class="white" href="<?php echo $this->url(array('controller' => 'autre', 'action' => 'mentions')) ?>"><?php echo $this->translate->_('mentions_legales'); ?></a>
                 </div>
             </div>
         </footer>

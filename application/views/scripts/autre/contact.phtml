@@ -5,7 +5,7 @@
         <?php endif; ?>
             <div class="box" style="margin-bottom:20px" itemscope itemtype="http://schema.org/Person">
             <h1 class="titreNews">
-                Comment nous contacter&nbsp;?
+                <?php echo $this->translate->_('comment_contacter') ?>?
                 <?php if ($this->isAdmin() && !$this->modifier): ?>
                     <a href="<?= $this->url(array('controller' => 'index', 'action' => 'contact', 'modifier' => true)); ?>">
                         <img class="editContact" src="/images/edit.png" alt="Editer"/>

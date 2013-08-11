@@ -1,17 +1,6 @@
 <section class="totalBox">
     <div class="box" style="margin-bottom:20px">
-        <h1 class="titreNews">Informations légales</h1>
-        <p>
-            Les informations recueillies sont n&eacute;cessaires pour votre adh&eacute;sion. 
-            Elles font l&rsquo;objet d&rsquo;un traitement informatique et sont 
-            destin&eacute;es au secr&eacute;tariat de l&rsquo;association.
-        </p>
-        <p>
-            En application des articles 39 et suivants de la loi du 6 janvier 
-            1978 modifi&eacute;e, vous b&eacute;n&eacute;ficiez d&rsquo;un droit 
-            d&rsquo;acc&egrave;s le de rectification aux informations qui vous concernent.
-            Si vous souhaitez exercer ce droit et obtenir communication des informations vous concernant veuillez vous adresser à&nbsp;: 
-            <a href="<?= $this->url(array('controller' => 'autre', 'action' => 'contact')) ?>">Contact</a>
-        </p>
+        <h1 class="titreNews"><?php echo $this->translate->_('mentions_legales'); ?></h1>
+        <?php echo $this->translate->_('mentions_legales_texte'); ?>
     </div>
 </section>

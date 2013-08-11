@@ -1,15 +1,15 @@
 <div class="totalBox">
     <p>
         <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index')); ?>" class="bouton1">
-            Retour aux albums
+            <?php echo $this->translate->_('retour_albums'); ?>
         </a>
     </p>
     <div class="box">
-        <h2 class="titreNews">Soumettre une/des images</h2>
+        <h2 class="titreNews"><?php echo $this->translate->_('soumettre_image'); ?></h2>
         <form action="<?= $this->url(array('controller' => 'galerie', 'action' => 'upload')); ?>" method="post" enctype="multipart/form-data" id="frmPhoto">
-            <label for="sltAlbum">Album&nbsp;:</label>
+            <label for="sltAlbum"><?php echo $this->translate->_('album'); ?>:</label>
             <select id="sltAlbum" name="sltAlbum">
-                <option value="" selected="selected">Sélectionnez un album</option>
+                <option value="" selected="selected"><?php echo $this->translate->_('selectionner_album'); ?></option>
                 <option value="">------------------</option>
                 <?php foreach ($this->albums as $album): ?>
                     <option value="<?= $album->id ?>"><?= $album->nom ?></option>
@@ -25,12 +25,12 @@
     </div>
     <br />
     <div class="box">
-        <h2 class="titreNews">Soumettre une vidéo</h2>
+        <h2 class="titreNews"><?php echo $this->translate->_('soumettre_video'); ?></h2>
         <form action="<?= $this->url(array('controller' => 'galerie', 'action' => 'soumettre')) ?>" 
               method="post" enctype="multipart/form-data" id="frmAddVideo">
-            <label for="sltAlbumVideo">Album&nbsp;:</label>
+            <label for="sltAlbumVideo"><?php echo $this->translate->_('album'); ?>:</label>
             <select id="sltAlbumVideo" name="sltAlbumVideo">
-                <option value="" selected="selected">Sélectionnez un album</option>
+                <option value="" selected="selected"><?php echo $this->translate->_('selectionner_album'); ?></option>
                 <option value="">------------------</option>
                 <?php foreach ($this->albums as $album): ?>
                     <option value="<?= $album->id ?>"><?= $album->nom ?></option>
@@ -38,7 +38,7 @@
             </select>
             <span style="font-style:italic">(Youtube, Dailymotion et Viméo)</span>
             <p id="urlVideo" style="display: none;">
-                <label for="lienVideo">Entrez l'adresse url de la vidéo&nbsp;:</label>
+                <label for="lienVideo"><?php echo $this->translate->_('entrez_url'); ?>:</label>
                 <input type="text" id="lienVideo" name="lienVideo" />
                 <input type="submit" class="bouton1" value="Envoyer" style="float: right;"/>
             </p>

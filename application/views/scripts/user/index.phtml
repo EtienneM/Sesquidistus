@@ -1,23 +1,23 @@
 <div class="totalBox">
     <div class="box">
-        <h1 class="titreNews">Espace membre : Bienvenue <?= $this->user->login ?> !</h1>
+        <h1 class="titreNews"><?php echo $this->translate->_('espace_membre'); ?>: <?php echo $this->translate->_('bienvenue'); ?> <?= $this->user->login ?> !</h1>
         <ul class="login">
-            <li title="Accédez à votre profil">
+            <li title="<?php echo $this->translate->_('accedez_profil'); ?>">
                 <div class="rotate">
                     <a class="black" href="<?= $this->url(array('action' => 'editProfil')); ?>">
-                        <img alt="Profil" src="/images/membres/profil.png"/><br/>Profil
+                        <img alt="Profil" src="/images/membres/profil.png"/><br/><?php echo $this->translate->_('profil'); ?>
                     </a>
                 </div>
             </li>
-            <li title="Accédez au trombinoscope">
+            <li title="<?php echo $this->translate->_('accedez_trombinoscope'); ?>">
                 <div class="rotate">
                     <a class="black" href="<?= $this->url(array('action' => 'list')); ?>">
-                        <img alt="Trombi" src="/images/membres/membre.png"/><br/>Trombi
+                        <img alt="Trombi" src="/images/membres/membre.png"/><br/><?php echo $this->translate->_('trombi'); ?>
                     </a>
                 </div>
             </li>
-            <li title="Accédez au forum">
-                <div class="rotate"><a class="black" href="http://forum.frisbee-strasbourg.net/"><img alt="Forum" src="/images/membres/forum.png"/><br/>Forum</a></div>
+            <li title="<?php echo $this->translate->_('accedez_forum'); ?>">
+                <div class="rotate"><a class="black" href="http://forum.frisbee-strasbourg.net/"><img alt="Forum" src="/images/membres/forum.png"/><br/><?php echo $this->translate->_('forum'); ?></a></div>
             </li>
             <?php /* TODO Galerie membre soumet photos+vidéos
               <li title="Accédez à la galerie">
@@ -33,6 +33,6 @@
               </div>
               </li> */ ?>
         </ul>
-        <p>[<a class="black" href="<?= $this->url(array('controller' => 'auth', 'action' => 'logout')); ?>">Déconnexion</a>]</p>
+        <p>[<a class="black" href="<?= $this->url(array('controller' => 'auth', 'action' => 'logout')); ?>"><?php echo $this->translate->_('deconnexion'); ?></a>]</p>
     </div>
 </div>

@@ -25,6 +25,9 @@ class IndexController extends Zend_Controller_Action {
         } else {
             $articles = $articleMapper->findByEvent($idEvent, $page, $paginator);
         }
+//         foreach ($articles as $article) {
+//         	$article->getDate()->setLocale($this->view->translate->getLocale());
+//         }
         $this->view->articles = $articles;
         $this->view->paginator = $paginator;
 

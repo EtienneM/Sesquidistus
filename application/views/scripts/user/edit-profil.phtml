@@ -1,16 +1,16 @@
 <div class="totalBox">
     <!-- Div édition du profil -->
     <div class="box">
-        <h2 class="titreNews">Mon profil</h2>
+        <h2 class="titreNews"><?php echo $this->translate->_('mon_profil'); ?></h2>
         <fieldset>
-            <legend>&Eacute;dition du profil&nbsp;: </legend>
+            <legend><?php echo $this->translate->_('edition_profil'); ?>: </legend>
             <?php $this->profilForm->setAction($this->url()); ?>
             <form method="<?= $this->profilForm->getMethod(); ?>" action="<?= $this->profilForm->getAction(); ?>" id="editProfil">
                 <table id="profil">
                     <tr id="uploadAvatar">
                         <td rowspan="6">
                             <img src="<?= $this->userModif->profil->avatarPath ?>" 
-                                 title="Cliquez pour changez votre photo!" class="bouton4" alt="Ma photo" id="avatar" />
+                                 title="<?php echo $this->translate->_('cliquez_changez_photo'); ?>" class="bouton4" alt="Ma photo" id="avatar" />
                         </td>
                     </tr>
                     <tr class="style1">
@@ -54,7 +54,7 @@
                 </table>
                 <?= $this->profilForm->submit; ?>
                 <a href="<?= $this->url(array('action' => 'view')); ?>">
-                    <input type="button" value="Visualiser mon profil existant" class="bouton1"/>
+                    <input type="button" value="<?php echo $this->translate->_('visualiser_profil'); ?>" class="bouton1"/>
                 </a>
             </form>
         </fieldset>
@@ -67,9 +67,9 @@
 
     <!-- Div du changement de mot de passe -->
     <div class="box">
-        <h2 class="titreNews">Mot de passe</h2>
+        <h2 class="titreNews"><?php echo $this->translate->_('mot_passe'); ?></h2>
         <fieldset>
-            <legend>Changement du mot de passe&nbsp;:</legend>
+            <legend><?php echo $this->translate->_('changement_mot_passe'); ?>:</legend>
             <form method="<?= $this->pwdForm->getMethod(); ?>" action="<?= $this->pwdForm->getAction(); ?>" id="editPwd">
                 <table id="pwd">
                     <tr class="style1">
@@ -89,7 +89,7 @@
         <a href="./doc/doc_membres/doc_membre.html#changer_mdp" target="_blank"><img src="/images/help.png" alt="aide"/></a>
     </div>
     <div id="dialogUploadAvatar" title="Changement de la photo de profil">
-        <p>Sélectionnez la photo de profil que vous souhaitez avoir.</p>
+        <p><?php echo $this->translate->_('selectionnez_photo_profil'); ?>.</p>
         <img id="preview" alt="Apperçu" src="#" />
         <div id="preview_ie"></div>
         <form id="frmUploadAvatar" method="POST" action="<?= $this->url(array('controller' => 'user', 'action' => 'editAvatar')) ?>" enctype="multipart/form-data">

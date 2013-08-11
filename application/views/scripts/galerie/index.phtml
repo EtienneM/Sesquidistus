@@ -2,7 +2,7 @@
     <?php if ($this->isAlbum): ?>
         <a href="<?= $this->url(array('controller' => 'galerie', 'action' => 'index'), null, true) ?>"
            class="bouton1">
-            Retour aux albums
+            <?php echo $this->translate->_('retour_albums'); ?>
         </a>
     <?php endif; ?>
     <?php if ($this->isRole(Application_Model_Acl::ROLE_MEMBRE) || $this->isAdmin()): ?>
@@ -30,7 +30,7 @@
             <a id="lnkSubmit"
                href="<?= $this->url(array('controller' => 'galerie', 'action' => 'soumettre'), null, true) ?>" 
                class="bouton1">
-                Soumettre une image
+                <?php echo $this->translate->_('soumettre_image'); ?>
             </a>
             <?php if ($this->isAdmin()): ?>
                 <a id="lnkAdmin" 
@@ -87,7 +87,7 @@
                 ))
             ?>">
                    <i class="logo logo_fb"></i>
-                   Partager
+                   <?php echo $this->translate->_('fb_partager'); ?>
                 </a>
             </div>
             <?php $twitter_link_args='via=Sesquidistus&source=tweetbutton' ?>

@@ -1,33 +1,33 @@
 <div class="totalBox">
     <div class="box">
-        <h1 class="titreNews">Création d'un compte</h1>
+        <h1 class="titreNews"><?php echo $this->translate->_('creation_compte'); ?></h1>
         <form method="POST" action="<?= $this->url(array('controller' => 'user', 'action' => 'create')); ?>" id="createAccount">
             <table id="profil">
                 <tr class="style1">
-                    <th>Identifiant</th>
+                    <th><?php echo $this->translate->_('identifiant'); ?></th>
                     <td><input id="login" type="text" class="required" name="login" maxlength="25" remote="<?= $this->url(array('controller' => 'user', 'action' => 'checkLogin')) ?>" /><em>*</em></td>
                 </tr>
                 <tr class="style2">
-                    <th>Mot de passe</th>
+                    <th><?php echo $this->translate->_('mot_passe'); ?></th>
                     <td><input id="passwd" type="password" class="required" name="passwd" maxlength="255" /><em>*</em></td>
                 </tr>
                 <tr class="style1">
-                    <th>Confirmation du mot de passe</th>
+                    <th><?php echo $this->translate->_('confirmation_mot_passe'); ?></th>
                     <td><input id="passwd2" type="password" class="required" name="passwd2" maxlength="255" equalto="#passwd" /><em>*</em></td>
                 </tr>
                 <tr class="style2">
-                    <th>Prénom</th>
+                    <th><?php echo $this->translate->_('prenom'); ?></th>
                     <td><input id="prenom" type="text" class="required" name="prenom" maxlength="50" /><em>*</em></td>
                 </tr>
                 <tr class="style1">
-                    <th>E-mail</th>
+                    <th><?php echo $this->translate->_('email'); ?></th>
                     <td><input id="mail" type="text" class="email" name="mail" maxlength="100" /></td>
                 </tr>
                 <tr class="style2">
-                    <th>Joueur depuis</th>
+                    <th><?php echo $this->translate->_('joueur_depuis'); ?></th>
                     <td>
                         <select id="adhesion" name="adhesion">
-                            <option selected="selected" value="<?= date('Y') ?>">Sélectionnez une année&nbsp;:</option>
+                            <option selected="selected" value="<?= date('Y') ?>"><?php echo $this->translate->_('selectionnez_annee'); ?>:</option>
                             <?php for ($i = 1995; $i <= date('Y'); $i++): ?>
                                 <option label="<?= $i ?>" value="<?= $i ?>"><?= $i ?></option>
                             <?php endfor; ?>
@@ -35,12 +35,12 @@
                     </td>
                 </tr>
                 <tr class="style1">
-                    <th>Numéro</th>
+                    <th><?php echo $this->translate->_('numero'); ?></th>
                     <td><input id="numero" type="text" class="digits" name="numero" /></td>
                 </tr>
-                <tr class="style2"><td>&nbsp;</td><td>Les champs marqués d'une <em>*</em> sont obligatoires</td></tr>
+                <tr class="style2"><td>&nbsp;</td><td><?php echo $this->translate->_('champs_etoile'); ?></td></tr>
             </table>
-            <input type="submit" class="bouton1" value="S'inscrire" />
+            <input type="submit" class="bouton1" value="<?php echo $this->translate->_('sinscrire'); ?>" />
         </form>
     </div>
 </div>

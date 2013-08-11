@@ -4,7 +4,8 @@
     <?=
     $this->partial('_sidebar.phtml', array('sections' => $this->sections,
         'id' => $this->club->id,
-        'controller' => $this->controller))
+        'controller' => $this->controller,
+    	'translate' => $this->translate))
     ?>
     </nav>
     <!-- div du contenu de la page -->

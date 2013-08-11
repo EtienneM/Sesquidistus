@@ -26,7 +26,7 @@
             'annee' => $previousMonth->get(Zend_Date::YEAR),
         ));
         ?>" id="prevDate" class="bouton1">
-            &lt;&lt; Mois précédent
+            &lt;&lt; <?php echo $this->translate->_('mois_precedent'); ?>
         </a>
         <span id="texteMoisCourant">
             <?= ucwords($this->escape($this->displayedMonth->get(Zend_Date::MONTH_NAME.' '.Zend_Date::YEAR))); ?>
@@ -41,7 +41,7 @@
             'annee' => $nextMonth->get(Zend_Date::YEAR),
         ));
         ?>" id="nextDate" class="bouton1">
-            Mois suivant &gt;&gt;
+            <?php echo $this->translate->_('mois_suivant'); ?> &gt;&gt;
         </a>
     </div>
     <!-- Zone dans lequel se trouve le calendrier -->
@@ -49,7 +49,15 @@
         <div class="calendar">
             <table cellpadding="2">
                 <thead>
-                    <?php $jours = array('Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche') ?>
+                    <?php $jours = array(
+                    		$this->translate->_('lundi'), 
+                    		$this->translate->_('mardi'), 
+                    		$this->translate->_('mercredi'), 
+                    		$this->translate->_('jeudi'), 
+                    		$this->translate->_('vendredi'), 
+                    		$this->translate->_('samedi'), 
+                    		$this->translate->_('dimanche')) 
+                    ?>
                     <tr class="calendar">
                         <?php $nbJours = count($jours) ?>
                         <?php for ($i = 0; $i < $nbJours; $i++): ?>
@@ -63,10 +71,10 @@
                 <?php $nbJoursMois = $this->displayedMonth->get(Zend_Date::MONTH_DAYS); ?>
                 <tbody>
                     <?php
-                    $jourCourant = new Zend_Date($this->displayedMonth);
+                    $jourCourant = new Zend_Date($this->displayedMonth, null, new Zend_Locale('fr'));
                     for ($i = 0; $i < $nbJoursMois; $i++):
                         // Si jourCourant est lundi
-                        if (ucwords($jourCourant->get(Zend_Date::WEEKDAY)) == $jours[0]):
+                        if (ucwords($jourCourant->get(Zend_Date::WEEKDAY_DIGIT)) == 1):
                             ?>
                             <tr>
                                 <?php
@@ -154,7 +162,7 @@
 <?php // Génération de la légende dont les types d'évènements existe le mois affiché.   ?>
 <aside class="totalBox" id="legende">
     <div class="box">
-        <h3 class="titreNews">Légende :</h3>
+        <h3 class="titreNews"><?php echo $this->translate->_('legende'); ?>:</h3>
         <?php $margin = 0 ?>
 <?php foreach ($this->legend as $l): ?>
             <div id="lgd<?= $this->escape($l->id) ?>" class="lgdElement" style="margin-left:<?= $margin ?>px;">
@@ -177,7 +185,9 @@
 <section id="globalRecap">
     <div id="accordionCal">
         <h4 class="header titreSaison">
-            Récapitulatif des évènements du mois de <?= $this->escape($this->displayedMonth->get(Zend_Date::MONTH_NAME)) ?> <?= $this->escape($this->displayedMonth->get(Zend_Date::YEAR)) ?>
+        	<?php $this->displayedMonth->setLocale($this->translate->getLocale()); ?>
+        	<?php echo $this->translate->_('recapitulatif_evenements'); ?>
+            <?= $this->escape($this->displayedMonth->get(Zend_Date::MONTH_NAME)) ?> <?= $this->escape($this->displayedMonth->get(Zend_Date::YEAR)) ?>
         </h4>
         <div id="boiteRecap" class="box2">
             <?php foreach ($this->evenements as $events): ?>

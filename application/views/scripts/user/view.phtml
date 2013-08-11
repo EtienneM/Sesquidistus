@@ -1,7 +1,7 @@
 <div class="totalBox">
     <div class="box">
         <h1 class="titreNews">
-            Feuille profil membre
+        	<?php echo $this->translate->_('feuille_membre'); ?>
             <?php if ($this->isAdmin()): ?>
                 <a href="<?= $this->url(array('controller' => 'user', 'action' => 'supprimer', 'id' => $this->member->id)); ?>" class="supprimer">
                     <img class="editUser" src="/images/del.png" alt="Supprimer" title="Supprimer"/>
@@ -9,7 +9,7 @@
             <?php endif; ?>
         </h1>
         <fieldset>
-            <legend>Profil :</legend>
+            <legend><?php echo $this->translate->_('profil'); ?>:</legend>
             <table id="profil">
                 <tr>
                     <td rowspan="3">
@@ -18,9 +18,9 @@
                     </td>
                 </tr>
                 <tr class="style1">
-                    <th>Login&nbsp;:</th>
+                    <th><?php echo $this->translate->_('identifiant'); ?>:</th>
                     <td id="login"><?= $this->escape($this->member->login); ?></td>
-                    <th>Membre depuis&nbsp;:</th>
+                    <th><?php echo $this->translate->_('membre_depuis'); ?>:</th>
                     <?php $adhesion = $this->member->profil->adhesion; ?>
                     <td><?= $this->escape((!empty($adhesion))?$this->member->profil->adhesion->get(Zend_Date::YEAR):''); ?></td>
                 </tr>
@@ -30,9 +30,9 @@
                       <th>E-mail&nbsp;:</th>
                       <td><?= $this->member->profil->mail; ?></td>
                      */ ?>
-                    <th>Prénom&nbsp;:</th>
+                    <th><?php echo $this->translate->_('prenom'); ?>:</th>
                     <td><?= $this->escape($this->member->profil->prenom); ?></td>                    
-                    <th>Numéro</th>
+                    <th><?php echo $this->translate->_('numero'); ?></th>
                     <td><?= $this->escape($this->member->profil->numero); ?></td>
                 </tr>
                 <?php if ($this->isAdmin()): ?>

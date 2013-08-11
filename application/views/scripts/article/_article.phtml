@@ -16,20 +16,20 @@
         <div style="margin-top:30px; margin-bottom: 7px;">
             <?php
             if ($article->author !== null) {
-                $author = 'par <span itemprop="author">'.$article->author->login.'</span>';
+                $author = $this->translate->_('article_par').' <span itemprop="author">'.$article->author->login.'</span>';
             } else {
                 $author = '';
             }
             ?>
             <span class="note" style="text-align: left;" itemscope itemtype="http://schema.org/Person">
-                Article créé <?= $author ?> le <?= $this->escape($article->date->get('dd/MM/YYYY')) ?>
+                <?php echo $this->translate->_('article_cree'); ?> <?= $author ?> <?php echo $this->translate->_('date_le'); ?> <?= $this->escape($article->date->get('dd/MM/YYYY')) ?>
                 <meta itemprop="dateCreated" content="<?= $this->escape($article->date->get(Zend_Date::ISO_8601)) ?>" />
             </span>
             <div class="fb_button social_button">
                 <a  target="_blank"
                     href="https://www.facebook.com/share.php?u=<?= $_SERVER['HTTP_HOST'] . $this->url(array('controller' => 'index', 'action' => 'index', 'id_article' => $article->id)) ?>">
                     <i class="logo logo_fb"></i>
-                    Partager
+                    <?php echo $this->translate->_('fb_partager'); ?>
                 </a>
             </div>
             <div class="twitter_button social_button">

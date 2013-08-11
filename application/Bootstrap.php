@@ -23,6 +23,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $oCache = Zend_Cache::factory('Core', 'File', $aFrontendConf, $aBackendConf);
         $oCache->setOption('automatic_serialization', true);
         Zend_Locale::setCache($oCache);
+        Zend_Date::setOptions(array('cache' => $oCache));
+//         Zend_Translate::setCache($oCache);
     }
 
     protected function _initMeta() {
@@ -82,6 +84,24 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 ->appendStylesheet('/css/dialog.css')
                 ->appendStylesheet('/css/accordion.css')
                 ->appendStylesheet('/css/accordionIE.css', 'screen', 'IE 6');
+    }
+    
+    protected function _initTranslation() {
+    	$this->bootstrap(array('layout', 'view'));
+    	$layout = $this->getResource('layout');
+    	$view = $layout->getView();
+    	Zend_Registry::set('Zend_Locale', new Zend_Locale('fr_FR'));
+    	$translate = new Zend_Translate(array(
+    			'adapter' => 'array',
+    			'content' => APPLICATION_PATH.'/../languages/',
+    			'locale' => 'auto',
+    			'scan' => Zend_Translate::LOCALE_FILENAME,
+    			'disableNotices' => true,
+    	));
+    	if (!$translate->isAvailable($translate->getLocale())) {
+    		$translate->setLocale('fr_FR');
+    	}
+    	$view->translate = $translate;
     }
 
     protected function _initNavigation() {

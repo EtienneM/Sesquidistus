@@ -1,25 +1,25 @@
 <nav style="margin-bottom:25px">
     <a id="organiserButton" class="bouton1 <?= ($this->type == 5) ? 'boutonPageCourante' : ''; ?>" href="<?= $this->url(array('action' => 'index', 'type' => 5)); ?>">
-        &Eacute;vènements organisés par le club
+        <?php echo $this->translate->_('evenements_club'); ?>
     </a>
     <a id="participerButton" class="bouton1 <?= ($this->type == 4) ? 'boutonPageCourante' : ''; ?>" href="<?= $this->url(array('action' => 'index', 'type' => 4)); ?>">
-        &Eacute;vènements auxquels le club participe
+        <?php echo $this->translate->_('evenements_participe'); ?>
     </a>
     <a id="ffdfButton" class="bouton1 <?= ($this->type == 11) ? 'boutonPageCourante' : ''; ?>" href="<?= $this->url(array('action' => 'index', 'type' => 11)); ?>">
-        &Eacute;vènements FFDF
+        <?php echo $this->translate->_('evenements_ffdf'); ?>
     </a>
 </nav>
 
 <section id="accordionEvent" style="margin-bottom:40px"> 
     <?php foreach ($this->evenements as $interval => $evenements): ?>
-        <h4 class="header titreSaison">&Eacute;vènements de la saison <?= $interval ?></h4>
+        <h4 class="header titreSaison"><?php echo $this->translate->_('evenements_saison'); ?> <?= $interval ?></h4>
         <div class="box2">
             <table class="table">
                 <tr class="header">
-                    <th>Titre</th>
-                    <th>Lieu</th>
-                    <th>Date</th>
-                    <th>Contenu</th>
+                    <th><?php echo $this->translate->_('titre'); ?></th>
+                    <th><?php echo $this->translate->_('lieu'); ?></th>
+                    <th><?php echo $this->translate->_('date'); ?></th>
+                    <th><?php echo $this->translate->_('contenu'); ?></th>
                 </tr>
                 <?php foreach ($evenements['evenements'] as $evenement): ?>
                     <tr class="mouseover">
@@ -29,7 +29,7 @@
                         <td>
                             <?php if ($evenements['article'][$evenement->id]): ?>
                                 <a href="<?= $this->url(array('controller' => 'index', 'type' => null, 'id_event' => $evenement->id)); ?>">
-                                    <img style="cursor:pointer" id="ico<?= $evenement->id; ?>" src="/images/page.png" alt="Articles" title="Accéder aux articles liés à cet évènement" />
+                                    <img style="cursor:pointer" id="ico<?= $evenement->id; ?>" src="/images/page.png" alt="Articles" title="<?php echo $this->translate->_('evenement_acceder_article'); ?>" />
                                 </a>
                             <?php endif; ?>
                             <?php if ($this->isAdmin()): ?>

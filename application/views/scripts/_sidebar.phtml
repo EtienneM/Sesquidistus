@@ -1,6 +1,6 @@
 <?php if (!isset($this->admin)) $this->admin = true; ?>
 <div id="Menu" class="box">
-    <h3 class="titreNews">Sections</h3>
+    <h3 class="titreNews"><?php echo $this->translate->_('sections'); ?></h3>
     <?php foreach ($this->sections as $section): ?>
         <a href="<?= $this->url(array('controller' => $this->controller, 'action' => 'index', 'id' => $section->id)) ?>">
             <?php $class = ($section->id == $this->id) ? 'bouton6' : 'bouton2' ?>
