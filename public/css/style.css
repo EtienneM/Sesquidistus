@@ -29,7 +29,6 @@ header#bandeau1 img#sesquiLogo {
     top:2px;
 }
 
-
 img#footerDive {
     margin-left:100px;
 }
@@ -64,6 +63,12 @@ span.userInfo {
     position:absolute; 
     left:512px; 
     top:23px;
+}
+
+header#bandeau1 span#change_language {
+	position: absolute;
+	top: 15px;
+	left: 430px;
 }
 
 span#copyright {

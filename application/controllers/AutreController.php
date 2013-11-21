@@ -34,6 +34,12 @@ class AutreController extends Zend_Controller_Action {
 		}
 	}
 	
+	public function changelangAction() {
+		$lang = $this->getRequest()->getParam('lang', 'fr');
+		$this->view->translate->setLocale($lang);
+		$this->redirect('/');
+	}
+	
 	public function aproposAction() {
 	
 	}

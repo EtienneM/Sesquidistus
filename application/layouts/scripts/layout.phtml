@@ -46,6 +46,14 @@
                         <a class="white" href="<?= $this->url(array('controller' => 'auth', 'action' => 'login')); ?>"><?php echo $this->translate->_('identifier'); ?></a>
                     </span>
                 <?php endif; ?>
+                <!-- span id="change_language">
+                	<a href="<?php echo $this->url(array('controller' => 'autre', 'action' => 'changelang', 'lang' => 'fr-FR')); ?>">
+                		<img alt="Français" src="/images/drapeau/drapeau-francais.png" />
+                	</a>
+                	<a href="<?php echo $this->url(array('controller' => 'autre', 'action' => 'changelang', 'lang' => 'en')); ?>">
+                		<img alt="English" src="/images/drapeau/drapeau-anglais.png" />
+                	</a>
+                </span-->
             </div>
         </header>
         <!-- Menu style apple -->
@@ -72,19 +80,19 @@ for ($i = 0; $i < count($this->imagesBandeau); $i++) {
     });
         </script>
 
-        <div id="leftHeadBand">
+        <!-- div id="leftHeadBand">
             <img src="<?= $this->ad ?>" alt="15 ans des Sesquidistus" 
                  title="15 ans des Sesquidistus" />
-        </div>
+        </div-->
 
         <div id="globalBox">
             <?php echo $this->layout()->content . "\n"; ?>
         </div>
         
-        <div id="rightHeadBand">
+        <!-- div id="rightHeadBand">
             <img src="<?= $this->ad ?>" alt="15 ans des Sesquidistus" 
                  title="15 ans des Sesquidistus" />
-        </div>
+        </div-->
 
 
         <!-- Footer -->
