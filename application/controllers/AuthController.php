@@ -13,9 +13,9 @@ class AuthController extends Zend_Controller_Action {
 
     public function loginAction() {
         $db = $this->_getParam('db');
-        $this->view->headScript()->appendFile('/js/jquery/jquery.browserid-min.js');
-        $this->view->headScript()->appendFile('/js/persona.js');
-        $this->view->headLink()->appendStylesheet('/css/persona-buttons.css');
+//         $this->view->headScript()->appendFile('/js/jquery/jquery.browserid-min.js');
+//         $this->view->headScript()->appendFile('/js/persona.js');
+//         $this->view->headLink()->appendStylesheet('/css/persona-buttons.css');
         
         $loginForm = new Application_Form_Auth_Login($this->getRequest()->getPost());
         if ($loginForm->isValid($this->getRequest()->getPost())) {
