@@ -140,6 +140,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $view = $this->getResource('view');
 
         $view->fromYear = 2010;
+        date_default_timezone_set('Europe/Paris');
         $view->nowYear = (int) date('Y');
     }
 
