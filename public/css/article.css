@@ -16,7 +16,11 @@ img.editArticle {
  *
  * http://docs.jquery.com/UI/Autocomplete#theming
 */
-.ui-autocomplete { position: absolute; cursor: default; }	
+.ui-autocomplete { 
+    position: absolute; 
+    cursor: default; 
+    z-index: 105;
+}	
 
 /* workarounds */
 * html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
@@ -71,4 +75,5 @@ img.editArticle {
     font-weight: normal;
     margin: -1px;
 }
+
 
