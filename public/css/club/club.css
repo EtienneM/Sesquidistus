@@ -1,9 +1,3 @@
-body {
-    background-image: url('/images/bgKYM.png');
-    background-attachment: scroll;
-    background-repeat: repeat;
-}
-
 div#globalContent {
     margin-bottom:100px;
 }
