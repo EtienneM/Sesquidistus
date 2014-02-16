@@ -31,7 +31,9 @@
                     <label for="width"><?= $this->translate->_('largeur'); ?></label><input type="number" id="width" name="width" value="400" /><br/>
                     <input type="submit" value="Valider" class="bouton1" />
                 </form>
-                <textarea style="width: 100%; height: 150px;"><?= $this->embeddedCode ?></textarea>
+                <?php if (!is_null($this->embeddedCode)): ?>
+                <textarea style="width: 100%; height: 150px;" readonly><?= $this->embeddedCode ?></textarea>
+                <?php endif; ?>
             </div>
         </div>
     </section>
