@@ -45,6 +45,11 @@
         <?php else: ?>
             <h1 class="titreNews"><?= $this->escape($this->kym->titre); ?></h1>
             <div class="contenuNews">
+                <?php // If Pictures
+                if ($this->kym->id === 6 && $this->isAdmin()): ?>
+                    <span id="getEmbeddedCode" style="display:none">Récupérer le code du diaporama 
+                        <a href="<?= $this->url(array('controller' => 'kym', 'action' => 'diaporama')); ?>" target="_blank">ici</a></span>
+                <?php endif; ?>
                 <div><?= $this->kym->contenu ?></div>
                 <?php if ($this->isAdmin()): ?>
                     <form method="POST" id="frmContent" action="<?= $this->url(array('controller' => 'kym', 'action' => 'modifier')); ?>">
@@ -65,7 +70,15 @@
     </section>
     <?php if ($this->kym->id != 1 && $this->isAdmin()): ?>
         <div id="modifContent">
-            <input class="bouton1" type="button" value="Modifier le contenu" />
+            <input class="bouton1" id="btnModify" type="button" value="Modifier le contenu" />
         </div>
+        <?php // If Pictures
+        if ($this->kym->id === 6): ?>
+            <script type="text/javascript">
+                $('#btnModify').click(function() {
+                    $('span#getEmbeddedCode').show();
+                });
+            </script>
+        <?php endif; ?>
     <?php endif; ?>
 </div>

@@ -45,7 +45,8 @@ table.table th{
 aside.totalBox div#blocComplementaire {
     background-color: #DFDFDF;
     position:absolute;
-    top: 240px;
+    /*top: 240px;*/
+    top: 280px;
     width: 150px;
 }
 

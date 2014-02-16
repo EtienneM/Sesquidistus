@@ -96,4 +96,8 @@ return array(
 		'feuille_membre' => 'Member\'s profile',
 		'membre_depuis' => 'Member since',
 		'sections' => 'Sections',
+		'diapo_google' => 'Google+ and Picasa slideshow',
+		'diapo_google_texte' => 'Get the code to embed a Picasa or Google+ slideshow. Contact me if you need more slideshow provider. Address on Picasa or Google+:',
+		'hauteur' => 'Height:',
+		'largeur' => 'Width:',
 );

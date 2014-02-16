@@ -3,19 +3,17 @@
 class KymController extends My_Controller_Action_CustomContent {
 
     public function init() {
-        $this->_title = 'Nos évènements';
+        $this->_title = 'Keep Your Moustache';
         $this->_styleSheets = array('/css/club/club.css', '/css/event/event.css');
         parent::init();
     }
 
     public function indexAction() {
-        $this->view->headTitle()->append('Keep Your Moustache');
         $this->view->headScript()->appendFile('/js/category.js')
                 ->appendFile('/js/tinymce/jquery.tinymce.min.js');
         $this->view->headLink()->appendStylesheet('/css/pagination.css')
                 ->appendStylesheet('/css/article.css')
-                ->appendStylesheet('/css/social.css')
-                ->appendStylesheet('/css/club/club.css');
+                ->appendStylesheet('/css/social.css');
         $this->view->controller = 'kym';
         $this->view->ad = '/images/anniversaire/bandeau-KYM.png';
 
@@ -69,6 +67,16 @@ class KymController extends My_Controller_Action_CustomContent {
         }
     }
 
+    public function diaporamaAction() {
+        $request = $this->getRequest();
+        $kymMapper = new Application_Model_Mapper_Kym();
+        $this->view->sections = $kymMapper->fetchAll();
+        if (!is_null($url = $request->getParam('url'))) {
+            $proxy = new My_Helper_Slideshow_Proxy();
+            $this->view->embeddedCode = $proxy->getEmbeddedCode($url, $request->getParam('height'), $request->getParam('width'));
+        }
+    }
+
     public function ajouterAction() {
         $request = $this->getRequest();
         $id = $request->getParam('id', 1);
@@ -108,7 +116,7 @@ class KymController extends My_Controller_Action_CustomContent {
                 'id' => $id,
                 'titre' => $title,
                 'contenu' => $content,
-                    ));
+            ));
             $kymMapper->save($kym);
             $this->_helper->flashMessenger('Modification du contenu réussi');
         }

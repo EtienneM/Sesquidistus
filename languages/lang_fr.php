@@ -96,4 +96,8 @@ return array(
 		'feuille_membre' => 'Feuille profil membre',
 		'membre_depuis' => 'Membre depuis&nbsp;',
 		'sections' => 'Sections',
+		'diapo_google' => 'Diaporama Google+ et Picasa',
+		'diapo_google_texte' => 'Récupérer le code du diaporama Google+. Me contacter si besoin d\'ajouter d\'autres sites. Adresse sur Google+&nbsp;:',
+		'hauteur' => 'Hauteur&nbsp;:',
+		'largeur' => 'Largeur&nbsp;:',
 );
