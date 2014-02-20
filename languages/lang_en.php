@@ -62,7 +62,8 @@ return array(
 		'prochain_tournoi' => 'Next tournament',
 		'video_moment' => 'Highlighted video',
 		'retrouvez_nous' => 'Follow us',
-		'retrouvez_kym' => 'Follow the KYM',
+		'retrouvez_kym' => 'Find the KYM',
+		'nos_partenaires' => 'Partners',
 		'aucun_article_kym' => 'No article about the KYM...',
 		'aucun_article_kym_texte' => 'No news about the Keep Your Moustache at the moment. 
                             Come back later for more news.',
