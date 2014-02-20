@@ -164,6 +164,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
     }
 
+    protected function _initAnalytics() {
+        $this->bootstrap('view');
+        $view = $this->getResource('view');
+        if (! @include_once('/homez.63/frisbees/owa/owa_php.php')) {
+            trigger_error('Impossible to load OWA');
+            return;
+        }
+        $owa = new owa_php();
+        $owa->setSiteId('64fb68a9ba2c4c1d191744ffbcf6580b');
+        $owa->setPageTitle($view->headTitle());
+        $owa->trackPageView();
+    }
+
     private static function _getCurrentUserRoleId() {
         $auth = Zend_Auth::getInstance();
         if (!$auth->hasIdentity()) {
