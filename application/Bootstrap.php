@@ -87,21 +87,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
     
     protected function _initTranslation() {
-    	$this->bootstrap(array('layout', 'view'));
-    	$layout = $this->getResource('layout');
-    	$view = $layout->getView();
-    	Zend_Registry::set('Zend_Locale', new Zend_Locale('fr_FR'));
-    	$translate = new Zend_Translate(array(
-    			'adapter' => 'array',
-    			'content' => APPLICATION_PATH.'/../languages/',
-    			'locale' => 'auto',
-    			'scan' => Zend_Translate::LOCALE_FILENAME,
-    			'disableNotices' => true,
-    	));
-    	if (!$translate->isAvailable($translate->getLocale())) {
-    		$translate->setLocale('fr_FR');
-    	}
-    	$view->translate = $translate;
+        $this->bootstrap(array('layout', 'view'));
+        $layout = $this->getResource('layout');
+        $view = $layout->getView();
+        $translate = new Zend_Session_Namespace('translate');
+        if (!isset($translate->Zend_Translate)) {
+            $translate->Zend_Translate = new Zend_Translate(array(
+                'adapter' => 'array',
+                'content' => APPLICATION_PATH.'/../languages/',
+                'locale' => 'auto',
+                'scan' => Zend_Translate::LOCALE_FILENAME,
+                'disableNotices' => false,
+                'route'   => array('en' => 'fr',),
+            ));
+        }
+        $view->translate = $translate->Zend_Translate;
     }
 
     protected function _initNavigation() {

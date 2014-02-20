@@ -35,8 +35,14 @@ class AutreController extends Zend_Controller_Action {
 	}
 	
 	public function changelangAction() {
+		$this->_helper->viewRenderer->setNoRender();
 		$lang = $this->getRequest()->getParam('lang', 'fr');
-		$this->view->translate->setLocale($lang);
+		$translate = new Zend_Session_Namespace('translate');
+		if (!$translate->Zend_Translate->isAvailable($lang)) {
+			// not available languages are rerouted to another language
+			$lang = 'fr';
+		}
+		$translate->Zend_Translate->setLocale($lang);
 		$this->redirect('/');
 	}
 	
