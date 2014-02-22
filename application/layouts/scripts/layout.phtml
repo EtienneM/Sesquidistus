@@ -24,7 +24,7 @@
         <!-- Header : Bandeau logo -->
         <header id="bandeau1" class="bandeau">
             <div>
-                <a href="http://www.sucstrasbourg.com/"><img src="/images/suc_logo.png" title="SUC Strasbourg" alt="SUC Strasbourg" id="sucLogo" /></a>
+                <a href="http://www.sucstrasbourg.fr/"><img src="/images/suc_logo.png" title="SUC Strasbourg" alt="SUC Strasbourg" id="sucLogo" /></a>
                 <a href="<?= $this->baseUrl('/'); ?>"><img src="/images/minilogo.png" alt="Sesquidistus" id="sesquiLogo"/></a>
                 <?php if (!is_null($this->user)): ?>
                     <a href="<?= $this->url(array('controller' => 'user', 'action' => 'index'), null, true) ?>">
