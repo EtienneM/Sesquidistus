@@ -10,10 +10,12 @@ class KymController extends My_Controller_Action_CustomContent {
 
     public function indexAction() {
         $this->view->headScript()->appendFile('/js/category.js')
-                ->appendFile('/js/tinymce/jquery.tinymce.min.js');
+                ->appendFile('/js/tinymce/jquery.tinymce.min.js')
+                ->appendFile('/js/jquery/jquery.TimeCircles.js');
         $this->view->headLink()->appendStylesheet('/css/pagination.css')
                 ->appendStylesheet('/css/article.css')
-                ->appendStylesheet('/css/social.css');
+                ->appendStylesheet('/css/social.css')
+                ->appendStylesheet('/css/jquery.TimeCircles.css');
         $this->view->controller = 'kym';
         $this->view->ad = '/images/anniversaire/bandeau-KYM.png';
 
