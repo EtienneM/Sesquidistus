@@ -125,5 +125,53 @@ class KymController extends My_Controller_Action_CustomContent {
         $this->_redirect('/kym/index/id/' . $id);
     }
 
+    public function addpickupAction() {
+        $request = $this->getRequest();
+        $id = $request->getParam('id', 1);
+
+        $body = '';
+        $first_name = $request->getParam('txtFirstName');
+        if (empty($first_name)) {
+            throw new Zend_Exception("First name must be set");
+        }
+        $body .= "First Name: $first_name\n";
+        $last_name = $request->getParam('txtLastName');
+        if (empty($last_name)) {
+            throw new Zend_Exception("Last name must be set");
+        }
+        $body .= "Last Name: $last_name\n";
+        $email = $request->getParam('txtEmail');
+        if (empty($email)) {
+            throw new Zend_Exception("E-mail must be set");
+        }
+        $body .= "E-mail: $email\n";
+        $gender = $request->getParam('sltGender');
+        if (empty($gender)) {
+            throw new Zend_Exception("Gender must be set");
+        }
+        if ($gender !== 'Male' && $gender !== 'Female') {
+            throw new Zend_Exception("Invalid value for the gender. Must be Male or Female.");
+        }
+        $body .= "Gender: $gender\n";
+        $level = $request->getParam('rdLevel');
+        if ($level !== 'beginner' && $level !== 'intermediate' && $level !== 'advanced' && $level !== 'pro') {
+            throw new Zend_Exception("Invalid value for the level.");
+        }
+        $body .= "Level: $level\n";
+
+
+        /*
+         * Send an e-mail 
+         */
+        $mail = new Zend_Mail();
+        $mail->setBodyText($body)
+            ->setFrom('webmaster@frisbee-strasbourg.net', 'Site web Sesquidistus')
+            ->addTo('titizebioutifoul@free.fr', 'Pickup administrator')
+            ->setSubject("Nouveau joueur pickup: $first_name $last_name")
+            ->send();
+
+        $this->_redirect('/kym/index/id/' . $id);
+    }
+
 }
 

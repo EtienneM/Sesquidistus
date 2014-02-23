@@ -61,8 +61,27 @@
                 if ($this->kym->id === 6 && $this->isAdmin()): ?>
                     <span id="getEmbeddedCode" style="display:none">Récupérer le code du diaporama 
                         <a href="<?= $this->url(array('controller' => 'kym', 'action' => 'diaporama')); ?>" target="_blank">ici</a></span>
+                <?php //If Pickup Player
+                elseif ($this->kym->id === 7): ?>
+                <form id="pickupKYM" method="POST" action="<?= $this->url(array('controller' => 'kym', 'action' => 'addPickup')); ?>">
+                    <div class="element"><label for="txtFirstName">First Name</label><input type="text" id="txtFirstName" name="txtFirstName" tabindex="1" /></div>
+                    <div class="element"><label for="txtLastName">Last Name</label><input type="text" id="txtLastName" name="txtLastName" tabindex="2" /></div>
+                    <div class="element"><label for="txtEmail">E-mail</label><input type="email" id="txtEmail" name="txtEmail" tabindex="3" /></div>
+                    <div class="element"><label for="sltGender">Gender</label><select name="sltGender" id="sltGender" tabindex="4">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select></div>
+                    <div class="element"><label for="rdBeginner">Level</label>
+                        <div><input type="radio" name="rdLevel" value="beginner" id="rdBeginner" tabindex="5"/><label for="rdBeginner">Beginner</label></div>
+                        <div><input type="radio" name="rdLevel" value="intermediate" id="rdIntermediate"/><label for="rdIntermediate">Intermediate</label></div>
+                        <div><input type="radio" name="rdLevel" value="advanced" id="rdAdvanced"/><label for="rdAdvanced">Advanced</label></div>
+                        <div><input type="radio" name="rdLevel" value="pro" id="rdPro"/><label for="rdPro">Pro</label></div>
+                    </div>
+                    <input type="submit" />
+                </form>
+                <?php else: ?>
+                    <div><?= $this->kym->contenu ?></div>
                 <?php endif; ?>
-                <div><?= $this->kym->contenu ?></div>
                 <?php if ($this->isAdmin()): ?>
                     <form method="POST" id="frmContent" action="<?= $this->url(array('controller' => 'kym', 'action' => 'modifier')); ?>">
                         <textarea id="content" name="content"><?= $this->kym->contenu ?></textarea>
