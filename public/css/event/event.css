@@ -128,15 +128,14 @@ form#pickupKYM select:focus {
 }
 
 form#pickupKYM input[type='radio'] {
-    width: 300px;
     margin-left: 35px;
     color: #555;
     background-color: #FFF;
-    border: 1px solid #CCC;
+    /*border: 1px solid #CCC;
     border-radius: 4px;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
     line-height: 1.42857;
-    height: 30px;
+    height: 30px;*/
     outline: none;
     vertical-align: middle;
 }
