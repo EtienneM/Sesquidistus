@@ -166,10 +166,11 @@ class KymController extends My_Controller_Action_CustomContent {
         $mail = new Zend_Mail();
         $mail->setBodyText($body)
             ->setFrom('webmaster@frisbee-strasbourg.net', 'Site web Sesquidistus')
-            ->addTo('titizebioutifoul@free.fr', 'Pickup administrator')
+            ->addTo('pickup-kym@frisbee-strasbourg.net', 'Pickup administrator')
             ->setSubject("Nouveau joueur pickup: $first_name $last_name")
             ->send();
 
+        $this->_helper->flashMessenger('Pickup player added');
         $this->_redirect('/kym/index/id/' . $id);
     }
 
