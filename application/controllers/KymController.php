@@ -158,6 +158,8 @@ class KymController extends My_Controller_Action_CustomContent {
             throw new Zend_Exception("Invalid value for the level.");
         }
         $body .= "Level: $level\n";
+        $comment = $request->getParam('txtComment', '');
+        $body .= "Tell us where you are coming from: $comment\n";
 
 
         /*

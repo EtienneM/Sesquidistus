@@ -131,11 +131,6 @@ form#pickupKYM input[type='radio'] {
     margin-left: 35px;
     color: #555;
     background-color: #FFF;
-    /*border: 1px solid #CCC;
-    border-radius: 4px;
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
-    line-height: 1.42857;
-    height: 30px;*/
     outline: none;
     vertical-align: middle;
 }
@@ -145,6 +140,24 @@ form#pickupKYM div.element div {
     margin-bottom: 5px;
 }
 
+form#pickupKYM textarea {
+    width: 370px;
+    height: 150px;
+    margin-left: 15px;
+    /*box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);*/
+    color: #555;
+    background-color: #FFF;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+    outline: none;
+    padding: 6px 12px;
+}
+
+form#pickupKYM textarea:focus {
+    box-shadow: 0 0 5px rgba(153, 204, 255, 1);
+    border: 1px solid rgba(153, 204, 255, 1);
+}
 
 form#pickupKYM input[type='submit'] {
     display: inline-block;
