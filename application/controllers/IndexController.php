@@ -37,5 +37,9 @@ class IndexController extends Zend_Controller_Action {
         $videoMapper = new Application_Model_Mapper_Video();
         $this->view->video = $videoMapper->findLastVideo();
     }
+
+    public function nouveauxAction() {
+
+    }
 }
 
