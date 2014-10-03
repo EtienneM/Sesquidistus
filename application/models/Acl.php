@@ -55,7 +55,7 @@ class Application_Model_Acl extends Zend_Acl {
                 ->addResource('type-event')
                 ->addResource('kym');
 
-        $this->allow(self::ROLE_VISITEUR, array('index'), array('index', 'contact', 'apropos', 'mentions'))
+        $this->allow(self::ROLE_VISITEUR, array('index'), array('index', 'contact', 'apropos', 'mentions', 'nouveaux'))
         		->allow(self::ROLE_VISITEUR, array('autre'), array('contact', 'apropos', 'mentions', 'changelang'))
                 ->allow(self::ROLE_VISITEUR, array('calendrier'), array('index', 'ical'))
                 ->allow(self::ROLE_VISITEUR, array('club'), array('index'))
