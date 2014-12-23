@@ -112,6 +112,7 @@ class Application_Model_Mapper_Article extends My_Model_Mapper {
                     ->setTitre($row->titre)
                     ->setContenu($row->contenu)
                     ->setDate($row->date);
+            Zend_Debug::dump($row->date);
             $authorRow = $row->findParentRow('Application_Model_DbTable_User');
             if (!empty($authorRow)) {
                 $author = new Application_Model_User($row->findParentRow('Application_Model_DbTable_User')->toArray());

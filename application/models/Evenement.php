@@ -133,7 +133,7 @@ class Application_Model_Evenement extends My_Model {
      * @return \Application_Model_Evenement 
      */
     public function setDate($date) {
-        $this->_date = new Zend_Date($date);
+        $this->_date = new Zend_Date($date, Zend_Date::YEAR.'-'.Zend_Date::MONTH.'-'.Zend_Date::DAY);
         return $this;
     }
 

@@ -44,9 +44,9 @@
 	        $datePicker->getElement('annee')->setValue($displayedMonth->get(Zend_Date::YEAR));
 	    }
 
-
 	    $eventMapper = new Application_Model_Mapper_Evenement();
 	    $tmpEvents = $eventMapper->findByMonth(new Zend_Date($displayedMonth));
+	    // Zend_Debug::dump($event->date->get(Zend_Date::ISO_8601));
 	    $legend = array();
 	    $events = array();
 	    foreach ($tmpEvents as $event) {
@@ -54,6 +54,7 @@
 	            $legend[$event->type->id] = $event->type;
 	        }
 	        $currentEventDate = new Zend_Date($event->date);
+
 	        for ($i = 0; $i < $event->getDuree(); $i++) {
 	            if (!isset($events[$currentEventDate->getIso()])) {
 	                $events[$currentEventDate->getIso()] = array();
