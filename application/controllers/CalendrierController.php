@@ -1,8 +1,8 @@
-	<?php
+<?php
 
-	require_once('iCalcreator.class.php');
+require_once('iCalcreator.class.php');
 
-	class CalendrierController extends Zend_Controller_Action {
+class CalendrierController extends Zend_Controller_Action {
 
 	public function init() {
 	    $this->view->headTitle()->append('Calendrier');
@@ -192,7 +192,6 @@
 				'unique_id' => $_SERVER['HTTP_HOST'],
 				'TZID' => $tz,
 				'LANGUAGE' => 'fr',
-				'filename' => 'entrainements_tournoi.ics'
 		);
 		$v = new vcalendar($config);
 		$v->setProperty('METHOD', 'PUBLISH');
@@ -200,9 +199,10 @@
 		$v->setProperty('X-WR-CALNAME', 'Sesquidistus');
 		$v->setProperty('X-WR-CALDESC', 'Entraînements et tournois des Sesquidistus');
 		$v->setProperty('X-WR-TIMEZONE', $tz);
+		$v->setProperty('X-WR-RELCALID', $_SERVER['HTTP_HOST']);
 		$xprops = array('X-LIC-LOCATION' => $tz);
 		iCalUtilityFunctions::createTimezone( $v, $tz, $xprops );
-		
+
 		$eventMapper = new Application_Model_Mapper_Evenement();
 		$fromDate = new Zend_Date();
 		$events = $eventMapper->findBySeason($fromDate->subMonth(1));
@@ -251,8 +251,8 @@
 			$vevent->setProperty('DESCRIPTION', $event->getDescription());
 			$vevent->setProperty('STATUS', 'CONFIRMED');
 		}
-		
+
 		$v->returnCalendar(false, true);
 	}
-	}
+}
 
