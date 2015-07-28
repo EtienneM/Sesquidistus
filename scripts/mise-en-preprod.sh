@@ -8,7 +8,7 @@ if [ $# -ne 1 ]; then
 fi
 USERNAME=$1
 
-REFERENCE="$HOME/reference/Sesquidistus"
+REFERENCE="/tmp/reference/Sesquidistus"
 if [ ! -d $REFERENCE ]; then
 	mkdir -p $REFERENCE
 	cd $REFERENCE && cd ..
@@ -31,11 +31,11 @@ echo "========== Synchronisation ========"
 # -n: Liste ce qu'elle va faire sans l'exécuter
 # --progress: Affiche l'avancement
 # --filter: N'inclue pas les fichiers du répertoire .git
-rsync -e ssh -rltDz --filter "- .git" ./ ${USERNAME}@ftp.frisbee-strasbourg.net:/homez.63/${USERNAME}/preprod --stats
+rsync -e ssh -rltDz --filter "- .git" ./ ${USERNAME}@ftp.frisbee-strasbourg.net:/homez.63/${USERNAME}/preprod_www --stats
 echo "========== Fin synchronisation ========"
 
 # Suppression répertoire cache et session
 # Création du répertoire cache
 # copie de application.ini dans le répertoire preprod
-ssh ${USERNAME}@ftp.frisbee-strasbourg.net "cd preprod ; rm -fr data/cache data/session ; mkdir data/cache ; cp ../prod/application/configs/application.ini application/configs/application.ini ; cp ../index_preprod.php public/index.php"
+ssh ${USERNAME}@ftp.frisbee-strasbourg.net "cd preprod_www ; rm -fr data/cache data/session ; mkdir data/cache ; cp ../prod/application/configs/application.ini application/configs/application.ini ; cp ../index_preprod.php public/index.php"
 
