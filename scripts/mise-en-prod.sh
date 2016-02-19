@@ -8,7 +8,7 @@ if [ $# -ne 0 ]; then
 fi
 
 cd $HOME
-rm preprod_www/data/cache/*
+rm preprod/data/cache/*
 
 #--------- Backup ---------
 rm -R prod_bak
@@ -17,6 +17,6 @@ cp -R prod prod_bak
 echo "Le backup prod_bak a été créé."
 
 echo "========== Synchronisation ========"
-rsync -rltDz --stats preprod_www/ prod
+rsync -rltDz --stats preprod/ prod
 echo "========== Fin synchronisation ========"
 cp index_prod.php prod/public/index.php
