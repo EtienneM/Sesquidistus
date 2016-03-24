@@ -1,6 +1,6 @@
 <?php
 
-require_once('iCalcreator.class.php');
+require_once('iCalcreator/iCalcreator.php');
 
 class CalendrierController extends Zend_Controller_Action {
 
@@ -192,14 +192,15 @@ class CalendrierController extends Zend_Controller_Action {
 				'unique_id' => $_SERVER['HTTP_HOST'],
 				'TZID' => $tz,
 				'LANGUAGE' => 'fr',
+				'filename' => 'calendrier_sesquidistus.ics',
 		);
 		$v = new vcalendar($config);
 		$v->setProperty('METHOD', 'PUBLISH');
 		$v->setProperty('CALSCALE', 'GREGORIAN');
 		$v->setProperty('X-WR-CALNAME', 'Sesquidistus');
-		$v->setProperty('X-WR-CALDESC', 'Entraînements et tournois des Sesquidistus');
+		$v->setProperty('X-WR-CALDESC', 'Entrainements et tournois des Sesquidistus');
 		$v->setProperty('X-WR-TIMEZONE', $tz);
-		$v->setProperty('X-WR-RELCALID', $_SERVER['HTTP_HOST']);
+		$v->setProperty('X-WR-RELCALID', $config['unique_id']);
 		$xprops = array('X-LIC-LOCATION' => $tz);
 		iCalUtilityFunctions::createTimezone( $v, $tz, $xprops );
 
@@ -234,9 +235,8 @@ class CalendrierController extends Zend_Controller_Action {
 	    			$end = array_merge($end, array('hour' => 23, 'min' => 59, 'sec' => 0));
 	    		}
 	    		$vevent->setProperty('DTEND', $end);
-			} else {
+			} else { // For an all day event
 				$date = $startDate->get(Zend_Date::YEAR).$startDate->get(Zend_Date::MONTH).$startDate->get(Zend_Date::DAY);
-				// For an all day event
 				$vevent->setProperty('DTSTART', $date, array('VALUE' => 'DATE'));
 				$endDate->addDay(1); // DTEND seems to be exclusive
 				$date = $endDate->get(Zend_Date::YEAR).$endDate->get(Zend_Date::MONTH).$endDate->get(Zend_Date::DAY);
@@ -250,6 +250,7 @@ class CalendrierController extends Zend_Controller_Action {
 			$vevent->setProperty('SUMMARY', $event->getTitre());
 			$vevent->setProperty('DESCRIPTION', $event->getDescription());
 			$vevent->setProperty('STATUS', 'CONFIRMED');
+			$vevent->setProperty('UID', $event->getId().'@'.$config['unique_id']);
 		}
 
 		$v->returnCalendar(false, true);
