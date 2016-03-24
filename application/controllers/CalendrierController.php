@@ -215,7 +215,7 @@ class CalendrierController extends Zend_Controller_Action {
 			$endDate->addDay($duree-1);
 			$horaireDebut = $event->getHoraire_debut();
 			if (isset($horaireDebut) && !empty($horaireDebut)) {
-				$horaireDebut = split('h', $horaireDebut);
+				$horaireDebut = explode('h', $horaireDebut);
 				$start = array(
 	    				'year' => $startDate->get(Zend_Date::YEAR), 
 	    				'month' => $startDate->get(Zend_Date::MONTH), 
@@ -229,7 +229,7 @@ class CalendrierController extends Zend_Controller_Action {
 	    				'day' => $endDate->get(Zend_Date::DAY)
 	    		);
 	    		if (isset($horaireFin) && !empty($horaireFin)) {
-		    		$horaireFin = split('h', $horaireFin);
+		    		$horaireFin = explode('h', $horaireFin);
 		    		$end = array_merge($end, array('hour' => $horaireFin[0], 'min' => $horaireFin[1], 'sec' => 0));
 	    		} else {
 	    			$end = array_merge($end, array('hour' => 23, 'min' => 59, 'sec' => 0));
